@@ -15,7 +15,7 @@ rm -rf QuickBox
 ### [2]:
 grab the current/future QuickBox repository with the following:
 ```
-git clone --recursive https://github.com/QuickBox/QuickBox /etc/QuickBox
+git clone https://github.com/QuickBox/QB /etc/QuickBox
 ```
 
 ### [3]:
@@ -51,7 +51,7 @@ box upgrade
 
 ###Quick Advisory Notice(s) on QuickBox
 
->### :rotating_light: OVH DEFAULT KERNEL NOTICE!
+>### :rotating_light: OVH DEFAULT KERNEL NOTICE!<br>
 grsec is built into OVH's custom kernel and it absolutely wrecks havoc when using these panels where we depend on the ability for one user (www-data) to see the processes of another running user ($username).
 <br/>This can be seen clearly by using a task manager such as h/top.
 <br/>With grsec enabled you can only see the processes owned by your user unless you run htop as root. As such, it is highly recommended to use the stock kernel for your distribution or at the very least installing an OVH kernel that is not compiled with grsec
@@ -132,7 +132,7 @@ After that access your box using a SSH client, like PuTTY.
 
 ## How to install
 
-####You must be logged in as root to run this installation.
+#### You must be logged in as root to run this installation.
 
 
 ---
@@ -147,7 +147,7 @@ bash /etc/QuickBox/setup/quickbox-setup
 ```
 
 
-##Want to run in development mode?
+## Want to run in development mode?
 
 **Run the following command to grab current development repos ...**
 ```
@@ -157,7 +157,7 @@ git clone --branch "development" https://github.com/QuickBox/QB /etc/QuickBox &&
 bash /etc/QuickBox/setup/quickbox-setup
 ```
 
-##Already have QuickBox installed and want to switch over to development?
+## Already have QuickBox installed and want to switch over to development?
 
 **EASY! Run the following command to grab current development repos ...**
 ```
