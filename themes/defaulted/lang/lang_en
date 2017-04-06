@@ -14,6 +14,12 @@
 $L['MAIN_MENU'] = 'Main Menu';
 $L['DOWNLOADS'] = 'Downloads';
 $L['WEB_CONSOLE'] = 'Web Console';
+$L['ANNOUCEMENTS'] = 'Annoucements';
+$L['JOIN_US_TXT'] = 'Join Us On Live Chat!';
+$L['CHAT_CONNECT_TXT'] = 'Click to connect';
+$L['ISSUE_REPORT_TXT'] = 'Report an issue';
+$L['MARKETPLACE'] = 'Marketplace';
+$L['LANG_SELECT'] = 'Select Language';
 
 // plugin menu tab
 $L['PLUGIN_MENU'] = 'Plugin Menu';
