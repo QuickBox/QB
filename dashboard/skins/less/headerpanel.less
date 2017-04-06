@@ -1,0 +1,507 @@
+
+/* Header Panel */
+
+.headerpanel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: @header-height;
+  background-color: @header-bg;
+  z-index: 2000;
+
+  .logopanel {
+    position: absolute;
+    left: -@leftpanel-width;
+    width: @leftpanel-width;
+    height: @header-height;
+    padding: 18px 15px;
+    background-color: @logopanel-bg;
+
+    h2 {
+      margin: 0;
+      font-weight: 500;
+
+      > a {
+        .transition(@transition-base);
+        &:hover { color: lighten(@brand-success, 10%); }
+      }
+    }
+
+    @media (min-width: @screen-md-min) {
+      left: 0 !important;
+    }
+  }
+}
+
+.headerbar {
+  position: relative;
+  padding-left: @header-height;
+
+  @media (min-width: @screen-md-min) {
+    margin-left: @leftpanel-width;
+    left: 0 !important;
+  }
+}
+
+.menutoggle {
+  position: absolute;
+  width: @header-height;
+  height: @header-height;
+  top: 0;
+  left: 0;
+  font-size: 21px;
+  cursor: pointer;
+  color: @header-text;
+  .transition(@transition-base);
+
+  i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -11px;
+    margin-left: -10px;
+  }
+
+  &:hover,
+  &:focus {
+    color: @header-color;
+  }
+}
+
+.searchpanel {
+  position: absolute;
+  top: 0;
+  left: @header-height;
+  width: 230px;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
+
+  .input-group {
+    margin-top: 12px;
+    .form-control {
+      border: 0;
+      color: #fff;
+      background-color: lighten(@brand-quirk, 10%);
+    }
+    .btn {
+      border: 0;
+      //margin-left: 1px;
+      background-color: lighten(@brand-quirk, 10%);
+      font-size: 14px;
+      color: #fff;
+      padding-top: 7px;
+      line-height: normal;
+      padding-left: 15px;
+      padding-right: 17px;
+    }
+  }
+}
+
+.header-right {
+  float: right;
+  padding-right: 20px;
+}
+
+.headermenu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .dropdown-toggle:hover,
+  .dropdown-toggle:focus,
+  .dropdown-toggle:active,
+  .dropdown-toggle.active,
+  .open .dropdown-toggle.dropdown-toggle {
+    background-color: lighten(@header-bg, 3%);
+  }
+
+  > li {
+    display: inline-block;
+    float: left;
+    position: relative;
+
+    .btn {
+      border-radius: 0;
+      background-color: transparent;
+      color: @header-text;
+      height: @header-height;
+      border: 0;
+      padding-left: 5px;
+      padding-right: 5px;
+
+      &:hover,
+      &:focus {
+        color: @header-color;
+      }
+
+      &:active { .box-shadow(none); }
+    }
+
+    .alert-notice {
+      .fa {
+        position: relative;
+        &:after {
+          position: absolute;
+          content: '';
+          top: -2px;
+          right: -2px;
+          width: 10px;
+          height: 10px;
+          background-color: #ff564e;
+          border-radius: 50px;
+          opacity: .75;
+        }
+      }
+    }
+
+    > .btn-group {
+      margin-bottom:0;
+
+      > .btn-notice {
+        font-size: 21px;
+
+        + .dropdown-menu {
+          min-width: 350px;
+
+          @media (max-width: 480px) {
+            min-width: 0;
+            position: fixed;
+            top: @header-height;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            border: 0;
+            overflow: auto;
+
+            &:after {
+              display: none;
+            }
+          }
+        }
+      }
+
+      > .btn-logged {
+        padding: 5px 12px 3px;
+        border: 0;
+
+        img {
+          vertical-align: middle;
+          margin-right: 5px;
+          width: 20px;
+          border-radius: 50px;
+        }
+
+        .caret {
+          margin-left: 5px;
+          margin-top: -2px;
+        }
+
+        + .dropdown-menu {
+          min-width: 180px;
+          > li > a {
+            padding: 8px 10px;
+            color: lighten(@brand-quirk,20%);
+
+            &:hover,
+            &:focus {
+              background-color: @header-bg;
+              color: @header-color;
+            }
+
+            > i {
+              width: 16px;
+              margin-right: 5px;
+            }
+          }
+        }
+      }
+    }
+
+    .btn-chat { font-size: 21px; }
+  }
+
+  .dropdown-menu {
+    border-color: fadeout(@brand-quirk, 90%);
+    border-top: 0;
+    margin-top: 0;
+    margin-right: -8px;
+    padding: 5px;
+    background-color: #fff;
+    .border-top-radius(0);
+    .border-bottom-radius(@border-radius-base);
+    .box-shadow(none);
+
+    &:after {
+      border-bottom: 8px solid #fff;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      content: "";
+      display: inline-block;
+      right: 17px;
+      position: absolute;
+      top: -7px;
+    }
+
+    .title {
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 11px;
+      margin: 0 0 5px;
+      padding: 10px;
+      letter-spacing: .5px;
+    }
+
+    > li > a {
+      font-size: @font-size-base;
+      border-radius: @border-radius-base;
+    }
+
+    .list-group {
+      margin-left: -5px;
+      margin-right: -5px;
+      margin-bottom: -5px;
+
+      > .list-group-item {
+        border-left: 0;
+        border-right: 0;
+
+        &:first-child { .border-top-radius(0); }
+        &:last-child {
+          .border-bottom-radius(@border-radius-base);
+          border-bottom: 0;
+        }
+
+      }
+    }
+  }
+
+  // Dropdown Notification
+  .dm-notice {
+    padding: 5px 20px 10px;
+
+    @media (max-width: 480px) {
+      padding: 0;
+      margin-right: 0;
+    }
+
+    .nav-tabs {
+      background-color: transparent;
+
+      > li {
+        > a {
+          font-size: 12px;
+          font-family: @font-family-primary;
+          text-transform: uppercase;
+          font-weight: bold;
+          letter-spacing: .5px;
+          border-radius: 0;
+          border-width: 0;
+          padding-left: 0;
+          padding-right: 0;
+          border-bottom: 1px solid @border-color-base;
+          color: lighten(@brand-quirk, 10%);
+          cursor: pointer;
+
+          @media (max-width: 480px) {
+            font-size: 11px;
+          }
+
+          &:hover,
+          &:focus {
+            background-color: transparent;
+            color: @brand-quirk;
+          }
+        }
+
+        &.active > a {
+          &,
+          &:hover,
+          &:focus {
+            color: @brand-success;
+            border: 0;
+            border-bottom: 1px solid @brand-success;
+            background-color: transparent;
+          }
+        }
+      }
+
+      @media (max-width: @screen-xs-max) {
+        display: table;
+        > li {
+          display: table-cell;
+          > a { margin: 0; }
+        }
+      }
+    }
+
+    .tab-pane {
+      padding: 20px 0 10px;
+
+      @media (max-width: 480px) {
+        padding: 10px;
+      }
+
+      .panel-title {
+        margin: 15px 0 0;
+        padding: 7px 0;
+        letter-spacing: .5px;
+        background-color: lighten(@brand-quirk, 70%);
+        color: lighten(@brand-quirk, 45%);
+        text-align: center;
+        border-radius: @border-radius-base;
+        font-size: 11px;
+      }
+
+      .btn-more {
+        text-align: center;
+        display: block;
+        background-color: @brand-success;
+        color: #fff;
+        padding: 6px 0;
+        border-radius: @border-radius-base;
+        letter-spacing: .5px;
+        margin-top: 10px;
+
+        &:hover,
+        &:focus {
+          background-color: darken(@brand-success, 2%);
+        }
+
+        > i {
+          font-size: 14px;
+          line-height: 0;
+          margin-left: 3px;
+          vertical-align: middle;
+        }
+      }
+    }
+
+    .list-group {
+      margin: 5px 0;
+
+      .list-group-item {
+        padding-left: 0;
+        padding-right: 0;
+        border-color: @border-color-base;
+
+        h4, p {
+          margin: 0;
+          text-align: center;
+          text-transform: uppercase;
+          font-weight: 700;
+        }
+
+        h4 {
+          color: @brand-quirk;
+          font-size: 14px;
+        }
+
+        p {
+          font-size: 11px;
+          letter-spacing: .5px;
+          color: lighten(@brand-quirk, 40%);
+        }
+
+        h5 {
+          margin: 0;
+          font-weight: 700;
+          font-size: @font-size-base;
+        }
+
+        small {
+          font-size: 11px;
+          display: block;
+          margin: 2px 0 0;
+        }
+
+        &:first-child { border-top: 0; }
+        &:last-child { padding-bottom: 0; }
+      }
+    }
+
+    .notice-list {
+      margin: 0 0 20px;
+
+      .list-group-item {
+        h5 > a {
+          color: lighten(@brand-quirk, 15%);
+          font-weight: 700;
+          font-size: @font-size-base;
+          &:hover,
+          &:focus {
+            color: @brand-quirk;
+          }
+        }
+
+        h5 + small {
+          color: lighten(@brand-quirk, 55%);
+          display: block;
+        }
+
+        span {
+          margin-top: 5px;
+          display: block;
+        }
+
+        .fa {
+          color: lighten(@brand-quirk, 40%);
+          border: 1px solid lighten(@brand-quirk, 40%);
+          padding: 9px;
+          vertical-align: middle;
+          font-size: 14px;
+          width: 34px;
+          height: 34px;
+          border-radius: 100px;
+          text-align: center;
+          opacity: .75;
+        }
+
+        &:first-child { padding-top: 0; }
+        &:last-child { padding-bottom: 0; }
+
+        &.unread {
+          .fa {
+            color: @brand-success;
+            border-color: @brand-success;
+          }
+
+          h5 > a {
+            color: @brand-success;
+            &:hover,
+            &:focus { color: lighten(@brand-quirk, 20%); }
+          }
+        }
+      }
+    }
+  }
+}
+
+.today-day {
+  margin: 0;
+  font-weight: 400;
+  color: lighten(@brand-quirk, 10%);
+}
+
+.today-date {
+  margin-top: 8px;
+  color: lighten(@brand-quirk, 25%);
+  font-weight: 500;
+}
+
+.today-weather {
+  margin: 20px 0 5px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: @font-family-primary;
+  color: @brand-quirk;
+
+  + p { font-size: 11px; }
+
+  > i {
+    color: lighten(@brand-quirk, 30%);
+    margin-right: 5px;
+  }
+}

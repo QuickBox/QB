@@ -1,0 +1,5 @@
+plugin.description: Stream media files with VLC (based on getData by Novik).
+plugin.author: alexj
+plugin.version: 1.0
+rtorrent.remote: error
+plugin.help: http://code.google.com/p/rutorrent/wiki/PluginStream

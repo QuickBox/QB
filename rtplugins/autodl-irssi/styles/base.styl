@@ -1,0 +1,237 @@
+textbox-sizes = 3 5 7 8 9 11 13 16 18 20 22 23 25 30
+
+size(w, h)
+	width: w
+	height: h
+
+
+hr {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid #ccc;
+	margin: 1em 0;
+	padding: 0;
+}
+
+::-webkit-input-placeholder
+	color: gray
+	font-style: italic
+
+::-moz-placeholder
+	color: gray
+	font-style: italic
+
+:-ms-input-placeholder
+	color: gray
+	font-style: italic
+
+$autodl-listbox
+	overflow: auto
+	white-space: nowrap
+	bottom-margin: 5px
+
+$autodl-listbox-item
+	padding: 1px 2px
+
+for w in textbox-sizes
+	.textbox-{w}
+		width: 1em * w
+
+
+.dialog-buttons
+	position: absolute
+	right: 0
+	bottom: 0
+	padding: 5px 3px
+
+.dialog-buttons input
+	margin-left: 5px
+
+#autodl-preferences-header,
+#autodl-filters-header,
+#autodl-trackers-header,
+#autodl-servers-header,
+#autodl-ircsrvs-header,
+#autodl-help-header,
+#autodl-multiselect-header
+	background-image: url("../../../images/settings.gif")
+
+#autodl-help
+	size(250px, 225px)
+
+	a, p
+		font-size: 12px
+
+#autodl-servers
+	size(500px, 250px)
+
+	p
+		margin: 5px 5px
+
+#autodl-servers-left
+	float: left
+	margin: 5px
+
+#autodl-servers-right
+	padding: 5px
+
+#autodl-servers-list
+	size(180px, 160px)
+
+#autodl-trackers
+	size(700px, 300px)
+
+#autodl-trackers-left
+	float: left
+	margin: 5px
+
+#autodl-trackers-right
+	padding: 5px
+
+	p
+		margin: 0
+
+#autodl-trackers-list
+	size(200px, 255px)
+
+#autodl-filters
+	size(600px, 350px)
+
+#autodl-filters-left
+	float: left
+	margin: 0 5px 10px 5px
+
+#autodl-filters-right
+	margin-top: 5px
+
+#autodl-filters-list
+	size(200px, 270px)
+
+#autodl-filters-tabs
+	margin-top: 5px
+
+#autodl-filters-contents p
+	margin: 3px
+	padding: 0
+
+.watchdir-button
+	width: 30px
+
+.filters-button
+	margin: 0
+	padding: 0
+
+#autodl-advanced-output-sites-button
+	@extend .filters-button
+	width: 12 em
+
+#autodl-irc-autoconn-enabled
+	margin-top: 5px
+	margin-bottom: 5px
+
+#autodl-prefs
+	size(500px, 190px)
+
+	p
+		margin: 3px
+		padding: 0
+
+#autodl-prefs-contents
+	margin: 3px 5px
+	padding: 0
+
+#autodl-prefs-tabs
+	margin: 5px 2px
+	padding: 0
+
+#autodl-ircsrvs
+	size(600px, 330px)
+
+#autodl-ircsrvs-left
+	float: left
+	margin: 0 5px 10px 5px
+
+#autodl-ircsrvs-right
+	margin-top: 5px
+
+	label
+		margin-left: 3px
+
+#autodl-ircsrvs-list
+	size(200px, 240px)
+
+#autodl-ircsrvs-announce-channels-button
+	width: 125px
+
+#autodl-ircsrvs-channels
+	width: 13em
+
+#autodl-filters select,
+#autodl-prefs select,
+#autodl-ircsrvs select
+	margin-left: 5px
+	margin-right: 5px
+
+$autodl-multiselect
+	size(200px, 300px)
+
+#autodl-multiselect-title
+	margin: 3px
+	padding: 0
+
+$autodl-multiselect-select
+	size(180px, 200px)
+
+#autodl-irssi-tab
+	margin: 0
+	padding: 0
+	border: 0 none black
+	font-family: Tahoma, Arial, Helvetica, sans-serif
+	font-size: 11px
+
+#autodl-log-buttons
+	padding: 3px 3px
+
+	form
+		display: inline
+
+#autodl-log-clear-button,
+#autodl-log-update-button,
+#autodl-log-whatsnew-button,
+#autodl-log-version-button,
+#autodl-log-reload-button,
+#autodl-log-reload-trackers-button,
+#autodl-log-backup-button,
+#autodl-log-restore-button
+	width: 100px
+
+$autodl-irssi-log
+	overflow: auto
+	font-family: "Courier New", Courier, monospace
+	padding: 3px
+
+	tr, td
+		margin: 0;
+		padding: 0 2px
+		border: 0 none black
+
+.autodl-line-time
+	vertical-align: top
+	font-weight: bold
+
+.autodl-line-text
+	font-weight: normal
+	text-decoration: none
+	white-space: pre-wrap
+	width: 100%
+
+.autodl-line-sep
+	white-space: pre
+	font-weight: bold
+
+.autodl-bold
+	font-weight: bold
+
+.autodl-underline
+	text-decoration: underline

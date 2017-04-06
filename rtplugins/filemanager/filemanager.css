@@ -1,0 +1,143 @@
+#fMan_navpath { 
+	padding-left: 2px;
+	padding-top: 1px;
+}
+
+#fMan_navbut {
+	margin-left: 2px;
+	margin-right: 2px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	background-image: url(images/curdir.png);
+	background-repeat: no-repeat;
+	height: 18px;
+	width: 18px;
+	padding: 0px;
+	background-color: transparent;
+	border: 1px solid #FBFBFC;
+	background-position: center center;
+}
+#fMan_navbut:hover {
+	background-image: url(images/refresh.png);
+	background-repeat: no-repeat;
+	border-top-style: outset;
+	border-right-style: outset;
+	border-bottom-style: outset;
+	border-left-style: outset;
+	border-top-color: #D6D6D6;
+	border-right-color: #D6D6D6;
+	border-bottom-color: #D6D6D6;
+	border-left-color: #D6D6D6;
+}
+
+table.disabled_table {
+	color: #DFDFDF;
+}
+
+div#fMan_mkdir div.dlg-header {
+	background-image: url(images/newdir.png);
+}
+
+div#fMan_Rename div.dlg-header {
+	background-image: url(images/rename.png);
+}
+
+div#fMan_Delete div.dlg-header {
+	background-image: url(images/delete.png);
+}
+
+
+div#fMan_Console div.dlg-header {
+	background-image: url(images/console.gif);
+}
+
+div#fMan_Move div.dlg-header {
+	background-image: url(images/move.png);
+}
+
+div#fMan_Copy div.dlg-header {
+	background-image: url(images/copy.gif);
+}
+
+
+div#fMan_Extract div.dlg-header {
+	background-image: url(images/extract.png);
+}
+
+
+div#fMan_CArchive div.dlg-header {
+	background-image: url(images/archive.png);
+}
+
+
+.fMan_CArchiveRAR {
+
+	margin-top:5px;
+	margin-bottom:5px;
+
+
+}
+div#fMan_optPan {
+    overflow: auto;
+}
+
+div#fMan_Nfo div.dlg-header {
+	background-image: url(images/nfo.gif)
+}
+
+div#fMan_CheckSFV div.dlg-header {
+	background-image: url(images/sfv.gif)
+}
+
+div#fMan_CreateSFV div.dlg-header {
+	background-image: url(images/sfv.gif)
+}
+
+
+#fMan_Nfo #nfo_content, #fMan_ConsoleLog {
+	overflow: scroll;
+	height: 400px;
+}
+#fMan_Nfo #nfo_content pre, #fMan_ConsoleLog pre {
+	font-family: "Courier New", Courier, monospace;
+	font-size: 9pt;
+}
+
+.checklist {
+	width:460px;
+	height: 120px;
+	overflow: scroll;
+	text-align: left;
+}
+.checklist ul {
+	margin-top: 0px;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+.checklist ul li {
+	list-style-type: none;
+	margin-bottom: 4px;
+}
+.checklist ul li input {
+	vertical-align: top;
+	margin-bottom: 0px;
+	padding: 0px;
+	margin-top: 0px;
+	margin-right: 5px;
+	margin-left: 0px;
+}
+
+.Icon_UpD {background: transparent url(images/dir_up.png) no-repeat left center}
+.Icon_Mp3 {background: transparent url(images/mp3.png) no-repeat left center}
+.Icon_Vid {background: transparent url(images/video.png) no-repeat left center}
+.Icon_Img {background: transparent url(images/image.gif) no-repeat left center}
+.Icon_Nfo {background: transparent url(images/nfo.gif) no-repeat left center}
+.Icon_Sfv {background: transparent url(images/sfv.gif) no-repeat left center}
+.Icon_Rar {background: transparent url(images/rar.gif) no-repeat left center}
+.Icon_partRar {background: transparent url(images/rarpart.gif) no-repeat left center}
+.Icon_Zip {background: transparent url(images/zip.gif) no-repeat left center}
+.Icon_gnuARCH {background: transparent url(images/archive.png) no-repeat left center}
+
+.Icon_Torrent {background: transparent url(images/torrent.png) no-repeat left center}

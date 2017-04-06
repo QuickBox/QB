@@ -1,0 +1,5 @@
+plugin.description: Agent46 Theme by Mahngiel with plugins.
+plugin.author: Mahngiel
+plugin.runlevel: 99
+plugin.version: .1
+plugin.help: http://code.google.com/p/rutorrent/wiki/PluginTracklabels

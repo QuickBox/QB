@@ -1,0 +1,423 @@
+#!/bin/bash
+#
+# [Quick Box :: Install Config Server Firewall package]
+#
+# QUICKLAB REPOS
+# QuickLab _ packages  :   https://github.com/QuickBox/quickbox_packages
+# LOCAL REPOS
+# Local _ packages   :   /etc/QuickBox/packages
+# Author             :   QuickBox.IO | JMSolo
+# URL                :   https://quickbox.io
+#
+# QuickBox Copyright (C) 2017 QuickBox.io
+# Licensed under GNU General Public License v3.0 GPL-3 (in short)
+#
+#   You may copy, distribute and modify the software as long as you track
+#   changes/dates in source files. Any modifications to our software
+#   including (via compiler) GPL-licensed code must also be made available
+#   under the GPL along with build & install instructions.
+#
+#################################################################################
+#Script Console Colors
+black=$(tput setaf 0); red=$(tput setaf 1); green=$(tput setaf 2); yellow=$(tput setaf 3);
+blue=$(tput setaf 4); magenta=$(tput setaf 5); cyan=$(tput setaf 6); white=$(tput setaf 7);
+on_red=$(tput setab 1); on_green=$(tput setab 2); on_yellow=$(tput setab 3); on_blue=$(tput setab 4);
+on_magenta=$(tput setab 5); on_cyan=$(tput setab 6); on_white=$(tput setab 7); bold=$(tput bold);
+dim=$(tput dim); underline=$(tput smul); reset_underline=$(tput rmul); standout=$(tput smso);
+reset_standout=$(tput rmso); normal=$(tput sgr0); alert=${white}${on_red}; title=${standout};
+sub_title=${bold}${yellow}; repo_title=${black}${on_green};
+#################################################################################
+
+function install_openvpn {
+	if [[ ! -e /dev/net/tun ]]; then
+		echo "${alert}TUN is not available${normal}"
+		exit 1
+	fi
+	if [[ -e /etc/debian_version ]]; then
+		OS=debian
+    GROUPNAME=nogroup
+		RCLOCAL='/etc/rc.local'
+	else
+		echo "${alert}Looks like you aren't running this installer on a Debian or Ubuntu system${normal}"
+		exit 3
+	fi
+
+	newuser () {
+		# Generates the custom user.ovpn
+		cp /etc/openvpn/user-common.txt ~/$1.ovpn
+		echo "<ca>" >> ~/$1.ovpn; cat /etc/openvpn/easy-rsa/pki/ca.crt >/dev/null 2>&1 >> ~/$1.ovpn
+		echo "</ca>" >> ~/$1.ovpn
+		echo "<cert>" >> ~/$1.ovpn; cat /etc/openvpn/easy-rsa/pki/issued/$1.crt >/dev/null 2>&1 >> ~/$1.ovpn
+		echo "</cert>" >> ~/$1.ovpn
+		echo "<key>" >> ~/$1.ovpn; cat /etc/openvpn/easy-rsa/pki/private/$1.key >/dev/null 2>&1 >> ~/$1.ovpn
+		echo "</key>" >> ~/$1.ovpn
+    echo "<tls-auth>" >> ~/$1.ovpn; cat /etc/openvpn/ta.key >> ~/$1.ovpn
+		echo "</tls-auth>" >> ~/$1.ovpn
+	}
+
+	# Try to get our IP from the system and fallback to the Internet.
+	# Make the script compatible with NATed servers
+	# and to avoid getting an IPv6.
+	IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+	if [[ "$IP" = "" ]]; then
+		IP=$(wget -qO- ipv4.icanhazip.com)
+	fi
+	OVPNPORT=$(shuf -i 2000-61000 -n 1)
+	OVPNPORTEND=$((${OVPNPORT} + 1500))
+	while [[ "$(netstat -ln | grep ':'"$OVPNPORT"'' | grep -c 'LISTEN')" -eq "1" ]]; do OVPNPORT="$(shuf -i 2000-61000 -n 1)"; done
+
+	if [[ -e /etc/openvpn/server.conf ]]; then
+		while :
+		do
+			clear
+			echo "Looks like OpenVPN is already installed"
+			echo ""
+			echo "What do you want to do?"
+			echo "   1) Add a cert for a new user"
+			echo "   2) Revoke existing user cert"
+			echo "   3) Remove OpenVPN"
+			echo "   4) Exit"
+			read -p "Select an option [1-4]: " option
+			case $option in
+				1)
+				echo ""
+				echo "Tell me a name for the user cert"
+				echo "Please, use one word only, no special characters"
+				echo -n "Username: " ; read USERNAME
+				echo "Creating ovpn download directory"
+				adduser --system --disabled-login $USERNAME >/dev/null 2>&1
+				mkdir -p /home/$USERNAME/public_html
+				chown $USERNAME.$USERNAME /home/$USERNAME/public_html >/dev/null 2>&1
+				cd /etc/openvpn/easy-rsa/
+				./easyrsa build-client-full $USERNAME nopass >/dev/null 2>&1
+				# Generates the custom user.ovpn
+				newuser "$USERNAME"
+				echo ""
+				echo "Your $USERNAME.ovpn config is zipped into $USERNAME.zip"
+		  	echo "$USERNAME added, cert available at http://$IP/~$USERNAME/$USERNAME.zip to use in any OpenVPN username"
+				echo "If you want to add more users, you simply need to run this script another time!"
+      	zip /home/$USERNAME/public_html/$USERNAME.zip /root/$USERNAME.ovpn
+cat >/home/$USERNAME/public_html/.htaccess<<EOF
+Options -Indexes
+EOF
+				exit
+				;;
+				2)
+				# This option could be documented a bit better and maybe even be simplimplified
+				# ...but what can I say, I want some sleep too
+				NUMBEROFUSERNAMES=$(tail -n +2 /etc/openvpn/easy-rsa/pki/index.txt | grep -c "^V")
+				if [[ "$NUMBEROFUSERNAMES" = '0' ]]; then
+					echo ""
+					echo "You have no existing users!"
+					exit 5
+				fi
+				echo ""
+				echo "Select the existing user certificate you want to revoke"
+				tail -n +2 /etc/openvpn/easy-rsa/pki/index.txt | grep "^V" | cut -d '=' -f 2 | nl -s ') '
+				if [[ "$NUMBEROFUSERNAMES" = '1' ]]; then
+					read -p "Select one user [1]: " USERNAMENUMBER
+				else
+					read -p "Select one user [1-$NUMBEROFUSERNAMES]: " USERNAMENUMBER
+				fi
+				USERNAME=$(tail -n +2 /etc/openvpn/easy-rsa/pki/index.txt | grep "^V" | cut -d '=' -f 2 | sed -n "$USERNAMENUMBER"p)
+				cd /etc/openvpn/easy-rsa/
+				./easyrsa --batch revoke $USERNAME
+				./easyrsa gen-crl
+				rm -rf pki/reqs/$USERNAME.req
+				rm -rf pki/private/$USERNAME.key
+				rm -rf pki/issued/$USERNAME.crt
+				rm -rf /etc/openvpn/crl.pem
+				rm -rf /home/$USERNAME/public_html
+				cp /etc/openvpn/easy-rsa/pki/crl.pem /etc/openvpn/crl.pem
+            # CRL is read with each user connection, when OpenVPN is dropped to nobody
+            chown nobody:$GROUPNAME /etc/openvpn/crl.pem
+						echo ""
+						echo "Certificate for user $USERNAME revoked"
+						exit
+				;;
+				3)
+				echo ""
+				read -p "Do you really want to remove OpenVPN? [y/n]: " -e -i n REMOVE
+				if [[ "$REMOVE" = 'y' ]]; then
+					PORT=$(grep '^port ' /etc/openvpn/server.conf | cut -d " " -f 2)
+					if pgrep firewalld; then
+						# Using both permanent and not permanent rules to avoid a firewalld reload.
+						firewall-cmd --zone=public --remove-port=$PORT/udp
+						firewall-cmd --zone=trusted --remove-source=10.8.0.0/24
+						firewall-cmd --permanent --zone=public --remove-port=$PORT/udp
+						firewall-cmd --permanent --zone=trusted --remove-source=10.8.0.0/24
+					fi
+					if iptables -L | grep -qE 'REJECT|DROP'; then
+						sed -i "/iptables -I INPUT -p udp --dport $PORT -j ACCEPT/d" $RCLOCAL
+						sed -i "/iptables -I FORWARD -s 10.8.0.0\/24 -j ACCEPT/d" $RCLOCAL
+						sed -i "/iptables -I FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT/d" $RCLOCAL
+					fi
+					sed -i '/iptables -t nat -A POSTROUTING -s 10.8.0.0\/24 -j SNAT --to /d' $RCLOCAL
+					if hash sestatus 2>/dev/null; then
+						if sestatus | grep "Current mode" | grep -qs "enforcing"; then
+							if [[ "$PORT" != '1194' ]]; then
+								semanage port -d -t openvpn_port_t -p udp $PORT
+							fi
+						fi
+					fi
+					apt-get remove --purge -y openvpn openvpn-blacklist
+					rm -rf /etc/openvpn
+					rm -rf /usr/share/doc/openvpn*
+					rm -rf /install/.vpn.lock
+					echo ""
+					echo "OpenVPN removed!"
+				else
+					echo ""
+					echo "Removal aborted!"
+				fi
+				exit
+				;;
+				4) exit;;
+			esac
+		done
+	else
+		clear
+
+a2enmod userdir >/dev/null 2>&1
+#cat >>/etc/apache2/apache2.conf<<'APA'
+#UserDir public_html
+#<Directory /home/*/public_html/>
+#Options -Indexes
+#AllowOverride All
+#</Directory>
+#APA
+cat >>/etc/apache2/apache2.conf<<'APA'
+UserDir public_html
+<Directory /home/*/public_html/>
+Options Indexes FollowSymLinks MultiViews
+AuthType Digest
+AuthName "rutorrent"
+AuthUserFile '/etc/htpasswd'
+Require valid-user
+AllowOverride None
+Order allow,deny
+allow from all
+</Directory>
+APA
+
+touch /install/.vpn.lock
+
+		# OpenVPN setup and first user creation
+		echo "${bold}${yellow}Please answer a few questions before starting the setup${normal}"
+		echo "${bold}${yellow}You can leave the default options and just press enter if you are ok with them${normal}"
+		echo ""
+		echo "${bold}${yellow}First we need to know the IPv4 address of the network interface you want OpenVPN${normal}"
+		echo "${bold}${yellow}listening to.${normal}"
+		read -p "IP address: " -e -i $IP IP
+		echo ""
+		echo "${bold}${yellow}What port do you want for OpenVPN?${normal}"
+		read -p "Port: " -e -i $OVPNPORT PORT
+		echo ""
+		echo "${bold}${yellow}What DNS do you want to use with the VPN?${normal}"
+		echo "${bold}${yellow}   1) Current system resolvers${normal}"
+		echo "${bold}${yellow}   2) Google${normal}"
+		echo "${bold}${yellow}   3) OpenDNS${normal}"
+		echo "${bold}${yellow}   4) NTT${normal}"
+		echo "${bold}${yellow}   5) Hurricane Electric${normal}"
+    echo "${bold}${yellow}   6) Verisign${normal}"
+		read -p "DNS [1-6]: " -e -i 1 DNS
+		echo ""
+		echo "${bold}${yellow}Finally, what is the name for the user cert${normal}"
+		echo "${bold}${yellow}Please, use one word only, no special characters${normal}"
+		echo -n "Username: " ; read USERNAME
+		echo "${green}Creating ovpn download directory ... ${normal}"
+		adduser --system --disabled-login $USERNAME >/dev/null 2>&1
+		mkdir -p /home/$USERNAME/public_html
+		chown $USERNAME.$USERNAME /home/$USERNAME/public_html
+		echo ""
+		echo "${bold}Okay, that is all that was needed. Your OpenVPN server will now commence setup ${normal}"
+		read -n1 -r -p "Press any key to continue ..."
+
+		echo
+		echo "${green}Installing openvpn, openssl and ca-certificates ... ${normal}"
+		apt-get update >/dev/null 2>&1
+		apt-get install openvpn iptables openssl ca-certificates -y >/dev/null 2>&1
+
+		echo "${green}Searching & removing old versions of easy-rsa if found ... ${normal}"
+		# An old version of easy-rsa was available by default in some openvpn packages
+		if [[ -d /etc/openvpn/easy-rsa/ ]]; then
+			rm -rf /etc/openvpn/easy-rsa/
+		fi
+
+		echo "${green}Building EasyRSA version 3.0.1 ... ${normal}"
+		# Get easy-rsa
+		wget -O ~/EasyRSA-3.0.1.tgz https://github.com/OpenVPN/easy-rsa/releases/download/3.0.1/EasyRSA-3.0.1.tgz >/dev/null 2>&1
+		tar xzf ~/EasyRSA-3.0.1.tgz -C ~/ >/dev/null 2>&1
+		mv ~/EasyRSA-3.0.1/ /etc/openvpn/ >/dev/null 2>&1
+		mv /etc/openvpn/EasyRSA-3.0.1/ /etc/openvpn/easy-rsa/ >/dev/null 2>&1
+		chown -R root:root /etc/openvpn/easy-rsa/ >/dev/null 2>&1
+		rm -rf ~/EasyRSA-3.0.1.tgz >/dev/null 2>&1
+		cd /etc/openvpn/easy-rsa/
+		# Create the PKI, set up the CA, the DH params and the server + user certificates
+		./easyrsa init-pki >/dev/null 2>&1
+		./easyrsa --batch build-ca nopass >/dev/null 2>&1
+		./easyrsa gen-dh >/dev/null 2>&1
+		./easyrsa build-server-full server nopass >/dev/null 2>&1
+		./easyrsa build-client-full $USERNAME nopass >/dev/null 2>&1
+		./easyrsa gen-crl >/dev/null 2>&1
+		# Move the stuff we need
+		cp pki/ca.crt pki/private/ca.key pki/dh.pem pki/issued/server.crt pki/private/server.key /etc/openvpn/easy-rsa/pki/crl.pem /etc/openvpn
+    # CRL is read with each user connection, when OpenVPN is dropped to nobody
+    chown nobody:$GROUPNAME /etc/openvpn/crl.pem
+
+		echo "${green}Generating key for tls auth ... ${normal}"
+    # Generate key for tls-auth
+		openvpn --genkey --secret /etc/openvpn/ta.key >/dev/null 2>&1
+
+		echo "${green}Generating server.conf ... ${normal}"
+    # Generate server.conf
+		echo "port $PORT
+proto udp
+dev tun
+sndbuf 0
+rcvbuf 0
+ca ca.crt
+cert server.crt
+key server.key
+dh dh.pem
+tls-auth ta.key 0
+topology subnet
+server 10.8.0.0 255.255.255.0
+ifconfig-pool-persist ipp.txt" > /etc/openvpn/server.conf
+		echo 'push "redirect-gateway def1 bypass-dhcp"' >> /etc/openvpn/server.conf
+		# DNS
+		case $DNS in
+			1)
+			# Obtain the resolvers from resolv.conf and use them for OpenVPN
+			grep -v '#' /etc/resolv.conf | grep 'nameserver' | grep -E -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | while read line; do
+				echo "push \"dhcp-option DNS $line\"" >> /etc/openvpn/server.conf
+			done
+			;;
+			2)
+			echo 'push "dhcp-option DNS 8.8.8.8"' >> /etc/openvpn/server.conf
+			echo 'push "dhcp-option DNS 8.8.4.4"' >> /etc/openvpn/server.conf
+			;;
+			3)
+			echo 'push "dhcp-option DNS 208.67.222.222"' >> /etc/openvpn/server.conf
+			echo 'push "dhcp-option DNS 208.67.220.220"' >> /etc/openvpn/server.conf
+			;;
+			4)
+			echo 'push "dhcp-option DNS 129.250.35.250"' >> /etc/openvpn/server.conf
+			echo 'push "dhcp-option DNS 129.250.35.251"' >> /etc/openvpn/server.conf
+			;;
+			5)
+			echo 'push "dhcp-option DNS 74.82.42.42"' >> /etc/openvpn/server.conf
+			;;
+			6)
+			echo 'push "dhcp-option DNS 64.6.64.6"' >> /etc/openvpn/server.conf
+			echo 'push "dhcp-option DNS 64.6.65.6"' >> /etc/openvpn/server.conf
+			;;
+		esac
+		echo "keepalive 10 120
+cipher AES-128-CBC
+comp-lzo
+user nobody
+group $GROUPNAME
+persist-key
+persist-tun
+status openvpn-status.log
+verb 3
+crl-verify crl.pem" >> /etc/openvpn/server.conf
+		echo "${green}Enabling ip forwarding and setting NAT for the VPN subnet ... ${normal}"
+		# Enable net.ipv4.ip_forward for the system
+		sed -i 's|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|' /etc/sysctl.conf
+
+		# Avoid an unneeded reboot
+		echo 1 > /proc/sys/net/ipv4/ip_forward
+		# Set NAT for the VPN subnet
+		iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -j SNAT --to $IP
+		sed -i "1 a\iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -j SNAT --to $IP" $RCLOCAL
+		if pgrep firewalld; then
+			# We don't use --add-service=openvpn because that would only work with
+			# the default port. Using both permanent and not permanent rules to
+			# avoid a firewalld reload.
+			firewall-cmd --zone=public --add-port=$PORT/udp
+			firewall-cmd --zone=trusted --add-source=10.8.0.0/24
+			firewall-cmd --permanent --zone=public --add-port=$PORT/udp
+			firewall-cmd --permanent --zone=trusted --add-source=10.8.0.0/24
+		fi
+		if iptables -L | grep -qE 'REJECT|DROP'; then
+			# If iptables has at least one REJECT rule, we asume this is needed.
+			# Not the best approach but I can't think of other and this shouldn't
+			# cause problems.
+			iptables -I INPUT -p udp --dport $PORT -j ACCEPT
+			iptables -I FORWARD -s 10.8.0.0/24 -j ACCEPT
+			iptables -I FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+			sed -i "1 a\iptables -I INPUT -p udp --dport $PORT -j ACCEPT" $RCLOCAL
+			sed -i "1 a\iptables -I FORWARD -s 10.8.0.0/24 -j ACCEPT" $RCLOCAL
+			sed -i "1 a\iptables -I FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT" $RCLOCAL
+		fi
+		# If SELinux is enabled and a custom port was selected, we need this
+		if hash sestatus 2>/dev/null; then
+			if sestatus | grep "Current mode" | grep -qs "enforcing"; then
+				if [[ "$PORT" != '1194' ]]; then
+					semanage port -a -t openvpn_port_t -p udp $PORT
+				fi
+			fi
+		fi
+		echo "${green}Restarting and enabling OpenVPN server ... ${normal}"
+		# And finally, restart OpenVPN
+		systemctl restart openvpn@server.service >/dev/null 2>&1
+		systemctl enable openvpn@server.service >/dev/null 2>&1
+
+		# Try to detect a NATed connection and ask about it to potential LowEndSpirit users
+		EXTERNALIP=$(wget -qO- ipv4.icanhazip.com)
+		if [[ "$IP" != "$EXTERNALIP" ]]; then
+			echo ""
+			echo "${message_title}Looks like your server is behind a NAT!${normal}"
+			echo ""
+			echo "${bold}If your server is NATed, you will need to enter the external IP${normal}"
+			echo "${bold}If that's not the case, just ignore this and leave the next field blank${normal}"
+			read -p "External IP: " -e USEREXTERNALIP
+			if [[ "$USEREXTERNALIP" != "" ]]; then
+				IP=$USEREXTERNALIP
+			fi
+		fi
+		echo "${green}Creating user-common.txt for additional users template ... ${normal}"
+		# user-common.txt is created so we have a template to add further users later
+		echo "client
+dev tun
+proto udp
+sndbuf 0
+rcvbuf 0
+remote $IP $OVPNPORT
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+remote-cert-tls server
+cipher AES-128-CBC
+comp-lzo
+setenv opt block-outside-dns
+key-direction 1
+verb 3" > /etc/openvpn/user-common.txt
+		# Generates the custom user.ovpn
+		echo "${green}Allowing OpenVPN port $OVPNPORT through ufw ... ${normal}"
+		if which ufw >/dev/null; then
+			ufw allow "$OVPNPORT"/tcp >/dev/null 2>&1
+			#ufw disable >/dev/null 2>&1
+			#ufw --force enable >/dev/null 2>&1
+		fi
+		newuser "$USERNAME"
+		echo ""
+		echo "${black}${on_green}    Your OpenVPN Server Installation has completed!    ${normal}"
+		echo ""
+		echo "${bold}Your ${green}$USERNAME.ovpn${normal} ${bold}config is zipped into ${green}$USERNAME.zip${normal}"
+  	echo "${green}$USERNAME added${normal}, cert available at ${green}http://$IP/~$USERNAME/$USERNAME.zip${normal} to use in any OpenVPN"
+		echo "${bold}If you want to add more users, you may simply run this script another time!${bold}"
+		zip /home/$USERNAME/public_html/$USERNAME.zip /root/$USERNAME.ovpn
+cat >/home/$USERNAME/public_html/.htaccess<<EOF
+Options -Indexes
+EOF
+	fi
+
+	service apache2 reload
+	
+}
+
+install_openvpn

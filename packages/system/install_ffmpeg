@@ -1,0 +1,103 @@
+#!/bin/bash
+#
+# [Quick Box :: Install ffmpeg package]
+# [NOTES     :: Installs ffmpeg with x264 and x265 libraries]
+#
+# QUICKLAB REPOS
+# QuickLab _ packages  :   https://github.com/QuickBox/quickbox_packages
+# LOCAL REPOS
+# Local _ packages   :   /etc/QuickBox/packages
+# Author             :   QuickBox.IO | JMSolo
+# URL                :   https://quickbox.io
+#
+# QuickBox Copyright (C) 2017 QuickBox.io
+# Licensed under GNU General Public License v3.0 GPL-3 (in short)
+#
+#   You may copy, distribute and modify the software as long as you track
+#   changes/dates in source files. Any modifications to our software
+#   including (via compiler) GPL-licensed code must also be made available
+#   under the GPL along with build & install instructions.
+#
+#################################################################################
+#Script Console Colors
+NOTICE=$(tput setaf 3);
+OK=$(tput setaf 2);
+NC=$(tput sgr0);
+#################################################################################
+
+function _ffmpeg() {
+  if [[ ${ffmpeg} == "yes" ]]; then
+    MAXCPUS=$(echo "$(nproc) / 2"|bc)
+    if [[ $DISTRO == Ubuntu ]]; then
+      apt-get -y install x265 >>"${OUTTO}" 2>&1
+    elif [[ $DISTRO == Debian ]]; then
+      apt-get -y install -t jessie-backports x265 >>"${OUTTO}" 2>&1
+    fi
+    mkdir /root/tmp
+    cd /root/tmp
+    if [[ -d /root/tmp/ffmpeg ]]; then rm -rf ffmpeg;fi
+    git clone --depth 1 https://github.com/FFmpeg/FFmpeg.git ffmpeg
+    git clone git://github.com/yasm/yasm.git ffmpeg/yasm >>"${OUTTO}" 2>&1
+    git clone https://github.com/yixia/x264.git ffmpeg/x264 >>"${OUTTO}" 2>&1
+    ############################################################################
+    ## x265 needs to be manually compiled - there is no non-interactive option.
+    ## For this reason we install x265 from apt-get.
+    #git clone https://github.com/videolan/x265.git ffmpeg/x265 >>"${OUTTO}" 2>&1
+    ############################################################################
+    ####---- Github Mirror source ----####
+    #git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg >>"${OUTTO}" 2>&1
+    ############################################################################
+    cd ffmpeg/yasm
+    ./autogen.sh >>"${OUTTO}" 2>&1
+    ./configure >>"${OUTTO}" 2>&1
+    make >>"${OUTTO}" 2>&1
+    make install >>"${OUTTO}" 2>&1
+    cd ../x264
+    ./configure --enable-static --enable-shared >>"${OUTTO}" 2>&1
+    make >>"${OUTTO}" 2>&1
+    make install >>"${OUTTO}" 2>&1
+    ldconfig >>"${OUTTO}" 2>&1
+    ############################################################################
+    ## x265 needs to be manually compiled - there is no non-interactive option.
+    ## For this reason we install x265 from apt-get.
+    #cd ../x265/build/linux
+    #./make-Makefiles.bash >>"${OUTTO}" 2>&1
+    #make >>"${OUTTO}" 2>&1
+    #make install >>"${OUTTO}" 2>&1
+    #ldconfig >>"${OUTTO}" 2>&1
+    ############################################################################
+    cd /root/tmp/ffmpeg
+    export FC_CONFIG_DIR=/etc/fonts
+    export FC_CONFIG_FILE=/etc/fonts/fonts.conf
+    ./configure --enable-libfreetype --enable-filter=drawtext --enable-fontconfig --disable-asm --enable-libx264 --enable-gpl >>"${OUTTO}" 2>&1
+    make -j${MAXCPUS} >>"${OUTTO}" 2>&1
+    make install >>"${OUTTO}" 2>&1
+    yes | cp -rf /usr/local/bin/ffmpeg /usr/bin >>"${OUTTO}" 2>&1
+    yes | cp -rf /usr/local/bin/ffprobe /usr/bin >>"${OUTTO}" 2>&1
+    rm -rf /root/tmp/ffmpeg >>"${OUTTO}" 2>&1
+  fi
+}
+
+
+spinner() {
+    local pid=$1
+    local delay=0.25
+    local spinstr='|/-\'
+    while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
+        local temp=${spinstr#?}
+        printf " [${bold}${yellow}%c${normal}]  " "$spinstr"
+        local spinstr=$temp${spinstr%"$temp"}
+        sleep $delay
+        printf "\b\b\b\b\b\b"
+    done
+    printf "    \b\b\b\b"
+    echo -ne "${OK}"
+}
+
+
+OUTTO="/srv/rutorrent/home/db/ffmpeg.output.log"
+DISTRO=$(lsb_release -is)
+
+echo -n "${NOTICE}Installing ffmpeg, please hold as this may take some time${NC} ... ";_ffmpeg & spinner $!;echo
+echo -n "${OK}Installation Completed${NC}"
+echo

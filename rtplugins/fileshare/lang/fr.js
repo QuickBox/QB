@@ -1,0 +1,14 @@
+﻿theUILang.FSshow                = 'File Share';
+theUILang.FSdel         = 'Supprimer le(s) liens(s)';
+theUILang.FSdelmsg              = 'Voulez-vous réellement supprimer ces éléments ?';
+theUILang.FSvdur                = 'Veuillez entrer une durée valide';
+theUILang.FSfile                = 'Fichier';
+theUILang.FSexpire              = 'Expire';
+theUILang.FSpassword            = 'Mot de passe';
+theUILang.FSdlink               = 'Lien de téléchargement';
+theUILang.FSdhours              = 'Durée (heure)';
+theUILang.FSadd         = 'Ajouter';
+theUILang.FSedit                = 'Editer';
+theUILang.FSshare               = 'Partager...';
+theUILang.FSlinkcreate  = 'Lien de téléchargement créé';
+theUILang.FScopylink            = 'Copier le lien';

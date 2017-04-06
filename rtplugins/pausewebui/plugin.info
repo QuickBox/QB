@@ -1,0 +1,5 @@
+description: Adds an button to pause the webui from updating
+author: Gyran
+version: 1.1
+remote: ok
+need_rtorrent: 0

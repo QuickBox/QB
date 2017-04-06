@@ -1,0 +1,5 @@
+<?php
+
+	$theSettings->registerPlugin("fileshare");
+
+?>

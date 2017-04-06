@@ -1,0 +1,6 @@
+author: autodl-community,Carl Carlson
+description: GUI for autodl-irssi-community
+remote: ok
+need_rtorrent: 0
+version: 1.62.1
+runlevel: 10.0

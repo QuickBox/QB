@@ -1,0 +1,22 @@
+div#fileUP_Console div.dlg-header {
+	background-image: url(../filemanager/images/console.gif);
+}
+
+div#fileUP_upoptions {
+	display:none;
+}
+
+
+#fileUP_uplog, #fileUP_filelog {
+	overflow: scroll;
+}
+#fileUP_uplog pre, #fileUP_filelog pre {
+	font-family: "Courier New", Courier, monospace;
+	font-size: 9pt;
+}
+
+#fileUP_options {
+
+overflow: auto;	
+	
+}

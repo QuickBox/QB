@@ -1,0 +1,67 @@
+#!/bin/bash
+
+binary="$1"
+tempdir="$2"
+archive="$3"
+type="$4"
+compression="$5"
+volume="$6"
+vformat="$7"
+
+
+if [ ! -d "$tempdir" ]; then
+mkdir --mode=0777 -p "$tempdir" || { echo "FATAL ERROR: temp dir creation failed"; exit; }
+
+fi
+
+echo "$$" > "$tempdir/pid";
+
+
+if [ ! -w "${archive%/*}" ]; then
+
+echo "1: FATAL ERROR: Destination ${archive%/*} not permitted" >> "$tempdir/log"; 
+
+else
+
+case "$type" in
+
+
+  rar)       
+	"$1" a -ep1 -m"$5" -ol "$vformat" -v"$6"- "$3" "${@:8}" | awk -F '[\b[:blank:]]+' 'BEGIN {OFS=", "} {for (i=1;i<=NF;i++) { if ((i-1)%10==0) printf "\n0: "; printf "%s ",$i} fflush()}' >> "$2/log"
+	printf "\n1: " >> "$tempdir/log"
+       ;;
+
+  tar)
+	shift 7;   
+	"$binary" -C "${1%/*}" -cvf "$archive" "${@##*/}" | sed -u 's/^/0: Adding /' >> "$tempdir/log"
+	echo "1: Done" >> "$tempdir/log"
+       ;;
+  gzip)
+	shift 7;       
+	"$binary" -C "${1%/*}" -czvf "$archive" "${@##*/}" | sed -u 's/^/0: Adding /' >> "$tempdir/log"
+	echo "1: Done" >> "$tempdir/log"
+       ;;
+  bzip2)
+	shift 7;  
+	"$binary" -C "${1%/*}" -cjvf "$archive" "${@##*/}" | sed -u 's/^/0: Adding /' >> "$tempdir/log"
+	echo "1: Done" >> "$tempdir/log"
+       ;;
+  zip) 
+ 
+	cd "${8%/*}"         
+	shift 7;
+
+	"$binary" -r "$compression" -y "$archive" "${@##*/}" | sed -u 's/^/0: /' >> "$tempdir/log"
+	echo "1: Done" >> "$tempdir/log"
+        ;;
+
+  *)     echo "Unknown archive type"
+	;;
+esac
+
+
+fi
+
+
+sleep 20
+rm -rf "$tempdir"

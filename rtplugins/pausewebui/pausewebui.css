@@ -1,0 +1,11 @@
+div#webuiUpdateToggle.pause {
+	background: transparent url(./images/pause.png) no-repeat;
+}
+
+div#webuiUpdateToggle.resume {
+	background: transparent url(./images/resume.png) no-repeat;
+}
+
+div#webuiRefresh {
+	background: transparent url(./images/refresh.png) no-repeat;	
+}

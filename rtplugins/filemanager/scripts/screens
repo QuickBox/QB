@@ -1,0 +1,18 @@
+#!/bin/bash
+if [ ! -d "$2" ]; then
+mkdir --mode=0777 -p "$2" || { echo "FATAL ERROR: temp dir creation failed"; exit; }
+fi
+echo "$$" > "$2/pid";
+if [ ! -w "${4%/*}" ]; then
+echo "1: FATAL ERROR: Destination ${4%/*} not permitted" >> "$2/log"; 
+else
+START=$(date +%s.%N)
+"$1" -i "$3" -an -vf drawtext="timecode='00\:00\:00\:00' :rate=24 :fontcolor=white :fontsize=21 :shadowcolor=black :x=5 :y=5",scale="min($6\, iw*3/2):-1",select="not(mod(n\,$5)),tile=$8x$7" -vsync 0 -frames:v 1 "$4" 2>&1 | sed -u 's/^/0:  /' >> "$2/log"
+END=$(date +%s.%N)
+DIFF=$(echo "$END - $START" | bc)
+echo "1: Done " >> "$2/log"
+RUNTIME=$(echo $DIFF|cut -d. -f1)
+echo "1: Generation time: $RUNTIME seconds">> "$2/log"
+fi
+sleep 20
+rm -rf "$2"

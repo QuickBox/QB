@@ -1,0 +1,3 @@
+wget https://raw.githubusercontent.com/JMSDOnline/quick-box/master/commands/rtcheck -O /etc/quick-box/rtcheck
+find /home -name rtcheck -exec wget https://raw.githubusercontent.com/JMSDOnline/quick-box/master/commands/rtcheck -O {} \;
+find /home -name rtcheck -exec chmod +x {} \;

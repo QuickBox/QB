@@ -1,0 +1,53 @@
+#!/bin/bash
+
+
+if [ ! -d "$2" ]; then
+mkdir --mode=0777 -p "$2" || { echo "FATAL ERROR: temp dir creation failed"; exit; }
+
+fi
+
+echo "$$" > "$2/pid";
+
+
+if [ ! -w "${4%/*}" ]; then
+
+echo "1: FATAL ERROR: Destination ${4%/*} not permitted" >> "$2/log"; 
+
+else
+
+
+type=$(file -ib "$3" | awk -vFS="[/,;]" '{ print $2 }' | cut -d '-' -f 2);
+
+case "$type" in
+
+  zip)             "$1" -o -P '' "$3" -d "$4/" | sed -u 's/^/0: /' >> "$2/log"
+			echo "1: Done" >> "$2/log"
+                      ;;
+  rar)             "$1" x -ol -p- -or- "$3" "$4/" | awk -F '[\b[:blank:]]+' 'BEGIN {OFS=", "} {for (i=1;i<=NF;i++) { if ((i-1)%10==0) printf "\n0: "; printf "%s ",$i} fflush()}' >> "$2/log"
+			printf "\n1: Done " >> "$2/log"
+                      ;;
+  tar)             [ ! -d "$4" ] && mkdir -p "$4"
+			"$1" -xvf "$3" -C "$4" | sed -u 's/^/0: Extracting /' >> "$2/log"
+			echo "1: Done " >> "$2/log"
+                      ;;
+  gzip)             [ ! -d "$4" ] && mkdir -p "$4"
+			"$1" -xzvf "$3" -C "$4" | sed -u 's/^/0: Extracting /' >> "$2/log"
+			echo "1: Done " >> "$2/log"
+                      ;;
+  bzip2)             [ ! -d "$4" ] && mkdir -p "$4"
+			"$1" -xjvf "$3" -C "$4" | sed -u 's/^/0: Extracting /' >> "$2/log"
+			echo "1: Done " >> "$2/log"
+                      ;;
+  iso9660|stream)       "$1" x -bd -y -o"$4/" "$3" | sed -u 's/^/0: /' >> "$2/log"
+			echo "1: Done" >> "$2/log"
+			;;
+  *)               echo "Unknown archive type"
+			;;
+esac
+
+
+fi
+
+
+sleep 20
+rm -rf "$2"

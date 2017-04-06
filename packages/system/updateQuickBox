@@ -1,0 +1,527 @@
+#!/bin/bash
+#
+# [Quick Box :: EcoSystem Update Script]
+#
+# QuickLab:   https://github.com/QuickBox/quickbox_packages
+# Local   :   /etc/QuickBox/packages
+# Author  :   QuickBox.io
+# URL     :   https://quickbox.io
+#
+# QuickBox Copyright (C) 2017 QuickBox.io
+# Licensed under GNU General Public License v3.0 GPL-3 (in short)
+#
+#   You may copy, distribute and modify the software as long as you track
+#   changes/dates in source files. Any modifications to our software
+#   including (via compiler) GPL-licensed code must also be made available
+#   under the GPL along with build & install instructions.
+#
+#################################################################################
+function _string() { perl -le 'print map {(a..z,A..Z,0..9)[rand 62] } 0..pop' 15 ; }
+#################################################################################
+
+function _oscheck() {
+  if [[ ! -f /bin/systemd ]]; then
+    echo "Oh drats! Your system does not support systemd" | tee -a ${OUTTO}
+    echo "As of QuickBox 2.4.0, systemd is now required"  | tee -a ${OUTTO}
+    echo 'Exiting...'  | tee -a ${OUTTO}
+    exit 1
+  fi
+}
+
+function _logcheck() {
+  OUTTO=/srv/rutorrent/home/db/output.log
+}
+
+function _directorycheck() {
+  if [[ ! -f /install/.developer.lock ]]; then
+    if [[ -d /etc/QuickBox ]]; then
+      cd /etc/QuickBox
+      git submodule foreach git checkout master
+      git submodule foreach git reset --hard origin/master
+      git submodule foreach git pull
+    else
+      git clone --recursive https://github.com/QuickBox/QuickBox /etc/QuickBox
+    fi
+  else
+    if [[ -d /etc/QuickBox ]]; then
+      cd /etc/QuickBox
+      git submodule foreach git checkout development
+      git submodule foreach git reset --hard origin/development
+      git submodule foreach git pull
+    else
+      git clone --recursive --branch "development" https://github.com/QuickBox/QuickBox /etc/QuickBox
+    fi
+  fi
+}
+
+function _downloadrepos() {
+if [[ ! -f /install/.developer.lock ]]; then
+  echo >>"${OUTTO}" 2>&1;
+  cd /etc/QuickBox
+  git pull >>"${OUTTO}" 2>&1;
+  echo
+  echo -n "quickbox_setup              :: " >>"${OUTTO}" 2>&1;
+    cd ${local_setup} && git checkout master
+    git pull >>"${OUTTO}" 2>&1;
+  echo -n "quickbox_rutorrent          :: " >>"${OUTTO}" 2>&1;
+    cd ${local_rutorrent} && git checkout master
+    git pull >>"${OUTTO}" 2>&1;
+  echo -n "quickbox_rutorrent-plugins  :: " >>"${OUTTO}" 2>&1;
+    cd ${local_rplugins} && git checkout master
+    git pull >>"${OUTTO}" 2>&1;
+  echo -n "quickbox_packages           :: " >>"${OUTTO}" 2>&1;
+    cd ${local_packages} && git checkout master
+    git pull >>"${OUTTO}" 2>&1;
+
+  if [[ -f /srv/rutorrent/home/db/.smoked.lock ]]; then
+    echo -n "quickbox_dashboard          :: " >>"${OUTTO}" 2>&1;
+      cd ${local_themes}smoked && git checkout master
+      git pull >>"${OUTTO}" 2>&1;
+  elif [[ -f /srv/rutorrent/home/db/.defaulted.lock ]]; then
+    #statements [[ -f /srv/rutorrent/home/db/.defaulted.lock ]]; then
+    echo -n "quickbox_dashboard          :: " >>"${OUTTO}" 2>&1;
+      cd ${local_themes}defaulted && git checkout master
+      git pull >>"${OUTTO}" 2>&1;
+  elif [[ ! -f /srv/rutorrent/home/db/*.lock ]]; then
+    echo -n "quickbox_dashboard          :: " >>"${OUTTO}" 2>&1;
+      cd ${local_dashboard} && git checkout master
+      git pull >>"${OUTTO}" 2>&1;
+  fi
+
+  echo -n "club-QuickBox               :: " >>"${OUTTO}" 2>&1;
+    cd ${local_rtheme} && git checkout master
+    git pull >>"${OUTTO}" 2>&1;
+
+
+else
+
+
+  echo >>"${OUTTO}" 2>&1;
+  cd /etc/QuickBox
+  git checkout development
+  git pull >>"${OUTTO}" 2>&1;
+  echo
+
+  echo -n "quickbox_setup              :: " >>"${OUTTO}" 2>&1;
+    cd ${local_setup} && git checkout development
+    git pull >>"${OUTTO}" 2>&1;
+  echo -n "quickbox_rutorrent          :: " >>"${OUTTO}" 2>&1;
+    cd ${local_rutorrent} && git checkout development
+    git pull >>"${OUTTO}" 2>&1;
+  echo -n "quickbox_rutorrent-plugins  :: " >>"${OUTTO}" 2>&1;
+    cd ${local_rplugins} && git checkout development
+    git pull >>"${OUTTO}" 2>&1;
+  echo -n "quickbox_packages           :: " >>"${OUTTO}" 2>&1;
+    cd ${local_packages} && git checkout development
+    git pull >>"${OUTTO}" 2>&1;
+
+  if [[ -f /srv/rutorrent/home/db/.smoked.lock ]]; then
+    echo -n "quickbox_dashboard          :: " >>"${OUTTO}" 2>&1;
+    cd ${local_themes}smoked && git checkout development
+    git pull >>"${OUTTO}" 2>&1;
+  elif [[ -f /srv/rutorrent/home/db/.defaulted.lock ]]; then
+    #statements [[ -f /srv/rutorrent/home/db/.defaulted.lock ]]; then
+    echo -n "quickbox_dashboard          :: " >>"${OUTTO}" 2>&1;
+      cd ${local_themes}defaulted && git checkout development
+      git pull >>"${OUTTO}" 2>&1;
+  elif [[ ! -f /srv/rutorrent/home/db/*.lock ]]; then
+    echo -n "quickbox_dashboard          :: " >>"${OUTTO}" 2>&1;
+      cd ${local_dashboard} && git checkout development
+      git pull >>"${OUTTO}" 2>&1;
+  fi
+
+  echo -n "club-QuickBox               :: " >>"${OUTTO}" 2>&1;
+    cd ${local_rtheme} && git checkout development
+    git pull >>"${OUTTO}" 2>&1;
+fi
+}
+
+function _bashrc() {
+  cp ${local_setup}templates/bashrc.template /root/.bashrc
+  cp ${local_setup}templates/profile.template /root/.profile
+}
+
+function _updatequota(){
+  sed -i 's/usrquota,errors=remount-ro/usrjquota=aquota.user,jqfmt=vfsv1,errors=remount-ro/g' /etc/fstab
+  service quota restart
+}
+
+function _checklocks() {
+  if [[ -f /usr/sbin/repquota ]] && [[ ! -f /install/.quota.lock ]]; then
+    touch /install/.quota.lock
+  fi
+  if [[ ! -f /etc/systemd/system/rtorrent@.service ]]; then
+    touch /install/.cron.lock
+  fi
+}
+
+function _updated() {
+  if [[ -f /install/.cron.lock ]]; then
+    bash ${local_packages}package/remove/removepackage-cron
+  fi
+}
+
+function _updatesyscommands() {
+  cd ${usrbin}
+  cp -r ${local_packages}. ${usrbin}quickbox
+  if [[ -f ${usrbin}quickbox/system/changeUserpass ]]; then
+    rm ${usrbin}quickbox/system/changeUserpass
+  fi
+}
+
+function _updateskel() {
+  if [[ ! -d /etc/skel ]]; then
+    mkdir /etc/skel
+  fi
+  rsync -aP ${local_setup}templates/skel/. /etc/skel/
+}
+
+function _updatemktorrent() {
+  if [[ ! -f /usr/local/bin/mktorrent ]]; then
+    if [[ -d /root/tmp ]]; then rm -r tmp;fi
+    mkdir /root/tmp && cd /root/tmp
+    mktorrent_version=1.1
+    wget --quiet https://github.com/Rudde/mktorrent/archive/v$mktorrent_version.zip -O mktorrent.zip  >>"${OUTTO}" 2>&1
+    unzip -o mktorrent.zip >>"${OUTTO}" 2>&1
+    cd mktorrent-1.1
+    make >>"${OUTTO}" 2>&1
+    make install >>"${OUTTO}" 2>&1
+    cd ..
+    rm -rf mktorrent-1.1 && rm -f mktorrent.zip
+  fi
+}
+
+function _updateapachealias() {
+  users=($(cat /etc/htpasswd | cut -d ":" -f 1))
+  cd /etc/apache2/sites-enabled
+  if [[ -f aliases-seedbox.conf.orig ]]; then
+    rm -r aliases-seedbox.conf.orig
+  fi
+  mv aliases-seedbox.conf aliases-seedbox.conf.orig
+  cp -r ${local_setup}templates/aliases-seedbox.conf.template /etc/apache2/sites-enabled/aliases-seedbox.conf
+  sed -i "s/USERNAME/${A1}/g" /etc/apache2/sites-enabled/aliases-seedbox.conf
+  for i in "${users[@]}"; do
+    if [[ ! $i == $A1 ]]; then
+cat >/etc/apache2/sites-enabled/alias.${i}.download.conf<<AS
+Alias /${i}.rtorrent.downloads "/home/${i}/torrents/rtorrent"
+<Directory "/home/${i}/torrents/rtorrent">
+ Options Indexes FollowSymLinks MultiViews
+  AllowOverride None
+        AuthType Digest
+        AuthName "rutorrent"
+        AuthUserFile '/etc/htpasswd'
+        Require user ${i}
+  Order allow,deny
+  Allow from all
+  php_admin_value engine Off
+</Directory>
+Alias /${i}.deluge.downloads "/home/${i}/torrents/deluge"
+<Directory "/home/${i}/torrents/deluge">
+  Options Indexes FollowSymLinks MultiViews
+  AllowOverride None
+        AuthType Digest
+        AuthName "rutorrent"
+        AuthUserFile '/etc/htpasswd'
+        Require user ${i}
+  Order allow,deny
+  Allow from all
+  php_admin_value engine Off
+</Directory>
+<Location "/${i}">
+        AuthType Digest
+        AuthName "rutorrent"
+        AuthUserFile "/etc/htpasswd"
+    Require user ${i}
+</Location>
+AS
+  fi
+done
+
+
+  #if [[ -f /install/.plex.lock ]] && [[ -s /etc/apache2/sites-enabled/plex.conf ]]; then
+  #  PUBLICIP=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+  #  cp ${local_setup}templates/plex.conf.template /etc/apache2/sites-enabled/plex.conf
+  #  chown www-data: /etc/apache2/sites-enabled/plex.conf
+  #  a2enmod proxy >/dev/null 2>&1
+  #  sed -i "s/PUBLICIP/${PUBLICIP}/g" /etc/apache2/sites-enabled/plex.conf
+  #fi
+
+  service apache2 reload  >> /dev/null 2>&1
+}
+
+function _updaterutorrent() {
+  cd /srv
+  rsync -aP ${local_rutorrent}* rutorrent
+}
+
+function _updaterutorrent-plugins() {
+  plugins=($(find ${local_rplugins} -maxdepth 1 -type d -printf "%f\n"))
+  for i in "${plugins[@]}"; do
+    if [[ -d /srv/rutorrent/plugins/$i ]]; then
+      if [[ -d /srv/rutorrent/plugins/$i ]]; then rm -rf /srv/rutorrent/plugins/${i}/${i}; fi
+      rsync -aP ${local_rplugins}${i} /srv/rutorrent/plugins/
+    fi
+  done
+  cp /srv/rutorrent/home/fileshare/.htaccess /srv/rutorrent/plugins/fileshare/
+  cd /srv/rutorrent/home/fileshare/
+  rm -rf share.php
+  ln -s ../../plugins/fileshare/share.php
+}
+
+function _updatedeluge() {
+  if [[ -f /install/.deluge.lock ]]; then
+    users=($(cat /etc/htpasswd | cut -d ":" -f 1))
+    if [[ ! -f /etc/skel/.config/deluge/plugins/ltConfig-0.2.5.0-py2.7.egg ]]; then
+      mkdir -p /etc/skel/.config/deluge/plugins/
+      cd /etc/skel/.config/deluge/plugins/
+      wget -q https://github.com/ratanakvlun/deluge-ltconfig/releases/download/v0.2.5.0/ltConfig-0.2.5.0-py2.7.egg
+    fi
+    for u in "${users[@]}"; do
+      if [[ ! -f /home/$u/.config/deluge/plugins/ltConfig-0.2.5.0-py2.7.egg ]]; then
+        cd /home/$u/.config/deluge/plugins/
+        wget -q https://github.com/ratanakvlun/deluge-ltconfig/releases/download/v0.2.5.0/ltConfig-0.2.5.0-py2.7.egg
+        chown $u: ltConfig-0.2.5.0-py2.7.egg
+        chmod +x ltConfig-0.2.5.0-py2.7.egg
+      fi
+      ltstatus=$(cat /home/$u/.config/deluge/core.conf | grep -i ltconfig)
+      if [[ -z $ltstatus ]]; then
+        systemctl stop deluged@$u
+        enabledplugins=$(cat /home/$u/.config/deluge/core.conf | grep '"enabled_plugins": \[\],')
+        if [[ -z $enabledplugins ]]; then
+          sed -i '/enabled_plugins/a \ \ \ \ "ltConfig",' /home/$u/.config/deluge/core.conf
+        else
+          sed -i '/enabled_plugins/a \ \ \ \ "ltConfig"\n],' /home/$u/.config/deluge/core.conf
+          sed -i 's/"enabled_plugins": \[\],/"enabled_plugins": \[/g' /home/$u/.config/deluge/core.conf
+        fi
+        systemctl start deluged@$u
+      fi
+    done
+  fi
+}
+
+function _updateznc() {
+  if [[ -f /install/.znc.lock ]]; then
+    bin=$(crontab -u znc -l | grep /usr/local/bin)
+    if [[ -n $bin ]]; then
+      sudo -u znc crontab -l | echo -e "*/10 * * * * /usr/bin/znc >/dev/null 2>&1\n@reboot /usr/bin/znc >/dev/null 2>&1" | crontab -u znc - > /dev/null 2>&1
+    fi
+  fi
+}
+
+# function to update dashboard
+function _updatedashboard() {
+  cd ${rutorrent}
+  if [[ -f /srv/rutorrent/home/db/.smoked.lock ]]; then
+    if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
+      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}smoked/* ${rutorrent}home
+      rm -f /srv/rutorrent/home/lang/*.php
+    else
+      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}smoked/* ${rutorrent}home
+      rm -f /srv/rutorrent/home/lang/*.php
+    fi
+  elif [[ -f /srv/rutorrent/home/db/.defaulted.lock ]]; then
+    if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
+      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}defaulted/* ${rutorrent}home
+      rm -f /srv/rutorrent/home/lang/*.php
+    else
+      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}defaulted/* ${rutorrent}home
+        rm -f /srv/rutorrent/home/lang/*.php
+    fi
+  else
+    if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
+      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dashboard}* ${rutorrent}home
+      rm -f /srv/rutorrent/home/lang/*.php
+    else
+      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dashboard}* ${rutorrent}home
+      rm -f /srv/rutorrent/home/lang/*.php
+    fi
+  fi
+
+}
+
+# function to update club-QuickBox ruTorrent Theme
+function _updaterttheme() {
+  THEME=club-QuickBox
+  cd ${rutorrent}plugins/theme/themes
+  if [ ! -d "$THEME" ]; then
+    git clone https://github.com/QuickBox/club-QuickBox.git club-QuickBox >/dev/null 2>&1
+    chown -R www-data: club-QuickBox
+  else
+    cd $THEME
+    git checkout master
+    git pull
+  fi
+  cd
+
+}
+
+
+function _updatesudo() {
+  mv /etc/sudoers /etc/sudoers.BAK
+  cp ${local_setup}templates/sudoers.template /etc/sudoers
+  awk -v username="${A1}" '/^root/ && !x {print username    " ALL=(ALL:ALL) NOPASSWD: ALL"; x=1} 1' /etc/sudoers > /tmp/sudoers;mv /tmp/sudoers /etc
+}
+
+function _updateappsproxy() {
+  bash /usr/local/bin/quickbox/system/revproxy.sh
+}
+
+function _quickconsole() {
+  if [[ ! -f /install/.webconsole.lock ]]; then
+    PUBLICIP=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+
+cat >/etc/profile<<EOF
+echo ""
+echo "Welcome Back !"
+echo "  * Dashboard:  https://${PUBLICIP}"
+echo "  * Support:    https://plaza.quickbox.io"
+echo "  * Donate:     https://quickbox.io/donate"
+echo ""
+EOF
+
+    apt-get -y install shellinabox >/dev/null 2>&1
+
+    cp ${local_setup}templates/sysd/shellinabox.template /etc/systemd/system/shellinabox.service
+    cp ${local_setup}templates/quickconsole/00_QuickConsole.css.template /etc/shellinabox/options-enabled/00_QuickConsole.css
+    cp ${local_setup}templates/web-console.conf.template /etc/apache2/sites-enabled/${A1}.console.conf
+
+    sed -i "s/PUBLICIP/${PUBLICIP}/g" /etc/apache2/sites-enabled/${A1}.console.conf
+    sed -i "s/USER/${A1}/g" /etc/apache2/sites-enabled/${A1}.console.conf
+
+    chmod +x /etc/shellinabox/options-enabled/00_QuickConsole.css
+    chmod 777 /etc/shellinabox/options-enabled/00_QuickConsole.css
+
+    mv /etc/init.d/shellinabox /etc/init.d/shellinabox.BAK
+
+    touch /install/.webconsole.lock
+
+    systemctl enable shellinabox.service >/dev/null 2>&1
+    systemctl stop shellinabox.service >/dev/null 2>&1
+    systemctl daemon-reload >/dev/null 2>&1
+    systemctl start shellinabox.service >/dev/null 2>&1
+
+    service apache2 reload  >> /dev/null 2>&1
+    service memcached restart  >> /dev/null 2>&1
+
+  fi
+}
+
+# adjust permissions function (9)
+function _perms() {
+  chown -R www-data ${rutorrent}*
+  chgrp -R www-data ${rutorrent}*
+  chmod -R g+rw ${rutorrent}*
+  sh -c 'find /srv/rutorrent/* -type d -print0 | sudo xargs -0 chmod g+s'
+  chmod +x /etc/cron.d/set_interface
+  find /home/*/.config/deluge -name "auth" -exec chmod 600 {} \;
+  find /usr/local/bin/quickbox -type f -exec chmod 755 {} \;
+  chmod +x $(find /usr/local/bin/quickbox -type f) >/dev/null 2>&1
+  chmod -R 755 ${rutorrent}plugins/filemanager/scripts
+}
+
+function _fin() {
+  service apache2 reload >/dev/null 2>&1
+  source ~/.profile
+  echo
+  echo "[QuickBox] Seedbox & GUI Update Completed ! " >>"${OUTTO}" 2>&1;
+  sleep 5
+
+  echo >>"${OUTTO}" 2>&1;
+  echo >>"${OUTTO}" 2>&1;
+  echo "Close this dialog box to refresh your browser" >>"${OUTTO}" 2>&1;
+
+  exit
+}
+
+################################################################################
+#    BEGIN RETIRED FUNCTION
+################################################################################
+function _updateuserhome() {
+  cd /home/"${A1}"/torrents
+  if [[ -d rtorrent ]]; then
+    cd
+  else
+    mv deluge /home/"${A1}"/deluge
+    cd ..
+    mv torrents rtorrent
+    rm -rf torrents
+    mkdir -p torrents
+    mv deluge torrents/deluge
+    mv rtorrent torrents/rtorrent
+    sed -i "s/directory = \/home\/${A1}\/torrents\//directory = \/home\/${A1}\/torrents\/rtorrent/g" /home/"${A1}"/.rtorrent.rc
+    chown -R ${A1}:${A1} /home/${A1}
+  fi
+  systemctl restart rtorrent@"${A1}".service
+}
+
+function _updateplex() {
+  OUTTO="/srv/rutorrent/home/db/output.log"
+  HOSTNAME1=$(hostname -s)
+  PUBLICIP=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+  local_setup=/etc/QuickBox/setup/
+  if [[ -f /etc/init.d/plexmediaserver ]]; then
+    mv /etc/init.d/plexmediaserver /etc/init.d/plexmediaserver.BAK
+    cp ${local_setup}templates/sysd/plexmediaserver.template /lib/systemd/system/plexmediaserver.service
+
+    wget -O - http://shell.ninthgate.se/packages/shell.ninthgate.se.gpg.key | apt-key add -
+    echo "deb http://shell.ninthgate.se/packages/debian jessie main" > /etc/apt/sources.list.d/plexmediaserver.list
+    apt-get -y update >/dev/null 2>&1
+
+    systemctl daemon-reload >/dev/null 2>&1
+    update-rc.d plexmediaserver remove
+    service plexmediaserver stop
+    systemctl enable plexmediaserver.service >/dev/null 2>&1
+    systemctl stop plexmediaserver.service >/dev/null 2>&1
+    systemctl start plexmediaserver.service >/dev/null 2>&1
+  fi
+
+}
+
+function _updatecronfile() {
+  # We'll disable this function unless a new packages
+  # is included or startup requires a fix.
+  cp ${local_setup}templates/startup.template /home/"${A1}"/.startup
+}
+################################################################################
+#    END RETIRED FUNCTION
+################################################################################
+
+
+local_setup=/etc/QuickBox/setup/
+local_packages=/etc/QuickBox/packages/
+local_rutorrent=/etc/QuickBox/rutorrent/
+local_rplugins=/etc/QuickBox/rtplugins/
+local_dashboard=/etc/QuickBox/dashboard/
+local_themes=/etc/QuickBox/themes/
+local_rtheme=/etc/QuickBox/rttheme/
+
+IFACE=$(ip link show|grep -i broadcast|grep -m1 UP|cut -d: -f 2|cut -d@ -f 1|sed -e 's/ //g');
+A1=$(cat /srv/rutorrent/home/db/master.txt) >> /dev/null 2>&1
+rutorrent=/srv/rutorrent/
+usrbin=/usr/local/bin/
+
+# QuickBox Update STRUCTURE
+_logcheck
+_oscheck
+_directorycheck
+echo -n "Pulling QuickBox Ecosystem ... " >>"${OUTTO}" 2>&1;_downloadrepos;echo
+_bashrc
+echo "Checking locks and adding if necessary ... " >>"${OUTTO}" 2>&1;_checklocks;echo
+echo "Checking if cron services should be uninstalled and taking appropriate action ... " >>"${OUTTO}" 2>&1;_updated;echo
+echo "Updating QuickBox System Commands & Packages ... " >>"${OUTTO}" 2>&1;_updatesyscommands;echo
+echo "Updating the useradd skeleton directories ... " >>"${OUTTO}" 2>&1;_updateskel;echo
+echo "Updating mktorrent if necessary ... " >>"${OUTTO}" 2>&1;_updatemktorrent;echo
+echo "Checking apache aliases ... " >>"${OUTTO}" 2>&1;_updateapachealias;echo
+#echo "Reorganizing home directory of ${A1} ... " >>"${OUTTO}" 2>&1;_updateuserhome;echo
+echo "Updating the rutorrent directory ... " >>"${OUTTO}" 2>&1;_updaterutorrent;echo
+echo "Updating all rutorrent plugins ... " >>"${OUTTO}" 2>&1;_updaterutorrent-plugins;echo
+echo "Updating the QuickBox Dashboard ... " >>"${OUTTO}" 2>&1;_updatedashboard;echo
+echo "Updating club-QuickBox ruTorrent Theme ... " >>"${OUTTO}" 2>&1;_updaterttheme;echo
+echo "Updating the QuickBox Sudoers template ... " >>"${OUTTO}" 2>&1;_updatesudo;echo
+_updateznc
+#_updateplex
+_updateappsproxy
+_quickconsole
+#echo "Updating ${A1}'s .startup cronfile... " >>"${OUTTO}" 2>&1;_updatecronfile;echo
+echo "Adjusting permissions ... " >>"${OUTTO}" 2>&1;_perms;echo
+_fin

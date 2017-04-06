@@ -1,0 +1,6 @@
+plugin.description: Sharing services file uploader
+plugin.author: HWK
+plugin.version: 0.02
+rtorrent.remote: error
+rtorrent.external.error: php,plowup
+plugin.dependencies: filemanager

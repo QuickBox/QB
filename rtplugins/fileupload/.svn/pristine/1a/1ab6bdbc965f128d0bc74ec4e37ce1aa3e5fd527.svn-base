@@ -1,0 +1,15 @@
+#!/bin/bash
+
+tempdir="$1"
+
+if [ ! -d "$tempdir" ]; then
+ mkdir --mode=0777 -p "$tempdir" || { echo "FATAL ERROR: temp dir creation failed"; exit; }
+fi
+
+echo "$$" > "$tempdir/pid";
+
+shift 1
+
+plowup -v 3 "$@" &> "$tempdir/log"
+sleep 20
+rm -rf "$tempdir"

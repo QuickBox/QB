@@ -1,0 +1,190 @@
+#!/bin/bash
+#
+# [Quick Box :: EcoSystem Update Script]
+#
+# QuickLab:   https://github.com/QuickBox/quickbox_packages
+# Author:   QuickBox.io
+# URL:      https://plaza.quickbox.io
+#
+# QuickBox Copyright (C) 2017 QuickBox.io
+# Licensed under GNU General Public License v3.0 GPL-3 (in short)
+#
+#   You may copy, distribute and modify the software as long as you track
+#   changes/dates in source files. Any modifications to our software
+#   including (via compiler) GPL-licensed code must also be made available
+#   under the GPL along with build & install instructions.
+#
+#################################################################################
+#Script Console Colors
+black=$(tput setaf 0); red=$(tput setaf 1); green=$(tput setaf 2); yellow=$(tput setaf 3);
+blue=$(tput setaf 4); magenta=$(tput setaf 5); cyan=$(tput setaf 6); white=$(tput setaf 7);
+on_red=$(tput setab 1); on_green=$(tput setab 2); on_yellow=$(tput setab 3); on_blue=$(tput setab 4);
+on_magenta=$(tput setab 5); on_cyan=$(tput setab 6); on_white=$(tput setab 7); bold=$(tput bold);
+dim=$(tput dim); underline=$(tput smul); reset_underline=$(tput rmul); standout=$(tput smso);
+reset_standout=$(tput rmso); normal=$(tput sgr0); alert=${white}${on_red}; title=${standout};
+sub_title=${bold}${yellow}; repo_title=${black}${on_green}; message_title=${white}${on_magenta}
+#################################################################################
+function _string() { perl -le 'print map {(a..z,A..Z,0..9)[rand 62] } 0..pop' 15 ; }
+#################################################################################
+
+function _logcheck() {
+  OUTTO=/etc/QuickBox.update.$PPID.log
+}
+
+# check if root function (2)
+function _checkroot() {
+  if [[ $EUID != 0 ]]; then
+    echo 'This script must be run with root privileges.'
+    echo 'Exiting...'
+    exit 1
+  fi
+  echo -ne "${green}Congrats! You're running as root. We will now run the update${normal} ... "
+  echo;echo
+}
+
+function _askcontinue() {
+  echo
+  echo "Press ${standout}${green}ENTER${normal} when you're ready to begin or ${standout}${red}Ctrl+Z${normal} to cancel" ;read input
+  echo
+}
+
+function _downloadrepos() {
+  git clone --recursive https://github.com/QuickBox/QuickBox QuickBox >> /dev/null 2>&1
+}
+
+function _bashrc() {
+  cp ${local_setup}templates/bashrc.template /root/.bashrc
+}
+
+function _updatesyscommands() {
+  cd ${usrbin}
+  for x in installplugin-* removeplugin-* installpackage-* removepackage-*; do
+    rm $x >>"${OUTTO}" 2>&1
+  done
+  if [[ -d ${usrbin}quickbox ]]; then rm -r ${usrbin}quickbox;fi
+  mkdir -p ${usrbin}quickbox
+  cp -r ${local_packages}. ${usrbin}quickbox
+  chmod +x $(find /usr/local/bin/quickbox -type f) >>"${OUTTO}" 2>&1;
+  if [[ -f /usr/bin/reload ]]; then rm /usr/bin/reload;fi
+  cp ${usrbin}quickbox/system/reload /usr/bin/reload
+  chmod +x /usr/bin/reload
+}
+
+function _updateskel() {
+  if [[ -d /etc/skel ]]; then rm -r /etc/skel;fi
+  mkdir /etc/skel
+  cp -r ${local_setup}templates/skel/. /etc/skel
+}
+
+function _installdir() {
+  if [[ -d /install ]]; then cd / else mkdir /install;fi
+}
+
+function _updatemktorrent() {
+  if [[ ! -f /usr/local/bin/mktorrent ]]; then
+    if [[ -d /root/tmp ]]; then rm -r tmp;fi
+    mkdir /root/tmp && cd /root/tmp
+    mktorrent_version=1.1
+    wget --quiet https://github.com/Rudde/mktorrent/archive/v$mktorrent_version.zip -O mktorrent.zip  >>"${OUTTO}" 2>&1
+    unzip -o mktorrent.zip >>"${OUTTO}" 2>&1
+    cd mktorrent-1.1
+    make >>"${OUTTO}" 2>&1
+    make install >>"${OUTTO}" 2>&1
+    cd ..
+    rm -rf mktorrent-1.1 && rm -f mktorrent.zip
+  fi
+}
+
+function _updaterutorrent() {
+  cd /srv
+  #if [[ -d ${rutorrent} ]]; then rm -rf rutorrent;fi
+  #mkdir rutorrent
+  cp -R ${local_rutorrent}. rutorrent
+}
+
+function _updaterutorrent-plugins() {
+  cd ${rutorrent}
+  #if [[ -d ${rutorrent}plugins ]]; then rm -rf plugins;fi
+  #mkdir plugins
+  cp -R ${local_rplugins}. plugins
+}
+
+# function to install dashboard (23)
+function _updatedashboard() {
+  cd ${rutorrent}
+  if [[ -d ${rutorrent}home ]]; then rm -rf home;fi
+  cd && mkdir -p ${rutorrent}home
+  cp -R ${local_dashboard}. ${rutorrent}home
+}
+
+function _updatemasterdb() {
+  if [[ -f /etc/apache2/master.txt ]]; then cp /etc/apache2/master.txt ${rutorrent}home/db/master.txt;fi
+  printf "${IFACE}" > ${rutorrent}home/db/interface.txt
+}
+
+function _updatesudo() {
+  rm /etc/sudoers
+  cp ${local_setup}templates/sudoers.template /etc/sudoers
+  awk -v username="${M1}" '/^root/ && !x {print username    " ALL=(ALL:ALL) NOPASSWD: ALL"; x=1} 1' /etc/sudoers > /tmp/sudoers;mv /tmp/sudoers /etc
+}
+
+function _updatecronfile() {
+  cp ${local_setup}templates/startup.template /home/"${M1}"/.startup
+}
+
+function _updateboot() {
+  echo "*/1 * * * * root bash /usr/local/bin/quickbox/system/set_interface" > /etc/cron.d/set_interface
+}
+
+# adjust permissions function (9)
+function _perms() {
+  chown -R www-data /srv/rutorrent/*
+  chgrp -R www-data /srv/rutorrent/*
+  chmod -R g+rw /srv/rutorrent/*
+  sh -c 'find /srv/rutorrent/* -type d -print0 | sudo xargs -0 chmod g+s'
+  chmod +x /etc/cron.d/set_interface
+  chmod +x /home/"${M1}"/.startup
+}
+
+function _fin() {
+  echo;echo
+  echo -e " ${black}${on_green}    [quickbox] Seedbox & GUI Update Completed !   ${normal} "
+  echo;echo
+}
+
+clear
+
+local_setup=/etc/QuickBox/setup/
+local_packages=/etc/QuickBox/packages/
+local_rutorrent=/etc/QuickBox/rutorrent/
+local_rplugins=/etc/QuickBox/rtplugins/
+local_dashboard=/etc/QuickBox/dashboard/
+
+IFACE=$(ip link show|grep -i broadcast|grep -m1 UP|cut -d: -f 2|cut -d@ -f 1|sed -e 's/ //g');
+M1=$(cat /etc/apache2/master.txt) >> /dev/null 2>&1
+rutorrent=/srv/rutorrent/
+usrbin=/usr/local/bin/
+
+# QuickBox Update STRUCTURE
+echo
+echo ""
+echo "${bold}${magenta}    QuickBox will now upgrade, this will only take${normal}"
+echo "${bold}${magenta}    a few short seconds to complete.${normal}"
+echo ""
+echo -n "Sending update output to /etc/QuickBox.update.${cyan}$PPID${normal}.log ... ";_logcheck;echo
+_checkroot
+_askcontinue
+echo -n "Pulling QuickBox Ecosystem ... ";_downloadrepos;echo
+_bashrc
+echo -n "Updating QuickBox System Commands & Packages ... ";_updatesyscommands;echo
+echo -n "Updating the useradd skeleton directories ... ";_updateskel;echo
+echo -n "Looking for install directory for .lock files ... ";_installdir;echo
+echo -n "Updating mktorrent if necessary ... ";_updatemktorrent;echo
+echo -n "Updating the rutorrent directory ... ";_updaterutorrent;echo
+echo -n "Updating the QuickBox Dashboard ... ";_updatedashboard;echo
+echo -n "Setting up and updating Master DB files ... ";_updatemasterdb;echo
+echo -n "Updating the QuickBox Sudoers template ... ";_updatesudo;echo
+echo -n "Updating ${M1}'s .startup cronfile... ";_updatecronfile;echo
+echo -n "Updating QuickBox crons for boot ... ";_updateboot;echo
+echo -n "Adjusting permissions ... ";_perms;echo
+_fin

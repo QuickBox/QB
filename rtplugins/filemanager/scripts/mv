@@ -1,0 +1,35 @@
+#!/bin/bash
+
+
+if [ ! -d "$1" ]; then
+mkdir --mode=0777 -p "$1" || { echo "FATAL ERROR: temp dir creation failed"; exit; }
+
+elif [ ! -w "$2" ]; then
+
+echo "FATAL ERROR: Destination $2 not permitted"; 
+exit; 
+fi
+
+
+echo "$$" > "$1/pid";
+
+
+i=1;
+t=$(($#-2));
+
+
+
+for file in "${@:3}"; do
+
+echo "0: $i/$t moving: $file" >> "$1/log";
+mv -f --target-directory="$2" "$file" && echo "0: OK" >> "$1/log" || echo "0: FAILED" >> "$1/log"
+
+let i++
+
+done
+
+echo "1: Done" >> "$1/log"
+
+sleep 20
+
+rm -rf "$1"

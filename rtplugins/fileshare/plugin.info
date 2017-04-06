@@ -1,0 +1,6 @@
+plugin.description: File share plugin
+plugin.author: HWK
+plugin.version: 0.03
+rtorrent.remote: error
+rtorrent.external.error: php
+plugin.dependencies: filemanager

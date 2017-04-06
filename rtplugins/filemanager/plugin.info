@@ -1,0 +1,6 @@
+plugin.description: File Manager plugin.
+plugin.author: HWK
+plugin.version: 0.09
+rtorrent.remote: error
+rtorrent.external.error: php,pgrep
+web.external.error: unzip
