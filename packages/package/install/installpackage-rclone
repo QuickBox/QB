@@ -25,7 +25,8 @@ arch=$(arch)
 echo "Downloading rclone ... " >>"${OUTTO}" 2>&1;
 
 if [[ $arch == x86_64 ]]; then
-  current=$(curl -s -N http://rclone.org/downloads/ | grep -m1 linux-amd64 | cut -d\" -f2)
+  #current=$(curl -s -N http://downloads.rclone.org/ | grep -m1 linux-amd64 | cut -d\" -f2)
+  current=$(curl -O https://downloads.rclone.org/rclone-current-linux-amd64.zip)
   cd /tmp
   wget $current
   unzip rclone-*
