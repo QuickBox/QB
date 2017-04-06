@@ -1,0 +1,15 @@
+[Unit]
+Description=SickRage
+After=syslog.target network.target
+
+[Service]
+Type=forking
+GuessMainPID=no
+User=%I
+Group=%I
+ExecStart=/usr/bin/python /home/%I/.sickrage/SickBeard.py -q --daemon --nolaunch --datadir=/home/%I/.sickrage
+ExecStop=-/bin/kill -HUP
+
+
+[Install]
+WantedBy=multi-user.target

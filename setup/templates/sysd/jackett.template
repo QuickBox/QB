@@ -1,0 +1,14 @@
+[Unit]
+Description=jackett
+After=syslog.target network.target
+
+[Service]
+Type=forking
+KillMode=process
+User=%I
+ExecStart=/usr/bin/screen -f -a -d -m -S jackett mono /home/%I/Jackett/JackettConsole.exe
+ExecStop=-/bin/kill -HUP
+WorkingDirectory=/home/%I/
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,14 @@
+[Unit]
+Description=ConfigServer Firewall & Security - csf
+After=network.target
+Before=lfd.service
+
+[Service]
+User=root
+ExecStart=/usr/sbin/csf --initup
+ExecStop=/usr/sbin/csf --initdown ; /usr/sbin/csf --stop
+RemainAfterExit=yes
+Type=oneshot
+
+[Install]
+WantedBy=multi-user.target

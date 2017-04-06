@@ -1,0 +1,17 @@
+<Location /emby>
+  Satisfy Any
+  order deny,allow
+  deny from all
+  allow from all
+  ProxyPass http://localhost:8096/emby
+  ProxyPassReverse http://localhost:8096/emby
+</Location>
+
+<Location /embyws>
+  Satisfy Any
+  order deny,allow
+  deny from all
+  allow from all
+  ProxyPass ws://localhost:8096/embyws
+  ProxyPassReverse ws://localhost:8096/embyws
+</Location>

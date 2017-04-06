@@ -1,0 +1,14 @@
+[Unit]
+Description=Subsonic Sound-Server
+
+[Service]
+User=MASTER
+Group=MASTER
+WorkingDirectory=/srv/subsonic
+ExecStart=/usr/share/subsonic/subsonic.sh
+Restart=on-abort
+ExecStop=-/bin/kill -HUP
+PIDFile=/var/run/subsonic.pid
+
+[Install]
+WantedBy=multi-user.target

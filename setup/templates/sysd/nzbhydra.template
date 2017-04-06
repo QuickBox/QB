@@ -1,0 +1,17 @@
+[Unit]
+Description=NZBHydra
+Documentation=https://github.com/theotherp/nzbhydra
+After=syslog.target network.target
+
+[Service]
+Type=forking
+KillMode=control-group
+User=%I
+Group=%I
+ExecStart=/usr/bin/python /home/%I/nzbhydra/nzbhydra.py --daemon --nobrowser --pidfile /home/%I/.nzbhydra/nzbhydra.pid --logfile /home/%I/.nzbhydra/nzbhydra.log --database /home/%I/.nzbhydra/nzbhydra.db --config /home/%I/.nzbhydra/settings.cfg
+GuessMainPID=no
+ExecStop=-/bin/kill -HUP
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,15 @@
+[Unit]
+Description=Quassel Core
+After=network.target
+
+[Service]
+User=%I
+Group=quassel
+PIDFile=/var/run/quasselcore.pid
+EnvironmentFile=/etc/default/quasselcore
+ExecStart=/usr/bin/quasselcore --listen=127.0.0.1 --configdir=/var/lib/quassel --logfile=/var/log/quassel/core.log --loglevel=Info --port=4747
+#Use following line to force SSL
+#ExecStart=/usr/bin/quasselcore --listen=127.0.0.1 --require-ssl --configdir=/var/lib/quassel
+
+[Install]
+WantedBy=multi-user.target

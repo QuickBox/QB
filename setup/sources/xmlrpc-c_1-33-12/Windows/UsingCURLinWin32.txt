@@ -1,0 +1,73 @@
+Motivation:
+
+Let’s say you need to have a Xmlrpc-c client running as a service.  In this
+situation you cannot use WinInet.  You can find details of the restriction on
+the Curl website or various Microsoft KB articles.  Your alternative is to use
+the Curl HTTP client library.  This document tells how to use use the Curl
+library instead of the default Wininet as your client XML transport mechanism.
+
+Overview:
+
+The default projects in Xmlrpc-c create standalone executables that do not
+require other DLL’s.  Therefore, we need to create static link libraries for
+libcurl.  Once we create the link libraries, we add them (plus the requisite
+curl headers) into the Xmlrpc-c project.  Finally, we configure the build to
+build the curl transport and build client libraries that use it.  Finally, we
+build and test the project.
+
+
+BUILD THE CURL LIBRARY
+----------------------
+
+Download the Curl source code.  Run the buildconf.bat to generate some
+additional files.  This builds a 'dummy' hugehelp.c, but it can also be built
+using the src\mkhelp.pl Perl script. You may have to build your own VCPROJ
+file for CURL, if you want to use MSVC.
+
+To build all the CURL library variations, use
+
+  > nmake /nologo vc-all 
+
+but note this will use the /MD[d] DLL runtime. Only by adding
+RTCFGLIB=static to each of the makefile commands will /MT[d] be
+used.
+
+Essentially, for building the static Debug or Release CURL libraries, it is
+all the sources in the curl\lib folder. Make sure you choose /MT and /MTd for
+the runtime, and build both using the name 'libcurl.lib'.
+
+
+BUILD XMLRPC-C, LINK WITH CURL
+------------------------------
+
+From the step above, you have Debug\libcurl.lib and Release\libcurl.lib.
+
+After running xmlrpc-c\Windows\configurewin32.bat, start Visual Studio.
+
+In the File View, in the 'xmlrpc' project, in the properties of
+xmlrpc_curl_transport.c, change "Exclude file from build" from "yes" to "no",
+for Debug and Release.  ==>BUT NOTE: as late as Xmlrpc-c 1.30, this is
+broken - there is no xmlrpc_curl_transport.c in the projects.  You need to
+add it.  If you do, please send your changes to the Xmlrpc-c maintainer to
+help the next person.
+
+In the 'Header Files' section, open the "transport_config.h" file,
+and change MUST_BUILD_CURL_CLIENT to 1, and the XMLRPC_DEFAULT_TRANSPORT
+to "curl", if you want.
+
+As usual, for each of the "client" projects, and 'rpctest', in the properties,
+Linker section, you can add the library libcurl.lib on the Input tab, and the
+relative path to the library in the General tab to something like -
+..\..\curl\Debug and ..\..\curl\Release (or wherever you placed the static
+Curl libraries you built if you didn't follow recommendations above).
+
+Or you can adjust the Windows/curlink.h, to directly point to your respective
+Debug and Release static Curl libraries.
+
+Now, Xmlrpc-c should build using the Curl transport.
+
+Note, for the final linking, all libraries must be linked the same.  A mixture
+of /MD and /MT will give big linkage problems. Any one project built with the
+alterate library will show many items defined more than once. And of course,
+you also cannot mix Debug with Release. That is /MDd with /MD, nor /MTd with
+/MT.  Otherwise, there will be unresolved debug items.

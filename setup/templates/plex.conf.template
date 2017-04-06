@@ -1,0 +1,20 @@
+LoadModule proxy_module /usr/lib/apache2/modules/mod_proxy.so
+LoadModule proxy_http_module /usr/lib/apache2/modules/mod_proxy_http.so
+<VirtualHost *:31400>
+  ProxyRequests Off
+  ProxyPreserveHost On
+  <Proxy *>
+    AddDefaultCharset Off
+    Order deny,allow
+    Allow from all
+    AuthType Digest
+    AuthName "rutorrent"
+    AuthUserFile '/etc/htpasswd'
+    Require valid-user
+  </Proxy>
+  ProxyPass / http://PUBLICIP:32400/
+  ProxyPassReverse / http://PUBLICIP:32400/
+</VirtualHost>
+<IfModule mod_proxy.c>
+    Listen 31400
+</IfModule>

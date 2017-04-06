@@ -1,0 +1,23 @@
+# -- START HERE --
+directory.default.set = /home/USERNAME/torrents/rtorrent
+encoding.add = UTF-8
+encryption = allow_incoming,try_outgoing,enable_retry
+execute.nothrow = chmod,777,/home/USERNAME/.config/rpc.socket
+execute.nothrow = chmod,777,/home/USERNAME/.sessions
+network.port_random.set = yes
+network.port_range.set = XXX-YYY
+network.scgi.open_port = localhost:XXX
+network.tos.set = throughput
+pieces.hash.on_completion.set = no
+protocol.pex.set = no
+schedule = watch_directory,5,5,load.start=/home/USERNAME/rwatch/*.torrent
+session.path.set = /home/USERNAME/.sessions/
+throttle.global_down.max_rate.set = 0
+throttle.global_up.max_rate.set = 0
+throttle.max_peers.normal.set = 100
+throttle.max_peers.seed.set = -1
+throttle.max_uploads.global.set = 100
+throttle.min_peers.normal.set = 1
+throttle.min_peers.seed.set = -1
+trackers.use_udp.set = yes
+# -- END HERE --

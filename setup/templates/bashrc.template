@@ -1,0 +1,2004 @@
+
+#  This file is normally read by interactive shells only.
+#+ Here is the place to define your aliases, functions and
+#+ other interactive features like your prompt.
+#
+#  The choice of colors was done for a shell with a dark background
+#+ (white on black), and this is usually also suited for pure text-mode
+#+ consoles (no X server available). If you use a white background,
+#+ you'll have to do some other choices for readability.
+#
+#  In addition to the aliases and prompts to make your shell experience
+#+ with QuickBox an easy and enjoyable one, there are additional
+#+ functions towards the bottom of this file that are necessary
+#+ to the working order of your QuickBox install. It is advisable
+#+ that unless you know what you are doing, this file remain untouched.
+# =============================================================== #
+
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+QUICKBOX_VERSION=2.4.9
+
+export TERM=xterm;TERM=xterm
+export PATH=/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/quickbox/.bin/:/usr/local/bin/quickbox/:/usr/local/bin/quickbox/package/:/usr/local/bin/quickbox/package/install/:/usr/local/bin/quickbox/package/remove/:/usr/local/bin/quickbox/plugin/:/usr/local/bin/quickbox/plugin/install/:/usr/local/bin/quickbox/plugin/remove/:/usr/local/bin/quickbox/system/:/usr/local/bin/quickbox/system/lang/
+
+EDITOR=nano; export EDITOR=nano
+
+#-------------------------------------------------------------
+# Source global definitions (if any)
+#-------------------------------------------------------------
+
+
+if [ -f /etc/bashrc ]; then
+      . /etc/bashrc   # --> Read /etc/bashrc, if present.
+fi
+
+
+#--------------------------------------------------------------
+#  Automatic setting of $DISPLAY (if not set already).
+#  This works for me - your mileage may vary. . . .
+#  The problem is that different types of terminals give
+#+ different answers to 'who am i' (rxvt in particular can be
+#+ troublesome) - however this code seems to work in a majority
+#+ of cases.
+#--------------------------------------------------------------
+
+function get_xserver ()
+{
+    case $TERM in
+        xterm )
+            XSERVER=$(who am i | awk '{print $NF}' | tr -d ')''(' )
+            # Ane-Pieter Wieringa suggests the following alternative:
+            #  I_AM=$(who am i)
+            #  SERVER=${I_AM#*(}
+            #  SERVER=${SERVER%*)}
+            XSERVER=${XSERVER%%:*}
+            ;;
+            aterm | rxvt)
+            # Find some code that works here. ...
+            ;;
+    esac
+}
+
+if [ -z ${DISPLAY:=""} ]; then
+    get_xserver
+    if [[ -z ${XSERVER}  || ${XSERVER} == $(hostname) ||
+       ${XSERVER} == "unix" ]]; then
+          DISPLAY=":0.0"          # Display on local host.
+    else
+       DISPLAY=${XSERVER}:0.0     # Display on remote host.
+    fi
+fi
+
+export DISPLAY
+
+#-------------------------------------------------------------
+# Some settings
+#-------------------------------------------------------------
+
+#set -o nounset     # These  two options are useful for debugging.
+#set -o xtrace
+alias debug="set -o nounset; set -o xtrace"
+
+ulimit -S -c 0      # Don't want coredumps.
+set -o notify
+#set -o noclobber
+set -o ignoreeof
+
+
+# Enable options:
+shopt -s cdspell
+shopt -s cdable_vars
+shopt -s checkhash
+shopt -s checkwinsize
+shopt -s sourcepath
+shopt -s no_empty_cmd_completion
+shopt -s cmdhist
+shopt -s histappend histreedit histverify
+shopt -s extglob       # Necessary for programmable completion.
+
+# Disable options:
+shopt -u mailwarn
+unset MAILCHECK        # Don't want my shell to warn me of incoming mail.
+
+
+#-------------------------------------------------------------
+# Greeting, motd etc. ...
+#-------------------------------------------------------------
+
+# Color definitions (taken from Color Bash Prompt HowTo).
+# Some colors might look different of some terminals.
+# For example, I see 'Bold Red' as 'orange' on my screen,
+# hence the 'Green' 'BRed' 'Red' sequence I often use in my prompt.
+
+
+# Normal Colors
+Black='\e[0;30m'        # Black
+Red='\e[0;31m'          # Red
+Green='\e[0;32m'        # Green
+Yellow='\e[0;33m'       # Yellow
+Blue='\e[0;34m'         # Blue
+Purple='\e[0;35m'       # Purple
+Cyan='\e[0;36m'         # Cyan
+White='\e[0;37m'        # White
+
+# Bold
+BBlack='\e[1;30m'       # Black
+BRed='\e[1;31m'         # Red
+BGreen='\e[1;32m'       # Green
+BYellow='\e[1;33m'      # Yellow
+BBlue='\e[1;34m'        # Blue
+BPurple='\e[1;35m'      # Purple
+BCyan='\e[1;36m'        # Cyan
+BWhite='\e[1;37m'       # White
+
+# Background
+On_Black='\e[40m'       # Black
+On_Red='\e[41m'         # Red
+On_Green='\e[42m'       # Green
+On_Yellow='\e[43m'      # Yellow
+On_Blue='\e[44m'        # Blue
+On_Purple='\e[45m'      # Purple
+On_Cyan='\e[46m'        # Cyan
+On_White='\e[47m'       # White
+
+NC="\e[m"               # Color Reset
+
+
+  ALERT=${BWhite}${On_Red} # Bold White on red background
+  date=`date`
+
+
+  echo ""
+  echo ""
+  echo "|========================================================================|"
+  echo "|------------------------------------------------------------------------|"
+  echo "|  ###################   This Server is OFF limits   ####################|"
+  echo "|------------------------------------------------------------------------|"
+  echo -e "     ${BCyan}You are running QuickBox v${BRed}${QUICKBOX_VERSION}${NC}"
+  echo -e "     ${BCyan}Your logged IP is ${BRed}$DISPLAY${NC}"
+  echo -e "     ${BCyan}Your BASH version is ${BRed}${BASH_VERSION%.*}${BCyan}${NC}"
+  echo "     $date"
+  echo "|========================================================================|"
+  echo ""
+  echo ""
+
+
+  ##echo ""
+  ##echo ""
+  ##echo "|========================================================================|"
+  ##echo -e "        ${BCyan}You are running QuickBox v${BRed}${QUICKBOX_VERSION}${BCyan} - on ${BRed}$DISPLAY${NC}          "
+  ##echo -e "                    ${BCyan}Your BASH version is ${BRed}${BASH_VERSION%.*}${BCyan}${NC}                             "
+  ##echo "                  $date                           "
+  ##echo "|------------------------------------------------------------------------|"
+  ##echo "|  Just type any one of the following commands                           |"
+  ##echo "|  to turn on different bash prompts                                     |"
+  ##echo "|------------------------------------------------------------------------|"
+  ##echo -e "|  ${BGreen}commandprompt_on${NC}                                                      |"
+  ##echo "|  this prompt shows last command used & more                            |"
+  ##echo -e "|  ${BGreen}powerprompt_on${NC} (default)                                              |"
+  ##echo "|  this prompt shows colorful system data - cpu, load etc.               |"
+  ##echo -e "|  ${BGreen}basicprompt_on${NC}                                                        |"
+  ##echo "|  this prompt shows color coded load & cpu avg                          |"
+  ##echo -e "|  ${BGreen}prompt_OFF${NC}                                                            |"
+  ##echo "|  this turns off prompts and goes back to default                       |"
+  ##echo "|========================================================================|"
+  ##echo ""
+  ##echo ""
+
+if [ -x /usr/games/fortune ]; then
+    /usr/games/fortune -s     # Makes our day a bit more fun.... :-)
+fi
+
+function _exit()              # Function to run upon exit of shell.
+{
+    echo -e "${BRed}See ya on the flipside jive-turkey${NC}"
+}
+trap _exit EXIT
+
+#-------------------------------------------------------------
+# Shell Prompt - for many examples, see:
+#       http://www.debian-administration.org/articles/205
+#       http://www.askapache.com/linux/bash-power-prompt.html
+#       http://tldp.org/HOWTO/Bash-Prompt-HOWTO
+#       https://github.com/nojhan/liquidprompt
+#-------------------------------------------------------------
+# Current Format: [TIME USER@HOST PWD] >
+# TIME:
+#    Green     == machine load is low
+#    Orange    == machine load is medium
+#    Red       == machine load is high
+#    ALERT     == machine load is very high
+# USER:
+#    Cyan      == normal user
+#    Orange    == SU to user
+#    Red       == root
+# HOST:
+#    Cyan      == local session
+#    Green     == secured remote connection (via ssh)
+#    Red       == unsecured remote connection
+# PWD:
+#    Green     == more than 10% free disk space
+#    Orange    == less than 10% free disk space
+#    ALERT     == less than 5% free disk space
+#    Red       == current user does not have write privileges
+#    Cyan      == current filesystem is size zero (like /proc)
+# >:
+#    White     == no background or suspended jobs in this shell
+#    Cyan      == at least one background job in this shell
+#    Orange    == at least one suspended job in this shell
+#
+#    Command is added to the history file each time you hit enter,
+#    so it's available to all shells (using 'history -a').
+
+
+# Test connection type:
+if [ -n "${SSH_CONNECTION}" ]; then
+    CNX=${Green}        # Connected on remote machine, via ssh (good).
+elif [[ "${DISPLAY%%:0*}" != "" ]]; then
+    CNX=${ALERT}        # Connected on remote machine, not via ssh (bad).
+else
+    CNX=${BCyan}        # Connected on local machine.
+fi
+
+# Test user type:
+if [[ ${USER} == "root" ]]; then
+    SU=${Red}           # User is root.
+elif [[ ${USER} != $(logname) ]]; then
+    SU=${BRed}          # User is not login user.
+else
+    SU=${BCyan}         # User is normal (well ... most of us are).
+fi
+
+
+
+NCPU=$(grep -c 'processor' /proc/cpuinfo)    # Number of CPUs
+SLOAD=$(( 100*${NCPU} ))        # Small load
+MLOAD=$(( 200*${NCPU} ))        # Medium load
+XLOAD=$(( 400*${NCPU} ))        # Xlarge load
+
+# Returns system load as percentage, i.e., '40' rather than '0.40)'.
+function load()
+{
+    local SYSLOAD=$(cut -d " " -f1 /proc/loadavg | tr -d '.')
+    # System load of the current host.
+    echo $((10#$SYSLOAD))       # Convert to decimal.
+}
+
+# Returns a color indicating system load.
+function load_color()
+{
+    local SYSLOAD=$(load)
+    if [ ${SYSLOAD} -gt ${XLOAD} ]; then
+        echo -en ${ALERT}
+    elif [ ${SYSLOAD} -gt ${MLOAD} ]; then
+        echo -en ${Red}
+    elif [ ${SYSLOAD} -gt ${SLOAD} ]; then
+        echo -en ${BRed}
+    else
+        echo -en ${Green}
+    fi
+}
+
+# Returns a color according to free disk space in $PWD.
+function disk_color()
+{
+    if [ ! -w "${PWD}" ] ; then
+        echo -en ${Red}
+        # No 'write' privilege in the current directory.
+    elif [ -s "${PWD}" ] ; then
+        local used=$(command df -P "$PWD" |
+                   awk 'END {print $5} {sub(/%/,"")}')
+        if [ ${used} -gt 95 ]; then
+            echo -en ${ALERT}           # Disk almost full (>95%).
+        elif [ ${used} -gt 90 ]; then
+            echo -en ${BRed}            # Free disk space almost gone.
+        else
+            echo -en ${Green}           # Free disk space is ok.
+        fi
+    else
+        echo -en ${Cyan}
+        # Current directory is size '0' (like /proc, /sys etc).
+    fi
+}
+
+# Returns a color according to running/suspended jobs.
+function job_color()
+{
+    if [ $(jobs -s | wc -l) -gt "0" ]; then
+        echo -en ${BRed}
+    elif [ $(jobs -r | wc -l) -gt "0" ] ; then
+        echo -en ${BCyan}
+    fi
+}
+
+# Adds some text in the terminal frame (if applicable).
+
+
+# Now we construct the prompt.
+
+## ---> Command Prompt
+commandprompt_on() {
+export PROMPT_COMMAND='export H1="`history 1|sed -e "s/^[\ 0-9]*//; s/[\d0\d31\d34\d39\d96\d127]*//g; s/\(.\{1,50\}\).*$/\1/g"`";history -a;echo -e "sgr0\ncnorm\nrmso"|tput -S'
+export PS1='\n\e[1;30m[\j:\!\e[1;30m]\e[0;36m \T \d \e[1;30m[\e[1;34m\u@\H\e[1;30m:\e[0;37m`tty 2>/dev/null` \e[0;32m+${SHLVL}\e[1;30m] \e[1;37m\w\e[0;37m\[\033]0;[ ${H1}... ] \w - \u@\H +$SHLVL @`tty 2>/dev/null` - [ `uptime` ]\007\]\n\[\]\$ '
+}
+
+## ---> Power Prompt
+powerprompt_on() {
+export AA_P="export PVE=\"\\033[m\\033[38;5;2m\"\$(( \`sed -n \"s/MemFree:[\\t ]\\+\\([0-9]\\+\\) kB/\\1/p\" /proc/meminfo\` / 1024 ))\"\\033[38;5;22m/\"\$((\`sed -n \"s/MemTotal:[\\t ]\\+\\([0-9]\\+\\) kB/\\1/p\" /proc/meminfo\`/ 1024 ))MB\"\\t\\033[m\\033[38;5;55m\$(< /proc/loadavg)\\033[m\";echo -en \"\"" \
+export PROMPT_COMMAND="history -a;((\$SECONDS % 10==0 ))&&eval \"\$AA_P\";echo -en \"\$PVE\";" \
+export PS1="\\[\\e[m\\n\\e[1;30m\\][\$\$:\$PPID \\j:\\!\\[\\e[1;30m\\]]\\[\\e[0;36m\\] \\T \\d \\[\\e[1;30m\\][\\[\\e[1;34m\\]\\u@\\H\\[\\e[1;30m\\]\\[\\e[1;30m\\]] \\[\\e[1;37m\\]\\w\\[\\e[0;37m\\] \\n(\$SHLVL:\\!)\\\$ " \
+export PVE="\\033[m\\033[38;5;2m813\\033[38;5;22m/1024MB\\t\\033[m\\033[38;5;55m0.25 0.22 0.18 1/66 26820\\033[m" && eval $AA_P
+}
+
+basicprompt_on() {
+PROMPT_COMMAND="history -a"
+case ${TERM} in
+  *term | rxvt | linux)
+        PS1="\[\$(load_color)\][\A\[${NC}\] "
+        # Time of day (with load info):
+        PS1="\[\$(load_color)\][\A\[${NC}\] "
+        # User@Host (with connection type info):
+        PS1=${PS1}"\[${SU}\]\u\[${NC}\]@\[${CNX}\]\h\[${NC}\] "
+        # PWD (with 'disk space' info):
+        PS1=${PS1}"\[\$(disk_color)\]\W]\[${NC}\] "
+        # Prompt (with 'job' info):
+        PS1=${PS1}"\[\$(job_color)\]>\[${NC}\] "
+        # Set title of current xterm:
+        PS1=${PS1}"\[\e]0;[\u@\h] \w\a\]"
+        ;;
+    *)
+        PS1="(\A \u@\h \W) > " # --> PS1="(\A \u@\h \w) > "
+                               # --> Shows full pathname of current dir.
+        ;;
+esac
+}
+
+prompt_OFF() {
+PROMPT_COMMAND="history -a"
+PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '
+#PSTMP=${PS1}
+#PS1='[${USER}@${HOSTNAME}]'
+umask 022
+
+# You may uncomment the following lines if you want `ls' to be colorized:
+export LS_OPTIONS='--color=auto'
+eval "`dircolors`"
+}
+
+
+export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
+export HISTIGNORE="&:bg:fg:ll:h"
+export HISTTIMEFORMAT="$(echo -e ${BCyan})[%d/%m %H:%M:%S]$(echo -e ${NC}) "
+export HISTCONTROL=ignoredups
+export HOSTFILE=$HOME/.hosts    # Put a list of remote hosts in ~/.hosts
+
+#============================================================
+#
+#  ALIASES AND FUNCTIONS
+#
+#  Arguably, some functions defined here are quite big.
+#  If you want to make this file smaller, these functions can
+#+ be converted into scripts and removed from here.
+#
+#============================================================
+
+#-------------------
+# Personnal Aliases
+#-------------------
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+# -> Prevents accidentally clobbering files.
+alias mkdir='mkdir -p'
+
+alias h='history'
+alias j='jobs -l'
+alias which='type -a'
+alias ..='cd ..'
+
+# Pretty-print of some PATH variables:
+alias path='echo -e ${PATH//:/\\n}'
+alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
+
+
+alias du='du -kh'    # Makes a more readable output.
+alias df='df -kTh'
+
+# -> Navigates to set QuickBox trees.
+alias Qsetup='cd ~/QuickBox/setup'
+alias Qpackages='cd ~/QuickBox/packages'
+alias Qrutorrent='cd ~/QuickBox/rutorrent'
+alias Qdashboard='cd ~/QuickBox/dashboard'
+alias Qrtplugins='cd ~/QuickBox/rtplugins'
+
+# -> Navigates to set QuickBox directories.
+alias rutorrent='cd /srv/rutorrent'
+alias dashboard='cd /srv/rutorrent/home'
+alias syscommands='cd /usr/local/bin/quickbox'
+
+# -> Performs some quick adjustments for certain conditions.
+home_diskwidget() {
+  rm -f /srv/rutorrent/home/widgets/disk_data.php
+  cp /etc/QuickBox/dashboard/widgets/disk_datah.php /srv/rutorrent/home/widgets/disk_data.php
+  chown www-data: /srv/rutorrent/home/widgets/disk_data.php
+  service apache2 restart
+}
+root_diskwidget() {
+  rm -f /srv/rutorrent/home/widgets/disk_data.php
+  cp /etc/QuickBox/dashboard/widgets/disk_data.php /srv/rutorrent/home/widgets/disk_data.php
+  chown www-data: /srv/rutorrent/home/widgets/disk_data.php
+  service apache2 restart
+}
+
+alias fix-disk_widget_home='home_diskwidget'
+alias fix-disk_widget_root='root_diskwidget'
+
+#-------------------------------------------------------------
+# The 'ls' family (this assumes you use a recent GNU ls).
+#-------------------------------------------------------------
+# Add colors for filetype and  human-readable sizes by default on 'ls':
+alias ls='ls -h --color'
+alias lx='ls -lXB'         #  Sort by extension.
+alias lk='ls -lSr'         #  Sort by size, biggest last.
+alias lt='ls -ltr'         #  Sort by date, most recent last.
+alias lc='ls -ltcr'        #  Sort by/show change time,most recent last.
+alias lu='ls -ltur'        #  Sort by/show access time,most recent last.
+
+# The ubiquitous 'll': directories first, with alphanumeric sorting:
+alias ll="ls -lv --group-directories-first"
+alias lm='ll |more'        #  Pipe through 'more'
+alias lr='ll -R'           #  Recursive ls.
+alias la='ll -A'           #  Show hidden files.
+alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
+
+
+#-------------------------------------------------------------
+# Tailoring 'less'
+#-------------------------------------------------------------
+
+alias more='less'
+export PAGER=less
+export LESSCHARSET='latin1'
+export LESSOPEN='|/usr/bin/lesspipe.sh %s 2>&-'
+                # Use this if lesspipe.sh exists.
+export LESS='-i -N -w  -z-4 -g -e -M -X -F -R -P%t?f%f \
+:stdin .?pb%pb\%:?lbLine %lb:?bbByte %bb:-...'
+
+# LESS man page colors (makes Man pages more readable).
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
+
+
+#-------------------------------------------------------------
+# Spelling typos - highly personnal and keyboard-dependent :-)
+#-------------------------------------------------------------
+
+alias xs='cd'
+alias vf='cd'
+alias moer='more'
+alias moew='more'
+alias kk='ll'
+
+
+#-------------------------------------------------------------
+# A few fun ones
+#-------------------------------------------------------------
+
+# Adds some text in the terminal frame (if applicable).
+
+function xtitle()
+{
+    case "$TERM" in
+    *term* | rxvt)
+        echo -en  "\e]0;$*\a" ;;
+    *)  ;;
+    esac
+}
+
+
+# Aliases that use xtitle
+alias top='xtitle Processes on $HOST && top'
+alias make='xtitle Making $(basename $PWD) ; make'
+
+# .. and functions
+function man()
+{
+    for i ; do
+        xtitle The $(basename $1|tr -d .[:digit:]) manual
+        command man -a "$i"
+    done
+}
+
+
+#-------------------------------------------------------------
+# Make the following commands run in background automatically:
+#-------------------------------------------------------------
+
+function te()  # wrapper around xemacs/gnuserv
+{
+    if [ "$(gnuclient -batch -eval t 2>&-)" == "t" ]; then
+       gnuclient -q "$@";
+    else
+       ( xemacs "$@" &);
+    fi
+}
+
+function soffice() { command soffice "$@" & }
+function firefox() { command firefox "$@" & }
+function xpdf() { command xpdf "$@" & }
+
+
+#-------------------------------------------------------------
+# File & strings related functions:
+#-------------------------------------------------------------
+
+
+# Find a file with a pattern in name:
+function ff() { find . -type f -iname '*'"$*"'*' -ls ; }
+
+# Find a file with pattern $1 in name and Execute $2 on it:
+function fe() { find . -type f -iname '*'"${1:-}"'*' \
+-exec ${2:-file} {} \;  ; }
+
+#  Find a pattern in a set of files and highlight them:
+#+ (needs a recent version of egrep).
+function fstr()
+{
+    OPTIND=1
+    local mycase=""
+    local usage="fstr: find string in files.
+Usage: fstr [-i] \"pattern\" [\"filename pattern\"] "
+    while getopts :it opt
+    do
+        case "$opt" in
+           i) mycase="-i " ;;
+           *) echo "$usage"; return ;;
+        esac
+    done
+    shift $(( $OPTIND - 1 ))
+    if [ "$#" -lt 1 ]; then
+        echo "$usage"
+        return;
+    fi
+    find . -type f -name "${2:-*}" -print0 | \
+xargs -0 egrep --color=always -sn ${case} "$1" 2>&- | more
+
+}
+
+
+function swap()
+{ # Swap 2 filenames around, if they exist (from Uzi's bashrc).
+    local TMPFILE=tmp.$$
+
+    [ $# -ne 2 ] && echo "swap: 2 arguments needed" && return 1
+    [ ! -e $1 ] && echo "swap: $1 does not exist" && return 1
+    [ ! -e $2 ] && echo "swap: $2 does not exist" && return 1
+
+    mv "$1" $TMPFILE
+    mv "$2" "$1"
+    mv $TMPFILE "$2"
+}
+
+function extract()      # Handy Extract Program
+{
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)   tar xvjf $1     ;;
+            *.tar.gz)    tar xvzf $1     ;;
+            *.bz2)       bunzip2 $1      ;;
+            *.rar)       unrar x $1      ;;
+            *.gz)        gunzip $1       ;;
+            *.tar)       tar xvf $1      ;;
+            *.tbz2)      tar xvjf $1     ;;
+            *.tgz)       tar xvzf $1     ;;
+            *.zip)       unzip $1        ;;
+            *.Z)         uncompress $1   ;;
+            *.7z)        7z x $1         ;;
+            *)           echo "'$1' cannot be extracted via >extract<" ;;
+        esac
+    else
+        echo "'$1' is not a valid file!"
+    fi
+}
+
+
+# Creates an archive (*.tar.gz) from given directory.
+function maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
+
+# Create a ZIP archive of a file or folder.
+function makezip() { zip -r "${1%%/}.zip" "$1" ; }
+
+# Make your directories and files access rights sane.
+function sanitize() { chmod -R u=rwX,g=rX,o= "$@" ;}
+
+#-------------------------------------------------------------
+# Process/system related functions:
+#-------------------------------------------------------------
+
+
+function my_ps() { ps $@ -u $USER -o pid,%cpu,%mem,bsdtime,command ; }
+function pp() { my_ps f | awk '!/awk/ && $0~var' var=${1:-".*"} ; }
+
+
+function killps()   # kill by process name
+{
+    local pid pname sig="-TERM"   # default signal
+    if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
+        echo "Usage: killps [-SIGNAL] pattern"
+        return;
+    fi
+    if [ $# = 2 ]; then sig=$1 ; fi
+    for pid in $(my_ps| awk '!/awk/ && $0~pat { print $1 }' pat=${!#} )
+    do
+        pname=$(my_ps | awk '$1~var { print $5 }' var=$pid )
+        if ask "Kill process $pid <$pname> with signal $sig?"
+            then kill $sig $pid
+        fi
+    done
+}
+
+function mydf()         # Pretty-print of 'df' output.
+{                       # Inspired by 'dfc' utility.
+    for fs ; do
+
+        if [ ! -d $fs ]
+        then
+          echo -e $fs" :No such file or directory" ; continue
+        fi
+
+        local info=( $(command df -P $fs | awk 'END{ print $2,$3,$5 }') )
+        local free=( $(command df -Pkh $fs | awk 'END{ print $4 }') )
+        local nbstars=$(( 20 * ${info[1]} / ${info[0]} ))
+        local out="["
+        for ((j=0;j<20;j++)); do
+            if [ ${j} -lt ${nbstars} ]; then
+               out=$out"*"
+            else
+               out=$out"-"
+            fi
+        done
+        out=${info[2]}" "$out"] ("$free" free on "$fs")"
+        echo -e $out
+    done
+}
+
+
+function my_ip() # Get IP adress on ethernet.
+{
+    MY_IP=$(/sbin/ifconfig eth0 | awk '/inet/ { print $2 } ' |
+      sed -e s/addr://)
+    echo ${MY_IP:-"Not connected"}
+}
+
+function ii()   # Get current host related info.
+{
+    echo -e "\nYou are logged on ${BRed}$HOST"
+    echo -e "\n${BRed}Additionnal information:$NC " ; uname -a
+    echo -e "\n${BRed}Users logged on:$NC " ; w -hs |
+             cut -d " " -f1 | sort | uniq
+    echo -e "\n${BRed}Current date :$NC " ; date
+    echo -e "\n${BRed}Machine stats :$NC " ; uptime
+    echo -e "\n${BRed}Memory stats :$NC " ; free
+    echo -e "\n${BRed}Diskspace :$NC " ; mydf / $HOME
+    echo -e "\n${BRed}Local IP Address :$NC" ; my_ip
+    echo -e "\n${BRed}Open connections :$NC "; netstat -pan --inet;
+    echo
+}
+
+#-------------------------------------------------------------
+# Misc utilities:
+#-------------------------------------------------------------
+
+function repeat()       # Repeat n times command.
+{
+    local i max
+    max=$1; shift;
+    for ((i=1; i <= max ; i++)); do  # --> C-like syntax
+        eval "$@";
+    done
+}
+
+
+function ask()          # See 'killps' for example of use.
+{
+    echo -n "$@" '[y/n] ' ; read ans
+    case "$ans" in
+        y*|Y*) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
+function corename()   # Get name of app that created a corefile.
+{
+    for file ; do
+        echo -n $file : ; gdb --core=$file --batch | head -1
+    done
+}
+
+
+
+#=========================================================================
+#
+#  PROGRAMMABLE COMPLETION SECTION
+#  Most are taken from the bash 2.05 documentation and from Ian McDonald's
+# 'Bash completion' package (http://www.caliban.org/bash/#completion)
+#  You will in fact need bash more recent then 3.0 for some features.
+#
+#  Note that most linux distributions now provide many completions
+# 'out of the box' - however, you might need to make your own one day,
+#  so I kept those here as examples.
+#=========================================================================
+
+if [ "${BASH_VERSION%.*}" \< "3.0" ]; then
+    echo "You will need to upgrade to version 3.0 for full \
+          programmable completion features"
+    return
+fi
+
+shopt -s extglob        # Necessary.
+
+complete -A hostname   rsh rcp telnet rlogin ftp ping disk
+complete -A export     printenv
+complete -A variable   export local readonly unset
+complete -A enabled    builtin
+complete -A alias      alias unalias
+complete -A function   function
+complete -A user       su mail finger
+
+complete -A helptopic  help     # Currently same as builtins.
+complete -A shopt      shopt
+complete -A stopped -P '%' bg
+complete -A job -P '%'     fg jobs disown
+
+complete -A directory  mkdir rmdir
+complete -A directory   -o default cd
+
+# Compression
+complete -f -o default -X '*.+(zip|ZIP)'  zip
+complete -f -o default -X '!*.+(zip|ZIP)' unzip
+complete -f -o default -X '*.+(z|Z)'      compress
+complete -f -o default -X '!*.+(z|Z)'     uncompress
+complete -f -o default -X '*.+(gz|GZ)'    gzip
+complete -f -o default -X '!*.+(gz|GZ)'   gunzip
+complete -f -o default -X '*.+(bz2|BZ2)'  bzip2
+complete -f -o default -X '!*.+(bz2|BZ2)' bunzip2
+complete -f -o default -X '!*.+(zip|ZIP|z|Z|gz|GZ|bz2|BZ2)' extract
+
+
+# Documents - Postscript,pdf,dvi.....
+complete -f -o default -X '!*.+(ps|PS)'  gs ghostview ps2pdf ps2ascii
+complete -f -o default -X \
+'!*.+(dvi|DVI)' dvips dvipdf xdvi dviselect dvitype
+complete -f -o default -X '!*.+(pdf|PDF)' acroread pdf2ps
+complete -f -o default -X '!*.@(@(?(e)ps|?(E)PS|pdf|PDF)?\
+(.gz|.GZ|.bz2|.BZ2|.Z))' gv ggv
+complete -f -o default -X '!*.texi*' makeinfo texi2dvi texi2html texi2pdf
+complete -f -o default -X '!*.tex' tex latex slitex
+complete -f -o default -X '!*.lyx' lyx
+complete -f -o default -X '!*.+(htm*|HTM*)' lynx html2ps
+complete -f -o default -X \
+'!*.+(doc|DOC|xls|XLS|ppt|PPT|sx?|SX?|csv|CSV|od?|OD?|ott|OTT)' soffice
+
+# Multimedia
+complete -f -o default -X \
+'!*.+(gif|GIF|jp*g|JP*G|bmp|BMP|xpm|XPM|png|PNG)' xv gimp ee gqview
+complete -f -o default -X '!*.+(mp3|MP3)' mpg123 mpg321
+complete -f -o default -X '!*.+(ogg|OGG)' ogg123
+complete -f -o default -X \
+'!*.@(mp[23]|MP[23]|ogg|OGG|wav|WAV|pls|\
+m3u|xm|mod|s[3t]m|it|mtm|ult|flac)' xmms
+complete -f -o default -X '!*.@(mp?(e)g|MP?(E)G|wma|avi|AVI|\
+asf|vob|VOB|bin|dat|vcd|ps|pes|fli|viv|rm|ram|yuv|mov|MOV|qt|\
+QT|wmv|mp3|MP3|ogg|OGG|ogm|OGM|mp4|MP4|wav|WAV|asx|ASX)' xine
+
+
+
+complete -f -o default -X '!*.pl'  perl perl5
+
+
+#  This is a 'universal' completion function - it works when commands have
+#+ a so-called 'long options' mode , ie: 'ls --all' instead of 'ls -a'
+#  Needs the '-o' option of grep
+#+ (try the commented-out version if not available).
+
+#  First, remove '=' from completion word separators
+#+ (this will allow completions like 'ls --color=auto' to work correctly).
+
+COMP_WORDBREAKS=${COMP_WORDBREAKS/=/}
+
+
+_get_longopts()
+{
+  #$1 --help | sed  -e '/--/!d' -e 's/.*--\([^[:space:].,]*\).*/--\1/'| \
+  #grep ^"$2" |sort -u ;
+    $1 --help | grep -o -e "--[^[:space:].,]*" | grep -e "$2" |sort -u
+}
+
+_longopts()
+{
+    local cur
+    cur=${COMP_WORDS[COMP_CWORD]}
+
+    case "${cur:-*}" in
+       -*)      ;;
+        *)      return ;;
+    esac
+
+    case "$1" in
+       \~*)     eval cmd="$1" ;;
+         *)     cmd="$1" ;;
+    esac
+    COMPREPLY=( $(_get_longopts ${1} ${cur} ) )
+}
+complete  -o default -F _longopts configure bash
+complete  -o default -F _longopts wget id info a2ps ls recode
+
+_tar()
+{
+    local cur ext regex tar untar
+
+    COMPREPLY=()
+    cur=${COMP_WORDS[COMP_CWORD]}
+
+    # If we want an option, return the possible long options.
+    case "$cur" in
+        -*)     COMPREPLY=( $(_get_longopts $1 $cur ) ); return 0;;
+    esac
+
+    if [ $COMP_CWORD -eq 1 ]; then
+        COMPREPLY=( $( compgen -W 'c t x u r d A' -- $cur ) )
+        return 0
+    fi
+
+    case "${COMP_WORDS[1]}" in
+        ?(-)c*f)
+            COMPREPLY=( $( compgen -f $cur ) )
+            return 0
+            ;;
+        +([^Izjy])f)
+            ext='tar'
+            regex=$ext
+            ;;
+        *z*f)
+            ext='tar.gz'
+            regex='t\(ar\.\)\(gz\|Z\)'
+            ;;
+        *[Ijy]*f)
+            ext='t?(ar.)bz?(2)'
+            regex='t\(ar\.\)bz2\?'
+            ;;
+        *)
+            COMPREPLY=( $( compgen -f $cur ) )
+            return 0
+            ;;
+
+    esac
+
+    if [[ "$COMP_LINE" == tar*.$ext' '* ]]; then
+        # Complete on files in tar file.
+        #
+        # Get name of tar file from command line.
+        tar=$( echo "$COMP_LINE" | \
+                        sed -e 's|^.* \([^ ]*'$regex'\) .*$|\1|' )
+        # Devise how to untar and list it.
+        untar=t${COMP_WORDS[1]//[^Izjyf]/}
+
+        COMPREPLY=( $( compgen -W "$( echo $( tar $untar $tar \
+                                2>/dev/null ) )" -- "$cur" ) )
+        return 0
+
+    else
+        # File completion on relevant files.
+        COMPREPLY=( $( compgen -G $cur\*.$ext ) )
+
+    fi
+
+    return 0
+
+}
+
+complete -F _tar -o default tar
+
+_make()
+{
+    local mdef makef makef_dir="." makef_inc gcmd cur prev i;
+    COMPREPLY=();
+    cur=${COMP_WORDS[COMP_CWORD]};
+    prev=${COMP_WORDS[COMP_CWORD-1]};
+    case "$prev" in
+        -*f)
+            COMPREPLY=($(compgen -f $cur ));
+            return 0
+            ;;
+    esac;
+    case "$cur" in
+        -*)
+            COMPREPLY=($(_get_longopts $1 $cur ));
+            return 0
+            ;;
+    esac;
+
+    # ... make reads
+    #          GNUmakefile,
+    #     then makefile
+    #     then Makefile ...
+    if [ -f ${makef_dir}/GNUmakefile ]; then
+        makef=${makef_dir}/GNUmakefile
+    elif [ -f ${makef_dir}/makefile ]; then
+        makef=${makef_dir}/makefile
+    elif [ -f ${makef_dir}/Makefile ]; then
+        makef=${makef_dir}/Makefile
+    else
+       makef=${makef_dir}/*.mk         # Local convention.
+    fi
+
+
+    #  Before we scan for targets, see if a Makefile name was
+    #+ specified with -f.
+    for (( i=0; i < ${#COMP_WORDS[@]}; i++ )); do
+        if [[ ${COMP_WORDS[i]} == -f ]]; then
+            # eval for tilde expansion
+            eval makef=${COMP_WORDS[i+1]}
+            break
+        fi
+    done
+    [ ! -f $makef ] && return 0
+
+    # Deal with included Makefiles.
+    makef_inc=$( grep -E '^-?include' $makef |
+                 sed -e "s,^.* ,"$makef_dir"/," )
+    for file in $makef_inc; do
+        [ -f $file ] && makef="$makef $file"
+    done
+
+
+    #  If we have a partial word to complete, restrict completions
+    #+ to matches of that word.
+    if [ -n "$cur" ]; then gcmd='grep "^$cur"' ; else gcmd=cat ; fi
+
+    COMPREPLY=( $( awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ \
+                               {split($1,A,/ /);for(i in A)print A[i]}' \
+                                $makef 2>/dev/null | eval $gcmd  ))
+
+}
+
+complete -F _make -X '+($*|*.[cho])' make gmake pmake
+
+
+_killall()
+{
+    local cur prev
+    COMPREPLY=()
+    cur=${COMP_WORDS[COMP_CWORD]}
+
+    #  Get a list of processes
+    #+ (the first sed evaluation
+    #+ takes care of swapped out processes, the second
+    #+ takes care of getting the basename of the process).
+    COMPREPLY=( $( ps -u $USER -o comm  | \
+        sed -e '1,1d' -e 's#[]\[]##g' -e 's#^.*/##'| \
+        awk '{if ($0 ~ /^'$cur'/) print $0}' ))
+
+    return 0
+}
+
+complete -F _killall killall killps
+
+
+#=========================================================================
+#
+#  QUICKBOX USER CREATION & SPECIFICS SECTION
+#
+#=========================================================================
+
+function rarit() { rar a -m5 -v1m $1 $1; }
+function paste() { $* | curl -F 'sprunge=<-' http://sprunge.us ; }
+function disktest() { dd if=/dev/zero of=test bs=64k count=16k conv=fdatasync;rm -rf test ; }
+function newpass() { perl -le 'print map {(a..z,A..Z,0..9)[rand 62] } 0..pop' 15 ; }
+function fixhome() {
+  echo "Please tell me which users home I am to fix"
+  echo -n "Username: "; read user
+  OK=`echo -e "[\e[0;32mTask Complete\e[00m]"`
+  echo
+  echo -e "Checking ${BGreen}${user}'s${NC} directory and file permissions ... "
+  fix=$(find /home/${user} -type d -name .bin -prune -o -type d -name .ssh -prune -o -type d -exec chmod 755 {} \; && \
+        find /home/${user} -type d -name .bin -prune -o -type d -name . -prune -o -type f -exec chmod 644 {} \; && \
+        find /home/${user} -name ".du.sh" -exec chmod u+x {} \;)
+  echo -e "Logging in as ${BGreen}${user}${NC} and adjusting permissions ... "
+  runuser -l ${user} -c '${fix}' >/dev/null 2>&1
+  echo $OK
+  echo
+}
+adjust-user-directory() {
+  echo "Please tell me which users torrent directory I am to adjust"
+  echo -n "Username: "; read user
+  OK=`echo -e "[\e[0;32mTask Complete\e[00m]"`
+  echo
+  echo -e "Checking ${BGreen}${user}'s${NC} directory for rtorrent/deluge ... "
+  cd /home/"${user}"/torrents
+  if [[ -d rtorrent ]]; then
+    cd
+    echo -e "rtorrent and deluge torrent directories already exist, exiting now ... "
+    exit 0
+  else
+    echo -e "Creating and moving ${BGreen}${user}'s${NC} torrents to new directories ... "
+    mv deluge /home/"${user}"/deluge
+    cd ..
+    mv torrents rtorrent
+    rm -rf torrents
+    mkdir -p torrents
+    mv deluge torrents/deluge
+    mv rtorrent torrents/rtorrent
+    sed -i "s/directory = \/home\/${user}\/torrents\//directory = \/home\/${user}\/torrents\/rtorrent/g" /home/"${user}"/.rtorrent.rc
+    chown -R ${user}:${user} /home/${user}
+  fi
+  echo -e "Restarting ${BGreen}${user}'s${NC} rtorrent service ... "
+  systemctl restart rtorrent@"${user}".service
+  echo $OK
+  echo
+}
+
+transfer() {
+  if [ $# -eq 0 ]; then
+    echo "No arguments specified. Usage: transfer /tmp/test.md OR: cat /tmp/test.md | transfer test.md"
+    return 1
+  fi
+tmpfile=$(mktemp -t transferXXX )
+if tty -s
+  then
+    basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile
+  else
+    curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile
+fi
+cat $tmpfile
+rm -f $tmpfile
+}
+
+function swap() {
+local TMPFILE=tmp.$$
+    [ $# -ne 2 ] && echo "swap: 2 arguments needed" && return 1
+    [ ! -e $1 ] && echo "swap: $1 does not exist" && return 1
+    [ ! -e $2 ] && echo "swap: $2 does not exist" && return 1
+    mv "$1" $TMPFILE; mv "$2" "$1"; mv $TMPFILE "$2"
+}
+
+if [ -e /etc/bash_completion ] && ! shopt -oq posix; then source /etc/bash_completion; fi
+if [ -e ~/.custom ]; then source ~/.custom; fi
+
+function changeUserpass() {
+REALM=rutorrent
+HTPASSWD=/etc/htpasswd
+master=$(cat /srv/rutorrent/home/db/master.txt)
+genpass=$(perl -le 'print map {(a..z,A..Z,0..9)[rand 62] } 0..pop' 15)
+echo -n "Username: "; read user
+        username=$(echo "$user"|sed 's/.*/\L&/')
+        if [[ ! $(grep "^${username}" ${HTPASSWD}) ]]; then
+    echo "Username ${username} wasnt found in ${HTPASSWD} .. please try again"
+    exit
+  fi
+        echo -n "Password: (hit enter to generate a password) "; read 'password'
+        if [[ ! -z "${password}" ]]; then
+                echo "setting password to ${password}"
+                passwd=${password}
+                echo "${username}:${passwd}" | chpasswd >/dev/null 2>&1
+                sed -i "/${username}/d" ${HTPASSWD}
+                (echo -n "${username}:${REALM}:" && echo -n "${username}:${REALM}:${passwd}" | md5sum | awk '{print $1}' ) >> "${HTPASSWD}"
+        else
+                echo "setting password to ${genpass}"
+                passwd=${genpass}
+                sed -i "/${username}/d" ${HTPASSWD}
+                echo "${username}:${passwd}" | chpasswd >/dev/null 2>&1
+                (echo -n "${username}:${REALM}:" && echo -n "${username}:${REALM}:${passwd}" | md5sum | awk '{print $1}' ) >> "${HTPASSWD}"
+        fi
+        echo "$username : $passwd" >/root/${username}.info
+        if [[ -e /install/.deluge.lock ]]; then
+          systemctl stop deluged@${username}
+          systemctl stop deluge-web@${username}
+          DWSALT=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+          DWP=$(python /usr/local/bin/quickbox/system/deluge.Userpass.py ${passwd} ${DWSALT})
+          sed -i "s/.*$username.*/${username}:${passwd}:10/" /home/$username/.config/deluge/auth
+          sed -i "s/.*pwd_salt.*/  \"pwd_salt\": \"${DWSALT}\",/" /home/$username/.config/deluge/web.conf
+          sed -i "s/.*pwd_sha1.*/  \"pwd_sha1\": \"${DWP}\",/" /home/$username/.config/deluge/web.conf
+          sed -i "/$username/{n;s/.*/      \"${passwd}\"/}" /home/${username}/.config/deluge/hostlist.conf.1.2
+          systemctl start deluged@${username}
+          systemctl start deluge-web@${username}
+        fi
+}
+
+function createSeedboxUser() {
+OK=`echo -e "[\e[0;32mOK\e[00m]"`
+realm="rutorrent"
+htpasswd="/etc/htpasswd"
+genpass=$(perl -le 'print map {(a..z,A..Z,0..9)[rand 62] } 0..pop' 15)
+ruconf="/srv/rutorrent/conf/users"
+IRSSI_PASS=$(perl -le 'print map {(a..z,A..Z,0..9)[rand 62] } 0..pop' 15)
+IRSSI_PORT=$((RANDOM%64025+1024))
+PORT=$(shuf -i 2000-61000 -n 1)
+WEBPORT=$(shuf -i 8115-8145 -n 1)
+PORTEND=$(($PORT + 1500))
+while [[ "$(netstat -ln | grep ':'"$PORT"'' | grep -c 'LISTEN')" -eq "1" ]]; do PORT="$(shuf -i 2000-61000 -n 1)"; done
+RPORT=$(shuf -i 2000-61000 -n 1)
+while [[ "$(netstat -ln | grep ':'"$RPORT"'' | grep -c 'LISTEN')" -eq "1" ]]; do RPORT="$(shuf -i 2000-61000 -n 1)"; done
+ip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+# --END HERE --
+echo
+echo "!important! When creating a user, only use lowercase for the username"
+echo
+echo -n "Username: "; read username
+  if grep -Fxq "$username" /etc/passwd; then
+    echo "$username exists! cant proceed..."
+    exit
+  else
+    useradd -m -k /etc/skel/ $username -s /usr/bin/lshell
+    echo -n "Password: (hit enter to generate a password) ";read 'password'
+    chown $username.www-data /home/$username >/dev/null 2>&1
+    cp $htpasswd /root/rutorrent-htpasswd.`date +'%d.%m.%y-%S'`
+    if [[ "$password" == "" ]]; then
+      echo "setting password to $genpass"
+      passwd=$genpass
+      echo "${username}:${passwd}" | chpasswd >/dev/null 2>&1
+      (echo -n "$username:$realm:" && echo -n "$username:$realm:$passwd" | md5sum | awk '{print $1}' ) >> $htpasswd
+      echo "${username} : $genpass" >/root/${username}.info
+    else
+      echo "using $password"
+      passwd=$password
+      echo "${username}:${passwd}" | chpasswd >/dev/null 2>&1
+      (echo -n "$username:$realm:" && echo -n "$username:$realm:$passwd" | md5sum | awk '{print $1}' ) >> $htpasswd
+      echo "${username} : $passwd " >/root/${username}.info
+    fi
+    printf "${username}:${passwd}" > /root/"$username".info.db
+  if [[ -f /install/.quota.lock ]]; then
+  echo "Quota size for user: (EX: 500GB): "
+  read SIZE
+  case $SIZE in
+    *TB)
+      QUOTASIZE=$(echo $SIZE|cut -d'T' -f1)
+      DISKSIZE=$(($QUOTASIZE * 1024 * 1024 * 1024))
+      setquota -u ${username} ${DISKSIZE} ${DISKSIZE} 0 0 -a
+      echo "$SIZE" >>/root/${username}.info
+    ;;
+    *GB)
+      QUOTASIZE=$(echo $SIZE|cut -d'G' -f1)
+      DISKSIZE=$(($QUOTASIZE * 1024 * 1024))
+      setquota -u ${username} ${DISKSIZE} ${DISKSIZE} 0 0 -a
+      echo "$SIZE" >>/root/${username}.info
+    ;;
+    *)
+      echo "Disk Space MUST be in GB/TB, Example: 711GB OR 2.5TB, Exiting script, type bash $0 and try again";exit 0
+    ;;
+  esac
+fi
+echo -n "writing $username to vsftpd.chroot_list..."
+echo "$username" >> /etc/vsftpd.chroot_list
+echo $OK
+
+echo -n "writing $username .rtorrent.rc using port-range (${PORT}-${PORTEND})..."
+cat >/home/$username/.rtorrent.rc<<RC
+# -- START HERE --
+scgi_port = localhost:$RPORT
+min_peers = 1
+max_peers = 100
+min_peers_seed = -1
+max_peers_seed = -1
+max_uploads = 100
+download_rate = 0
+upload_rate = 0
+directory = /home/${username}/torrents/rtorrent
+session = /home/${username}/.sessions/
+schedule = watch_directory,5,5,load_start=/home/${username}/rwatch/*.torrent
+schedule = filter_active,5,5,"view_filter = active,d.get_up_rate="
+view_add = alert
+view_sort_new = alert,less=d.get_message=
+schedule = filter_alert,30,30,"view_filter = alert,d.get_message=; view_sort = alert"
+port_range = $PORT-$PORTEND
+use_udp_trackers = yes
+encryption = allow_incoming,try_outgoing,enable_retry
+peer_exchange = no
+check_hash = no
+execute_nothrow=chmod,777,/home/${username}/.sessions/
+# -- END HERE --
+RC
+if [[ -f /install/.10g.lock ]]; then
+  sed -i "s/max_peers = 100/max_peers = 300/g" /home/${username}/.rtorrent.rc
+  sed -i "s/max_uploads = 100/max_uploads = 300/g" /home/${username}/.rtorrent.rc
+fi
+echo $OK
+
+echo -n "setting permissions ... "
+  chown $username.www-data /home/$username/{torrents,.sessions,watch,.rtorrent.rc} >/dev/null 2>&1
+  usermod -a -G www-data $username >/dev/null 2>&1
+  usermod -a -G $username www-data >/dev/null 2>&1
+  mkdir -p /home/${username}/torrents/rtorrent
+  chown -R ${username}: /home/${username}/torrents
+  chmod 777 /home/${username}/.sessions >/dev/null 2>&1
+  usermod -a -G ${username} plex >/dev/null 2>&1
+  chown ${username}:plex /home/${username} >/dev/null 2>&1
+  chmod 750 /home/${username} >/dev/null 2>&1
+  setfacl -m g:${username}:rwx /home/${username} >/dev/null 2>&1
+  mkdir "/srv/rutorrent/conf/users/${username}" >/dev/null 2>&1
+  mkdir -p /srv/rutorrent/conf/users/"${username}"/plugins/fileupload/ >/dev/null 2>&1
+  cp /srv/rutorrent/plugins/fileupload/conf.php /srv/rutorrent/conf/users/"${username}"/plugins/fileupload/conf.php
+  chown -R www-data: /srv/rutorrent/conf/users/"${username}" >/dev/null 2>&1
+  sudo -u $username chmod 750 /home/$username/ >/dev/null 2>&1
+  chown -R $username.www-data /home/${username} >/dev/null 2>&1
+echo $OK
+
+echo -n "writing $username rutorrent config.php ... "
+  mkdir $ruconf/$username >/dev/null 2>&1
+cat >$ruconf/$username/config.php<<DH
+<?php
+  @define('HTTP_USER_AGENT', 'Mozilla/5.0 (Windows NT 6.0; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0', true);
+  @define('HTTP_TIME_OUT', 30, true);
+  @define('HTTP_USE_GZIP', true, true);
+  \$httpIP = null;
+  @define('RPC_TIME_OUT', 5, true);
+  @define('LOG_RPC_CALLS', false, true);
+  @define('LOG_RPC_FAULTS', true, true);
+  @define('PHP_USE_GZIP', false, true);
+  @define('PHP_GZIP_LEVEL', 2, true);
+  \$schedule_rand = 10;
+  \$do_diagnostic = true;
+  \$log_file = '/tmp/errors.log';
+  \$saveUploadedTorrents = true;
+  \$overwriteUploadedTorrents = false;
+  \$topDirectory = '/home/$username/';
+  \$forbidUserSettings = false;
+  \$scgi_port = $RPORT;
+  \$scgi_host = "localhost";
+  \$XMLRPCMountPoint = "/RPC2";
+  \$pathToExternals = array("php" => '',"curl" => '',"gzip" => '',"id" => '',"stat" => '',);
+  \$localhosts = array("127.0.0.1", "localhost",);
+  \$profilePath = '../share';
+  \$profileMask = 0777;
+  \$diskuser = '/';
+  \$quotaUser = '${username}';
+  \$autodlPort = $IRSSI_PORT;
+  \$autodlPassword = "$IRSSI_PASS";
+DH
+echo $OK
+
+fi
+echo -n "Setting up autodl-irssi for $username ... "
+mkdir -p /home/$username/.autodl >/dev/null 2>&1
+touch /home/$username/.autodl/autodl.cfg >/dev/null 2>&1
+cat >/home/$username/.autodl/autodl2.cfg<<ADC
+[options]
+gui-server-port = $IRSSI_PORT
+gui-server-password = $IRSSI_PASS
+ADC
+chown -R $username: /home/$username/.autodl
+echo $OK
+
+if [[ -e /install/.deluge.lock ]]; then
+echo -n "Setting up Deluge for $username ... "
+ip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+dport=$((RANDOM%59000+10024))
+dwport=$(shuf -i 10001-11000 -n 1)
+DWSALT=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+DWP=$(python /usr/local/bin/quickbox/system/deluge.Userpass.py ${passwd} ${DWSALT})
+DUDID=$(python /usr/local/bin/quickbox/system/deluge.addHost.py)
+mkdir -p /home/${username}/.config/deluge/plugins
+chmod 755 /home/${username}/.config
+chmod 755 /home/${username}/.config/deluge
+mkdir -p /home/${username}/dwatch
+mkdir -p /home/${username}/torrents/deluge
+chown ${username}: /home/${username}/dwatch
+chown ${username}: /home/${username}/torrents/deluge
+cat >/home/$username/.config/deluge/core.conf<<DC
+{
+"file": 1,
+"format": 1
+}{
+"info_sent": 0.0,
+"lsd": true,
+"max_download_speed": -1.0,
+"send_info": false,
+"natpmp": true,
+"move_completed_path": "/home/${username}/Downloads",
+"peer_tos": "0x08",
+"enc_in_policy": 1,
+"queue_new_to_top": false,
+"ignore_limits_on_local_network": true,
+"rate_limit_ip_overhead": true,
+"daemon_port": ${dport},
+"torrentfiles_location": "/home/${username}/dwatch",
+"max_active_limit": -1,
+"geoip_db_location": "/usr/share/GeoIP/GeoIP.dat",
+"upnp": false,
+"utpex": true,
+"max_active_downloading": 3,
+"max_active_seeding": -1,
+"allow_remote": true,
+"outgoing_ports": [
+  0,
+  0
+],
+"enabled_plugins": [
+  "ltConfig"
+],
+"max_half_open_connections": 50,
+"download_location": "/home/${username}/torrents/deluge",
+"compact_allocation": true,
+"max_upload_speed": -1.0,
+"plugins_location": "/home/${username}/.config/deluge/plugins",
+"max_connections_global": -1,
+"enc_prefer_rc4": true,
+"cache_expiry": 60,
+"dht": true,
+"stop_seed_at_ratio": false,
+"stop_seed_ratio": 2.0,
+"max_download_speed_per_torrent": -1,
+"prioritize_first_last_pieces": true,
+"max_upload_speed_per_torrent": -1,
+"auto_managed": true,
+"enc_level": 2,
+"copy_torrent_file": false,
+"max_connections_per_second": 50,
+"listen_ports": [
+  6881,
+  6891
+],
+"max_connections_per_torrent": -1,
+"del_copy_torrent_file": false,
+"move_completed": false,
+"autoadd_enable": false,
+"proxies": {
+  "peer": {
+    "username": "",
+    "password": "",
+    "hostname": "",
+    "type": 0,
+    "port": 8080
+  },
+  "web_seed": {
+    "username": "",
+    "password": "",
+    "hostname": "",
+    "type": 0,
+    "port": 8080
+  },
+  "tracker": {
+    "username": "",
+    "password": "",
+    "hostname": "",
+    "type": 0,
+    "port": 8080
+  },
+  "dht": {
+    "username": "",
+    "password": "",
+    "hostname": "",
+    "type": 0,
+    "port": 8080
+  }
+},
+"dont_count_slow_torrents": true,
+"add_paused": false,
+"random_outgoing_ports": true,
+"max_upload_slots_per_torrent": -1,
+"new_release_check": false,
+"enc_out_policy": 1,
+"seed_time_ratio_limit": 7.0,
+"remove_seed_at_ratio": false,
+"autoadd_location": "/home/${username}/dwatch/",
+"max_upload_slots_global": -1,
+"seed_time_limit": 180,
+"cache_size": 512,
+"share_ratio_limit": 2.0,
+"random_port": true,
+"listen_interface": "${ip}"
+}
+DC
+echo "${username}:${passwd}:10" > /home/${username}/.config/deluge/auth
+chmod 600 /home/${username}/.config/deluge/auth
+cat >/home/$username/.config/deluge/web.conf<<DW
+{
+"file": 1,
+"format": 1
+}{
+"port": ${dwport},
+"enabled_plugins": [],
+"pwd_sha1": "${DWP}",
+"theme": "gray",
+"show_sidebar": true,
+"sidebar_show_zero": false,
+"pkey": "ssl/daemon.pkey",
+"https": false,
+"sessions": {},
+"base": "/",
+"pwd_salt": "${DWSALT}",
+"show_session_speed": false,
+"first_login": false,
+"cert": "ssl/daemon.cert",
+"session_timeout": 3600,
+"default_daemon": "",
+"sidebar_multiple_filters": true
+}
+DW
+cat >/home/$username/.config/deluge/hostlist.conf.1.2<<DWHOSTS
+{
+  "file": 1,
+  "format": 1
+}{
+  "hosts": [
+    [
+      "${DUDID}",
+      "127.0.0.1",
+      ${dport},
+      "${username}",
+      "${passwd}"
+    ]
+  ]
+}
+DWHOSTS
+if [[ ! -f /home/${username}/.config/deluge/plugins/ltConfig-0.2.5.0-py2.7.egg ]]; then
+  cd /home/${username}/.config/deluge/plugins/
+  wget -q https://github.com/ratanakvlun/deluge-ltconfig/releases/download/v0.2.5.0/ltConfig-0.2.5.0-py2.7.egg
+fi
+chown -R ${username}.${username} /home/${username}/.config/
+fi
+echo $OK
+
+systemctl start rtorrent@${username}
+systemctl enable rtorrent@${username}
+systemctl start irssi@${username}
+systemctl enable irssi@${username}
+if [[ -f /install/.deluge.lock ]]; then
+  systemctl start deluged@${username}
+  systemctl start deluge-web@${username}
+  systemctl enable deluged@${username}
+  systemctl enable deluge-web@${username}
+fi
+
+cat >/etc/apache2/sites-enabled/alias.${username}.download.conf<<AS
+#Alias /${username}.rtorrent.downloads "/home/${username}/torrents/rtorrent"
+  <Directory "/home/${username}/torrents/rtorrent">
+   Options Indexes FollowSymLinks MultiViews
+    AllowOverride None
+          AuthType Digest
+          AuthName "rutorrent"
+          AuthUserFile '/etc/htpasswd'
+          Require user ${username}
+    Order allow,deny
+    Allow from all
+    php_admin_value engine Off
+  </Directory>
+#Alias /${username}.deluge.downloads "/home/${username}/torrents/deluge"
+  <Directory "/home/${username}/torrents/deluge">
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride None
+          AuthType Digest
+          AuthName "rutorrent"
+          AuthUserFile '/etc/htpasswd'
+          Require user ${username}
+    Order allow,deny
+    Allow from all
+    php_admin_value engine Off
+  </Directory>
+  <Location "/${username}">
+      AuthType Digest
+      AuthName "rutorrent"
+      AuthUserFile "/etc/htpasswd"
+      Require user ${username}
+  </Location>
+AS
+
+echo -n "Setting up modern file-system indexer (h5ai) for $username ... "
+  cd /srv/rutorrent/home
+  ln -s /home/${username}/torrents/rtorrent/ ${username}.rtorrent.downloads
+  ln -s /home/${username}/torrents/deluge/ ${username}.deluge.downloads
+
+local_setup=/etc/QuickBox/setup/
+PUBLICIP=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+cp ${local_setup}templates/web-console.conf.template /etc/apache2/sites-enabled/${username}.console.conf
+sed -i "s/PUBLICIP/${PUBLICIP}/g" /etc/apache2/sites-enabled/${username}.console.conf
+sed -i "s/USER/${username}/g" /etc/apache2/sites-enabled/${username}.console.conf
+
+cat >>/etc/apache2/sites-enabled/scgimount.conf<<SC
+SCGIMount /${username} 127.0.0.1:$RPORT
+SC
+
+################################################################################
+# Web-Console is not for additional users at this time
+################################################################################
+#sed -i -e "s/console-username/${username}/g" \
+#       -e "s/console-password/${passwd}/g" /home/${username}/.console/index.php
+#
+#cat >/etc/apache2/sites-enabled/alias.${username}.console.conf<<CS
+#Alias /${username}.console "/home/${username}/.console/"
+#<Directory "/home/${username}/.console/">
+#  Options Indexes FollowSymLinks MultiViews
+#  AuthType Digest
+#  AuthName "rutorrent"
+#  AuthUserFile '/etc/htpasswd'
+#  Require valid-user
+#  AllowOverride None
+#  Order allow,deny
+#  allow from all
+#</Directory>
+#CS
+################################################################################
+
+service apache2 reload >/dev/null 2>&1
+
+}
+
+function deleteSeedboxUser() {
+
+rutorrent="/srv/rutorrent"
+htpasswd="/etc/htpasswd"
+OK=$(echo -e "[ \e[0;32mDONE\e[00m ]")
+
+echo -n "Username: "
+read username
+if [[ -z ${username} ]]
+  then echo "you want me to delete nothing? next time enter a username";exit
+fi
+echo -n "Deleting ${username} /home and rutorrent data ... "
+if [[ ! -f /install/.cron.lock ]]; then
+  systemctl stop rtorrent@${username}
+  systemctl stop irssi@${username}
+  systemctl disable rtorrent@${username}
+  systemctl disable irssi@${username}
+  if [[ -f /install/.deluge.lock ]]; then
+    systemctl stop deluged@${username}
+    systemctl stop deluge-web@${username}
+    systemctl disable deluged@${username}
+    systemctl disable deluge-web@${username}
+    rm -rf ${rutorrent}/home/${username}.deluge.downloads >/dev/null 2>&1
+  fi
+fi
+killall -u ${username}
+userdel -rf ${username} >/dev/null 2>&1
+groupdel ${username} >/dev/null 2>&1
+sed -i "/${username}/d" /etc/apache2/sites-enabled/scgimount.conf
+sed -i "/${username}/d" ${htpasswd}
+rm -rf /etc/apache2/sites-enabled/alias.${username}.console.conf  >/dev/null 2>&1
+rm -rf /etc/apache2/sites-enabled/alias.${username}.download.conf  >/dev/null 2>&1
+rm -rf ${rutorrent}/conf/users/${username} >/dev/null 2>&1
+rm -rf ${rutorrent}/share/users/${username} >/dev/null 2>&1
+rm -rf ${rutorrent}/home/${username}.rtorrent.downloads >/dev/null 2>&1
+rm -rf /var/spool/cron/crontabs/${username} >/dev/null 2>&1
+rm -rf /home/${username} >/dev/null 2>&1
+rm -rf /root/${username}.info.db >/dev/null 2>&1
+rm -rf /root/${username}.info >/dev/null 2>&1
+rm -rf /var/run/screen/S-${username} >/dev/null 2>&1
+rm -rf /etc/openvpn/server-${username}.conf >/dev/null 2>&1
+service apache2 reload
+echo ${OK}
+}
+
+function upgradeBTSync() {
+  apt-get install -yqq -f --only-upgrade resilio-sync
+  service resilio-sync restart
+}
+
+function upgradePlex() {
+
+  #############################################################################
+  # Credits to MrWorf for supplying a means to NOT reinvent the wheel
+  # Check out the full Plex Update Script at the following repo:
+  # https://github.com/mrworf/plexupdate/blob/master/plexupdate.sh
+  # We've merely modified a means for cleaner QuickBox integration
+  #############################################################################
+
+  echo "  Please enter in your Plex Email and Password"
+  echo "  Note, this is not shared outside this update"
+  echo ""
+  echo -n "  Email: "; read email
+  echo -n "  Pass: "; read pass
+  echo ""
+  PUBLICIP=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+  EMAIL=$email
+  PASS=$pass
+  DOWNLOADDIR="/opt/plex-tmp"
+  PLEXSERVER=$PUBLICIP
+
+  mkdir /opt/plex-tmp
+
+  FORCE=no
+  PUBLIC=no
+  AUTOINSTALL=yes
+  AUTODELETE=yes
+  AUTOSTART=yes
+  QUIET=no
+  ARCH=$(uname -m)
+
+  # Default options for package managers, override if needed
+  DEBIAN_INSTALL="dpkg -i"
+  DISTRO_INSTALL=""
+
+  # Current pages we need - Do not change unless Plex.tv changes again
+  URL_LOGIN=https://plex.tv/users/sign_in.json
+  URL_DOWNLOAD=https://plex.tv/api/downloads/1.json?channel=plexpass
+  URL_DOWNLOAD_PUBLIC=https://plex.tv/api/downloads/1.json
+
+  # Sanity check
+  if [ -z "${EMAIL}" -o -z "${PASS}" ] && [ "${PUBLIC}" = "no" ] && [ ! -f /tmp/cookies ]; then
+  	echo "ERROR: Need username & password to download PlexPass version." >&2
+  	exit 1
+  fi
+
+  # Remove any ~ or other oddness in the path we're given
+  DOWNLOADDIR="$(eval cd ${DOWNLOADDIR// /\\ } && pwd)"
+  if [ ! -d "${DOWNLOADDIR}" ]; then
+  	echo "ERROR: Download directory does not exist or is not a directory" >&2
+  	exit 1
+  fi
+
+  if [ -z "${DISTRO_INSTALL}" ]; then
+  	# Detect if we're running on redhat instead of ubuntu
+  	BUILD="linux-ubuntu-${ARCH}"
+  	DISTRO="ubuntu"
+  	DISTRO_INSTALL="${DEBIAN_INSTALL}"
+  fi
+
+  # Useful functions
+  rawurlencode() {
+  	local string="${1}"
+  	local strlen=${#string}
+  	local encoded=""
+  	for (( pos=0 ; pos<strlen ; pos++ )); do
+  		c=${string:$pos:1}
+  		case "$c" in
+  		[-_.~a-zA-Z0-9] ) o="${c}" ;;
+  		* )               printf -v o '%%%02x' "'$c"
+  	esac
+  	encoded+="${o}"
+  	done
+  	echo "${encoded}"
+  }
+
+  keypair() {
+  	local key="$( rawurlencode "$1" )"
+  	local val="$( rawurlencode "$2" )"
+  	echo "${key}=${val}"
+  }
+
+  function cleanup {
+  	rm -f "${STDOUTLOG}" 2>/dev/null >/dev/null
+  	rm -f /tmp/postdata 2>/dev/null >/dev/null
+  	rm -f /tmp/raw 2>/dev/null >/dev/null
+  	rm -f /tmp/failcause 2>/dev/null >/dev/null
+  	rm -f /tmp/cookies 2>/dev/null >/dev/null
+  }
+  trap cleanup EXIT
+
+  # Fields we need to submit for login to work
+  #
+  # Field			Value
+  # utf8			&#x2713;
+  # authenticity_token	<Need to be obtained from web page>
+  # user[login]		$EMAIL
+  # user[password]	$PASSWORD
+  # user[remember_me]	0
+  # commit		Sign in
+
+  # Load previous token if stored
+  if [ -f /tmp/cookies_token ]; then
+  	TOKEN=$(cat /tmp/cookies_token)
+  fi
+
+  if [ "${PUBLIC}" = "no" ]; then
+    echo -ne "Authenticating ..."
+
+  	# Clean old session
+  	rm -f /tmp/cookies 2>/dev/null
+
+  	# Build post data
+  	echo -ne >/tmp/postdata "$(keypair "user[login]" "${EMAIL}" )"
+  	echo -ne >>/tmp/postdata "&$(keypair "user[password]" "${PASS}" )"
+  	echo -ne >>/tmp/postdata "&$(keypair "user[remember_me]" "0" )"
+
+  	# Authenticate (using Plex Single Sign On)
+  	wget --header "X-Plex-Client-Identifier: 4a745ae7-1839-e44e-1e42-aebfa578c865" --header "X-Plex-Product: Plex SSO" --load-cookies /tmp/cookies --save-cookies /tmp/cookies --keep-session-cookies "${URL_LOGIN}" --post-file=/tmp/postdata -q -S -O /tmp/failcause 2>/tmp/raw
+  	# Delete authentication data
+  	rm -f /tmp/postdata
+
+  	# Provide some details to the end user
+  	RESULTCODE=$(head -n1 /tmp/raw | grep -oe '[1-5][0-9][0-9]')
+  	if [ $RESULTCODE -eq 401 ]; then
+  		echo -e " ${BWhite}${On_Red}ERROR: Username and/or password incorrect${NC}" >&2
+  	elif [ $RESULTCODE -ne 201 ]; then
+  		echo -e " ${BWhite}${On_Red}ERROR: Failed to login, debug information:${NC}" >&2
+  		cat /tmp/failcause >&2
+    else
+      # If the system got here, it means the login was successfull, so we set the TOKEN variable to the authToken from the response
+    	# I use cut -c 14- to cut off the "authToken":" string from the grepped result, can probably be done in a different way
+    	TOKEN=$(</tmp/failcause  grep -ioe '"authToken":"[^"]*' | cut -c 14-)
+
+    	# Remove this, since it contains more information than we should leave hanging around
+    	rm -f /tmp/failcause
+
+      echo -e " ${Green}OK${NC}"
+  	fi
+
+
+  elif [ "$PUBLIC" != "no" ]; then
+  	# It's a public version, so change URL and make doubly sure that cookies are empty
+  	rm 2>/dev/null >/dev/null /tmp/cookies
+  	touch /tmp/cookies
+  	URL_DOWNLOAD=${URL_DOWNLOAD_PUBLIC}
+  fi
+
+  if [ "${LISTOPTS}" = "yes" ]; then
+  	opts="$(wget --load-cookies /tmp/cookies --save-cookies /tmp/cookies --keep-session-cookies "${URL_DOWNLOAD}" -O - 2>/dev/null | grep -oe '"label"[^}]*' | grep -v Download | sed 's/"label":"\([^"]*\)","build":"\([^"]*\)","distro":"\([^"]*\)".*/"\3" "\2" "\1"/' | uniq | sort)"
+  	eval opts=( "DISTRO" "BUILD" "DESCRIPTION" "======" "=====" "==============================================" $opts )
+  	BUILD=
+  	DISTRO=
+  	for X in "${opts[@]}" ; do
+  		if [ -z "$DISTRO" ]; then
+  			DISTRO="$X"
+  		elif [ -z "$BUILD" ]; then
+  			BUILD="$X"
+  		else
+  			if [ "${QUIET}" = "yes" ]; then
+  				printf "%-12s %-30s %s\n" "$DISTRO" "$BUILD" "$X" >&3
+  			else
+  				printf "%-12s %-30s %s\n" "$DISTRO" "$BUILD" "$X"
+  			fi
+  			BUILD=
+  			DISTRO=
+  		fi
+  	done
+  fi
+
+  # Extract the URL for our release
+  echo -n "Finding download URL to download ..."
+
+  # Set "X-Plex-Token" to the auth token, if no token is specified or it is invalid, the list will return public downloads by default
+  DOWNLOAD=$(wget --header "X-Plex-Token:"${TOKEN}"" --load-cookies /tmp/cookies --save-cookies /tmp/cookies --keep-session-cookies "${URL_DOWNLOAD}" -O - 2>/dev/null | grep -ioe '"label"[^}]*' | grep -i "\"distro\":\"${DISTRO}\"" | grep -i "\"build\":\"${BUILD}\"" | grep -m1 -ioe 'https://[^\"]*' )
+
+  echo -e " ${Green}OK${NC}"
+
+  if [ -z "${DOWNLOAD}" ]; then
+  	echo -e " ${BWhite}${On_Red}ERROR: Unable to retrieve the URL needed for download (Query DISTRO: $DISTRO, BUILD: $BUILD)${NC}" >&2
+  	exit 1
+  fi
+
+  FILENAME="$(basename 2>/dev/null ${DOWNLOAD})"
+  if [ $? -ne 0 ]; then
+  	echo -e " ${BWhite}${On_Red}ERROR: Failed to parse HTML, download cancelled.${NC}" >&2
+  	exit 1
+  fi
+
+  if [ "${PRINT_URL}" = "yes" ]; then
+    if [ "${QUIET}" = "yes" ]; then
+      echo "${DOWNLOAD}" >&3
+    else
+      echo "${DOWNLOAD}"
+    fi
+    exit 1
+  fi
+
+  # By default, try downloading
+  SKIP_DOWNLOAD="no"
+
+  if [ "${SKIP_DOWNLOAD}" = "no" ]; then
+  	if [ -f "${DOWNLOADDIR}/${FILENAME}" ]; then
+  	  echo "Note! File exists, but asked to overwrite with new copy"
+  	fi
+  	echo -ne "Downloading release \"${FILENAME}\" ..."
+  	ERROR=$(wget --load-cookies /tmp/cookies --save-cookies /tmp/cookies --keep-session-cookies "${DOWNLOAD}" -O "${DOWNLOADDIR}/${FILENAME}" 2>&1)
+  	CODE=$?
+  	if [ ${CODE} -ne 0 ]; then
+  		echo -e "\n  !! Download failed with code ${CODE}, \"${ERROR}\""
+  		exit ${CODE}
+  	fi
+  	echo -e " ${Green}OK${NC}"
+  fi
+
+  newplex="$(dpkg -I /opt/plex-tmp/*.deb | grep Version | awk '{print $2}' | awk -F'[ -]' '{print $1}')"
+  currentplex="$(dpkg -l | grep plexmediaserver | awk '{print $3}' | awk -F'[ -]' '{print $1}')"
+  echo -e "${BBlack}${On_White}Starting Version Comparison${NC}"
+  sleep 2
+  echo -e "Currently installed version is ${BWhite}$currentplex${NC}"
+  echo -e "Downloaded version is ${BWhite}$newplex${NC}"
+  /usr/bin/dpkg --compare-versions $newplex gt $currentplex
+  if (($? < 1)); then
+    echo -e "${Green}$newplex${NC} is greater than ${Yellow}$currentplex${NC}"
+    echo "Installing downloaded plex ... "
+    if [ "${AUTOINSTALL}" = "yes" ]; then
+  	   sudo ${DISTRO_INSTALL} "${DOWNLOADDIR}/${FILENAME}"
+    fi
+    if [ "${AUTOSTART}" = "yes" ]; then
+      # Check for systemd
+      echo "Restarting Plex Media Server service ... "
+      if hash systemctl 2>/dev/null; then
+        systemctl start plexmediaserver.service
+      elif hash service 2>/dev/null; then
+        service plexmediaserver start
+      elif [ -x /etc/init.d/plexmediaserver ]; then
+        /etc/init.d/plexmediaserver start
+      else
+        echo -e " ${BWhite}${On_Red}ERROR: No startup scripts were found for 'plexmediaserver'.${NC}" >&2
+        exit 1
+      fi
+    fi
+    if [ "${AUTODELETE}" = "yes" ]; then
+      if [ "${AUTOINSTALL}" = "yes" ]; then
+        rm -rf "${DOWNLOADDIR}/${FILENAME}" && rm -rf /opt/plex-tmp
+        echo "Deleted \"${FILENAME}\""
+      fi
+    fi
+  else
+    echo -e "${Yellow}$newplex${NC} is not greater than ${Green}$currentplex${NC}"
+    echo "Plex Upgrade is currently not necessary "
+
+    if [ "${AUTODELETE}" = "yes" ]; then
+  	  if [ "${AUTOINSTALL}" = "yes" ]; then
+  		  rm -rf "${DOWNLOADDIR}/${FILENAME}" && rm -rf /opt/plex-tmp
+  		  echo "Deleted \"${FILENAME}\""
+      fi
+    fi
+  fi
+}
+
+
+function upgradeOmbi {
+  user=$(cat /srv/rutorrent/home/db/master.txt)
+  echo -e "Stopping Ombi Service ... "
+  if [[ -f /etc/systemd/system/plexrequests.service ]]; then
+    systemctl stop plexrequests
+  else
+   systemctl stop ombi
+  fi
+  cd /opt
+  if [[ -f plexrequests/PlexRequests.sqlite ]]; then
+    mv plexrequests ombi
+    mv ombi/PlexRequests.sqlite ombi/Ombi.sqlite
+    sed -i "s/PlexRequests.exe/Ombi.exe/g" /etc/systemd/system/plexrequests.service
+    mv /etc/systemd/system/plexrequests.service /etc/systemd/system/ombi.service
+    systemctl daemon-reload
+  fi
+  if [[ -f Ombi.zip ]]; then rm -f Ombi.zip; fi
+  echo -e "Backing up your database ... "
+  cp ombi/Ombi.sqlite .
+  echo -e "Installing newest version ... "
+  rm -rf ombi
+  curl -sL https://git.io/vKEJz | grep release | grep zip | cut -d "\"" -f 2 | sed -e 's/\/tidusjar/https:\/\/github.com\/tidusjar/g' | xargs wget --quiet -O Ombi.zip >/dev/null 2>&1
+  unzip Ombi.zip >/dev/null 2>&1
+  mv Release ombi
+  mv Ombi.sqlite ombi
+  if [[ -f Ombi.zip ]]; then rm -f Ombi.zip; fi
+  chown -R ${user}: ombi
+  echo -e "Starting Ombi ... "
+  systemctl start ombi
+  echo -e "Done! ... "
+}
+
+function upgradeDeluge() {
+  OUTTO=/dev/null
+  green=$(tput setaf 2)
+  yellow=$(tput setaf 3)
+  bold=$(tput bold)
+  normal=$(tput sgr0)
+  users=($(systemctl status deluged@* | grep -m1 Deluge | cut -d@ -f2 | cut -d. -f1))
+  echo -e "1) Deluge ${green}repo${normal} (fastest)"
+  echo -e "2) Deluge with ${green}libtorrent 1.0.9 (stable)${normal}"
+  echo -e "3) Deluge with ${green}libtorrent 1.1.1 (dev)${normal}"
+  echo -ne "${bold}${yellow}What version of Deluge do you want?${normal} (Default ${green}1${normal}): "; read version
+  case $version in
+    1 | "") DELUGE=REPO  ;;
+    2) DELUGE=1.0.9  ;;
+    3) DELUGE=1.1.1 ;;
+    *) DELUGE=REPO ;;
+  esac
+  echo "We will be using Deluge with Libtorrent ${DELUGE}"
+  echo
+
+for i in "${users[@]}"; do
+  echo -e "Stopping deluged and deluge-web for $i"
+  systemctl stop deluged@$i
+  systemctl stop deluge-web@$i
+done
+  if [[ $DELUGE == REPO ]]; then
+    add-apt-repository 'deb http://ppa.launchpad.net/deluge-team/ppa/ubuntu precise main'
+    apt-get -y update
+    apt-get install -y -f --only-upgrade deluged deluge-common deluge-web
+    systemctl stop deluged
+    update-rc.d deluged remove
+    rm /etc/init.d/deluged
+  elif [[ $DELUGE == 1.0.9 ]] || [[ $DELUGE == 1.1.1 ]]; then
+    if [[ $DELUGE == 1.0.9 ]]; then
+      LTRC=RC_1_0
+    elif [[ $DELUGE == 1.1.1 ]]; then
+      LTRC=RC_1_1
+    fi
+    echo "Installing dependencies ... "
+    apt-get -qy update >/dev/null 2>&1
+    LIST='build-essential checkinstall libboost-system-dev libboost-python-dev libssl-dev libgeoip-dev libboost-chrono-dev libboost-random-dev
+    python python-twisted python-openssl python-setuptools intltool python-xdg python-chardet geoip-database python-notify python-pygame
+    python-glade2 librsvg2-common xdg-utils python-mako'
+    for depend in $LIST; do
+      apt-get -qq -y install $depend >>"${OUTTO}" 2>&1
+    done
+    echo "Cloning libtorrent and Deluge repostitories ... "
+    git clone -b ${LTRC} https://github.com/arvidn/libtorrent.git >>"${OUTTO}" 2>&1
+    git clone -b 1.3-stable git://deluge-torrent.org/deluge.git >>"${OUTTO}" 2>&1
+    cd libtorrent
+    echo "Configuring libtorrent ... "
+    ./autotool.sh >>"${OUTTO}" 2>&1
+    ./configure --enable-python-binding --with-lib-geoip --with-libiconv >>"${OUTTO}" 2>&1 >>"${OUTTO}" 2>&1
+    echo "Compiling libtorrent ... "
+    make -j$(nproc) >>"${OUTTO}" 2>&1
+    echo "Building libtorrent with checkinstall ... "
+    checkinstall -y --pkgversion=${DELUGE} >>"${OUTTO}" 2>&1
+    ldconfig
+    cd ..
+    cd deluge
+    echo "Installing Deluge ... "
+    python setup.py build >>"${OUTTO}" 2>&1
+    python setup.py install --install-layout=deb >>"${OUTTO}" 2>&1
+    python setup.py install_data >>"${OUTTO}" 2>&1
+    cd ..
+    rm -rf {deluge,libtorrent}
+    echo "Done!"
+  fi
+for i in "${users[@]}"; do
+  echo -e "Starting deluged and deluge-web for $i"
+  systemctl start deluged@$i
+  systemctl start deluge-web@$i
+done
+}
+
+function upgradeJackett() {
+  OK=$(echo -e "[ \e[0;32mUpgrade Complete\e[00m ]")
+  username=$(cat /srv/rutorrent/home/db/master.txt)
+  echo "Stopping Jackett"
+  systemctl stop jackett@${username}
+  cd /home/${username}
+  jackettver=$(wget -q https://github.com/Jackett/Jackett/releases/latest -O - | grep -E \/tag\/ | grep -v repository | awk -F "[><]" '{print $3}')
+  echo "Setting up Jackett-${jackettver} in /home/${username}/Jackett ... "
+  wget -q https://github.com/Jackett/Jackett/releases/download/$jackettver/Jackett.Binaries.Mono.tar.gz
+  tar -xvzf Jackett.Binaries.Mono.tar.gz >/dev/null 2>&1
+  echo "Removing leftover binaries ... "
+  rm -f Jackett.Binaries.Mono.tar.gz
+  echo "Adjusting permissions ... "
+  chown ${username}.${username} -R Jackett
+  echo "Starting Jackett"
+  systemctl start jackett@${username}
+  echo ${OK}
+}
+
+function setup-pyLoad() {
+  username=$(cat /srv/rutorrent/home/db/master.txt)
+  if [ -d /home/${username}/.pyload ]; then
+    cd /home/${username}/.pyload
+    /usr/bin/python /home/${username}/.pyload/pyLoadCore.py --setup --config=/home/${username}/.pyload
+    chown -R ${username}.${username} /home/${username}/.pyload
+  else
+    echo "pyLoad is not installed. You can install by typing: box install pyload"
+  fi
+}
+
+function upgradepyLoad() {
+  username=$(cat /srv/rutorrent/home/db/master.txt)
+  if [ -d /home/${username}/.pyload ]; then
+    cd /home/${username}/.pyload
+    git checkout stable && git pull
+    chown -R ${username}.${username} /home/${username}/.pyload
+  else
+    echo "pyLoad is not installed. You can install by typing: box install pyload"
+  fi
+}
+
+commandprompt_on
+powerprompt_on
+basicprompt_on
+prompt_OFF
+
+# Local Variables:
+# mode:shell-script
+# sh-shell:bash
+# End:
+
+export NVM_DIR="/root/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

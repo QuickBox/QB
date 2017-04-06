@@ -1,0 +1,16 @@
+[Unit]
+Description=Serve a login-terminal over http on  port 4224.
+Required=sshd.service
+After=sshd.service
+
+[Service]
+User=root
+Type=forking
+EnvironmentFile=/etc/default/shellinabox
+ExecStart=/usr/bin/shellinaboxd -q --disable-ssl -background=/var/run/shellinaboxd.pid -c /var/lib/shellinabox -p 4224 -u shellinabox -g shellinabox --user-css Normal:+/etc/shellinabox/options-enabled/00_QuickConsole.css
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

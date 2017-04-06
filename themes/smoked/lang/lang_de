@@ -1,0 +1,339 @@
+<?php
+
+/*******************************************************************************
+*                                                                              *
+*                               German	                                       *
+*                                                                              *
+*******************************************************************************/
+
+////////////////////////////////////////
+//DASHBOARD MENU
+///////////////////////////////////////
+
+// main menu tab
+$L['MAIN_MENU'] = 'Hauptmenü';
+$L['DOWNLOADS'] = 'Downloads';
+$L['WEB_CONSOLE'] = 'Webkonsole';
+
+// plugin menu tab
+$L['PLUGIN_MENU'] = 'Plugin Menü';
+$L['RPLUGIN_MENU'] = 'ruTorrent Plugin Menü';
+$L['PMENU_NOTICE_TXT'] = 'Hier kannst du ganz einfach die ruTorrent Plugins mit einem Klick auf den Namen installieren oder deinstallieren';
+$L['PLUGINS'] = 'Plugins';
+
+// quick help menu tab
+$L['HELP_COMMANDS'] = 'Hilfsbefehle & Mehr';
+$L['QUICK_SYSTEM_TIPS'] = 'Quick System Tipps';
+$L['DISKTEST_TXT'] = 'Dieser Befehl führt einen schnellen Lese/Schreib-Test deiner Festplatte durch.';
+$L['FIXHOME_TXT'] = 'Führe diesen Befehl aus, um schnell die /home Ordnerberechtigungen anzupassen.';
+// admin commands section
+$L['ADMIN_COMMANDS'] = 'Admin Befehle';
+$L['SETDISK_TXT'] = 'Führe diesen Befehl via SSH aus, um einem Benutzer eine bestimmte Menge an Speicherplatz zuzuweisen.';
+$L['CREATESEEDBOXUSER_TXT'] = 'Führe diesen Befehl via SSH aus, um einen neuen Seedbox-Benutzer auf dem Server zu erstellen.';
+$L['DELETESEEDBOXUSER_TXT'] = 'Führe diesen Befehl via SSH aus, um einen vorhandenen Seedbox-Benutzer auf dem Server zu löschen. Du musst den Account-Namen des Benutzers eingeben, nach dem du dann gefragt wirst.';
+$L['CHANGEUSERPASS_TXT'] = 'Führe diesen Befehl via SSH aus, um das Passwort eines Benutzers zu ändern.';
+$L['QUICKVPN_TXT'] = 'Führe diesen Befehl via SSH aus, um deinen eigenen VPN-Server innerhalb weniger Minuten aufzusetzen sowie ihn zu managen und neue Benutzer-Zertifikate für ihn zu erstellen.';
+$L['SHOWSPACE_TXT'] = 'Führe den oben genannten Befehl als root aus, um dir den momentan genutzten Speicherplatz von jedem Benutzer anzeigen zu lassen.';
+$L['UPGRADEBTSYNC_TXT'] = 'Führe diesen Befehl via SSH aus, um BTSync auf die neueste verfügbare Version zu aktualisieren.';
+$L['UPGRADEPLEX_TXT'] = 'Führe diesen Befehl via SSH aus, um Plex auf die neueste verfügbare Version zu aktualisieren.';
+$L['UPGRADEDELUGE_TXT'] = 'Führe diesen Befehl via SSH aus, um Deluge auf die neueste verfügbare Version zu aktualisieren.';
+$L['UPGRADEJACKETT_TXT'] = 'Führe diesen Befehl via SSH aus, um Jackett auf die neueste verfügbare Version zu aktualisieren.';
+$L['UPGRADEPYLOAD_TXT'] = 'Führe diesen Befehl via SSH aus, um pyLoad auf die neueste verfügbare Version zu aktualisieren.';
+$L['SETUPPYLOAD_TXT'] = 'Führe diesen Befehl via SSH aus, um das pyLoad Setup-Script auszuführen.';
+$L['CLEAN_MEM_TXT'] = 'Führe den oben genannten Befehl als root aus, wenn du den physikalischen Cache-Speicher deines Systems löschen möchtest.';
+
+// essential user commands section
+$L['ESSENTIAL_USER_COMMANDS'] = 'Grundlegende Nutzerbefehle';
+$L['RELOAD_TXT'] = 'Ermöglicht es dem Nutzer, seine Dienste neuzustarten (rTorrent sowie irssi)';
+$L['SCREEN_RTORRNENT_TXT'] = 'Ermöglicht es dem Nutzer, rTorrent via SSH neuzustarten oder neu einzubinden.';
+$L['SCREEN_IRSSI_TXT'] = 'Ermöglicht es dem Nutzer, irssi via SSH neuzustarten oder neu einzubinden.';
+
+$L['LANG_SELECT'] = 'Wähle die Sprache aus';
+
+
+////////////////////////////////////////
+//DASHBOARD WIDGET TITLES
+///////////////////////////////////////
+
+// services status widget
+$L['SERVICE_CONTROL_CENTER'] = 'Dienst Kontrollcenter';
+
+// services status widget
+$L['SERVICE_STATUS'] = 'Status der Dienste';
+
+// restart services widget
+$L['RESTART_SERVICES'] = 'Dienste neustarten';
+
+// service controller widget
+$L['ENABLE_DISABLE_SERVICES'] = 'Aktivieren/Deaktivieren';
+
+// package management center widget
+$L['PACKAGE_MANAGEMENT_CENTER'] = 'Paket Management Center';
+
+// bandwidth data widget
+$L['BANDWIDTH_DATA'] = 'Bandbreite';
+
+// disk status widget
+$L['YOUR_DISK_STATUS'] = 'Status deines Speicherplatzes';
+
+// memory status widget
+$L['SYSTEM_RAM_STATUS'] = 'Status deines Arbeitsspeichers';
+
+// cpu status widget
+$L['CPU_STATUS'] = 'Status der CPU';
+
+// server load widget
+$L['SERVER_LOAD'] = 'Server-Last';
+
+// recent updates widget
+$L['RECENT_UPDATES'] = 'Recent Activity & Updates';
+$L['RECENT_UPDATES_TXT'] = 'To view feed, scroll with your mouse wheel.';
+
+
+////////////////////////////////////////
+//PACKAGE MANAGEMENT CENTER
+///////////////////////////////////////
+
+// package management center notice
+$L['PMC_NOTICE_TXT'] = '<strong>Achtung!</strong> Lass dir bitte gesagt sein, dass diese Optionen nicht die gleichen wie das Aktivieren und Deaktivieren eines Software-Paketes sind. Diese Optionen sind nur für das Installieren sowie Deinstallieren vorgesehen.';
+
+// package management center column headers
+$L['NAME'] = 'Name';
+$L['DETAILS'] = 'Details';
+$L['AVAILABILITY'] = 'Verfügbarkeit';
+
+// packages
+$L['BTSYNC_DETAILS'] = 'BitTorrent Sync von BitTorrent, Inc ist ein proprietäres Peer-to-Peer Dateisynchronisationsprogramm.';
+$L['COUCHPOTATO'] = 'Lade deine Filme, nachdem sie released wurden, einfach und automatisiert in der besten Qualität via Torrent und UseNet runter.';
+$L['CSF'] = 'ConfigServer Firewall, auch CSF genannt, ist ein Firewall-Konfigurationsskript, das dir eine bessere Sicherheit für deinen Server ermöglicht und dir eine einfache und umfangreiche Benutzeroberfläche für die Firewall-Einstellungen bietet.';
+$L['DELUGE'] = 'Deluge ist ein leichter, kostenloser, Cross-Plattform BitTorrent-Client.';
+$L['JACKETT'] = 'API-Unterstützung für deine favorisierten privaten Tracker.';
+$L['NEXTCLOUD'] = 'Nextcloud ist eine selbst-gehostete Open-Source, Dateisynchronisations- sowie Teilungs- und Kommunikationsplattform. Greife auf deine Dateien, deinen Kalender, deine Kontakte zu, synchronisiere sie und kommuniziere und kollaboriere auf all deinen Geräten. Dabei entscheidest du, was mit deinen Daten passiert, wo sie sind und wer auf diese zugreifen darf!';
+$L['OVPN'] = 'SSL/TLS basierter User-Space VPN. Unterstützt Linux, Solaris, OpenBSD, FreeBSD, NetBSD, Mac OS X, und Windows 2000/XP+.';
+$L['PLEX'] = 'Mit Plex kannst du deine Medien verwalten und auf jedes Gerät streamen, auf dem Plex verfügbar ist.';
+$L['PLEX_REQUESTS'] = 'Plex Requests ist ein schicker und einfach zu bedienender Webdienst, über den die Benutzer Wünsche für die Plex-Bibliothek eintragen können. Dieser funktioniert mit CouchPotato, SickRage und Sonarr.';
+$L['PLEXPY'] = 'Eine auf Python basierende Web-Applikation, um den Plex-Server zu überwachen, zu managen und das Nutzungsverhalten der Benutzer zu analysieren.';
+$L['PYLOAD'] = 'pyLoad ist ein Download-Manager für One-Click-Hoster, Video-Webseiten, und HTTP/FTP Links. Eine Liste von unterstützten Webseiten kann <a href="https://github.com/pyload/pyload/wiki/Supported-Hoster" target="_blank">hier</a> gefunden werden.';
+$L['QUASSEL'] = 'Quassel IRC ist ein moderner, plattformübergreifender, verteilter IRC-Client, der auf dem Qt4-Framework basiert.';
+$L['QUOTAS'] = 'Dieses Linux-Feature erlaubt es dem Systemadministrator, den maximal verfügbaren Speicherplatz einem Benutzer oder einer Gruppe zuzuweisen.';
+$L['RAPIDLEECH'] = 'RapidLeech ist ein freies Server-Transfer-Skript, das Dateien von populären File-Hostern wie uploaded.net, zippyshare.com oder einem der über 100 anderen Hostern runter- oder sie hochlädt.';
+$L['SABNZBD'] = 'SABnzbd ist ein plattformunabhängiger Binary-Newsgroup-Downloader. Das Programm arbeitet im Hintergrund und vereinfacht das Downloaden, Prüfen und Extrahieren von Dateien aus dem Usenet. SABnzbd nutzt dafür NZB-Dateien (vergleichbar mit .torrent-Dateien, aber für das Usenet), anstatt das Usenet direkt zu durchsuchen.';
+$L['SICKRAGE'] = 'Video File Manager für Serien, der nach den neuesten Episoden deiner Lieblingsserien Ausschau hält und diese dann automatisiert runterlädt und organisiert.';
+$L['SONARR'] = 'Sonarr ist ein Serien-Management-Tool, das mit Torrents und UseNet funktioniert.';
+$L['SUBSONIC'] = 'Subsonic ist ein webbasierter Media-Server. Da er in Java geschrieben ist, kann er auf jedem Betriebssystem mit Java-Support betrieben werden. Subsonic ermöglicht das simultane Streamen auf mehrere Clienten und unterstützt jedes streambare Medienformat (inklusive MP3, AAC, und Ogg).';
+$L['SYNCTHING'] = 'Syncthing ist eine quelloffen und in Go geschriebene Dateisynchronisation mit BitTorrent.';
+$L['X2GO'] = 'X2Go ist eine Open-Source Remote-Desktop-Software für Linux, die das NX-Technologie-Protokoll verwendet.';
+$L['ZNC'] = 'ZNC ist ein IRC-Netzwerk Bouncer oder BNC. Er kann den Clienten vom eigentlichen IRC-Server sowie ausgewählten Chaträumen trennen.';
+
+// package management center buttons
+$L['CLI'] = 'Nur per Web-Konsole';
+$L['INSTALL'] = 'Installieren';
+$L['INSTALLED'] = 'Installiert';
+$L['OVPN_TOOLTIP_I'] = 'Greife per Web-Konsole auf das Feature mit dem Befehl "quickVPN" zu';
+$L['OVPN_TOOLTIP_U'] = 'Greife per Web-Konsole auf das Feature mit dem Befehl "quickVPN" zu';
+$L['BOX'] = 'Nur BOX';
+$L['BOX_TOOLTIP_CSF'] = 'Greife per SSH auf das Feature mit dem Befehl "box install csf" zu';
+$L['BOX_TOOLTIP_NEXTCLOUD'] = 'Greife per SSH auf das Feature mit dem Befehl "box install nextcloud" zu';
+$L['BOX_TOOLTIP_ZNC'] = 'Greife per SSH auf das Feature mit dem Befehl "box install znc" zu';
+
+////////////////////////////////////////
+//BANDWIDTH & DATA TABLES
+///////////////////////////////////////
+
+// column headers and dropdown toggle button
+$L['NETWORK'] = 'Netzwerk';
+$L['UPLOAD'] = 'Upload';
+$L['DOWNLOAD'] = 'Download';
+$L['VIEW_ADDITIONAL_BANDWIDTH_DETAILS'] = 'Zeige weitere Bandbreiten-Details';
+
+// main table headers
+$L['Summary'] = 'Zusammenfassung';
+$L['Top 10 days'] = 'Top 10 Tage';
+$L['Last 24 hours'] = 'Letzte 24 Stunden';
+$L['Last 30 days'] = 'Letzte 30 Tage';
+$L['Last 12 months'] = 'Letzte 12 Monate';
+
+// traffic table columns
+$L['In'] = 'Eingehend';
+$L['Out'] = 'Ausgehend';
+$L['Total'] = 'Gesamt';
+
+// summary rows
+$L['This hour'] = 'Diese Stunde';
+$L['This day'] = 'Dieser Tag';
+$L['This month'] = 'Dieser Monat';
+$L['All time'] = 'Insgesamte Zeit';
+
+// date formats
+$L['datefmt_days'] = '%d %B';
+$L['datefmt_days_img'] = '%d';
+$L['datefmt_months'] = '%B %Y';
+$L['datefmt_months_img'] = '%b';
+$L['datefmt_hours'] = '%l%p';
+$L['datefmt_hours_img'] = '%l';
+$L['datefmt_top'] = '%d %B %Y';
+
+
+////////////////////////////////////////
+//DISK STATUS WIDGET
+///////////////////////////////////////
+
+$L['FREE'] = 'Frei';
+$L['USED'] = 'Belegt';
+$L['SIZE'] = 'Größe';
+$L['DISK_SPACE'] = 'Speicherplatz';
+$L['PERCENTAGE_TXT_1'] = 'Du hast schon';
+$L['PERCENTAGE_TXT_2'] = 'deines gesamten Speicherplatzes belegt';
+$L['RTORRENTS_TITLE'] = 'Torrents in rTorrent';
+$L['DTORRENTS_TITLE'] = 'Torrents in Deluge';
+$L['TORRENTS_LOADED_1'] = 'Es sind';
+$L['TORRENTS_LOADED_2'] = 'Torrents im Moment geladen';
+
+
+////////////////////////////////////////
+//SYSTEM RAM STATUS WIDGET
+///////////////////////////////////////
+
+// physical memory
+$L['PHYSICAL_MEMORY_TITLE'] = 'Physikalisch genutzter Speicher';
+$L['PHYSICAL_MEMORY_USED_TXT'] = 'belegt';
+$L['PHYSICAL_MEMORY_IDLE_TXT'] = 'frei';
+
+//cached memory
+$L['CACHED_MEMORY_TITLE'] = 'Gecachte Speichernutzung';
+$L['CACHED_MEMORY_USAGE_TXT'] = 'Cache Speichernutzung liegt bei';
+$L['CACHED_MEMORY_BUFFERS_TXT'] = 'Zwischenspeicher liegen bei';
+
+// real memory
+$L['REAL_MEMORY_TITLE'] = 'Tatsächliche Speichernutzung';
+$L['REAL_MEMORY_USAGE_TXT'] = 'Tatsächlich verwendeter Speicher';
+$L['REAL_MEMORY_FREE_TXT'] = 'Tatsächlich freier Speicher';
+
+// swap usage
+$L['SWAP_TITLE'] = 'Swap-Nutzung';
+$L['SWAP_TOTAL_TXT'] = 'SWAP Area';
+$L['SWAP_USED_TXT'] = 'belegt';
+$L['SWAP_IDLE_TXT'] = 'frei';
+
+// total ram
+$L['TOTAL_RAM'] = 'Gesamter Arbeitsspeicher';
+
+// clean mem button
+$L['CLEAR_CACHE'] = 'Lösche den Cache-Speicher';
+
+
+////////////////////////////////////////
+//CPU STATUS WIDGET
+///////////////////////////////////////
+
+// used percentage
+$L['CPU_USED'] = 'genutzt';
+
+// idle percentage
+$L['CPU_IDLE'] = 'inaktiv';
+
+// cpu info
+$L['FREQUENCY'] = 'Frequenz:';
+$L['SECONDARY'] = 'Sekundärer Cache:';
+
+
+////////////////////////////////////////
+//SERVER LOAD WIDGET
+///////////////////////////////////////
+
+$L['SL_TXT'] = 'Aktuelle Durchschnittsbelastung deines Servers';
+$L['UPTIME'] = 'Betriebszeit';
+
+
+////////////////////////////////////////
+//SERVICE TOGGLES
+///////////////////////////////////////
+
+$L['ENABLED'] = 'Aktiviert';
+$L['DISABLED'] = 'Deaktiviert';
+
+$L['INSTALLED'] = 'Installiert';
+$L['UNINSTALLED'] = 'Deinstalliert';
+$L['INSTALLING'] = 'Installiere';
+$L['UNINSTALLING'] = 'Deinstalliere';
+
+
+////////////////////////////////////////
+//STATUS BUTTONS
+///////////////////////////////////////
+
+$L['REFRESH'] = 'Aktualisieren';
+$L['UPDATE'] = 'Updater ausführen';
+
+$L['CANCEL'] = 'Abbrechen';
+$L['AGREE'] = 'Ich verstehe, zieh durch!';
+
+$L['CLOSE_REFRESH'] = 'Schließen & Aktualisieren';
+
+////////////////////////////////////////
+//ADDITIONAL DICTIONARY
+///////////////////////////////////////
+
+$L['IDLE'] = 'Leerlauf';
+$L['TOTAL'] = 'Gesamt';
+$L['USED'] = 'Verwendet';
+
+$L['DAYS_L'] = 'Tage';
+$L['HOURS_L'] = 'Stunden';
+$L['MINUTES_L'] = 'min';
+$L['SECONDS_L'] = 'sek';
+$L['IDLE_L'] = 'Leerlauf';
+$L['TOTAL_L'] = 'gesamt';
+$L['USED_L'] = 'verwendet';
+
+
+////////////////////////////////////////
+//MODALS & POPUP NOTICES
+///////////////////////////////////////
+
+//MODAL TITLES
+$L['UNINSTALL_TITLE'] = 'Deinstallieren';
+
+
+//MODAL TEXT
+$L['UNINSTALL_BTSYNC_TXT'] = 'Du bist gerade dabei, BitTorrent Sync auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Einstellungen gemeinsamer Ordner löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit BitTorrent Sync neu installieren, dabei werden jedoch dein Speicherpfad sowie die verknüpften Ordnereinstellungen kompett zurückgesetzt.';
+$L['UNINSTALL_CSF_TXT'] = 'Du bist gerade dabei, Config Server Firewall (CSF) auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Config Server Firewall (CSF) neu installieren, dabei werden jedoch Einstellungen (falls diese eingestellt wurden) komplett zurückgesetzt.';
+$L['UNINSTALL_COUCHPOTATO_TXT'] = 'Du bist gerade dabei, CouchPotato auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Einstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit CouchPotato neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
+$L['UNINSTALL_DELUGE_TXT'] = 'Du bist gerade dabei, Deluge auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Einstellungen gemeinsamer Ordner für <strong>alle Nutzer</strong> löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Deluge neu installieren, dabei werden jedoch dein Speicherpfad sowie die verknüpften Ordnereinstellungen kompett zurückgesetzt.';
+$L['UNINSTALL_JACKETT_TXT'] = 'Du bist gerade dabei, Jackett auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Einstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Jackett neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
+$L['UNINSTALL_NEXTCLOUD_TXT'] = 'Du bist gerade dabei, NextCloud auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Einstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit NextCloud neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
+$L['UNINSTALL_PLEX_TXT'] = 'Du bist gerade dabei, Plex Media Server auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Bibliothekseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Plex neu installieren, dabei werden jedoch deine Bibliothekseinstellungen komplett zurückgesetzt.';
+$L['UNINSTALL_PLEXPY_TXT'] = 'Du bist gerade dabei, PlexPy auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Bibliothekseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit PlexPy neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
+$L['UNINSTALL_PLEXREQUESTS_TXT'] = 'Du bist gerade dabei, Plex Requests auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Bibliothekseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Plex Requests neu installieren, dabei werden jedoch deine Bibliothekseinstellungen sowie Wünsche komplett zurückgesetzt.';
+$L['UNINSTALL_PYLOAD_TXT'] = 'Du bist gerade dabei, pyLoad auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit pyLoad neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
+$L['UNINSTALL_QUASSEL_TXT'] = 'Du bist gerade dabei, Quassel auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird Quassel sowie alle Einstellungen und gespeicherten Backlogs komplett von deinem System entfernen.';
+$L['UNINSTALL_QUOTAS_TXT'] = 'Du bist gerade dabei, quotas auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird user quotas sowie alle dazugehörigen Einstellungen komplett von deinem System entfernen.';
+$L['UNINSTALL_RAPIDLEECH_TXT'] = 'Du bist gerade dabei, Rapidleech auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Rapidleech neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
+$L['UNINSTALL_SABNZBD_TXT'] = 'Du bist gerade dabei, SABnzbd auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit SABnzbd neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
+$L['UNINSTALL_SICKRAGE_TXT'] = 'Du bist gerade dabei, SickRage auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit SickRage neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
+$L['UNINSTALL_SONARR_TXT'] = 'Du bist gerade dabei, Sonarr auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Sonarr-NzbDrone neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
+$L['UNINSTALL_SUBSONIC_TXT'] = 'Du bist gerade dabei, Subsonic auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Subsonic neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
+$L['UNINSTALL_SYNCTHING_TXT'] = 'Du bist gerade dabei, Syncthing auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Syncthing neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
+$L['UNINSTALL_X2GO_TXT'] = 'Du bist gerade dabei, x2go auf deinem System zu deinstallieren.<br/><br/> Diese Aktion wird x2goserver und die xfce4-Desktopumgebung komplett von deinem System entfernen.';
+$L['UNINSTALL_ZNC_TXT'] = 'Du bist gerade dabei, ZNC auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Einstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit ZNC neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
+
+//SYSTEM RESPONSE MODAL
+$L['SYSTEM_RESPONSE_TITLE'] = 'System-Antwort';
+
+
+
+//GRITTER POPUPS
+$L['UNINSTALLING_TITLE'] = 'Deinstalliere';
+
+//GRITTER TEXT
+$L['UNINSTALLING_TXT_1'] = 'Bitte warte kurz, während';
+$L['UNINSTALLING_TXT_2'] = 'von deinem System deinstalliert wird.';
+
+
+////////////////////////////////////////////////////////////////////////////
+// SAMPLE
+// $L['SAMPLE'] = 'Sample';
+////////////////////////////////////////////////////////////////////////////
+
+
+?>

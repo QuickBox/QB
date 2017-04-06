@@ -1,0 +1,41 @@
+Alias /rutorrent "/srv/rutorrent"
+<Directory "/srv/rutorrent">
+  Options Indexes FollowSymLinks MultiViews
+  AuthType Digest
+  AuthName "rutorrent"
+  AuthUserFile '/etc/htpasswd'
+  Require valid-user
+  AllowOverride None
+  Order allow,deny
+  allow from all
+</Directory>
+Alias /USERNAME.rtorrent.downloads "/home/USERNAME/torrents/rtorrent/"
+<Directory "/home/USERNAME/torrents/rtorrent/">
+  Options Indexes FollowSymLinks MultiViews
+  AuthType Digest
+  AuthName "rutorrent"
+  AuthUserFile '/etc/htpasswd'
+  Require user USERNAME
+  AllowOverride None
+  Order allow,deny
+  allow from all
+  php_admin_value engine Off
+</Directory>
+Alias /USERNAME.deluge.downloads "/home/USERNAME/torrents/deluge/"
+<Directory "/home/USERNAME/torrents/deluge/">
+  Options Indexes FollowSymLinks MultiViews
+  AuthType Digest
+  AuthName "rutorrent"
+  AuthUserFile '/etc/htpasswd'
+  Require user USERNAME
+  AllowOverride None
+  Order allow,deny
+  allow from all
+  php_admin_value engine Off
+</Directory>
+<Location "/USERNAME">
+    AuthType Digest
+    AuthName "rutorrent"
+    AuthUserFile "/etc/htpasswd"
+    Require user USERNAME
+</Location>

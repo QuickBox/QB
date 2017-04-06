@@ -1,0 +1,46 @@
+SSLPassPhraseDialog  builtin
+SSLSessionCache         shmcb:/var/cache/mod_ssl/scache(512000)
+SSLSessionCacheTimeout  300
+#SSLMutex default
+SSLRandomSeed startup file:/dev/urandom  256
+SSLRandomSeed connect builtin
+SSLCryptoDevice builtin
+<VirtualHost *:80>
+        DocumentRoot "/srv/rutorrent/home"
+        <Directory "/srv/rutorrent/home/">
+                Options Indexes FollowSymLinks
+                AllowOverride All AuthConfig
+                Order allow,deny
+                Allow from all
+        AuthType Digest
+        AuthName "REALM"
+        AuthUserFile 'HTPASSWD'
+        Require valid-user
+        </Directory>
+SCGIMount /USERNAME 127.0.0.1:PORT
+</VirtualHost>
+<VirtualHost *:443>
+Options +Indexes +MultiViews +FollowSymLinks
+SSLEngine on
+        DocumentRoot "/srv/rutorrent/home"
+        <Directory "/srv/rutorrent/home/">
+                Options +Indexes +FollowSymLinks +MultiViews
+                AllowOverride All AuthConfig
+                Order allow,deny
+                Allow from all
+        AuthType Digest
+        AuthName "REALM"
+        AuthUserFile 'HTPASSWD'
+        Require valid-user
+        </Directory>
+        SSLEngine on
+        SSLProtocol all -SSLv2
+        SSLCipherSuite ALL:!ADH:!EXPORT:!SSLv2:RC4+RSA:+HIGH:+MEDIUM:+LOW
+        SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem
+        SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+        SetEnvIf User-Agent ".*MSIE.*" \
+                 nokeepalive ssl-unclean-shutdown \
+                 downgrade-1.0 force-response-1.0
+SCGIMount /USERNAME 127.0.0.1:PORT
+</Virtualhost>
+SCGIMount /USERNAME 127.0.0.1:PORT

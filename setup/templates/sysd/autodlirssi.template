@@ -1,0 +1,14 @@
+[Unit]
+Description=AutoDL IRSSI
+After=network.target
+
+[Service]
+Type=forking
+KillMode=none
+User=%I
+ExecStart=/usr/bin/screen -d -m -fa -S irssi /usr/bin/irssi
+ExecStop=/usr/bin/killall -w -s 2 /usr/bin/irssi
+WorkingDirectory=/home/%I/
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,5 @@
+<?php
+$limits['duration'] = 24;   // maximum duration hours
+$limits['links'] = 0;   //maximum sharing links per user
+$downloadpath = $_SERVER['HTTP_HOST'] . '/fileshare/share.php';
+?>

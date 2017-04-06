@@ -1,0 +1,339 @@
+<?php
+
+/*******************************************************************************
+*                                                                              *
+*                               Danish	                                       *
+*                                                                              *
+*******************************************************************************/
+
+////////////////////////////////////////
+//DASHBOARD MENU
+///////////////////////////////////////
+
+// main menu tab
+$L['MAIN_MENU'] = 'Hovedmenu';
+$L['DOWNLOADS'] = 'Downloads';
+$L['WEB_CONSOLE'] = 'Webkonsol';
+
+// plugin menu tab
+$L['PLUGIN_MENU'] = 'Pluginmenu';
+$L['RPLUGIN_MENU'] = 'ruTorrent Pluginmenu';
+$L['PMENU_NOTICE_TXT'] = 'Nemt at installere og afinstallere ruTorrent plugins blot ved at klikke på pluginnavnet';
+$L['PLUGINS'] = 'Plugins';
+
+// quick help menu tab
+$L['HELP_COMMANDS'] = 'Hjælpekommandoer & Mere';
+$L['QUICK_SYSTEM_TIPS'] = 'Hurtige System Tips';
+$L['DISKTEST_TXT'] = 'Skriv denne kommando for at udføre en hurtig s/l test af din disk.';
+$L['FIXHOME_TXT'] = 'Skriv denne kommando for hutigt at tilrette /home rettigheder.';
+// admin commands section
+$L['ADMIN_COMMANDS'] = 'Admin Kommandoer';
+$L['SETDISK_TXT'] = 'Skriv denne kommando i ssh for at allokere den mængde diskplads du ønsker at tildele til en bruger.';
+$L['CREATESEEDBOXUSER_TXT'] = 'Skriv denne kommando i ssh for at oprette en ny seedboxbruger på din server.';
+$L['DELETESEEDBOXUSER_TXT'] = 'Skriv denne kommando i ssh for at slette en seedboxbruger på din server. Du skal indtaste brugerens kontonavn.';
+$L['CHANGEUSERPASS_TXT'] = 'Skriv denne kommando i ssh for at ændre en brugers agdgangskode.';
+$L['QUICKVPN_TXT'] = 'Skriv denne kommando i ssh for at installere din egen VPN server på omkirng et minut samt administrere og oprette en nye brugercertifikater til brug på serveren.';
+$L['SHOWSPACE_TXT'] = 'Skriv denne kommando i ssh (root) for at vise hver brugers nuværende diskforbrug.';
+$L['UPGRADEBTSYNC_TXT'] = 'Skriv denne kommando i ssh for at opgradere BTSync til nyeste version.';
+$L['UPGRADEPLEX_TXT'] = 'Skriv denne kommando i ssh for at opgradere Plex til nyeste version.';
+$L['UPGRADEPYLOAD_TXT'] = 'Type this command in ssh to upgrade pyLoad to newest version when available.';
+$L['SETUPPYLOAD_TXT'] = 'Type this command in ssh to run the pyLoad setup script.';
+$L['UPGRADEDELUGE_TXT'] = 'Skriv denne kommando i ssh for at opgradere Deluge til nyeste version.';
+$L['UPGRADEJACKETT_TXT'] = 'Skriv denne kommando for at opgradere Jackett til nyeste version.';
+$L['CLEAN_MEM_TXT'] = 'Skriv denne kommando i ssh (root) for at nulstille systemets fysiske Hukommelsescache.';
+
+// essential user commands section
+$L['ESSENTIAL_USER_COMMANDS'] = 'Vigtige Brugerkommandoer';
+$L['RELOAD_TXT'] = 'tillader en bruger at genstarte services (rtorrent and irssi)';
+$L['SCREEN_RTORRNENT_TXT'] = 'tillader en bruger at genstarte/genforbinde rtorrent via SSH';
+$L['SCREEN_IRSSI_TXT'] = 'tillader en bruger at genstarte/genforbinde irssi via SSH';
+
+$L['LANG_SELECT'] = 'Vælg sprog';
+
+
+////////////////////////////////////////
+//DASHBOARD WIDGET TITLES
+///////////////////////////////////////
+
+// services status widget
+$L['SERVICE_CONTROL_CENTER'] = 'Servicekontrol';
+
+// services status widget
+$L['SERVICE_STATUS'] = 'Service Status';
+
+// restart services widget
+$L['RESTART_SERVICES'] = 'Genstart Services';
+
+// service controller widget
+$L['ENABLE_DISABLE_SERVICES'] = 'Aktiver/Deaktiver';
+
+// package management center widget
+$L['PACKAGE_MANAGEMENT_CENTER'] = 'Pakkeadministration';
+
+// bandwidth data widget
+$L['BANDWIDTH_DATA'] = 'Båndbredde';
+
+// disk status widget
+$L['YOUR_DISK_STATUS'] = 'Disk Status';
+
+// memory status widget
+$L['SYSTEM_RAM_STATUS'] = 'RAM Status';
+
+// cpu status widget
+$L['CPU_STATUS'] = 'CPU Status';
+
+// server load widget
+$L['SERVER_LOAD'] = 'Serverbelastning';
+
+// recent updates widget
+$L['RECENT_UPDATES'] = 'Recent Activity & Updates';
+$L['RECENT_UPDATES_TXT'] = 'To view feed, scroll with your mouse wheel.';
+
+
+////////////////////////////////////////
+//PACKAGE MANAGEMENT CENTER
+///////////////////////////////////////
+
+// package management center notice
+$L['PMC_NOTICE_TXT'] = '<strong>Bemærk!</strong> Disse muligheder er ikke det samme som aktivering og deaktivering af en softwarepakke. Disse muligheder er designet til enten at installere eller afinstallere.';
+
+// package management center column headers
+$L['NAME'] = 'Navn';
+$L['DETAILS'] = 'Detaljer';
+$L['AVAILABILITY'] = 'Tilgængelighed';
+
+// packages
+$L['BTSYNC_DETAILS'] = 'BitTorrent Sync by BitTorrent, Inc er et proprietært peer-to-peer-fil synkronisering værktøj.';
+$L['COUCHPOTATO'] = 'Hent film automatisk, nemt og i den bedste kvalitet, så snart de er frigivet via usenet eller torrents.';
+$L['CSF'] = 'ConfigServer Firewall, også kendt som CSF, er et firewall-konfigurationsscript således du kan få en bedre sikkerhed til din server og samtidig giver dig et nemt plus avanceret interface til styring af dine firewall-indstillinger.';
+$L['DELUGE'] = 'Deluge en gratis letvægts cross-platform BitTorrent klient.';
+$L['JACKETT'] = 'API support til dine favorit private trackere.';
+$L['NEXTCLOUD'] = 'Nextcloud er en open source, selvhosted filsynkroniserings-, delings- og kommunikationsplatform. Få nem adgang til og synkoniser dine filer, kontakter, kalendre og kommuniker på tværs af alle dine enheder. Du afgør selv hvad der sker med dine data, hvor den lagres, og hvem der kan få adgang!';
+$L['OVPN'] = 'SSL/TLS baseret user-space VPN. Supporterer Linux, Solaris, OpenBSD, FreeBSD, NetBSD, Mac OS X, and Windows 2000/XP+.';
+$L['PLEX'] = 'Plex lader dig streame dit indhold til enhver Plex enhed.';
+$L['PLEX_REQUESTS'] = 'Plex Requests tilbyder et smuk og let anvendeligt interface, således brugere nemt kan tilføje "Ønsker" til Plex-biblioteket. Integrerer med CouchPotato, SickRage and Sonarr.';
+$L['PLEXPY'] = 'En python baseret webapplikation til at monitorere, analysere og få notifikationer omkring din Plex Media Server.';
+$L['PYLOAD'] = 'pyLoad is a download manager for `Hoster` websites, video sites, and HTTP/FTP links. A list of supported sites can be found <a href="https://github.com/pyload/pyload/wiki/Supported-Hoster" target="_blank">here</a>';
+$L['QUASSEL'] = 'Quassel IRC er en moderne, cross-platform, distribueret IRC klient baseret på Qt4 framework.';
+$L['QUOTAS'] = 'Denne feature fra Linux tillader administratore at tildele den mængde disk plads en bruger eller gruppe kan tilgå.';
+$L['RAPIDLEECH'] = 'Rapid Leech er et gratis server overførsels script op mod forskellige populære upload-/downloadsider som fx. uploaded.net, Rapidshare.com og mere end 120 andre.';
+$L['SABNZBD'] = 'SABnzbd is a multi-platform binary newsgroup downloader. The program works in the background and simplifies the downloading verifying and extracting of files from Usenet. SABnzbd uses NZB files (similar to .torrent files, but for Usenet), instead of browsing Usenet directly.';
+$L['SICKRAGE'] = 'SickRage håndterer nemt dine tv-serier, den holder automatisk øje med nye afsnit af din favorit serie.';
+$L['SONARR'] = 'Sonarr håndterer dine tv-serier og virker med både torrents og usenet.';
+$L['SUBSONIC'] = 'Subsonic is a web-based media server. It is written in Java, so it can run on any operating system with Java support. Subsonic supports streaming to multiple clients simultaneously, and supports any streamable media (including MP3, AAC, and Ogg).';
+$L['SYNCTHING'] = 'Open Source Continuous File Synchronization with BitTorrent';
+$L['X2GO'] = 'X2Go er et open source fjernskrivebords-software til Linux som benytter sig af NX tech. protokollen.';
+$L['ZNC'] = 'ZNC er en IRC bouncer eller BNC. Den kan frigøre ircklienten fra serveren eller kanalen og holde din klient ajour når der igen sker en tilkobling.';
+
+// package management center buttons
+$L['CLI'] = 'Kun Webkonsol';
+$L['INSTALL'] = 'Install';
+$L['INSTALLED'] = 'Installeret';
+$L['OVPN_TOOLTIP_I'] = 'Adgang til denne feature fås via webkonsollen ved at skrive: quickVPN';
+$L['OVPN_TOOLTIP_U'] = 'Adgang til denne feature fås via webkonsollen ved at skrive: quickVPN';
+$L['BOX'] = 'Kun BOX';
+$L['BOX_TOOLTIP_CSF'] = 'Adgang til denne feature fås via ssh ved at skrive:  box install csf';
+$L['BOX_TOOLTIP_NEXTCLOUD'] = 'Adgang til denne feature fås via ssh ved at skrive: box install nextcloud';
+$L['BOX_TOOLTIP_ZNC'] = 'Adgang til denne feature fås via ssh ved at skrive:  box install znc';
+
+////////////////////////////////////////
+//BANDWIDTH & DATA TABLES
+///////////////////////////////////////
+
+// column headers and dropdown toggle button
+$L['NETWORK'] = 'Netværk';
+$L['UPLOAD'] = 'Upload';
+$L['DOWNLOAD'] = 'Download';
+$L['VIEW_ADDITIONAL_BANDWIDTH_DETAILS'] = 'Båndbreddedetaljer';
+
+// main table headers
+$L['Summary'] = 'Oversigt';
+$L['Top 10 days'] = 'Top 10 dage';
+$L['Last 24 hours'] = 'Seneste 24 timer';
+$L['Last 30 days'] = 'Seneste 30 dage';
+$L['Last 12 months'] = 'Seneste 12 måneder';
+
+// traffic table columns
+$L['In'] = 'Ind';
+$L['Out'] = 'Ud';
+$L['Total'] = 'Total';
+
+// summary rows
+$L['This hour'] = 'Denne time';
+$L['This day'] = 'Denne dag';
+$L['This month'] = 'Denne måned';
+$L['All time'] = 'Samlet';
+
+// date formats
+$L['datefmt_days'] = '%d %B';
+$L['datefmt_days_img'] = '%d';
+$L['datefmt_months'] = '%B %Y';
+$L['datefmt_months_img'] = '%b';
+$L['datefmt_hours'] = '%l%p';
+$L['datefmt_hours_img'] = '%l';
+$L['datefmt_top'] = '%d %B %Y';
+
+
+////////////////////////////////////////
+//DISK STATUS WIDGET
+///////////////////////////////////////
+
+$L['FREE'] = 'Ledig';
+$L['USED'] = 'Brugt';
+$L['SIZE'] = 'Størrelse';
+$L['DISK_SPACE'] = 'Disk Plads';
+$L['PERCENTAGE_TXT_1'] = 'Du har brugt';
+$L['PERCENTAGE_TXT_2'] = 'af din totale disk plads';
+$L['RTORRENTS_TITLE'] = 'Torrents i rTorrent';
+$L['DTORRENTS_TITLE'] = 'Torrents i Deluge';
+$L['TORRENTS_LOADED_1'] = 'Der er indlæst';
+$L['TORRENTS_LOADED_2'] = 'torrents';
+
+
+////////////////////////////////////////
+//SYSTEM RAM STATUS WIDGET
+///////////////////////////////////////
+
+// physical memory
+$L['PHYSICAL_MEMORY_TITLE'] = 'Fysisk Hukommelsesforbrug';
+$L['PHYSICAL_MEMORY_USED_TXT'] = 'brugt';
+$L['PHYSICAL_MEMORY_IDLE_TXT'] = 'ledig';
+
+//cached memory
+$L['CACHED_MEMORY_TITLE'] = 'Cached Hukommelsesforbrug';
+$L['CACHED_MEMORY_USAGE_TXT'] = 'Cache hukommelsesforbrug ligger på';
+$L['CACHED_MEMORY_BUFFERS_TXT'] = 'Buffers ligger på';
+
+// real memory
+$L['REAL_MEMORY_TITLE'] = 'Aktuel Hukommelsesforbrug';
+$L['REAL_MEMORY_USAGE_TXT'] = 'Aktuel hukommelsesforbrug ligger på';
+$L['REAL_MEMORY_FREE_TXT'] = 'Aktuel hukommelse ledig';
+
+// swap usage
+$L['SWAP_TITLE'] = 'Swap Forbrug';
+$L['SWAP_TOTAL_TXT'] = 'SWAP Område';
+$L['SWAP_USED_TXT'] = 'brugt';
+$L['SWAP_IDLE_TXT'] = 'ledig';
+
+// total ram
+$L['TOTAL_RAM'] = 'Total System RAM';
+
+// clean mem button
+$L['CLEAR_CACHE'] = 'Ryd Hukommelsescache';
+
+
+////////////////////////////////////////
+//CPU STATUS WIDGET
+///////////////////////////////////////
+
+// used percentage
+$L['CPU_USED'] = 'brugt';
+
+// idle percentage
+$L['CPU_IDLE'] = 'ledig';
+
+// cpu info
+$L['FREQUENCY'] = 'Frekvens:';
+$L['SECONDARY'] = 'Sekundær Cache:';
+
+
+////////////////////////////////////////
+//SERVER LOAD WIDGET
+///////////////////////////////////////
+
+$L['SL_TXT'] = 'Din servers aktuelle belastningsgennemsnit';
+$L['UPTIME'] = 'Oppetid';
+
+
+////////////////////////////////////////
+//SERVICE TOGGLES
+///////////////////////////////////////
+
+$L['ENABLED'] = 'Aktiveret';
+$L['DISABLED'] = 'Deaktiveret';
+
+$L['INSTALLED'] = 'Installeret';
+$L['UNINSTALLED'] = 'Uinstalleret';
+$L['INSTALLING'] = 'Installerer';
+$L['UNINSTALLING'] = 'Afinstallerer';
+
+
+////////////////////////////////////////
+//STATUS BUTTONS
+///////////////////////////////////////
+
+$L['REFRESH'] = 'Genopfrisk';
+$L['UPDATE'] = 'Opdater';
+
+$L['CANCEL'] = 'Fortryd';
+$L['AGREE'] = 'Jeg forstår, gør det!';
+
+$L['CLOSE_REFRESH'] = 'Luk & Genopfrisk';
+
+////////////////////////////////////////
+//ADDITIONAL DICTIONARY
+///////////////////////////////////////
+
+$L['IDLE'] = 'Ledig';
+$L['TOTAL'] = 'Total';
+$L['USED'] = 'Brugt';
+
+$L['DAYS_L'] = 'dage';
+$L['HOURS_L'] = 'tim';
+$L['MINUTES_L'] = 'min';
+$L['SECONDS_L'] = 'sek';
+$L['IDLE_L'] = 'ledig';
+$L['TOTAL_L'] = 'total';
+$L['USED_L'] = 'brugt';
+
+
+////////////////////////////////////////
+//MODALS & POPUP NOTICES
+///////////////////////////////////////
+
+//MODAL TITLES
+$L['UNINSTALL_TITLE'] = 'Afinstaller';
+
+
+//MODAL TEXT
+$L['UNINSTALL_BTSYNC_TXT'] = 'Du er ved at afinstallere BitTorrent Sync fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurations og delte indstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere BitTorrent Sync til hver en tid, men din sti til lagering og linkede mappeindstillinger vil blive nulstillet til standard.';
+$L['UNINSTALL_CSF_TXT'] = 'Du er ved at afinstallere Config Server Firewall (CSF) fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurationsindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Config Server Firewall (CSF) til hver en tid, men din konfiguration vil blive nulstillet til standard.';
+$L['UNINSTALL_COUCHPOTATO_TXT'] = 'Du er ved at afinstallere CouchPotato fra dit system.<br/><br/>>Dette vil fuldstændig fjerne din kofiguration og indstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere CouchPotato til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
+$L['UNINSTALL_DELUGE_TXT'] = 'Du er ved at afinstallere Deluge fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurations og delte indstillinger for <strong>alle brugere</strong>... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Deluge til hver en tid, men din sti til lagring og linkede mappeindstillinger vil blive nulstillet til standard..';
+$L['UNINSTALL_JACKETT_TXT'] = 'Du er ved at afinstallere Jackett fra dit system.<br/><br/>Dette vil fuldstændig fjerne din kofiguration og indstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Jackett til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
+$L['UNINSTALL_NEXTCLOUD_TXT'] = 'Du er ved at afinstallere NextCloud fra dit system.<br/><br/>Dette vil fuldstændig fjerne din kofiguration og indstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere NextCloud til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
+$L['UNINSTALL_PLEX_TXT'] = 'Du er ved at afinstallere Plex Media Server fra dit system.<br/><br/>Dette vil fuldstændig fjerne din kofiguration og biblioteksindstillinger... tdenne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Plex til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
+$L['UNINSTALL_PLEXPY_TXT'] = 'Du er ved at afinstallere PlexPy fra dit system.<br/><br/>Dette vil fuldstændig fjerne din kofiguration og biblioteksindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere PlexPy til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
+$L['UNINSTALL_PLEXREQUESTS_TXT'] = 'Du er ved at afinstallere Plex Requests fra dit system.<br/><br/>Dette vil fuldstændig fjerne din kofiguration og biblioteksindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Plex Requests til hver en tid, men dine biblioteksindstillinger og anmodninger vil blive nulstillet.';
+$L['UNINSTALL_PYLOAD_TXT'] = 'You are about to uninstall pyLoad from your system.<br/><br/>This will completely remove all of your configuration settings... this action is irreversible. <br/><br/>You may reinstall pyLoad at any time, however, your configuration settings will be reset to default.';
+$L['UNINSTALL_QUASSEL_TXT'] = 'Du er ved at afinstallere Quassel fra dit system.<br/><br/> Dette vil fuldstændig fjerne Quassel, alle indstillinger/gemte backlogs fra dit system.';
+$L['UNINSTALL_QUOTAS_TXT'] = 'Du er ved at afinstallere Quotas fra dit system.<br/><br/> Dette vil fuldstændig fjerne bruger kvoter (user quotas) og enhver indstilling associeret med dem.';
+$L['UNINSTALL_RAPIDLEECH_TXT'] = 'Du er ved at afinstallere Rapidleech fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurationsindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Rapidleech til hver en tid, men din konfiguration vil blive nulstillet til standard.';
+$L['UNINSTALL_SABNZBD_TXT'] = 'You are about to uninstall SABnzbd from your system.<br/><br/>This will completely remove all of your configuration settings... this action is irreversible. <br/><br/>You may reinstall SABnzbd at any time, however, your configuration settings will be reset to default.';
+$L['UNINSTALL_SICKRAGE_TXT'] = 'Du er ved at afinstallere SickRage fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurationsindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere SickRage til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
+$L['UNINSTALL_SONARR_TXT'] = 'Du er ved at afinstallere Sonarr fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurationsindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Sonarr-NzbDrone til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
+$L['UNINSTALL_SUBSONIC_TXT'] = 'You are about to uninstall Subsonic from your system.<br/><br/>This will completely remove all of your configuration settings... this action is irreversible. <br/><br/>You may reinstall Subsonic at any time, however, your configuration settings will be reset to default.';
+$L['UNINSTALL_SYNCTHING_TXT'] = 'Du er ved at afinstallere Syncthing fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurationsindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Syncthing til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
+$L['UNINSTALL_X2GO_TXT'] = 'Du er ved at afinstallere x2go fra dit system.<br/><br/> Dette vil fuldstændig fjerne x2goserver og xfce4 desktopmiljøet fra dit system.';
+$L['UNINSTALL_ZNC_TXT'] = 'Du er ved at afinstallere ZNC fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurationsindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere ZNC til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
+
+//SYSTEM RESPONSE MODAL
+$L['SYSTEM_RESPONSE_TITLE'] = 'System Respons';
+
+
+
+//GRITTER POPUPS
+$L['UNINSTALLING_TITLE'] = 'Afinstallerer';
+
+//GRITTER TEXT
+$L['UNINSTALLING_TXT_1'] = 'Vent venligst et øjeblik';
+$L['UNINSTALLING_TXT_2'] = 'bliver afinstalleret fra dit system.';
+
+
+////////////////////////////////////////////////////////////////////////////
+// SAMPLE
+// $L['SAMPLE'] = 'Sample';
+////////////////////////////////////////////////////////////////////////////
+
+
+?>

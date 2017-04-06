@@ -1,0 +1,11 @@
+{
+    "listening_port" : 0,
+    "storage_path" : "{HOME}/.config/resilio-sync/storage",
+    "pid_file" : "{HOME}/.config/resilio-sync/sync.pid",
+    "agree_to_EULA": "yes",
+
+    "webui" :
+    {
+        "listen" : "BTSGUIP:8888"
+    }
+}

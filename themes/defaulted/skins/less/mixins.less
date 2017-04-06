@@ -1,0 +1,378 @@
+// Mixins
+
+.transition() {
+  -moz-transition: all 0.2s ease-out 0s;
+  -webkit-transition: all 0.2s ease-out 0s;
+  transition: all 0.2s ease-out 0s;
+}
+
+// Alerts
+.alert-link-color(@color) {
+  .alert-link {
+    color: darken(@color, 2%);
+    &:hover,
+    &:focus {
+      color: darken(@color, 8%);
+    }
+  }
+}
+
+
+// Toggle
+.toggle-variant(@color) {
+  .toggle-on.active {
+    background-color: @color;
+    + .toggle-blob { border: 3px solid @color; }
+  }
+}
+
+
+// Checkbox color variant
+.ckbox-variant(@ckbox-border; @ckbox-checked-bg; @ckbox-color) {
+  input[type='checkbox'] {
+    &:checked + span {
+      &:before {
+        background-color: @ckbox-checked-bg;
+        border-color: @ckbox-checked-bg;
+      }
+      &:after { color: @ckbox-color; }
+    }
+  }
+}
+
+
+// Radio box color variant
+.rdiobox-variant(@rdio-border; @rdio-dot-bg) {
+  input[type='radio'] {
+    &:checked + span {
+      &:before {
+        border-color: @rdio-border;
+      }
+      &:after { background-color: @rdio-dot-bg; }
+    }
+  }
+}
+
+// Modified button variant from bootstrap
+.btn-variant(@color; @background; @border) {
+  color: @color;
+  background-color: @background;
+  border-color: @border;
+
+  &:focus,
+  &.focus {
+    color: @color;
+    background-color: darken(@background, 7%);
+    border-color: darken(@border, 20%);
+    .box-shadow(none);
+  }
+  &:hover {
+    color: @color;
+    background-color: darken(@background, 5%);
+    border-color: darken(@border, 7%);
+  }
+  &:active,
+  &.active,
+  .open > .dropdown-toggle& {
+    color: @color;
+    background-color: darken(@background, 7%);
+    border-color: darken(@border, 7%);
+    .box-shadow(none);
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: @color;
+      background-color: darken(@background, 7%);
+      border-color: darken(@border, 10%);
+    }
+  }
+  &:active,
+  &.active,
+  .open > .dropdown-toggle& {
+    background-image: none;
+  }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &,
+    &:hover,
+    &:focus,
+    &.focus,
+    &:active,
+    &.active {
+      background-color: @background;
+      border-color: @border;
+    }
+  }
+
+  .badge {
+    color: @background;
+    background-color: @color;
+  }
+}
+
+
+// Button stroke variant
+.btn-stroke-variant(@color) {
+  border-color: @color;
+  color: @color;
+
+  &:hover,
+  &:focus,
+  &.focus,
+  &:active,
+  &.active,
+  .open > .dropdown-toggle& {
+    color: darken(@color, 10%);
+    border-color: darken(@color, 10%);
+  }
+}
+
+
+// Nav Tabs Color Variant
+.nav-variant(@color) {
+  background-color: @color;
+  > li {
+    > a {
+      &:hover,
+      &:focus {
+        background-color: darken(@color, 5%);
+      }
+    }
+
+    &.active > a {
+      &,
+      &:hover,
+      &:focus { color: @color; }
+    }
+  }
+}
+
+// Nav Color Variant
+.nav-quirk-variant(@color) {
+  > li {
+    > a > i { color: @color; }
+    &.active {
+      > a {
+        &,
+        &:hover,
+        &:focus {
+          color: #fff;
+          background-color: @color;
+          background-image: none;
+        }
+      }
+
+      .children {
+        &:before { border-top-color: @color; }
+      }
+    }
+  }
+
+  .children {
+    > li.active > a {
+      color: @color;
+
+      &:before { background-color: @color; }
+      &:after { border-color: @color; }
+    }
+  }
+}
+
+// Nav Color Dark Version Variant
+.nav-quirk-dark-variant(@color) {
+  background-color: lighten(@brand-quirk, 10%);
+  > li {
+    > a > i { color: @color; }
+    &,
+    &:last-child { border-color: lighten(@brand-quirk, 15%); }
+
+    > a {
+      color: lighten(@brand-quirk, 40%);
+      &:hover,
+      &:focus {
+        background-color: lighten(@brand-quirk, 5%);
+        color: #fff;
+      }
+    }
+
+    &.active {
+      > a {
+        &,
+        &:hover,
+        &:focus {
+          color: #fff;
+          background-color: @color;
+          background-image: none;
+        }
+      }
+
+      .children {
+        &:before { border-top-color: @color; }
+      }
+    }
+  }
+}
+
+
+// Panel Group Color Variant
+.panel-group-variant(@color) {
+  > .panel-heading {
+    background-color: transparent;
+
+    .panel-title {
+      > a {
+        &,
+        &:hover,
+        &:focus { color: @color; }
+
+        &.collapsed {
+          background-color: @color;
+          &:hover,
+          &:focus { background-color: darken(@color, 5%); }
+        }
+      }
+    }
+  }
+
+  + .panel { border-color: lighten(@color, 7%); }
+}
+
+
+// Panel Full Colored Variant
+.panel-full-variant(@color) {
+
+  background-color: @color;
+  color: fadeout(#fff, 20%);
+
+  .panel-options > li > a {
+    color: fadeout(#fff, 30%);
+    &:hover,
+    &:focus { color: #fff; }
+  }
+
+  .panel-heading {
+    background-color: transparent;
+    .panel-title { color: #fff; }
+  }
+
+  .form-control { border-color: transparent; }
+  .panel-body {
+    .panel-title, h1,h2,h3,h4,h5,h6 {
+      color: #fff;
+      font-weight: 500;
+    }
+
+    a {
+      color: fadeout(#fff, 30%);
+      &:hover,
+      &:focus { color: #fff; }
+    }
+  }
+
+  .panel-footer {
+    padding-top: 0;
+    background-color: transparent;
+  }
+}
+
+// jQuery Gritter
+.add-gritter-icon(@classname; @content) {
+  .gritter-item-wrapper.with-icon.@{classname} > .gritter-item:before {
+    content: '\@{content}';
+  }
+}
+
+
+// Jquery UI Slider Color Variant
+.slider-variant(@color) {
+  .ui-slider-range { background-color: @color; }
+  .ui-slider-handle {
+    border-color: @color;
+    &:after { background-color: @color; }
+  }
+}
+
+
+// Table Color Variant
+.table-variant(@color) {
+  background-color: lighten(@color, 54%);
+  > thead,
+  > tfoot {
+    > tr {
+      > th {
+        border-color: fadeout(#fff, 70%);
+        background-color: @color;
+        color: #fff;
+      }
+    }
+  }
+
+  > tbody > tr {
+    > th,
+    > td {
+      color: fadeout(darken(@color, 20%), 20%);
+    }
+  }
+
+  > tbody > tr.info {
+    > th,
+    > td {
+      background-color: lighten(@color, 48%);
+    }
+  }
+
+  &.table-striped {
+    > tbody > tr:nth-of-type(odd) {
+      background-color: lighten(@color, 50%);
+    }
+  }
+
+  &.table-hover {
+    > tbody > tr:hover {
+      background-color: lighten(@color, 48%);
+    }
+
+    > tbody > tr.info:hover {
+      > th,
+      > td {
+        background-color: lighten(@color, 46%);
+      }
+    }
+  }
+
+  &.table-striped-col {
+    > thead,
+    > tfoot {
+      > tr {
+        th,
+        td {
+          &:nth-of-type(even) {
+            background-color: darken(@color, 3%);
+          }
+        }
+      }
+    }
+
+    > tbody {
+      > tr:not(.active):not(.success):not(.info):not(.warning):not(.danger) {
+        th,
+        td {
+          &:nth-of-type(even) {
+            background-color: lighten(@color, 50%);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Quick Access Page Icon Blocks
+.panel-quick-page-hover(@color, @color-hover) {
+  background-color: @color;
+  .transition(@transition-base);
+  
+  &:hover,
+  &:focus { background-color: @color-hover; }
+}

@@ -1,0 +1,5 @@
+<Directory "/srv/rutorrent/home/fileshare">
+    Options -Indexes
+    AllowOverride All
+    Satisfy Any
+</Directory>

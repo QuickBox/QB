@@ -1,0 +1,42 @@
+#!/bin/bash
+export USER=`id -un`
+IRSSI_CLIENT=yes
+RTORRENT_CLIENT=yes
+DELUGED_CLIENT=no
+DELUGEWEB_CLIENT=no
+BTSYNC=no
+SONARR=no
+WIPEDEAD=yes
+ADDRESS=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+
+if [ "$WIPEDEAD" == "yes" ]; then
+  screen -wipe >/dev/null 2>&1;
+fi
+
+if [ "$IRSSI_CLIENT" == "yes" ]; then
+  (screen -ls|grep irssi >/dev/null || (screen -S irssi -d -t irssi -m irssi -h "${ADDRESS}" && false))
+fi
+
+if [ "$RTORRENT_CLIENT" == "yes" ]; then
+  (screen -ls|grep rtorrent >/dev/null || (screen -fa -dmS rtorrent rtorrent && false))
+fi
+
+if [ "$DELUGED_CLIENT" == "yes" ]; then
+  (screen -ls|grep deluged >/dev/null || (screen -fa -dmS deluged deluged -d && false))
+fi
+
+if [ "$DELUGEWEB_CLIENT" == "yes" ]; then
+  (screen -ls|grep deluge-web >/dev/null || (screen -fa -dmS deluge-web deluge-web && false))
+fi
+
+if [ "$BTSYNC" == "yes" ]; then
+  (ps aux|grep btsync >/dev/null && (sudo service btsync start && false))
+else
+  (ps aux|grep btsync >/dev/null && (sudo service btsync stop && false))
+fi
+
+if [ "$SONARR" == "yes" ]; then
+  (ps aux|grep mono >/dev/null && (sudo service sonarr start && false))
+else
+  (ps aux|grep mono >/dev/null && (sudo service sonarr stop && false))
+fi
