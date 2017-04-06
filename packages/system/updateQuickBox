@@ -36,20 +36,20 @@ function _directorycheck() {
   if [[ ! -f /install/.developer.lock ]]; then
     if [[ -d /etc/QuickBox ]]; then
       cd /etc/QuickBox
-      git submodule foreach git checkout master
-      git submodule foreach git reset --hard origin/master
-      git submodule foreach git pull
+      git checkout master
+      git reset --hard origin/master
+      git pull
     else
-      git clone --recursive https://github.com/QuickBox/QuickBox /etc/QuickBox
+      git clone https://github.com/QuickBox/QB /etc/QuickBox
     fi
   else
     if [[ -d /etc/QuickBox ]]; then
       cd /etc/QuickBox
-      git submodule foreach git checkout development
-      git submodule foreach git reset --hard origin/development
-      git submodule foreach git pull
+      git checkout development
+      git reset --hard origin/development
+      git pull
     else
-      git clone --recursive --branch "development" https://github.com/QuickBox/QuickBox /etc/QuickBox
+      git clone --branch "development" https://github.com/QuickBox/QB /etc/QuickBox
     fi
   fi
 }
@@ -58,43 +58,11 @@ function _downloadrepos() {
 if [[ ! -f /install/.developer.lock ]]; then
   echo >>"${OUTTO}" 2>&1;
   cd /etc/QuickBox
+  git checkout master
   git pull >>"${OUTTO}" 2>&1;
   echo
-  echo -n "quickbox_setup              :: " >>"${OUTTO}" 2>&1;
-    cd ${local_setup} && git checkout master
-    git pull >>"${OUTTO}" 2>&1;
-  echo -n "quickbox_rutorrent          :: " >>"${OUTTO}" 2>&1;
-    cd ${local_rutorrent} && git checkout master
-    git pull >>"${OUTTO}" 2>&1;
-  echo -n "quickbox_rutorrent-plugins  :: " >>"${OUTTO}" 2>&1;
-    cd ${local_rplugins} && git checkout master
-    git pull >>"${OUTTO}" 2>&1;
-  echo -n "quickbox_packages           :: " >>"${OUTTO}" 2>&1;
-    cd ${local_packages} && git checkout master
-    git pull >>"${OUTTO}" 2>&1;
-
-  if [[ -f /srv/rutorrent/home/db/.smoked.lock ]]; then
-    echo -n "quickbox_dashboard          :: " >>"${OUTTO}" 2>&1;
-      cd ${local_themes}smoked && git checkout master
-      git pull >>"${OUTTO}" 2>&1;
-  elif [[ -f /srv/rutorrent/home/db/.defaulted.lock ]]; then
-    #statements [[ -f /srv/rutorrent/home/db/.defaulted.lock ]]; then
-    echo -n "quickbox_dashboard          :: " >>"${OUTTO}" 2>&1;
-      cd ${local_themes}defaulted && git checkout master
-      git pull >>"${OUTTO}" 2>&1;
-  elif [[ ! -f /srv/rutorrent/home/db/*.lock ]]; then
-    echo -n "quickbox_dashboard          :: " >>"${OUTTO}" 2>&1;
-      cd ${local_dashboard} && git checkout master
-      git pull >>"${OUTTO}" 2>&1;
-  fi
-
-  echo -n "club-QuickBox               :: " >>"${OUTTO}" 2>&1;
-    cd ${local_rtheme} && git checkout master
-    git pull >>"${OUTTO}" 2>&1;
-
 
 else
-
 
   echo >>"${OUTTO}" 2>&1;
   cd /etc/QuickBox
@@ -102,37 +70,6 @@ else
   git pull >>"${OUTTO}" 2>&1;
   echo
 
-  echo -n "quickbox_setup              :: " >>"${OUTTO}" 2>&1;
-    cd ${local_setup} && git checkout development
-    git pull >>"${OUTTO}" 2>&1;
-  echo -n "quickbox_rutorrent          :: " >>"${OUTTO}" 2>&1;
-    cd ${local_rutorrent} && git checkout development
-    git pull >>"${OUTTO}" 2>&1;
-  echo -n "quickbox_rutorrent-plugins  :: " >>"${OUTTO}" 2>&1;
-    cd ${local_rplugins} && git checkout development
-    git pull >>"${OUTTO}" 2>&1;
-  echo -n "quickbox_packages           :: " >>"${OUTTO}" 2>&1;
-    cd ${local_packages} && git checkout development
-    git pull >>"${OUTTO}" 2>&1;
-
-  if [[ -f /srv/rutorrent/home/db/.smoked.lock ]]; then
-    echo -n "quickbox_dashboard          :: " >>"${OUTTO}" 2>&1;
-    cd ${local_themes}smoked && git checkout development
-    git pull >>"${OUTTO}" 2>&1;
-  elif [[ -f /srv/rutorrent/home/db/.defaulted.lock ]]; then
-    #statements [[ -f /srv/rutorrent/home/db/.defaulted.lock ]]; then
-    echo -n "quickbox_dashboard          :: " >>"${OUTTO}" 2>&1;
-      cd ${local_themes}defaulted && git checkout development
-      git pull >>"${OUTTO}" 2>&1;
-  elif [[ ! -f /srv/rutorrent/home/db/*.lock ]]; then
-    echo -n "quickbox_dashboard          :: " >>"${OUTTO}" 2>&1;
-      cd ${local_dashboard} && git checkout development
-      git pull >>"${OUTTO}" 2>&1;
-  fi
-
-  echo -n "club-QuickBox               :: " >>"${OUTTO}" 2>&1;
-    cd ${local_rtheme} && git checkout development
-    git pull >>"${OUTTO}" 2>&1;
 fi
 }
 
@@ -504,7 +441,7 @@ usrbin=/usr/local/bin/
 _logcheck
 _oscheck
 _directorycheck
-echo -n "Pulling QuickBox Ecosystem ... " >>"${OUTTO}" 2>&1;_downloadrepos;echo
+#echo -n "Pulling QuickBox Ecosystem ... " >>"${OUTTO}" 2>&1;_downloadrepos;echo
 _bashrc
 echo "Checking locks and adding if necessary ... " >>"${OUTTO}" 2>&1;_checklocks;echo
 echo "Checking if cron services should be uninstalled and taking appropriate action ... " >>"${OUTTO}" 2>&1;_updated;echo
