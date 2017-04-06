@@ -42,7 +42,8 @@ if [[ $arch == x86_64 ]]; then
   rm -rf rclone-*
 fi
 if [[ $arch == i386 ]]; then
-  current=$(curl -s -N http://rclone.org/downloads/ | grep -m1 linux-386 | cut -d\" -f2)
+  #current=$(curl -s -N http://rclone.org/downloads/ | grep -m1 linux-386 | cut -d\" -f2)
+  current=$(curl -O https://downloads.rclone.org/rclone-current-linux-386.zip)
   cd /tmp
   wget $current
   unzip rclone-*
