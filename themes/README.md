@@ -1,80 +1,43 @@
 # quickbox_themes
 All additional themes for the QuickBox Dashboard are housed here... nice and tidy like! Want to make your own? Fork and submit!
 
+https://www.dropbox.com/s/300201cvzlilz3z/QuickBox%20-%20Smoked%20preview.gif
+
+##Feel free to discuss... :stuck_out_tongue_winking_eye:
+
 ### Want to install the QuickBox Smoked Theme?
 
-#### First you'll need to navigate to your dashboard directory
+##Updated Theme Install Method
 
-```
-cd /srv/rutorrent/home
-```
+Thanks [@Reynald](https://plaza.quickbox.io/u/reynald) for confirming this method to be working!
 
-#### Next, you'll need to initialize the directory with git
-
+You can add a **.smoked.lock** which the updater (if it dicovers the theme lock) will port in the needed theme assets. You can add this lock by doing
 ```
-git init
-git remote add -t \* -f origin https://github.com/QuickBox/quickbox_themes.git
+printf "" > /srv/rutorrent/home/db/.smoked.lock
 ```
 
-You'll now see the themes which are organized into separate origins
-
-> #### Heads Up!
-origin/master is not a theme and only contains basic readme intros for the themes to be added
-
+If you want the default theme back then do:
 ```
-Updating origin
-remote: Counting objects: 444, done.
-remote: Compressing objects: 100% (397/397), done.
-remote: Total 444 (delta 43), reused 430 (delta 33), pack-reused 0
-Receiving objects: 100% (444/444), 2.13 MiB | 3.93 MiB/s, done.
-Resolving deltas: 100% (43/43), done.
-From https://github.com/QuickBox/quickbox_themes
- * [new branch]      defaulted  -> origin/defaulted
- * [new branch]      master     -> origin/master
- * [new branch]      smoked     -> origin/smoked
+rm -f /srv/rutorrent/home/db/.smoked.lock
+```
+Then add the 'defaulted' lock file and run the update.
+```
+printf "" > /srv/rutorrent/home/db/.defaulted.lock
 ```
 
-#### Now fetch the themes repository
+Perform `box upgrade` to set the new/previous theme.
 
-```
-git fetch --all
-```
 
-#### Finally, you can use the theme with the following
+##The [@Reynald](https://plaza.quickbox.io/u/reynald) method - simple one liner!
 
-**For the 'Smoked' theme**
+Select **smoked**:
 ```
-git reset --hard origin/smoked
-```
-**For the 'Defaulted' theme** (QuickBox default dashboard theme)
-```
-git reset --hard origin/defaulted
+rm -f /srv/rutorrent/home/db/.defaulted.lock && printf "" > /srv/rutorrent/home/db/.smoked.lock && box upgrade
 ```
 
-> You may need to restart apache to see these changes go into effect immediately. You can do so with `service apache2 restart`
-
----
-
-### Need to update the theme?
-
-**For the 'Smoked' theme**
+Select **defaulted**:
 ```
-cd /srv/rutorrent/home
-git pull origin smoked
+rm -f /srv/rutorrent/home/db/.smoked.lock && printf "" > /srv/rutorrent/home/db/.defaulted.lock && box upgrade
 ```
 
-**For the 'Defaulted' theme**
-```
-cd /srv/rutorrent/home
-git pull origin defaulted
-```
-
-Simple as that! You will then see output such as:
-```
-From https://github.com/QuickBox/quickbox_themes
- * branch            smoked     -> FETCH_HEAD
-Updating d8b7dfd..d2efa50
-Fast-forward
- README.md | 42 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
-```
+>These have been built in for an addition to the dashboard to swap themes... (that's coming soon)
