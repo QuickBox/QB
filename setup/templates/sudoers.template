@@ -8,7 +8,7 @@
 #
 Defaults	env_reset
 Defaults	mail_badpass
-Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/bin/quickbox:/usr/local/bin/quickbox/system:/usr/local/bin/quickbox/package:/usr/local/bin/quickbox/package/install:/usr/local/bin/quickbox/package/remove:/usr/local/bin/quickbox/plugin:/usr/local/bin/quickbox/plugin/install:/usr/local/bin/quickbox/plugin/remove"
+Defaults secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/bin/quickbox:/usr/local/bin/quickbox/system:/usr/local/bin/quickbox/package:/usr/local/bin/quickbox/package/install:/usr/local/bin/quickbox/package/remove:/usr/local/bin/quickbox/plugin:/usr/local/bin/quickbox/plugin/install:/usr/local/bin/quickbox/plugin/remove"
 Defaults  env_keep -="HOME"
 
 # Host alias specification
@@ -16,22 +16,21 @@ Defaults  env_keep -="HOME"
 # User alias specification
 
 # Cmnd alias specification
-Cmnd_Alias   CLEANMEM = /proc/sys/vm/drop_caches
-Cmnd_Alias   SYSCMNDS = /usr/local/bin/quickbox/system/clean_log, /usr/local/bin/quickbox/system/clean_mem, /usr/local/bin/quickbox/system/set_interface, /usr/local/bin/quickbox/system/setdisk, /usr/local/bin/quickbox/system/showspace, /usr/local/bin/quickbox/system/updateQuickBox, /usr/local/bin/quickbox/system/updatetestingQuickBox, /usr/local/bin/quickbox/system/lang/langSelect-*, /usr/local/bin/quickbox/system/install_ffmpeg, /usr/local/bin/quickbox/system/quickVPN, /usr/local/bin/quickbox/system/box
+Cmnd_Alias   CLEANMEM = /usr/local/bin/quickbox/system/clean_mem, /proc/sys/vm/drop_caches
+Cmnd_Alias   SYSCMNDS = /usr/local/bin/quickbox/system/clean_log, /usr/local/bin/quickbox/system/set_interface, /usr/local/bin/quickbox/system/setdisk, /usr/local/bin/quickbox/system/showspace, /usr/local/bin/quickbox/system/updateQuickBox, /usr/local/bin/quickbox/system/lang/langSelect-*, /usr/local/bin/quickbox/system/install_ffmpeg, /usr/local/bin/quickbox/system/quickVPN, /usr/local/bin/quickbox/system/box
 Cmnd_Alias   PLUGINCMNDS = /usr/local/bin/quickbox/plugin/install/installplugin-*, /usr/local/bin/quickbox/plugin/remove/removeplugin-*
 Cmnd_Alias   PACKAGECMNDS = /usr/local/bin/quickbox/package/install/installpackage-*, /usr/local/bin/quickbox/package/remove/removepackage-*
-Cmnd_Alias   GENERALCMNDS = /usr/bin/ifstat, /usr/bin/vnstat, /usr/sbin/repquota, /bin/grep, /etc/init.d/apache2 restart
-Cmnd_Alias   SYSCTLCMNDS = /bin/systemctl * rtorrent@*, /bin/systemctl * deluged@*, /bin/systemctl * deluge-web@*, /bin/systemctl * irssi@*, /bin/systemctl * resilio-sync, /bin/systemctl * emby-server, /bin/systemctl * shellinabox, /bin/systemctl * csf, /bin/systemctl * lfd, /bin/systemctl * sabnzbd@*, /bin/systemctl * sonarr@*, /bin/systemctl * syncthing@*, /bin/systemctl * couchpotato@*, /bin/systemctl * plex@*, /bin/systemctl * plexmediaserver, /bin/systemctl * ombi, /bin/systemctl * plexpy, /bin/systemctl * pyload@*, /bin/systemctl * jackett@*, /bin/systemctl * subsonic, /bin/systemctl * sickrage@*, /bin/systemctl * rapidleech@*, /bin/systemctl * quassel@*, /bin/systemctl * x2go@*, /bin/systemctl * znc@*
+Cmnd_Alias   GENERALCMNDS = /usr/bin/ifstat, /usr/bin/vnstat, /usr/sbin/repquota, /bin/grep, /usr/bin/awk, /usr/bin/reload, /etc/init.d/apache2 restart, /usr/bin/pkill, /usr/bin/killall, /bin/sed, /bin/systemctl
 
 # User privilege specification
 root	ALL=(ALL:ALL) ALL
-www-data     ALL = (ALL) NOPASSWD: CLEANMEM, SYSCMNDS, PLUGINCMNDS, PACKAGECMNDS, GENERALCMNDS, SYSCTLCMNDS
+www-data     ALL = (ALL) NOPASSWD: CLEANMEM, SYSCMNDS, PLUGINCMNDS, PACKAGECMNDS, GENERALCMNDS
 
 # Members of the admin group may gain root privileges
 %admin ALL=(ALL) ALL
 
 # Allow members of group sudo to execute any command
-%www-data     ALL = (ALL) NOPASSWD: CLEANMEM, SYSCMNDS, PLUGINCMNDS, PACKAGECMNDS, GENERALCMNDS, SYSCTLCMNDS
+%www-data     ALL = (ALL) NOPASSWD: CLEANMEM, SYSCMNDS, PLUGINCMNDS, PACKAGECMNDS, GENERALCMNDS
 %sudo	ALL=(ALL:ALL) ALL
 
 # See sudoers(5) for more information on "#include" directives:
