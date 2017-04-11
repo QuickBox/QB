@@ -32,7 +32,7 @@ cp -f /usr/local/bin/quickbox/system/reload /usr/bin/reload
 ### [4]:
 run the upgrade script to match any recent changes and to get you on your way:
 ```
-box upgrade
+updateQuickBox
 ```
 
 ---
