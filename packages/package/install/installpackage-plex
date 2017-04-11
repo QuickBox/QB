@@ -37,14 +37,14 @@ echo "Setting up plex apache configuration ... "
 echo "Installing plex keys and sources ... "
     #wget -O - http://shell.ninthgate.se/packages/shell.ninthgate.se.gpg.key | apt-key add - #MODIFIED
     #echo "deb http://shell.ninthgate.se/packages/debian jessie main" > /etc/apt/sources.list.d/plexmediaserver.list #MODIFIED
-    wget -q https://downloads.plex.tv/plex-keys/PlexSign.key -O - | sudo apt-key add - #ADDED
-    echo "deb https://downloads.plex.tv/repo/deb/ public main" > /etc/apt/sources.list.d/plexmediaserver.list #ADDED
+    wget -q https://downloads.plex.tv/plex-keys/PlexSign.key -O - | sudo apt-key add -
+    echo "deb https://downloads.plex.tv/repo/deb/ public main" > /etc/apt/sources.list.d/plexmediaserver.list
     echo
 
 echo "Updating system ... "
-    apt-get install apt-transport-https -y #ADDED
+    apt-get install apt-transport-https -y >/dev/null 2>&1
     apt-get -y update >/dev/null 2>&1
-    apt-get install -o Dpkg::Options::="--force-confold" -y -f plexmediaserver >/dev/null 2>&1 #MODIFIED
+    apt-get install -o Dpkg::Options::="--force-confold" -y -f plexmediaserver >/dev/null 2>&1
     #DEBIAN_FRONTEND=noninteractive DEBIAN_PRIORITY=critical apt-get -q -y -o -f "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" install plexmediaserver >/dev/null 2>&1
     echo
 
