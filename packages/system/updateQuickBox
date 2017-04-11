@@ -35,6 +35,8 @@ function _logcheck() {
 function _directorycheck() {
   if [[ ! -f /install/.developer.lock ]]; then
     if [[ -d /etc/QuickBox ]]; then
+      rm -rf /etc/QuickBox
+      git clone https://github.com/QuickBox/QB /etc/QuickBox
       cd /etc/QuickBox
       git checkout master
       git reset --hard origin/master
@@ -44,6 +46,8 @@ function _directorycheck() {
     fi
   else
     if [[ -d /etc/QuickBox ]]; then
+      rm -rf /etc/QuickBox
+      git clone --branch "development" https://github.com/QuickBox/QB /etc/QuickBox
       cd /etc/QuickBox
       git checkout development
       git reset --hard origin/development
