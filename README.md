@@ -35,6 +35,14 @@ run the upgrade script to match any recent changes and to get you on your way:
 updateQuickBox
 ```
 
+### Already on the GitHub Repo and need to swap to the new combined repo?
+Simply run the following to update to the new repo:
+```
+wget -O /usr/local/bin/quickbox/system/updateQuickBox https://raw.githubusercontent.com/QuickBox/QB/master/packages/system/updateQuickBox &&
+dos2unix $(find /usr/local/bin/quickbox -type f) && chmod +x $(find /usr/local/bin/quickbox -type f)
+updateQuickBox
+```
+
 ---
 
 ## Script status
