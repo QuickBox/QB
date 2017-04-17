@@ -50,7 +50,7 @@ updateQuickBox
 [![Version 2.5.0-production](https://img.shields.io/badge/version-2.5.0-674172.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31) [![GNU v3.0 License](https://img.shields.io/badge/license-GNU%20v3.0%20License-blue.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31)
 
 #### Ubuntu Builds
- [![Ubuntu 15.10 Passing](https://img.shields.io/badge/Ubuntu%2015.10-passing-brightgreen.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31) [![Ubuntu 16.04 Passing](https://img.shields.io/badge/Ubuntu%2016.04-passing-brightgreen.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31) [![Ubuntu 16.10 Failing](https://img.shields.io/badge/Ubuntu%2016.10-passing-brightred.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31)
+ [![Ubuntu 15.10 Passing](https://img.shields.io/badge/Ubuntu%2015.10-passing-brightgreen.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31) [![Ubuntu 16.04 Passing](https://img.shields.io/badge/Ubuntu%2016.04-passing-brightgreen.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31) [![Ubuntu 16.10 Failing](https://img.shields.io/badge/Ubuntu%2016.10-failing-brightred.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31)
 
 #### Debian Builds -- SUPPORT DISCONTINUED [USE Ubuntu 16.04]
 ~[![Debian 8 Passing](https://img.shields.io/badge/Debain%208-passing-brightgreen.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31)~
