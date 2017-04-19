@@ -156,6 +156,7 @@ function _ask10g() {
       [nN] | [nN][Oo] | "" ) echo "${cyan}Who can afford that stuff anyway?${normal}" ;;
     *)  echo "${cyan}Who can afford that stuff anyway?${normal}"  ;;
     esac
+    echo
 }
 
 # primary partition question
@@ -1184,6 +1185,7 @@ _askpartition
 _ask10g
 _askrtorrent
 _askdeluge
+_askdashtheme
 _adduser
 _askffmpeg
 _denyhosts
