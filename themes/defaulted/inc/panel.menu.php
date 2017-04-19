@@ -12,6 +12,15 @@
       <div class="header-right">
         <ul class="headermenu">
           <?php if ($username == "$master") { ?>
+            <?php if (file_exists('/install/.developer.lock')) { ?>
+            <li>
+              <div class="btn-group">
+                <button type="button" class="btn btn-logged">
+                  <a href="#" class="label label-warning" style="">You are on the QuickBox Development Repo</a>
+                </button>
+              </div>
+            </li>
+            <?php } ?>
             <li>
               <div class="btn-group">
                 <button type="button" class="btn btn-logged" data-toggle="dropdown">
