@@ -46,10 +46,10 @@
                     </li>
                     <li>
                     <span style="padding: 6px 10px; color:#fff"><strong style="color: #4CD4B0">host:</strong> chat.quickbox.io</span><br/>
-                    <span style="padding: 6px 10px; color:#fff"><strong style="color: #4CD4B0">chan:</strong> #QuickBox.io</span><br/>
+                    <span style="padding: 6px 10px; color:#fff"><strong style="color: #4CD4B0">chan:</strong> #QB-Support</span><br/>
                     </li>
                     <li style="border-top: 1px solid #444">
-                      <span class="chat-btn"><a href="https://chat.quickbox.io/channel/QuickBox.io" class="label label-success" target="_blank"><?php echo T('CHAT_CONNECT_TXT'); ?></a></span>
+                      <span class="chat-btn"><a href="https://chat.quickbox.io/channel/QB-Support" class="label label-success" target="_blank"><?php echo T('CHAT_CONNECT_TXT'); ?></a></span>
                     </li>
                 </ul>
               </div>
