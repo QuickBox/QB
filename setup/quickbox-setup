@@ -1145,7 +1145,7 @@ local_packages=/etc/QuickBox/packages/
 local_rutorrent=/etc/QuickBox/rutorrent/
 local_rplugins=/etc/QuickBox/rtplugins/
 local_themes=/etc/QuickBox/themes/
-local_dashboard=/etc/QuickBox/themes/
+local_dashboard=/etc/QuickBox/themes
 
 IFACE=$(ip link show|grep -i broadcast|grep -m1 UP|cut -d: -f 2|cut -d@ -f 1|sed -e 's/ //g');
 HOSTNAME1=$(hostname -s);
