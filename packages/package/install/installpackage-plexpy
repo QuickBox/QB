@@ -51,6 +51,7 @@ cp ${local_setup}templates/sysd/plexpy.template /etc/systemd/system/plexpy.servi
 systemctl enable plexpy > /dev/null 2>&1
 systemctl start plexpy
 systemctl stop plexpy
+sleep 5
 sed -i "s/http_root.*/http_root = \"plexpy\"/g" /opt/plexpy/config.ini
 sed -i "s/http_host.*/http_host = localhost/g" /opt/plexpy/config.ini
 systemctl start plexpy
