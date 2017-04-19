@@ -741,7 +741,7 @@ function _rutorrent-plugins() {
 # function to install dashboard (23)
 function _dashboard() {
   cd && mkdir -p /srv/rutorrent/home
-  cp -r ${local_dashboard}/${dash_theme}. /srv/rutorrent/home
+  cp -r ${local_dashboard}/${dash_theme}/. /srv/rutorrent/home
   touch /srv/rutorrent/home/db/output.log
   touch /srv/rutorrent/home/db/.${dash_theme}.lock
 }
