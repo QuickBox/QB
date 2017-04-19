@@ -47,8 +47,7 @@ function _intro() {
   echo
   echo "   ${title}              Heads Up!              ${normal} "
   echo "   ${message_title}  QuickBox works with the following  ${normal} "
-  echo "   ${message_title}  Ubuntu 15.10 | 16.04 | 16.10       ${normal} "
-  echo "   ${message_title}  Debian 8                           ${normal} "
+  echo "   ${message_title}  Ubuntu 15.10 | 16.04       ${normal} "
   echo
   echo
   echo "${green}Checking distribution ...${normal}"
@@ -239,6 +238,20 @@ function _askservices() {
 }
 
 # ask what rtorrent version (8)
+function _askdashtheme() {
+  echo -e "1) QuickBox - ${green}smoked${normal} :: Dark theme"
+  echo -e "2) QuickBox - ${green}defaulted${normal} :: Light theme"
+  echo -ne "${bold}${yellow}Pick your QuickBox Dashboard Theme${normal} (Default ${green}1${normal}): "; read version
+  case $version in
+    1 | "") dash_theme=smoked  ;;
+    2) dash_theme=defaulted  ;;
+    *) dash_theme=smoked ;;
+  esac
+  echo "We will be using QuickBox Theme : ${green}$dash_theme${normal}"
+  echo
+}
+
+# ask what rtorrent version (8)
 function _askrtorrent() {
   echo -e "1) rtorrent ${green}0.9.6${normal}"
   echo -e "2) rtorrent ${green}0.9.4${normal}"
@@ -253,6 +266,7 @@ function _askrtorrent() {
   echo "We will be using rtorrent-${green}$RTVERSION${normal}/libtorrent-${green}$LTORRENT${normal}"
   echo
 }
+
 # ask deluge version (if wanted) (8.1)
 function _askdeluge() {
   echo -e "1) Deluge ${green}repo${normal} (fastest)"
@@ -321,6 +335,7 @@ function _denyhosts() {
     [nN] | [nN][Oo] ) echo "[ ${green}+  Allowing public trackers  +${normal} ]"
     ;;
   esac
+  echo
 }
 
 # package and repo addition (silently add php7) _add respo sources_ (12)
@@ -725,11 +740,12 @@ function _rutorrent-plugins() {
 # function to install dashboard (23)
 function _dashboard() {
   cd && mkdir -p /srv/rutorrent/home
-  cp -r ${local_dashboard}/. /srv/rutorrent/home
+  cp -r ${local_dashboard}/${dash_theme}. /srv/rutorrent/home
   touch /srv/rutorrent/home/db/output.log
+  touch /srv/rutorrent/home/db/.${dash_theme}.lock
 }
 
-# function to install dashboard (23)
+# function to install _h5ai file indexer (24x)
 function _fileindexer() {
   cd /srv/rutorrent/home
   wget --quiet https://release.larsjung.de/h5ai/h5ai-0.29.0.zip >>"${OUTTO}" 2>&1
@@ -1128,7 +1144,7 @@ local_packages=/etc/QuickBox/packages/
 local_rutorrent=/etc/QuickBox/rutorrent/
 local_rplugins=/etc/QuickBox/rtplugins/
 local_themes=/etc/QuickBox/themes/
-local_dashboard=/etc/QuickBox/dashboard/
+local_dashboard=/etc/QuickBox/themes/
 
 IFACE=$(ip link show|grep -i broadcast|grep -m1 UP|cut -d: -f 2|cut -d@ -f 1|sed -e 's/ //g');
 HOSTNAME1=$(hostname -s);
