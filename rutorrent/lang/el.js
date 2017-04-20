@@ -272,5 +272,6 @@ var theUILang =
  Address			: "Διεύθυνση",
  PeerDL 			: "DL χρήστη",
  PeerDownloaded 		: "Ο χρήστης έλαβε",
- Save_path			: "Τοποθεσία αποθήκευσης"
+ Save_path			: "Τοποθεσία αποθήκευσης",
+ registerMagnet			: "Προσπάθεια καταχώρησης του πρωτόκολλου magnet κατά την εκκίνηση"
 };

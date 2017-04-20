@@ -105,7 +105,7 @@ function makeContent()
 				'</span>'+				
 				'<label>'+theUILang.Label+':</label><input type="text" id="tadd_label" name="tadd_label" class="TextboxLarge" /><select id="tadd_label_select"></select><br/>'+
 				'<hr/>'+
-				'<label>'+theUILang.Torrent_file+':</label><input type="file" multiple="multiple" name="torrent_file[]" id="torrent_file" accept="application/x-bittorrent" class="TextboxLarge"/><br/>'+
+				'<label>'+theUILang.Torrent_file+':</label><input type="file" multiple="multiple" name="torrent_file[]" id="torrent_file" accept=".torrent,application/x-bittorrent" class="TextboxLarge"/><br/>'+
 				'<label>&nbsp;</label><input type="submit" value="'+theUILang.add_button+'" id="add_button" class="Button" /><br/>'+
 			'</form>'+
 			'<hr/>'+
@@ -208,7 +208,6 @@ function makeContent()
 		true);
 	theDialogManager.make("dlgHelp",theUILang.Help,
 		'<div class="content">'+
-			'<center>'+
 				'<table width=100% border=0>'+
 					'<tr><td><strong>F1</strong></td><td>'+theUILang.This_screen+'</td></tr>'+
 					'<tr><td><strong><strong>Ctrl-F1</strong></td><td><a href="javascript://void();" onclick="theDialogManager.toggle(\'dlgAbout\'); return(false);">'+theUILang.About_program+'</a></td></tr>'+
@@ -221,7 +220,6 @@ function makeContent()
 					'<tr><td><strong><strong>Ctrl-A</strong></td><td>'+theUILang.Select_all+'</td></tr>'+
 					'<tr><td><strong><strong>Ctrl-Z</strong></td><td>'+theUILang.Deselect_all+'</td></tr>'+
 				'</table>'+
-			'</center>'+
 		'</div>');
 	theDialogManager.make("dlgAbout","ruTorrent v"+theWebUI.version,
 		'<div class="content"> <strong>'+theUILang.Developers+'</strong>:<br/><br/>'+
@@ -336,6 +334,9 @@ function makeContent()
 					"</div>"+
 					"<div class=\"op100l\"><input type=\"checkbox\" id=\"webui.show_labelsize\"/>"+
 						"<label for=\"webui.show_labelsize\" id=\"lbl_webui.show_labelsize\" >"+theUILang.showLabelSize+"</label>"+
+					"</div>"+
+					"<div class=\"op100l\"><input type=\"checkbox\" id=\"webui.register_magnet\"/>"+
+						"<label for=\"webui.register_magnet\" id=\"lbl_webui.register_magnet\" >"+theUILang.registerMagnet+"</label>"+
 					"</div>"+
 					"<div class=\"op100l\">"+
 						"<label for=\"webui.retry_on_error\">"+theUILang.retryOnErrorTitle+":</label>&nbsp;"+
