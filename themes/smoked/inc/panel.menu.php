@@ -74,6 +74,24 @@
             </div>
             <?php } ?>
           </li>
+          <li>
+            <?php $option = array();
+              $option[] = array('file' => 'defaulted', 'title' =>'Defaulted');
+              $option[] = array('file' => 'smoked', 'title' =>'Smoked'); { ?>
+            <div class="btn-group">
+              <button type="button" class="btn btn-logged" data-toggle="dropdown">
+                <?php echo T('THEME_SELECT'); ?>
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu pull-right">
+              <li><span style="margin-top:5x"></span></li>
+              <?php foreach($option as $theme) { ?>
+              <li><a href='?themeSelect-<?php echo $theme['file'] ?>=true'><img class='lang-flag' src='img/themes/opt_<?php echo $theme['file'] ?>.png' /><?php echo $theme['title'] ?></a></li>
+              <?php } ?>
+              </ul>
+            </div>
+            <?php } ?>
+          </li>
           <?php } ?>
           <li>
             <div class="btn-group">

@@ -274,5 +274,6 @@ var theUILang =
  Address			: "Adresse",
  PeerDL 			: "R. Client",
  PeerDownloaded 		: "Reçu Client",
- Save_path			: "Chemin"
+ Save_path			: "Chemin",
+ registerMagnet			: "Essayer d'enregistrer la gestion du protocole magnet au démarrage"
 };
