@@ -270,11 +270,13 @@ function _updatedashboard() {
     fi
   else
     if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
-      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dashboard}* ${rutorrent}home
+      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}defaulted/* ${rutorrent}home
       rm -f /srv/rutorrent/home/lang/*.php
+      touch /srv/rutorrent/home/db/.defaulted.lock
     else
-      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dashboard}* ${rutorrent}home
+      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}defaulted/* ${rutorrent}home
       rm -f /srv/rutorrent/home/lang/*.php
+      touch /srv/rutorrent/home/db/.defaulted.lock
     fi
   fi
 
