@@ -467,25 +467,6 @@
         RUTorrent - <a href="https://github.com/QuickBox/quickbox_rutorrent/compare/<?php echo $version ?>...master" target="blank"><?php echo $version ?> ... latest commit</a><br/>
         RUTorrent Plugins - <a href="https://github.com/QuickBox/quickbox_rutorrent-plugins/compare/<?php echo $version ?>...master" target="blank"><?php echo $version ?> ... latest commit</a><br/>
         club-QuickBox - <a href="https://github.com/QuickBox/club-QuickBox/compare/<?php echo $version ?>...master" target="blank"><?php echo $version ?> ... latest commit</a><br/>
-        <hr>
-        <h4 class="modal-title">Your Current Commit Status</h4>
-        <span style="font-size:12px">
-
-            Dashboard - <code><a href="https://github.com/QuickBox/quickbox_dashboard/commit/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/dashboard/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>" target="_blank"><?php echo shell_exec('git -C /etc/QuickBox/.git/modules/dashboard/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?></a> ... <a href="https://github.com/QuickBox/quickbox_dashboard/compare/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/dashboard/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>...master" target="_blank">latest</a></code><br>
-
-            Packages - <code><a href="https://github.com/QuickBox/quickbox_packages/commit/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/packages/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>" target="_blank"><?php echo shell_exec('git -C /etc/QuickBox/.git/modules/packages/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?></a> ... <a href="https://github.com/QuickBox/quickbox_packages/compare/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/packages/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>...master" target="_blank">latest</a></code><br>
-
-            RUTorrent Plugins - <code><a href="https://github.com/QuickBox/quickbox_rutorrent-plugins/commit/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/rtplugins/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>" target="_blank"><?php echo shell_exec('git -C /etc/QuickBox/.git/modules/rtplugins/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?></a> ... <a href="https://github.com/QuickBox/quickbox_rutorrent-plugins/compare/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/rtplugins/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>...master" target="_blank">latest</a></code><br>
-
-            club-QuickBox - <code><a href="https://github.com/QuickBox/club-QuickBox/commit/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/rttheme/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>" target="_blank"><?php echo shell_exec('git -C /etc/QuickBox/.git/modules/rttheme/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?></a> ... <a href="https://github.com/QuickBox/club-QuickBox/compare/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/rttheme/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>...master" target="_blank">latest</a></code><br>
-
-            RUTorrent - <code><a href="https://github.com/QuickBox/quickbox_rutorrent/commit/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/rutorrent/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>" target="_blank"><?php echo shell_exec('git -C /etc/QuickBox/.git/modules/rutorrent/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?></a> ... <a href="https://github.com/QuickBox/quickbox_rutorrent/compare/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/rutorrent/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>...master" target="_blank">latest</a></code><br>
-
-            Setup - <code><a href="https://github.com/QuickBox/quickbox_setup/commit/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/setup/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>" target="_blank"><?php echo shell_exec('git -C /etc/QuickBox/.git/modules/setup/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?></a> ... <a href="https://github.com/QuickBox/quickbox_setup/compare/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/setup/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>...master" target="_blank">latest</a></code><br>
-
-            Themes - <code><a href="https://github.com/QuickBox/quickbox_themes/commit/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/themes/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>" target="_blank"><?php echo shell_exec('git -C /etc/QuickBox/.git/modules/themes/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?></a> ... <a href="https://github.com/QuickBox/quickbox_themes/compare/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/themes/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>...master" target="_blank">latest</a></code><br>
-
-        </span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>

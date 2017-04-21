@@ -260,6 +260,7 @@ $plex = processExists("Plex",plex);
 $plexpy = processExists("plexpy",plexpy);
 $ombi = processExists("ombi",$username);
 $pyload = processExists("pyload",$username);
+$radarr = processExists("radarr",$username);
 $rtorrent = processExists("rtorrent",$username);
 $sabnzbd = processExists("sabnzbd",$username);
 $sickrage = processExists("sickrage",$username);
@@ -300,6 +301,7 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   $plexpyURL = "https://" . $_SERVER['HTTP_HOST'] . "/plexpy";
   $ombiURL = "https://" . $_SERVER['HTTP_HOST'] . "/ombi";
   $pyloadURL = "http://" . $_SERVER['HTTP_HOST'] . ":8000";
+  $radarrURL = "https://" . $_SERVER['HTTP_HOST'] . "/radarr";
   $rapidleechURL = "https://" . $_SERVER['HTTP_HOST'] . "/rapidleech";
   $sabnzbdURL = "https://" . $_SERVER['HTTP_HOST'] . "/sabnzbd";
   $sickrageURL = "https://" . $_SERVER['HTTP_HOST'] . "/sickrage";
@@ -367,6 +369,10 @@ if ($pyload == "1") { $plval = "<span class=\"badge badge-service-running-dot\">
 
 if ($quassel == "1") { $qval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
 } else { $qval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
+}
+
+if ($radarr == "1") { $radval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
+} else { $radval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
 }
 
 if (file_exists('/install/.rapidleech.lock')) { $rlval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
@@ -442,6 +448,8 @@ case 0:
     $cbodypl .= $pyload;
   $quassel = isEnabled("quassel", $username);
     $cbodyq .= $quassel;
+  $radarr = isEnabled("radarr", $username);
+    $cbodyrad .= $radarr;
   $rapidleech = isEnabled("rapidleech", $username);
     $cbodyrl .= $rapidleech;
   $sabnzbd = isEnabled("sabnzbd", $username);
@@ -482,6 +490,9 @@ case 66:
     } elseif ($process == "ombi"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
+    } elseif ($process == "radarr"){
+      shell_exec("sudo systemctl enable $process");
+      shell_exec("sudo systemctl start $process");
     } elseif ($process == "subsonic"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
@@ -513,6 +524,9 @@ case 77:
     } elseif ($process == "ombi"){
       shell_exec("sudo systemctl stop $process");
       shell_exec("sudo systemctl disable $process");
+    } elseif ($process == "radarr"){
+      shell_exec("sudo systemctl stop $process");
+      shell_exec("sudo systemctl disable $process");
     } elseif ($process == "subsonic"){
       shell_exec("sudo systemctl stop $process");
       shell_exec("sudo systemctl disable $process");
@@ -542,6 +556,9 @@ case 88:
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
     } elseif ($process == "ombi"){
+      shell_exec("sudo systemctl enable $process");
+      shell_exec("sudo systemctl restart $process");
+    } elseif ($process == "radarr"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
     } elseif ($process == "subsonic"){

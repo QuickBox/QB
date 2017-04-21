@@ -195,6 +195,14 @@
                     </tr>
                     <?php } ?>
 
+                    <?php if (file_exists("/install/.radarr.lock")) { ?>
+                    <tr>
+                      <td><?php echo "$radval"; ?> Radarr </td>
+                      <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=radarr'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
+                      <td class="text-center"><?php echo "$cbodyrad"; ?></td>
+                    </tr>
+                    <?php } ?>
+
                     <?php if (file_exists("/install/.sabnzbd.lock")) { ?>
                     <tr>
                       <td><?php echo "$srval"; ?> SABnzbd </td>
@@ -398,6 +406,15 @@
                         <td style="vertical-align: middle; text-align: center"><a href="?installpackage-quota=true" data-toggle="modal" data-target="#sysResponse" id="quotaInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
+<tr>
+                      <td>Radarr</td>
+                      <td><?php echo T('RADARR'); ?></td>
+                      <?php if (file_exists("/install/.radarr.lock")) { ?>
+                        <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#radarrRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
+                      <?php } else { ?>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-radarr=true" data-toggle="modal" data-target="#sysResponse" id="radarrInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
+                      <?php } ?>
+                    </tr>
                     <tr>
                       <td>Rapidleech</td>
                       <td><?php echo T('RAPIDLEECH'); ?></td>
@@ -552,7 +569,7 @@
                   </div>
                   <div class="panel-body ps-container" style="max-height: 350px; padding: 0;">
                     <div class="alert alert-default" style="margin-bottom: 4px; text-align: center" role="alert">
-                      You are on QuickBox commit - <code><a href="https://github.com/QuickBox/QB/commit/<?php echo shell_exec('git -C /etc/QuickBox/.git/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>" target="_blank" title="View your current commit status" data-placement="top" class="tooltips"><?php echo shell_exec('git -C /etc/QuickBox/.git/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?></a> ... <a href="https://github.com/QuickBox/QB/compare/<?php echo shell_exec('git -C /etc/QuickBox/.git/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>...master" target="_blank" title="Compare your current status to the latest commits" data-placement="top" class="tooltips">latest</a></code></a><br>
+                      You are on QuickBox commit - <code><a href="https://github.com/QuickBox/QB/commit/<?php echo shell_exec('git -C /etc/QuickBox/.git/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>" target="_blank" title="View your current commit status" data-placement="top" class="tooltips"><?php echo shell_exec('git -C /etc/QuickBox/.git/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?></a> ... <a href="https://github.com/QuickBox/QB/compare/<?php echo shell_exec('git -C /etc/QuickBox/.git/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>...<?php if (file_exists('/install/.developer.lock')) { ?>development<?php } else { ?>master<?php } ?>" target="_blank" title="Compare your current status to the latest commits" data-placement="top" class="tooltips">latest</a></code></a><br>
                       <strong><?php echo T('RECENT_UPDATES_TXT'); ?></strong>
                     </div>
                     <div id="activityfeed"></div>
