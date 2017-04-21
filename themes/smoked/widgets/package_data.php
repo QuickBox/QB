@@ -13,6 +13,7 @@ $packages = array(
         'plexpy',
         'ombi',
         'pyload',
+        'radarr',
         'rapidleech',
         'sabnzbd',
         'sickrage',

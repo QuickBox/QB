@@ -252,6 +252,24 @@
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
 </div><!-- modal -->
+<!-- RADARR UNINSTALL MODAL -->
+<div class="modal bounceIn animated" id="radarrRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="RadarrRemovalConfirm" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="RadarrRemovalConfirm"><?php echo T('UNINSTALL_TITLE'); ?> Radarr?</h4>
+      </div>
+      <div class="modal-body">
+        <?php echo T('UNINSTALL_RADARR_TXT'); ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
+        <a href="?removepackage-radarr=true" id="radarrRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
 <!-- RAPIDLEECH UNINSTALL MODAL -->
 <div class="modal bounceIn animated" id="rapidleechRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="RapidleechRemovalConfirm" aria-hidden="true">
   <div class="modal-dialog">
@@ -449,25 +467,6 @@
         RUTorrent - <a href="https://github.com/QuickBox/quickbox_rutorrent/compare/<?php echo $version ?>...master" target="blank"><?php echo $version ?> ... latest commit</a><br/>
         RUTorrent Plugins - <a href="https://github.com/QuickBox/quickbox_rutorrent-plugins/compare/<?php echo $version ?>...master" target="blank"><?php echo $version ?> ... latest commit</a><br/>
         club-QuickBox - <a href="https://github.com/QuickBox/club-QuickBox/compare/<?php echo $version ?>...master" target="blank"><?php echo $version ?> ... latest commit</a><br/>
-        <hr>
-        <h4 class="modal-title">Your Current Commit Status</h4>
-        <span style="font-size:12px">
-
-            Dashboard - <code><a href="https://github.com/QuickBox/quickbox_dashboard/commit/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/dashboard/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>" target="_blank"><?php echo shell_exec('git -C /etc/QuickBox/.git/modules/dashboard/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?></a> ... <a href="https://github.com/QuickBox/quickbox_dashboard/compare/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/dashboard/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>...master" target="_blank">latest</a></code><br>
-
-            Packages - <code><a href="https://github.com/QuickBox/quickbox_packages/commit/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/packages/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>" target="_blank"><?php echo shell_exec('git -C /etc/QuickBox/.git/modules/packages/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?></a> ... <a href="https://github.com/QuickBox/quickbox_packages/compare/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/packages/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>...master" target="_blank">latest</a></code><br>
-
-            RUTorrent Plugins - <code><a href="https://github.com/QuickBox/quickbox_rutorrent-plugins/commit/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/rtplugins/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>" target="_blank"><?php echo shell_exec('git -C /etc/QuickBox/.git/modules/rtplugins/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?></a> ... <a href="https://github.com/QuickBox/quickbox_rutorrent-plugins/compare/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/rtplugins/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>...master" target="_blank">latest</a></code><br>
-
-            club-QuickBox - <code><a href="https://github.com/QuickBox/club-QuickBox/commit/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/rttheme/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>" target="_blank"><?php echo shell_exec('git -C /etc/QuickBox/.git/modules/rttheme/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?></a> ... <a href="https://github.com/QuickBox/club-QuickBox/compare/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/rttheme/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>...master" target="_blank">latest</a></code><br>
-
-            RUTorrent - <code><a href="https://github.com/QuickBox/quickbox_rutorrent/commit/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/rutorrent/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>" target="_blank"><?php echo shell_exec('git -C /etc/QuickBox/.git/modules/rutorrent/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?></a> ... <a href="https://github.com/QuickBox/quickbox_rutorrent/compare/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/rutorrent/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>...master" target="_blank">latest</a></code><br>
-
-            Setup - <code><a href="https://github.com/QuickBox/quickbox_setup/commit/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/setup/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>" target="_blank"><?php echo shell_exec('git -C /etc/QuickBox/.git/modules/setup/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?></a> ... <a href="https://github.com/QuickBox/quickbox_setup/compare/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/setup/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>...master" target="_blank">latest</a></code><br>
-
-            Themes - <code><a href="https://github.com/QuickBox/quickbox_themes/commit/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/themes/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>" target="_blank"><?php echo shell_exec('git -C /etc/QuickBox/.git/modules/themes/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?></a> ... <a href="https://github.com/QuickBox/quickbox_themes/compare/<?php echo shell_exec('git -C /etc/QuickBox/.git/modules/themes/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>...master" target="_blank">latest</a></code><br>
-
-        </span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
@@ -696,6 +695,15 @@ $(document).ready(function() {
     $.gritter.add({
       title: '<?php echo T('UNINSTALLING_TITLE'); ?> pyLoad',
       text: '<?php echo T('UNINSTALLING_TXT_1'); ?> pyLoad <?php echo T('UNINSTALLING_TXT_2'); ?>',
+      class_name: 'with-icon times-circle danger',
+      sticky: true
+    });
+  });
+  // RadarrRemove
+  $('#radarrRemove').click(function(){
+    $.gritter.add({
+      title: '<?php echo T('UNINSTALLING_TITLE'); ?> Radarr',
+      text: '<?php echo T('UNINSTALLING_TXT_1'); ?> Radarr <?php echo T('UNINSTALLING_TXT_2'); ?>',
       class_name: 'with-icon times-circle danger',
       sticky: true
     });

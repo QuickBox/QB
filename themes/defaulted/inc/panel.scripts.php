@@ -252,6 +252,24 @@
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
 </div><!-- modal -->
+<!-- RADARR UNINSTALL MODAL -->
+<div class="modal bounceIn animated" id="radarrRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="RadarrRemovalConfirm" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="RadarrRemovalConfirm"><?php echo T('UNINSTALL_TITLE'); ?> Radarr?</h4>
+      </div>
+      <div class="modal-body">
+        <?php echo T('UNINSTALL_RADARR_TXT'); ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
+        <a href="?removepackage-radarr=true" id="radarrRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
 <!-- RAPIDLEECH UNINSTALL MODAL -->
 <div class="modal bounceIn animated" id="rapidleechRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="RapidleechRemovalConfirm" aria-hidden="true">
   <div class="modal-dialog">
@@ -493,6 +511,7 @@
       close: false,
       save: true,
       sortable: true,
+      stateful: true,
       draggable: true,
       reload: false,
       resize: true,
@@ -676,6 +695,15 @@ $(document).ready(function() {
     $.gritter.add({
       title: '<?php echo T('UNINSTALLING_TITLE'); ?> pyLoad',
       text: '<?php echo T('UNINSTALLING_TXT_1'); ?> pyLoad <?php echo T('UNINSTALLING_TXT_2'); ?>',
+      class_name: 'with-icon times-circle danger',
+      sticky: true
+    });
+  });
+  // RadarrRemove
+  $('#radarrRemove').click(function(){
+    $.gritter.add({
+      title: '<?php echo T('UNINSTALLING_TITLE'); ?> Radarr',
+      text: '<?php echo T('UNINSTALLING_TXT_1'); ?> Radarr <?php echo T('UNINSTALLING_TXT_2'); ?>',
       class_name: 'with-icon times-circle danger',
       sticky: true
     });
