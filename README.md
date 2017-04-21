@@ -18,6 +18,8 @@ grab the current/future QuickBox repository with the following:
 git clone https://github.com/QuickBox/QB /etc/QuickBox
 ```
 
+>If you receive an error `/etc/QuickBox already exists` please perform an `rm -rf /etc/QuickBox`. You can then run the `git clone` command above to proceed.
+
 ### [3]:
 update your current update function by doing the following:
 ```
@@ -57,7 +59,7 @@ updateQuickBox
 
 ---
 
-###Quick Advisory Notice(s) on QuickBox
+### Quick Advisory Notice(s) on QuickBox
 
 >### :rotating_light: OVH DEFAULT KERNEL NOTICE!<br>
 grsec is built into OVH's custom kernel and it absolutely wrecks havoc when using these panels where we depend on the ability for one user (www-data) to see the processes of another running user ($username).
