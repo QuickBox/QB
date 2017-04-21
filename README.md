@@ -49,13 +49,13 @@ updateQuickBox
 
 ## Script status
 
-[![Version 2.5.0-production](https://img.shields.io/badge/version-2.5.0-674172.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31) [![GNU v3.0 License](https://img.shields.io/badge/license-GNU%20v3.0%20License-blue.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31)
+[![Version 2.5.1-production](https://img.shields.io/badge/version-2.5.1-674172.svg?style=flat-square)](https://quickbox.io/readme-md/) [![GNU v3.0 License](https://img.shields.io/badge/license-GNU%20v3.0%20License-blue.svg?style=flat-square)](https://quickbox.io/readme-md/)
 
 #### Ubuntu Builds
- [![Ubuntu 15.10 Passing](https://img.shields.io/badge/Ubuntu%2015.10-passing-brightgreen.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31) [![Ubuntu 16.04 Passing](https://img.shields.io/badge/Ubuntu%2016.04-passing-brightgreen.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31) [![Ubuntu 16.10 Failing](https://img.shields.io/badge/Ubuntu%2016.10-failing-brightred.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31)
+ [![Ubuntu 15.10 Passing](https://img.shields.io/badge/Ubuntu%2015.10-passing-brightgreen.svg?style=flat-square)](https://quickbox.io/readme-md/) [![Ubuntu 16.04 Passing](https://img.shields.io/badge/Ubuntu%2016.04-passing-brightgreen.svg?style=flat-square)](https://quickbox.io/readme-md/) [![Ubuntu 16.10 Failing](https://img.shields.io/badge/Ubuntu%2016.10-failing-brightred.svg?style=flat-square)](https://quickbox.io/readme-md/)
 
 #### Debian Builds -- SUPPORT DISCONTINUED [USE Ubuntu 16.04]
-[![Debian 8 Null](https://img.shields.io/badge/Debain%208-null-black.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31)
+[![Debian 8 Null](https://img.shields.io/badge/Debain%208-null-black.svg?style=flat-square)](https://quickbox.io/readme-md/)
 
 ---
 
