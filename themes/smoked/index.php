@@ -197,7 +197,7 @@
 
                     <?php if (file_exists("/install/.radarr.lock")) { ?>
                     <tr>
-                      <td><?php echo "$plval"; ?> Radarr </td>
+                      <td><?php echo "$radval"; ?> Radarr </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=radarr'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodyrad"; ?></td>
                     </tr>
