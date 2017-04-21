@@ -699,6 +699,15 @@ $(document).ready(function() {
       sticky: true
     });
   });
+  // RadarrRemove
+  $('#radarrRemove').click(function(){
+    $.gritter.add({
+      title: '<?php echo T('UNINSTALLING_TITLE'); ?> Radarr',
+      text: '<?php echo T('UNINSTALLING_TXT_1'); ?> Radarr <?php echo T('UNINSTALLING_TXT_2'); ?>',
+      class_name: 'with-icon times-circle danger',
+      sticky: true
+    });
+  });
   // RapidleechRemove
   $('#rapidleechRemove').click(function(){
     $.gritter.add({
