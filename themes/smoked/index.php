@@ -541,26 +541,27 @@
               </div>
             </div><!-- CPU WIDGET -->
             <?php if ($username == "$master") { ?>
-            <div class="col-sm-12">
-              <div id="project-commits" class="panel panel-inverse">
-                <div class="panel-heading">
-                  <h4 class="panel-title text-success"><?php echo T('RECENT_UPDATES'); ?>
+              <div class="col-sm-12">
+                <div id="project-commits" class="panel panel-inverse">
+                  <div class="panel-heading">
+                    <h4 class="panel-title text-success"><?php echo T('RECENT_UPDATES'); ?>
 
-                    <small><a href="https://github.com/QuickBox/QB/compare/<?php echo $version ?>...master" target="blank" title="Compare recent QuickBox versions to latest commits" data-placement="top" class="label label-primary tooltips" style="font-size:10px; padding-top:0; padding-bottom:0px; top: -2px; position: relative;" target='_blank'>QuickBox :: <span style="color: #fff;text-shadow: 0px 0px 6px #fff;"><?php echo "$version"; ?></span></a></small>
+                        <a href="https://github.com/QuickBox/QB/compare/<?php echo $version ?>...master" target="blank" title="View your current versions changelog" data-placement="top" class="label label-primary tooltips" style="font-size:10px; padding-top:0; padding-bottom:0px; top: -2px; position: relative;" target='_blank'>QuickBox :: <span style="color: #fff;text-shadow: 0px 0px 6px #fff;"><?php echo "$version"; ?></span></a></small>
 
-                  </h4>
-                </div>
-                <div class="panel-body ps-container" style="max-height: 350px; padding: 0;">
-                  <div class="alert alert-default" style="margin-bottom: 4px; text-align: center" role="alert">
-                    <strong><?php echo T('RECENT_UPDATES_TXT'); ?></strong>
+                    </h4>
                   </div>
-                  <div id="activityfeed"></div>
+                  <div class="panel-body ps-container" style="max-height: 350px; padding: 0;">
+                    <div class="alert alert-default" style="margin-bottom: 4px; text-align: center" role="alert">
+                      You are on QuickBox commit - <code><a href="https://github.com/QuickBox/QB/commit/<?php echo shell_exec('git -C /etc/QuickBox/.git/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>" target="_blank" title="View your current commit status" data-placement="top" class="tooltips"><?php echo shell_exec('git -C /etc/QuickBox/.git/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?></a> ... <a href="https://github.com/QuickBox/QB/compare/<?php echo shell_exec('git -C /etc/QuickBox/.git/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>...master" target="_blank" title="Compare your current status to the latest commits" data-placement="top" class="tooltips">latest</a></code></a><br>
+                      <strong><?php echo T('RECENT_UPDATES_TXT'); ?></strong>
+                    </div>
+                    <div id="activityfeed"></div>
+                  </div>
+                  <div class="panel-footer">
+                  <a href="?updateQuickBox=true" data-toggle="modal" data-target="#sysResponse"><button class="btn btn-success btn-quirk btn-block"><i class="fa fa-bell text-success"></i> <?php echo T('UPDATE'); ?> </button></a>
+                  </div>
                 </div>
-                <div class="panel-footer">
-                <a href="?updateQuickBox=true" data-toggle="modal" data-target="#sysResponse"><button class="btn btn-success btn-quirk btn-block"><i class="fa fa-bell text-success"></i> <?php echo T('UPDATE'); ?> </button></a>
-                </div>
-              </div>
-            </div><!-- QUICKBOX UPDATE WIDGET -->
+              </div><!-- QUICKBOX UPDATE WIDGET -->
             <?php } ?>
           </div><!-- row -->
         </div>
