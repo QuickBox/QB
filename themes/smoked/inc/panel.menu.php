@@ -163,6 +163,9 @@
               <?php if (file_exists('/install/.pyload.lock')) { ?>
                 <li><a class="grayscale" href="<?php echo "$pyloadURL"; ?>" target="_blank"><img src="img/brands/pyload.png" class="brand-ico"> <span>pyLoad</span></a></li>
               <?php } ?>
+              <?php if (file_exists('/install/.radarr.lock')) { ?>
+                <li><a class="grayscale" href="<?php echo "$radarrURL"; ?>" target="_blank"><img src="img/brands/radarr.png" class="brand-ico"> <span>Radarr</span></a></li>
+              <?php } ?>
               <?php if (file_exists('/install/.rapidleech.lock')) { ?>
                 <li><a class="grayscale" href="<?php echo "$rapidleechURL"; ?>" target="_blank"><img src="img/brands/rapidleech.png" class="brand-ico"> <span>Rapidleech</span></a></li>
               <?php } ?>
