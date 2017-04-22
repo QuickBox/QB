@@ -38,9 +38,9 @@ function _directorycheck() {
       #rm -rf /etc/QuickBox
       #git clone https://github.com/QuickBox/QB /etc/QuickBox
       cd /etc/QuickBox
-      git checkout master
+      git checkout master >>"${OUTTO}" 2>&1;
       git reset --hard origin/master
-      git pull
+      git pull >>"${OUTTO}" 2>&1;
     else
       git clone https://github.com/QuickBox/QB /etc/QuickBox
     fi
@@ -49,9 +49,9 @@ function _directorycheck() {
       #rm -rf /etc/QuickBox
       #git clone --branch "development" https://github.com/QuickBox/QB /etc/QuickBox
       cd /etc/QuickBox
-      git checkout development
+      git checkout development >>"${OUTTO}" 2>&1;
       git reset --hard origin/development
-      git pull
+      git pull >>"${OUTTO}" 2>&1;
     else
       git clone --branch "development" https://github.com/QuickBox/QB /etc/QuickBox
     fi
@@ -62,7 +62,7 @@ function _downloadrepos() {
 if [[ ! -f /install/.developer.lock ]]; then
   echo >>"${OUTTO}" 2>&1;
   cd /etc/QuickBox
-  git checkout master
+  git checkout master >>"${OUTTO}" 2>&1;
   git pull >>"${OUTTO}" 2>&1;
   echo
 
@@ -70,7 +70,7 @@ else
 
   echo >>"${OUTTO}" 2>&1;
   cd /etc/QuickBox
-  git checkout development
+  git checkout development >>"${OUTTO}" 2>&1;
   git pull >>"${OUTTO}" 2>&1;
   echo
 
@@ -78,8 +78,8 @@ fi
 }
 
 function _bashrc() {
-  cp ${local_setup}templates/bashrc.template /root/.bashrc
-  cp ${local_setup}templates/profile.template /root/.profile
+  cp -a ${local_setup}templates/bashrc.template /root/.bashrc
+  cp -a ${local_setup}templates/profile.template /root/.profile
 }
 
 function _updatequota(){
@@ -365,6 +365,7 @@ function _perms() {
 function _fin() {
   service apache2 reload >/dev/null 2>&1
   source ~/.profile
+  source ~/.bashrc
   echo
   echo "[QuickBox] Seedbox & GUI Update Completed ! " >>"${OUTTO}" 2>&1;
   sleep 5
@@ -434,7 +435,7 @@ local_setup=/etc/QuickBox/setup/
 local_packages=/etc/QuickBox/packages/
 local_rutorrent=/etc/QuickBox/rutorrent/
 local_rplugins=/etc/QuickBox/rtplugins/
-local_dashboard=/etc/QuickBox/dashboard/
+#local_dashboard=/etc/QuickBox/dashboard/
 local_themes=/etc/QuickBox/themes/
 local_rtheme=/etc/QuickBox/rttheme/
 
