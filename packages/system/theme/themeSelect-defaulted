@@ -18,10 +18,19 @@
 #   under the GPL along with build & install instructions.
 #
 
-local_dashboard=/etc/QuickBox/themes
+local_dashboard=/etc/QuickBox/themes/
+
 
 rm -rf /srv/rutorrent/home/db/.smoked.lock >/dev/null 2>&1
-cp -r ${local_dashboard}/defaulted/. /srv/rutorrent/home
+
+if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
+  rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dashboard}defaulted/* ${rutorrent}home
+  rm -f /srv/rutorrent/home/lang/*.php
+else
+  rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dashboard}defaulted/* ${rutorrent}home
+  rm -f /srv/rutorrent/home/lang/*.php
+fi
+
 printf "" > /srv/rutorrent/home/db/.defaulted.lock
 
 #box upgrade
