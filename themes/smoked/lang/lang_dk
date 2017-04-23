@@ -317,6 +317,7 @@ $L['UNINSTALL_SUBSONIC_TXT'] = 'You are about to uninstall Subsonic from your sy
 $L['UNINSTALL_SYNCTHING_TXT'] = 'Du er ved at afinstallere Syncthing fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurationsindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Syncthing til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
 $L['UNINSTALL_X2GO_TXT'] = 'Du er ved at afinstallere x2go fra dit system.<br/><br/> Dette vil fuldstændig fjerne x2goserver og xfce4 desktopmiljøet fra dit system.';
 $L['UNINSTALL_ZNC_TXT'] = 'Du er ved at afinstallere ZNC fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurationsindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere ZNC til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
+$L['THEME_CHANGE_TXT'] = 'Du er ved at ændre temaer. Hvis temaet ikke vises korrekt for dig efter opdateringen, skal du sandsynligvis slette browserens cache og prøve igen.';
 
 //SYSTEM RESPONSE MODAL
 $L['SYSTEM_RESPONSE_TITLE'] = 'System Respons';

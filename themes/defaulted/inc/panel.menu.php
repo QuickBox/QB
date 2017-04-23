@@ -86,7 +86,7 @@
               <ul class="dropdown-menu pull-right">
               <li><span style="margin-top:5x"></span></li>
               <?php foreach($option as $theme) { ?>
-              <li><a href='?themeSelect-<?php echo $theme['file'] ?>=true'><img class='lang-flag' src='img/themes/opt_<?php echo $theme['file'] ?>.png' /><?php echo $theme['title'] ?></a></li>
+              <li><a href="javascript:void()" data-toggle="modal" data-target="#themeSelect<?php echo $theme['file'] ?>Confirm"><img class='lang-flag' src='img/themes/opt_<?php echo $theme['file'] ?>.png' /><?php echo $theme['title'] ?></a></li>
               <?php } ?>
               </ul>
             </div>
