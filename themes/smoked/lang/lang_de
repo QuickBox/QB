@@ -14,6 +14,7 @@
 $L['MAIN_MENU'] = 'Hauptmenü';
 $L['DOWNLOADS'] = 'Downloads';
 $L['WEB_CONSOLE'] = 'Webkonsole';
+$L['THEME_SELECT'] = 'Thema wählen';
 
 // plugin menu tab
 $L['PLUGIN_MENU'] = 'Plugin Menü';

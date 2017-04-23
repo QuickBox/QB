@@ -14,6 +14,7 @@
 $L['MAIN_MENU'] = 'Hovedmenu';
 $L['DOWNLOADS'] = 'Downloads';
 $L['WEB_CONSOLE'] = 'Webkonsol';
+$L['THEME_SELECT'] = 'Vælg tema';
 
 // plugin menu tab
 $L['PLUGIN_MENU'] = 'Pluginmenu';

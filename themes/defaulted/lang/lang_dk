@@ -14,6 +14,7 @@
 $L['MAIN_MENU'] = 'Hovedmenu';
 $L['DOWNLOADS'] = 'Downloads';
 $L['WEB_CONSOLE'] = 'Webkonsol';
+$L['THEME_SELECT'] = 'Vælg tema';
 
 // plugin menu tab
 $L['PLUGIN_MENU'] = 'Pluginmenu';
@@ -86,8 +87,8 @@ $L['CPU_STATUS'] = 'CPU Status';
 $L['SERVER_LOAD'] = 'Serverbelastning';
 
 // recent updates widget
-$L['RECENT_UPDATES'] = 'Opdateringer';
-$L['RECENT_UPDATES_TXT'] = 'This feed updates every 60 seconds';
+$L['RECENT_UPDATES'] = 'Recent Activity & Updates';
+$L['RECENT_UPDATES_TXT'] = 'To view feed, scroll with your mouse wheel.';
 
 
 ////////////////////////////////////////
@@ -111,7 +112,7 @@ $L['JACKETT'] = 'API support til dine favorit private trackere.';
 $L['NEXTCLOUD'] = 'Nextcloud er en open source, selvhosted filsynkroniserings-, delings- og kommunikationsplatform. Få nem adgang til og synkoniser dine filer, kontakter, kalendre og kommuniker på tværs af alle dine enheder. Du afgør selv hvad der sker med dine data, hvor den lagres, og hvem der kan få adgang!';
 $L['OVPN'] = 'SSL/TLS baseret user-space VPN. Supporterer Linux, Solaris, OpenBSD, FreeBSD, NetBSD, Mac OS X, and Windows 2000/XP+.';
 $L['PLEX'] = 'Plex lader dig streame dit indhold til enhver Plex enhed.';
-$L['PLEX_REQUESTS'] = 'Ombi tilbyder et smuk og let anvendeligt interface, således brugere nemt kan tilføje "Ønsker" til Plex-biblioteket. Integrerer med CouchPotato, SickRage and Sonarr.';
+$L['PLEX_REQUESTS'] = 'Plex Requests tilbyder et smuk og let anvendeligt interface, således brugere nemt kan tilføje "Ønsker" til Plex-biblioteket. Integrerer med CouchPotato, SickRage and Sonarr.';
 $L['PLEXPY'] = 'En python baseret webapplikation til at monitorere, analysere og få notifikationer omkring din Plex Media Server.';
 $L['PYLOAD'] = 'pyLoad is a download manager for `Hoster` websites, video sites, and HTTP/FTP links. A list of supported sites can be found <a href="https://github.com/pyload/pyload/wiki/Supported-Hoster" target="_blank">here</a>';
 $L['QUASSEL'] = 'Quassel IRC er en moderne, cross-platform, distribueret IRC klient baseret på Qt4 framework.';
@@ -304,7 +305,7 @@ $L['UNINSTALL_JACKETT_TXT'] = 'Du er ved at afinstallere Jackett fra dit system.
 $L['UNINSTALL_NEXTCLOUD_TXT'] = 'Du er ved at afinstallere NextCloud fra dit system.<br/><br/>Dette vil fuldstændig fjerne din kofiguration og indstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere NextCloud til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
 $L['UNINSTALL_PLEX_TXT'] = 'Du er ved at afinstallere Plex Media Server fra dit system.<br/><br/>Dette vil fuldstændig fjerne din kofiguration og biblioteksindstillinger... tdenne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Plex til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
 $L['UNINSTALL_PLEXPY_TXT'] = 'Du er ved at afinstallere PlexPy fra dit system.<br/><br/>Dette vil fuldstændig fjerne din kofiguration og biblioteksindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere PlexPy til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
-$L['UNINSTALL_PLEXREQUESTS_TXT'] = 'Du er ved at afinstallere Ombi fra dit system.<br/><br/>Dette vil fuldstændig fjerne din kofiguration og biblioteksindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Ombi til hver en tid, men dine biblioteksindstillinger og anmodninger vil blive nulstillet.';
+$L['UNINSTALL_PLEXREQUESTS_TXT'] = 'Du er ved at afinstallere Plex Requests fra dit system.<br/><br/>Dette vil fuldstændig fjerne din kofiguration og biblioteksindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Plex Requests til hver en tid, men dine biblioteksindstillinger og anmodninger vil blive nulstillet.';
 $L['UNINSTALL_PYLOAD_TXT'] = 'You are about to uninstall pyLoad from your system.<br/><br/>This will completely remove all of your configuration settings... this action is irreversible. <br/><br/>You may reinstall pyLoad at any time, however, your configuration settings will be reset to default.';
 $L['UNINSTALL_QUASSEL_TXT'] = 'Du er ved at afinstallere Quassel fra dit system.<br/><br/> Dette vil fuldstændig fjerne Quassel, alle indstillinger/gemte backlogs fra dit system.';
 $L['UNINSTALL_QUOTAS_TXT'] = 'Du er ved at afinstallere Quotas fra dit system.<br/><br/> Dette vil fuldstændig fjerne bruger kvoter (user quotas) og enhver indstilling associeret med dem.';
