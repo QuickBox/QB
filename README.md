@@ -178,7 +178,7 @@ bash /etc/QuickBox/setup/quickbox-setup
 
 **Run the following command to grab current development repos ...**
 ```
-mkdir /install/ && touch /install/.developer.lock \
+mkdir /install/ && touch /install/.developer.lock; \
 apt-get -yqq update; apt-get -yqq upgrade; apt-get -yqq install git lsb-release; \
 git clone --branch "development" https://github.com/QuickBox/QB /etc/QuickBox &&
 bash /etc/QuickBox/setup/quickbox-setup

@@ -14,6 +14,7 @@
 $L['MAIN_MENU'] = 'Menu Principal';
 $L['DOWNLOADS'] = 'Téléchargements';
 $L['WEB_CONSOLE'] = 'Console Web';
+$L['THEME_SELECT'] = 'Selectionner Thème';
 
 // plugin menu tab
 $L['PLUGIN_MENU'] = 'Menu Plugins';
@@ -85,8 +86,8 @@ $L['CPU_STATUS'] = 'Statut CPU';
 $L['SERVER_LOAD'] = 'Charge Serveur';
 
 // recent updates widget
-$L['RECENT_UPDATES'] = 'Nouveautés';
-$L['RECENT_UPDATES_TXT'] = 'This feed updates every 60 seconds';
+$L['RECENT_UPDATES'] = 'Recent Activity & Updates';
+$L['RECENT_UPDATES_TXT'] = 'To view feed, scroll with your mouse wheel.';
 
 
 ////////////////////////////////////////
@@ -110,7 +111,7 @@ $L['JACKETT'] = 'Support API pour vos trackers privés préférés.';
 $L['NEXTCLOUD'] = 'NextCloud est un logiciel open source vous permettant d\'accéder depuis n\'importe quel endroit à vos documents importants. Il peut être installé sur n\'importe quel serveur et vous permet de synchroniser vos données (contacts, calendriers) \'dans le nuage\' sur votre serveur. Vous décidez de ce qui se passe avec vos données, où elles sont et qui peut y accéder!';
 $L['OVPN'] = 'VPN basé sur SSL/TLS. Supporté sur Solaris, OpenBSD, FreeBSD, NetBSD, Mac OS X, et Windows 2000/XP+.';
 $L['PLEX'] = 'Plex vous permet de diffuser votre contenu à tous vos dispositifs Plex activés.';
-$L['PLEX_REQUESTS'] = 'Ombi offre une belle interface pour que vos utilisateurs vous demandent facilement d\'ajouter de nouveaux films à la bibliothèque. S\'intègre avec CouchPotato, SickRage et Sonarr.';
+$L['PLEX_REQUESTS'] = 'Plex Requests offre une belle interface pour que vos utilisateurs vous demandent facilement d\'ajouter de nouveaux films à la bibliothèque. S\'intègre avec CouchPotato, SickRage et Sonarr.';
 $L['PLEXPY'] = 'Une application web python conçue pour la surveillance, l\'analyse et les notifications de Plex Media Server';
 $L['PYLOAD'] = 'pyLoad vous permet de télécharger directement sur votre serveur des liens provenant de sites comme Sendspace ou Rapidshare (une liste de ces sites peut être trouvée en cliquant <a href="https://github.com/pyload/pyload/wiki/Supported-Hoster" target="_blank">ici</a>. Vous pourrez ensuite facilement récupérer ces fichiers via votre client FTP habituel.';
 $L['QUASSEL'] = 'Quassel est un client IRC multi-plateforme moderne basé sur le framework Qt4.';
@@ -303,7 +304,7 @@ $L['UNINSTALL_JACKETT_TXT'] = 'Vous êtes sur le point de désinstaller Jackett 
 $L['UNINSTALL_NEXTCLOUD_TXT'] = 'Vous êtes sur le point de désinstaller NextCloud de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller NextCloud à tout moment, cependant, vos paramètres seront réinitialisés.';
 $L['UNINSTALL_PLEX_TXT'] = 'Vous êtes sur le point de désinstaller Plex Media Server de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres de librairies... cette action est irréversible. <br/><br/>Vous pouvez réinstaller Plex à tout moment, cependant, vos paramètres et librairies seront réinitialisés.';
 $L['UNINSTALL_PLEXPY_TXT'] = 'Vous êtes sur le point de désinstaller PlexPy de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres de librairies... cette action est irréversible. <br/><br/>Vous pouvez réinstaller PlexPy à tout moment, cependant, vos paramètres seront réinitialisés.';
-$L['UNINSTALL_PLEXREQUESTS_TXT'] = 'Vous êtes sur le point de désinstaller Ombi de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres de librairies... cette action est irréversible. <br/><br/>Vous pouvez réinstaller Ombi à tout moment, cependant, vos paramètres de librairies et vos requêtes en cours seront réinitialisés.';
+$L['UNINSTALL_PLEXREQUESTS_TXT'] = 'Vous êtes sur le point de désinstaller Plex Requests de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres de librairies... cette action est irréversible. <br/><br/>Vous pouvez réinstaller Plex Requests à tout moment, cependant, vos paramètres de librairies et vos requêtes en cours seront réinitialisés.';
 $L['UNINSTALL_PYLOAD_TXT'] = 'Vous êtes sur le point de désinstaller pyLoad de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller pyLoad à tout moment, cependant, vos paramètres seront réinitialisés.';
 $L['UNINSTALL_QUASSEL_TXT'] = 'Vous êtes sur le point de désinstaller Quassel de votre système.<br/><br/>Cela va complètement supprimer Quassel et tous ses paramètres / logs de votre système.';
 $L['UNINSTALL_QUOTAS_TXT'] = 'Vous êtes sur le point de désinstaller Quotas de votre système.<br/><br/>Cela va complètement supprimer les Quotas de vos utilisateurs et tout paramètres associés avec eux.';
@@ -315,6 +316,7 @@ $L['UNINSTALL_SUBSONIC_TXT'] = 'Vous êtes sur le point de désinstaller Subsoni
 $L['UNINSTALL_SYNCTHING_TXT'] = 'Vous êtes sur le point de désinstaller Syncthing de votre système.<br/><br/>Cela va complètement supprimer tous ses paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller Syncthing à tout moment, cependant, vos paramètres de configuration seront réinitialisés.';
 $L['UNINSTALL_X2GO_TXT'] = 'Vous êtes sur le point de désinstaller x2go de votre système.<br/><br/>Cela va complètement supprimer x2goserver et l\'environnement de bureau xfce4 de votre système.';
 $L['UNINSTALL_ZNC_TXT'] = 'Vous êtes sur le point de désinstaller ZNC de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller ZNC à tout moment, cependant, vos paramètres seront réinitialisés.';
+$L['THEME_CHANGE_TXT'] = 'Vous allez changer de thèmes. Si le thème ne s\'affiche pas correctement après le rafraîchissement, il vous faudra probablement effacer le cache de votre navigateur et réessayer.';
 
 //SYSTEM RESPONSE MODAL
 $L['SYSTEM_RESPONSE_TITLE'] = 'Réponse Système';

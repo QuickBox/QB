@@ -14,6 +14,7 @@
 $L['MAIN_MENU'] = 'Menu Principal';
 $L['DOWNLOADS'] = 'Téléchargements';
 $L['WEB_CONSOLE'] = 'Console Web';
+$L['THEME_SELECT'] = 'Selectionner Thème';
 
 // plugin menu tab
 $L['PLUGIN_MENU'] = 'Menu Plugins';
@@ -315,6 +316,7 @@ $L['UNINSTALL_SUBSONIC_TXT'] = 'Vous êtes sur le point de désinstaller Subsoni
 $L['UNINSTALL_SYNCTHING_TXT'] = 'Vous êtes sur le point de désinstaller Syncthing de votre système.<br/><br/>Cela va complètement supprimer tous ses paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller Syncthing à tout moment, cependant, vos paramètres de configuration seront réinitialisés.';
 $L['UNINSTALL_X2GO_TXT'] = 'Vous êtes sur le point de désinstaller x2go de votre système.<br/><br/>Cela va complètement supprimer x2goserver et l\'environnement de bureau xfce4 de votre système.';
 $L['UNINSTALL_ZNC_TXT'] = 'Vous êtes sur le point de désinstaller ZNC de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller ZNC à tout moment, cependant, vos paramètres seront réinitialisés.';
+$L['THEME_CHANGE_TXT'] = 'Vous allez changer de thèmes. Si le thème ne s\'affiche pas correctement après le rafraîchissement, il vous faudra probablement effacer le cache de votre navigateur et réessayer.';
 
 //SYSTEM RESPONSE MODAL
 $L['SYSTEM_RESPONSE_TITLE'] = 'Réponse Système';
