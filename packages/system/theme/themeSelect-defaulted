@@ -3,7 +3,7 @@
 # [Quick Box :: Set Defaulted Theme function]
 #
 # QuickLab REPOS
-# QuickLab _ packages  :   https://github.com/QuickBox/quickbox_packages
+# QuickLab _ packages  :   https://github.com/QuickBox/QB/packages
 # LOCAL REPOS
 # Local _ packages   :   /etc/QuickBox/packages
 # Author             :   QuickBox.IO | JMSolo
@@ -17,13 +17,28 @@
 #   including (via compiler) GPL-licensed code must also be made available
 #   under the GPL along with build & install instructions.
 #
+function _updatedashboard() {
+  cd ${rutorrent}
+  #if [[ -f /srv/rutorrent/home/db/.smoked.lock ]]; then
+    if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
+      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}defaulted/* ${rutorrent}home
+      rm -f /srv/rutorrent/home/lang/*.php
+      rm -rf /srv/rutorrent/home/db/.smoked.lock >/dev/null 2>&1
+      printf "" > /srv/rutorrent/home/db/.defaulted.lock
+    else
+      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}defaulted/* ${rutorrent}home
+      rm -f /srv/rutorrent/home/lang/*.php
+      rm -rf /srv/rutorrent/home/db/.smoked.lock >/dev/null 2>&1
+      printf "" > /srv/rutorrent/home/db/.defaulted.lock
+    fi
+  #fi
 
-local_dashboard=/etc/QuickBox/themes
+  service apache2 reload
+  sleep 5
 
-rm -rf /srv/rutorrent/home/db/.smoked.lock >/dev/null 2>&1
-cp -r ${local_dashboard}/defaulted/. /srv/rutorrent/home
-printf "" > /srv/rutorrent/home/db/.defaulted.lock
+}
 
-#box upgrade
+local_themes=/etc/QuickBox/themes/
+rutorrent=/srv/rutorrent/
 
-service apache2 reload
+_updatedashboard

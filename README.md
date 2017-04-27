@@ -12,11 +12,30 @@ login to your server via ssh. Gain root access with `sudo su` followed up with `
 rm -rf QuickBox
 ```
 
+---
+
+### If you are already located on the GitHub repo as of v2.4.9, run the following to easily update to the new v2.5.0 QuickBox/QB repo:
+```
+rm -rf /etc/QuickBox; \
+git clone https://github.com/QuickBox/QB /etc/QuickBox; \
+wget -O /usr/local/bin/quickbox/system/updateQuickBox https://raw.githubusercontent.com/QuickBox/QB/master/packages/system/updateQuickBox; \
+dos2unix $(find /usr/local/bin/quickbox -type f) && chmod +x $(find /usr/local/bin/quickbox -type f); \
+updateQuickBox
+```
+
+### If you have received the following error:
+>`find: ‘/home/*/.config/deluge’: No such file or directory`
+This simply means you do not have Deluge installed, there is no further action for you take.
+
+---
+
 ### [2]:
 grab the current/future QuickBox repository with the following:
 ```
 git clone https://github.com/QuickBox/QB /etc/QuickBox
 ```
+
+>If you receive an error `/etc/QuickBox already exists` please perform an `rm -rf /etc/QuickBox`. You can then run the `git clone` command above to proceed.
 
 ### [3]:
 update your current update function by doing the following:
@@ -47,17 +66,17 @@ updateQuickBox
 
 ## Script status
 
-[![Version 2.5.0-production](https://img.shields.io/badge/version-2.5.0-674172.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31) [![GNU v3.0 License](https://img.shields.io/badge/license-GNU%20v3.0%20License-blue.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31)
+[![Version 2.5.1-production](https://img.shields.io/badge/version-2.5.1-674172.svg?style=flat-square)](https://quickbox.io/readme-md/) [![GNU v3.0 License](https://img.shields.io/badge/license-GNU%20v3.0%20License-blue.svg?style=flat-square)](https://quickbox.io/readme-md/)
 
 #### Ubuntu Builds
- [![Ubuntu 15.10 Passing](https://img.shields.io/badge/Ubuntu%2015.10-passing-brightgreen.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31) [![Ubuntu 16.04 Passing](https://img.shields.io/badge/Ubuntu%2016.04-passing-brightgreen.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31) [![Ubuntu 16.10 Failing](https://img.shields.io/badge/Ubuntu%2016.10-failing-brightred.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31)
+ [![Ubuntu 15.10 Passing](https://img.shields.io/badge/Ubuntu%2015.10-passing-brightgreen.svg?style=flat-square)](https://quickbox.io/readme-md/) [![Ubuntu 16.04 Passing](https://img.shields.io/badge/Ubuntu%2016.04-passing-brightgreen.svg?style=flat-square)](https://quickbox.io/readme-md/) [![Ubuntu 16.10 Failing](https://img.shields.io/badge/Ubuntu%2016.10-failing-brightred.svg?style=flat-square)](https://quickbox.io/readme-md/)
 
 #### Debian Builds -- SUPPORT DISCONTINUED [USE Ubuntu 16.04]
-[![Debian 8 Null](https://img.shields.io/badge/Debain%208-null-black.svg?style=flat-square)](https://plaza.quickbox.io/t/quickbox-readme-md/31)
+[![Debian 8 Null](https://img.shields.io/badge/Debain%208-null-black.svg?style=flat-square)](https://quickbox.io/readme-md/)
 
 ---
 
-###Quick Advisory Notice(s) on QuickBox
+### Quick Advisory Notice(s) on QuickBox
 
 >### :rotating_light: OVH DEFAULT KERNEL NOTICE!<br>
 grsec is built into OVH's custom kernel and it absolutely wrecks havoc when using these panels where we depend on the ability for one user (www-data) to see the processes of another running user ($username).
@@ -159,7 +178,7 @@ bash /etc/QuickBox/setup/quickbox-setup
 
 **Run the following command to grab current development repos ...**
 ```
-mkdir /install/ && touch /install/.developer.lock \
+mkdir /install/ && touch /install/.developer.lock; \
 apt-get -yqq update; apt-get -yqq upgrade; apt-get -yqq install git lsb-release; \
 git clone --branch "development" https://github.com/QuickBox/QB /etc/QuickBox &&
 bash /etc/QuickBox/setup/quickbox-setup
