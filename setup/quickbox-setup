@@ -1093,8 +1093,12 @@ function _finished() {
   echo -e " ${green}setdisk${normal} - set your disk quota for any given user"
   echo -e " ${green}showspace${normal} - shows the amount of space used by all users on the server"
   echo -e " ${green}reload${normal} - restarts your seedbox services, i.e; rtorrent & irssi"
-  echo -e " ${green}upgradeBTSync${normal} - upgrades btsync when new version is available"
+  echo -e " ${green}upgradeBTSync${normal} - upgrades BTSync when new version is available"
+  echo -e " ${green}upgradeOmbi${normal} - upgrades Ombi when new version is available"
   echo -e " ${green}upgradePlex${normal} - upgrades Plex when new version is available"
+  echo -e " ${green}box install letsencrypt${normal} - installs a valid SSL certificate to be used with "
+  echo -e "                           a valid domain name. "
+  echo -e " ${green}box${normal} - type 'box -h' for a summary of how to use box!"
   echo;echo;echo
   echo '################################################################################################'
   echo "#   Seedbox can be found at https://${username}:${passwd}@${ip} "
