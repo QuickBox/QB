@@ -19,17 +19,20 @@
 #
 
 function _installpyLoad1() {
+  echo "Installing any additional dependencies needed for pyLoad ... "
   apt-get install -y tesseract-ocr gocr rhino pyqt4-dev-tools python-imaging >/dev/null 2>&1
   apt-get -y autoremove >/dev/null 2>&1
 }
 
 function _installpyLoad2() {
+  echo "Setting up python package management system in /home/${MASTER}/.pip ... "
   mkdir /home/${MASTER}/.pip && cd /home/${MASTER}/.pip
   wget https://bootstrap.pypa.io/get-pip.py >/dev/null 2>&1
   python get-pip.py >/dev/null 2>&1
 }
 
 function _installpyLoad3() {
+  echo "Installing pyLoad packages ... "
   pip install wheel --upgrade >/dev/null 2>&1
   pip install setuptools --upgrade >/dev/null 2>&1
   pip install ply --upgrade >/dev/null 2>&1
@@ -50,6 +53,7 @@ function _installpyLoad3() {
 }
 
 function _installpyLoad4() {
+  echo "Grabbing latest stable pyLoad repository ... "
   mkdir /home/${MASTER}/.pyload
   cd /home/${MASTER} && git clone --branch "stable" https://github.com/pyload/pyload.git .pyload >/dev/null 2>&1
   printf "/home/${MASTER}/.pyload" > /home/${MASTER}/.pyload/module/config/configdir
@@ -57,6 +61,7 @@ function _installpyLoad4() {
 }
 
 function _installpyLoad5() {
+  echo "Building pyLoad systemd template ... "
 cat >/etc/systemd/system/pyload@.service<<PYSV
 [Unit]
 Description=pyLoad
@@ -79,12 +84,14 @@ PYSV
 }
 
 function _installpyLoad6() {
+  echo "Adjusting permissions ... "
   chown -R ${MASTER}.${MASTER} /home/${MASTER}/.pip
   chown -R ${MASTER}.${MASTER} /home/${MASTER}/.pyload
   chown -R ${MASTER}.${MASTER} /var/run/pyload
 }
 
 function _installpyLoad7() {
+  echo "Enabling and starting pyLoad services ... "
   touch /install/.pyload.lock
   systemctl daemon-reload >/dev/null 2>&1
   systemctl enable pyload@${MASTER}.service >/dev/null 2>&1
@@ -92,6 +99,8 @@ function _installpyLoad7() {
 }
 
 function _installpyLoad8() {
+  echo "pyLoad Install Complete!"
+  echo "Please type: 'setup-pyLoad' in ssh to complete your pyload installation"
   echo "pyLoad Install Complete!" >>"${OUTTO}" 2>&1;
   echo "Please type: 'setup-pyLoad' in ssh to complete your pyload installation" >>"${OUTTO}" 2>&1;
   sleep 2
