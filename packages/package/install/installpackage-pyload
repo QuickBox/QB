@@ -3,7 +3,7 @@
 # [Quick Box :: Install pyLoad package]
 #
 # QUICKLAB REPOS
-# QuickLab _ packages  :   https://github.com/QuickBox/quickbox_packages
+# QuickLab _ packages  :   https://github.com/QuickBox/QB/packages
 # LOCAL REPOS
 # Local _ packages   :   /etc/QuickBox/packages
 # Author             :   QuickBox.IO | JMSolo
@@ -51,7 +51,7 @@ function _installpyLoad3() {
 
 function _installpyLoad4() {
   mkdir /home/${MASTER}/.pyload
-  cd /home/${MASTER} && git clone https://github.com/pyload/pyload.git .pyload >/dev/null 2>&1
+  cd /home/${MASTER} && git clone --branch "stable" https://github.com/pyload/pyload.git .pyload >/dev/null 2>&1
   printf "/home/${MASTER}/.pyload" > /home/${MASTER}/.pyload/module/config/configdir
   mkdir -p /var/run/pyload
 }
