@@ -32,9 +32,9 @@ function _radarr_dependencies() {
 
 function _radarr_install() {
 	cd /opt
-	wget https://github.com/Radarr/Radarr/releases/download/v0.2.0.210/Radarr.develop.0.2.0.210.linux.tar.gz >/dev/null 2>&1
-	tar -xvzf /opt/Radarr.develop.0.2.0.210.linux.tar.gz >/dev/null 2>&1
-	rm -rf /opt/Radarr.develop.0.2.0.210.linux.tar.gz
+	wget https://github.com/Radarr/Radarr/releases/download/v0.2.0.654/Radarr.develop.0.2.0.654.linux.tar.gz >/dev/null 2>&1
+	tar -xvzf /opt/Radarr.develop.0.2.0.654.linux.tar.gz >/dev/null 2>&1
+	rm -rf /opt/Radarr.develop.0.2.0.654.linux.tar.gz
 }
 
 function _radarr_configure() {
