@@ -30,7 +30,8 @@ function _removepyLoad() {
   apt-get -y remove tesseract-ocr \
                     gocr \
                     rhino \
-                    pyqt4-dev-tools
+                    pyqt4-dev-tools \
+                    python-imaging
   apt-get -y autoremove
   apt-get -y autoclean
   rm /install/.pyload.lock
