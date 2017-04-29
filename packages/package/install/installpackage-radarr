@@ -65,6 +65,10 @@ Require user ${username}
 </Location>
 EOF
 
+mkdir -p /home/${username}/.config
+chown -R quickbox:quickbox /home/${username}/.config
+chmod 700 /home/${username}/.config
+
 chown -R ${username}: /opt/Radarr/
 chown www-data: /etc/apache2/sites-enabled/radarr.conf
 systemctl enable radarr.service >/dev/null 2>&1
