@@ -21,16 +21,22 @@ function _radarr_intro() {
   echo "Radarr will now be installed." >>"${OUTTO}" 2>&1;
   echo "This process may take up to 2 minutes." >>"${OUTTO}" 2>&1;
   echo "Please wait until install is completed." >>"${OUTTO}" 2>&1;
+  # output to box
+  echo "Radarr will now be installed."
+  echo "This process may take up to 2 minutes."
+  echo "Please wait until install is completed."
   echo
   sleep 5
 }
 
 function _radarr_dependencies() {
+  echo "Installing dependencies ... "
 	apt update >/dev/null 2>&1
 	apt-get install -y mono-runtime curl mediainfo >/dev/null 2>&1
 }
 
 function _radarr_install() {
+  echo "Installing Radar ... "
 	cd /opt
 	wget $( curl -s https://api.github.com/repos/Radarr/Radarr/releases | grep linux.tar.gz | grep browser_download_url | head -1 | cut -d \" -f 4 ) >/dev/null 2>&1
 	tar -xvzf Radarr.develop.*.linux.tar.gz >/dev/null 2>&1
@@ -38,6 +44,7 @@ function _radarr_install() {
 }
 
 function _radarr_configure() {
+  echo "Configuring Radar ... "
 cat > /etc/systemd/system/radarr.service <<EOF
 [Unit]
 Description=Radarr Daemon
@@ -83,6 +90,7 @@ service apache2 reload
 }
 
 function _radarr_start() {
+  echo "Starting Radar ... "
 systemctl start radarr.service
 touch /install/.radarr.lock
 }
@@ -93,6 +101,11 @@ function _radarr_final() {
   echo >>"${OUTTO}" 2>&1;
   echo >>"${OUTTO}" 2>&1;
   echo "Close this dialog box to refresh your browser" >>"${OUTTO}" 2>&1;
+  # output to box
+  echo "Radarr Install Complete!"
+  echo "You can access it at  : http://$ip/radarr"
+  echo
+  echo "Close this dialog box to refresh your browser"
 }
 
 #function _radarr_exit() {
