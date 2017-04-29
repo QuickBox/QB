@@ -102,7 +102,7 @@ PYAP
 
 a2enmod proxy_http
 a2enmod proxy_html
-a2enmod substitue
+a2enmod substitute
 a2enmod headers
 
 }
