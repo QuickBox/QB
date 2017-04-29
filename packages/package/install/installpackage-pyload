@@ -81,6 +81,30 @@ WantedBy=multi-user.target
 
 PYSV
 
+cat >/etc/apache2/sites-enabled/pyload.conf<<PYAP
+<Location /pyload>
+    ProxyPass http://localhost:8000/pyload
+    ProxyPassReverse http://localhost:8000/pyload
+    ProxyPreserveHost On
+    ProxyHTMLEnable On
+    ProxyHTMLCharsetOut *
+    ProxyHTMLURLMap / /pyload/
+    SetOutputFilter INFLATE;DEFLATE
+    AddOutputFilterByType INFLATE;SUBSTITUTE;DEFLATE text/css
+    AddOutputFilterByType INFLATE;SUBSTITUTE;DEFLATE text/javascript
+    Substitute "s|/media|/pyload/media|i"
+    Substitute "s|/json|/pyload/json|i"
+    Substitute "s|/api|/pyload/api|i"
+    Header edit Location ^http://$ip/(?!pyload\/)(.*)$ http://$ip/pyload/$
+</Location>
+
+PYAP
+
+a2enmod proxy_http
+a2enmod proxy_html
+a2enmod substitue
+a2enmod headers
+
 }
 
 function _installpyLoad6() {
@@ -114,6 +138,7 @@ function _installpyLoad9() {
 }
 
 
+ip=$(curl -s http://whatismyip.akamai.com)
 MASTER=$(cat /srv/rutorrent/home/db/master.txt)
 OUTTO=/srv/rutorrent/home/db/output.log
 
