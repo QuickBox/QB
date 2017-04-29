@@ -29,7 +29,7 @@ This simply means you do not have Deluge installed, there is no further action f
 
 ---
 
-> #### NOTE:<br>The continuation below explains the above all-in-one code, minus the removal of the recent locations at ``/root/QuickBox`
+> #### NOTE:<br>The continuation below explains the above all-in-one code, minus the removal of the recent locations at `/root/QuickBox`
 
 ### [2]:
 grab the current/future QuickBox repository with the following:
@@ -75,9 +75,9 @@ updateQuickBox
 
 >### :rotating_light: OVH DEFAULT KERNEL NOTICE!<br>
 grsec is built into OVH's custom kernel and it absolutely wrecks havoc when using these panels where we depend on the ability for one user (www-data) to see the processes of another running user ($username).
-<br/>This can be seen clearly by using a task manager such as h/top.
-<br/>With grsec enabled you can only see the processes owned by your user unless you run htop as root. As such, it is highly recommended to use the stock kernel for your distribution or at the very least installing an OVH kernel that is not compiled with grsec
-<br/>If you are using So You Start (SYS) as a host, you should opt to use the distribution kernel. You will see this as a checkbox option when installing your server. Otherwise, QuickBox will handle this for you on install.
+<br>This can be seen clearly by using a task manager such as h/top.
+<br>With grsec enabled you can only see the processes owned by your user unless you run htop as root. As such, it is highly recommended to use the stock kernel for your distribution or at the very least installing an OVH kernel that is not compiled with grsec
+<br>If you are using So You Start (SYS) as a host, you should opt to use the distribution kernel. You will see this as a checkbox option when installing your server. Otherwise, QuickBox will handle this for you on install.
 
 
 
