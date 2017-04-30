@@ -73,7 +73,7 @@ Require user ${username}
 EOF
 
 mkdir -p /home/${username}/.config
-chown -R quickbox:quickbox /home/${username}/.config
+chown -R ${username}:${username} /home/${username}/.config
 chmod 700 /home/${username}/.config
 
 chown -R ${username}: /opt/Radarr/
