@@ -205,7 +205,7 @@
 
                     <?php if (file_exists("/install/.sabnzbd.lock")) { ?>
                     <tr>
-                      <td><?php echo "$srval"; ?> SABnzbd </td>
+                      <td><?php echo "$szval"; ?> SABnzbd </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=sabnzbd'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodysz"; ?></td>
                     </tr>
