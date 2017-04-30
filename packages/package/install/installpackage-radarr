@@ -87,7 +87,7 @@ EOF
     sed -i "s/<BindAddress>.*/<BindAddress>127.0.0.1<\/BindAddress>/g" /home/${username}/.config/Radarr/config.xml
     service apache2 reload
   else
-    echo "ERROR INSTALLING - COULD NOT FIND radarr.conf in /home/${username}/.config/" >> "${OUTTO}" 2>&1
+    echo "ERROR INSTALLING - COULD NOT FIND config.xml in /home/${username}/.config/Radarr/config.xml" >> "${OUTTO}" 2>&1
   fi
 }
 
