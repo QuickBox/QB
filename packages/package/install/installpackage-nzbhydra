@@ -18,10 +18,13 @@
 #   under the GPL along with build & install instructions.
 #
 function _install() {
+# for output to dashboard
 echo "Installing NZBHydra ... " >>"${OUTTO}" 2>&1;
+# for output to box
+echo "Installing NZBHydra ... "
 warning=$(echo -e "[ \e[1;91mWARNING\e[0m ]")
-apt-get -qq -y --force-yes update >/dev/null 2>&1
-apt-get -qq -y --force-yes install git-core python >/dev/null 2>&1;
+apt -y update >/dev/null 2>&1
+apt -y install git-core python >/dev/null 2>&1;
 echo >>"${OUTTO}" 2>&1;
 echo >>"${OUTTO}" 2>&1;
 echo "Cloning NZBHydra git ... " >>"${OUTTO}" 2>&1;
@@ -32,7 +35,10 @@ chown ${MASTER}:${MASTER} -R /home/${MASTER}/nzbhydra
 function _services(){
 echo >>"${OUTTO}" 2>&1;
 echo >>"${OUTTO}" 2>&1;
+# for output to dashboard
 echo "Installing and enabling service ... " >>"${OUTTO}" 2>&1;
+# for output to box
+echo "Installing and enabling service ... "
 
 cp ${local_setup}templates/sysd/nzbhydra.template /etc/systemd/system/nzbhydra@.service
 systemctl enable nzbhydra@${MASTER} >/dev/null 2>&1
@@ -57,9 +63,16 @@ service apache2 reload
 systemctl start nzbhydra@${MASTER} >/dev/null 2>&1
 
 touch /install/.nzbhydra.lock
+# for output to dashboard
 echo >>"${OUTTO}" 2>&1;
 echo >>"${OUTTO}" 2>&1;
+# for output to box
+echo
+echo
+# for output to dashboard
 echo "Close this dialog box to refresh your browser" >>"${OUTTO}" 2>&1;
+# for output to box
+echo "Close this dialog box to refresh your browser"
 }
 
 local_setup=/etc/QuickBox/setup/
