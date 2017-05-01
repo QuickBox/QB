@@ -1974,6 +1974,9 @@ function setup-pyLoad() {
     cd /home/${username}/.pyload
     /usr/bin/python /home/${username}/.pyload/pyLoadCore.py --setup --config=/home/${username}/.pyload
     chown -R ${username}.${username} /home/${username}/.pyload
+    sleep 5
+    sed -i 's/"Path Prefix" = /"Path Prefix" = \/pyload/g' /home/${MASTER}/.pyload/pyload.conf
+
   else
     echo "pyLoad is not installed. You can install by typing: box install pyload"
   fi
