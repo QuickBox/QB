@@ -95,7 +95,7 @@ cat >/etc/apache2/sites-enabled/pyload.conf<<PYAP
     Substitute "s|/media|/pyload/media|i"
     Substitute "s|/json|/pyload/json|i"
     Substitute "s|/api|/pyload/api|i"
-    Header edit Location ^http://$ip/(?!pyload\/)(.*)$ http://$ip/pyload/$
+    Header edit Location ^https://$ip/(?!pyload\/)(.*)$ https://$ip/pyload/$
 </Location>
 
 PYAP
