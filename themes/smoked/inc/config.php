@@ -300,7 +300,7 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   $plexURL = "http://" . $_SERVER['HTTP_HOST'] . ":31400/web/";
   $plexpyURL = "https://" . $_SERVER['HTTP_HOST'] . "/plexpy";
   $ombiURL = "https://" . $_SERVER['HTTP_HOST'] . "/ombi";
-  $pyloadURL = "https://" . $_SERVER['HTTP_HOST'] . "/pyload";
+  $pyloadURL = "https://" . $_SERVER['HTTP_HOST'] . "/pyload/login";
   $radarrURL = "https://" . $_SERVER['HTTP_HOST'] . "/radarr";
   $rapidleechURL = "https://" . $_SERVER['HTTP_HOST'] . "/rapidleech";
   $sabnzbdURL = "https://" . $_SERVER['HTTP_HOST'] . "/sabnzbd";

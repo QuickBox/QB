@@ -95,7 +95,7 @@ cat >/etc/apache2/sites-enabled/pyload.conf<<PYAP
     Substitute "s|/media|/pyload/media|i"
     Substitute "s|/json|/pyload/json|i"
     Substitute "s|/api|/pyload/api|i"
-    Header edit Location ^http://$ip/(?!pyload\/)(.*)$ http://$ip/pyload/$
+    Header edit Location ^https://$ip/(?!pyload\/)(.*)$ https://$ip/pyload/$
 </Location>
 
 PYAP
@@ -120,7 +120,6 @@ function _installpyLoad7() {
   systemctl daemon-reload >/dev/null 2>&1
   systemctl enable pyload@${MASTER}.service >/dev/null 2>&1
   systemctl start pyload@${MASTER}.service >/dev/null 2>&1
-  sed -i 's/"Path Prefix" = /"Path Prefix" = \/pyload/g' /home/${username}/.pyload/pyload.conf
   service apache2 reload
 }
 

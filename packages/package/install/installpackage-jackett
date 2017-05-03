@@ -46,6 +46,10 @@ systemctl enable jackett@${username} >/dev/null 2>&1
 systemctl start jackett@${username}
 sleep 5
 systemctl stop jackett@${username}
+# Make sure .config/Jackett exists and has correct permissions.
+mkdir -p /home/${username}/.config/Jackett
+chmod 700 /home/${username}/.config/Jackett
+chown ${username}.${username} -R /home/${username}/.config/Jackett
 sed -i "s/\"AllowExternal.*/\"AllowExternal\": false,/g" /home/${username}/.config/Jackett/ServerConfig.json
 sed -i "s/\"BasePathOverride.*/\"BasePathOverride\": \"\/jackett\"/g" /home/${username}/.config/Jackett/ServerConfig.json
 
