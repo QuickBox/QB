@@ -99,22 +99,21 @@ This script has the following features
 * Creates a limited shell access environment. This gives your additional created users the ability to interact with their seedbox via ssh on port 4747 w/o having access to other users shells and/or root/sudo commands and functions.
 
 ## Installed software
+* IRSSI
 * Linux Quota
 * LShell - (LimitedShell for additional users to ssh)
-* SSH Server (for SSH terminal and sFTP connections)
-* pureftp - vsftp (CuteFTP multi-segmented download friendly)
-* HTTPS - Web Console
-* ruTorrent 3.7 + official plugins
-* rTorrent 0.9.6
-* libTorrrent 0.13.6
 * mktorrent
-* IRSSI
+* pureftp - vsftp (CuteFTP multi-segmented download friendly)
+* __ruTorrent 3.7__ + official plugins
+* __rTorrent 0.9.6 + libTorrrent 0.13.6__
+* SSH Server (for SSH terminal and sFTP connections)
+* HTTPS - Web Console
 
 ## Optional software
-* Deluge (Web-client and thin-client)
 * BTSync
 * CouchPotato
 * ConfigServer Firewall
+* __Deluge (Web-client and thin-client)__
 * Emby
 * Jackett
 * NextCloud
