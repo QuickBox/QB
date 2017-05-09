@@ -1,8 +1,10 @@
 #!/bin/sh
+username=$(cat /srv/rutorrent/home/db/master.txt)
 systemctl stop radarr
 systemctl disable radarr
 rm -rf /etc/systemd/system/radarr.service
 rm -rf /opt/Radarr
+rm -rf /home/${username}/.config/Radarr
 rm -rf /etc/apache2/sites-enabled/radarr.conf
 rm -rf /install/.radarr.lock
 echo "Radarr uninstalled!"

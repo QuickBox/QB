@@ -3,11 +3,11 @@
 # [Quick Box :: Install Radarr package]
 #
 # GITHUB REPOS
-# GitHub _ packages  :   https://github.com/PastaGringo/scripts
+# GitHub _ packages  :   https://github.com/QuickBox/QB
 # LOCAL REPOS
 # Local _ packages   :   /etc/QuickBox/packages
-# Author             :   PastaGringo
-# URL                :   https://plaza.quickbox.io
+# Author             :   PastaGringo | KarmaPoliceT2
+# URL                :   https://quickbox.io
 #
 # QuickBox Copyright (C) 2017 QuickBox.io
 # Licensed under GNU General Public License v3.0 GPL-3 (in short)
@@ -16,39 +16,37 @@
 #   changes/dates in source files. Any modifications to our software
 #   including (via compiler) GPL-licensed code must also be made available
 #   under the GPL along with build & install instructions.
+#################################################################################
+function _string() { perl -le 'print map {(a..z,A..Z,0..9)[rand 62] } 0..pop' 15 ; }
+#################################################################################
 
-function _radarr_intro() {
-  echo "Radarr will now be installed." >>"${OUTTO}" 2>&1;
-  echo "This process may take up to 2 minutes." >>"${OUTTO}" 2>&1;
-  echo "Please wait until install is completed." >>"${OUTTO}" 2>&1;
-  # output to box
-  echo "Radarr will now be installed."
-  echo "This process may take up to 2 minutes."
-  echo "Please wait until install is completed."
+function _installRadarrIntro() {
+  echo "Radarr will now be installed." >> "${OUTTO}" 2>&1
+  echo "This process may take up to 2 minutes." >> "${OUTTO}" 2>&1
+  echo "Please wait until install is completed." >> "${OUTTO}" 2>&1
   echo
   sleep 5
 }
 
-function _radarr_dependencies() {
-  echo "Installing dependencies ... "
-	apt update >/dev/null 2>&1
-	apt-get install -y mono-runtime curl mediainfo >/dev/null 2>&1
+function _installRadarrDepdendencies() {
+  apt -yqq update > /dev/null 2>&1
+  apt install -yqq libmono-cil-dev curl mediainfo  >> "${OUTTO}" 2>&1
 }
 
-function _radarr_install() {
-  echo "Installing Radar ... "
-	cd /opt
-	wget $( curl -s https://api.github.com/repos/Radarr/Radarr/releases | grep linux.tar.gz | grep browser_download_url | head -1 | cut -d \" -f 4 ) >/dev/null 2>&1
-	tar -xvzf Radarr.develop.*.linux.tar.gz >/dev/null 2>&1
-	rm -rf /opt/Radarr.develop.*.linux.tar.gz
+function _installRadarrCode() {
+  cd /opt
+  wget $( curl -s https://api.github.com/repos/Radarr/Radarr/releases | grep linux.tar.gz | grep browser_download_url | head -1 | cut -d \" -f 4 ) > /dev/null 2>&1
+  tar -xvzf Radarr.develop.*.linux.tar.gz > /dev/null 2>&1
+  rm -rf /opt/Radarr.develop.*.linux.tar.gz
+  touch /install/.radarr.lock
 }
 
-function _radarr_configure() {
-  echo "Configuring Radar ... "
-cat > /etc/systemd/system/radarr.service <<EOF
+function _installRadarrConfigure() {
+  cat > /etc/systemd/system/radarr.service <<EOF
 [Unit]
 Description=Radarr Daemon
 After=syslog.target network.target
+
 [Service]
 User=${username}
 Group=${username}
@@ -57,11 +55,12 @@ ExecStart=/usr/bin/mono /opt/Radarr/Radarr.exe -nobrowser
 TimeoutStopSec=20
 KillMode=process
 Restart=on-failure
+
 [Install]
 WantedBy=multi-user.target
 EOF
 
-cat > /etc/apache2/sites-enabled/radarr.conf <<EOF
+  cat > /etc/apache2/sites-enabled/radarr.conf <<EOF
 <Location /radarr>
 ProxyPass http://localhost:7878/radarr
 ProxyPassReverse http://localhost:7878/radarr
@@ -72,57 +71,50 @@ Require user ${username}
 </Location>
 EOF
 
-mkdir -p /home/${username}/.config
-chown -R ${username}:${username} /home/${username}/.config
-chmod 700 /home/${username}/.config
-
-chown -R ${username}: /opt/Radarr/
-chown www-data: /etc/apache2/sites-enabled/radarr.conf
-systemctl enable radarr.service >/dev/null 2>&1
-systemctl daemon-reload
-systemctl start radarr.service
-sleep 5
-systemctl stop radarr.service
-sleep 5
-sed -i "s/<UrlBase>.*/<UrlBase>radarr<\/UrlBase>/g" /home/${username}/.config/Radarr/config.xml
-sed -i "s/<BindAddress>.*/<BindAddress>127.0.0.1<\/BindAddress>/g" /home/${username}/.config/Radarr/config.xml
-service apache2 reload
+  mkdir -p /home/${username}/.config
+  chown -R ${username}:${username} /home/${username}/.config
+  chmod 775 /home/${username}/.config
+  chown -R ${username}:${username} /opt/Radarr/
+  chown www-data:www-data /etc/apache2/sites-enabled/radarr.conf
+  systemctl daemon-reload
+  systemctl enable radarr.service > /dev/null 2>&1
+  systemctl start radarr.service
+  sleep 5
+  systemctl stop radarr.service
+  sleep 5
+  if [[ -f /home/${username}/.config/Radarr/config.xml ]]; then
+    sed -i "s/<UrlBase>.*/<UrlBase>radarr<\/UrlBase>/g" /home/${username}/.config/Radarr/config.xml
+    sed -i "s/<BindAddress>.*/<BindAddress>127.0.0.1<\/BindAddress>/g" /home/${username}/.config/Radarr/config.xml
+    service apache2 reload
+  else
+    echo "ERROR INSTALLING - COULD NOT FIND config.xml in /home/${username}/.config/Radarr/config.xml" >> "${OUTTO}" 2>&1
+  fi
 }
 
-function _radarr_start() {
-  echo "Starting Radar ... "
-systemctl start radarr.service
-touch /install/.radarr.lock
+function _installRadarrStart() {
+  systemctl start radarr.service
 }
 
-function _radarr_final() {
-  echo "Radarr Install Complete!" >>"${OUTTO}" 2>&1;
-  echo "You can access it at  : http://$ip/radarr" >>"${OUTTO}" 2>&1;
+function _installRadarrFinish() {
+  echo "Radarr Install Complete!" >> "${OUTTO}" 2>&1;
   echo >>"${OUTTO}" 2>&1;
   echo >>"${OUTTO}" 2>&1;
   echo "Close this dialog box to refresh your browser" >>"${OUTTO}" 2>&1;
-  # output to box
-  echo "Radarr Install Complete!"
-  echo "You can access it at  : http://$ip/radarr"
-  echo
-  echo "Close this dialog box to refresh your browser"
 }
 
-#function _radarr_exit() {
-#	exit
-#}
+function _installRadarrExit() {
+	exit 0
+}
 
 OUTTO=/srv/rutorrent/home/db/output.log
 local_setup=/etc/QuickBox/setup/
 local_packages=/etc/QuickBox/packages/
 username=$(cat /srv/rutorrent/home/db/master.txt)
-distribution=$(lsb_release -is)
-ip=$(curl -s http://whatismyip.akamai.com)
 
-_radarr_intro
-echo "Installing dependencies ... " >>"${OUTTO}" 2>&1;_radarr_dependencies
-echo "Installing Radar ... " >>"${OUTTO}" 2>&1;_radarr_install
-echo "Configuring Radar ... " >>"${OUTTO}" 2>&1;_radarr_configure
-echo "Starting Radar ... " >>"${OUTTO}" 2>&1;_radarr_start
-_radarr_final
-#_radarr_exit
+_installRadarrIntro
+echo "Installing dependencies ... " >>"${OUTTO}" 2>&1;_installRadarrDependencies
+echo "Installing Radar ... " >>"${OUTTO}" 2>&1;_installRadarrCode
+echo "Configuring Radar ... " >>"${OUTTO}" 2>&1;_installRadarrConfigure
+echo "Starting Radar ... " >>"${OUTTO}" 2>&1;_installRadarrStart
+_installRadarrFinish
+_installRadarrExit
