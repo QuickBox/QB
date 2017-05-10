@@ -25,14 +25,16 @@ function _removepyLoad() {
   rm /etc/systemd/system/pyload@.service
 
   rm -rf /home/${MASTER}/.pip
-  rm -rf  /home/${MASTER}/.pyload
+  rm -rf /home/${MASTER}/.pyload
   rm -rf /var/run/pyload
+  rm -rf /etc/apache2/sites-enabled/pyload.conf
   apt-get -y remove tesseract-ocr \
                     gocr \
                     rhino \
-                    pyqt4-dev-tools
-  apt-get -y autoremove
-  apt-get -y autoclean
+                    pyqt4-dev-tools \
+                    python-imaging
+  apt -y autoremove >/dev/null 2>&1
+  apt -y autoclean >/dev/null 2>&1
   rm /install/.pyload.lock
 }
 

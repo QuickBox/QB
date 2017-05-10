@@ -9,12 +9,12 @@
 ### [1]:
 login to your server via ssh. Gain root access with `sudo su` followed up with `cd` to place you in your /root directory. Once in your /root directory, type the following to remove your current local QuickBox respositories.
 ```
-rm -rf QuickBox
+rm -rf ~/QuickBox
 ```
 
 ---
 
-### If you are already located on the GitHub repo as of v2.4.9, run the following to easily update to the new v2.5.0 QuickBox/QB repo:
+### If you are already located on the GitHub repo as of v2.4.9, run the following to easily update to the new v2.5.+ QuickBox/QB repo:
 ```
 rm -rf /etc/QuickBox; \
 git clone https://github.com/QuickBox/QB /etc/QuickBox; \
@@ -28,6 +28,8 @@ updateQuickBox
 This simply means you do not have Deluge installed, there is no further action for you take.
 
 ---
+
+> #### NOTE:<br>The continuation below explains the above all-in-one code, minus the removal of the recent locations at `/root/QuickBox`
 
 ### [2]:
 grab the current/future QuickBox repository with the following:
@@ -54,13 +56,6 @@ run the upgrade script to match any recent changes and to get you on your way:
 updateQuickBox
 ```
 
-### Already on the GitHub Repo and need to swap to the new combined repo?
-Simply run the following to update to the new repo:
-```
-wget -O /usr/local/bin/quickbox/system/updateQuickBox https://raw.githubusercontent.com/QuickBox/QB/master/packages/system/updateQuickBox &&
-dos2unix $(find /usr/local/bin/quickbox -type f) && chmod +x $(find /usr/local/bin/quickbox -type f)
-updateQuickBox
-```
 
 ---
 
@@ -80,9 +75,9 @@ updateQuickBox
 
 >### :rotating_light: OVH DEFAULT KERNEL NOTICE!<br>
 grsec is built into OVH's custom kernel and it absolutely wrecks havoc when using these panels where we depend on the ability for one user (www-data) to see the processes of another running user ($username).
-<br/>This can be seen clearly by using a task manager such as h/top.
-<br/>With grsec enabled you can only see the processes owned by your user unless you run htop as root. As such, it is highly recommended to use the stock kernel for your distribution or at the very least installing an OVH kernel that is not compiled with grsec
-<br/>If you are using So You Start (SYS) as a host, you should opt to use the distribution kernel. You will see this as a checkbox option when installing your server. Otherwise, QuickBox will handle this for you on install.
+<br>This can be seen clearly by using a task manager such as h/top.
+<br>With grsec enabled you can only see the processes owned by your user unless you run htop as root. As such, it is highly recommended to use the stock kernel for your distribution or at the very least installing an OVH kernel that is not compiled with grsec
+<br>If you are using So You Start (SYS) as a host, you should opt to use the distribution kernel. You will see this as a checkbox option when installing your server. Otherwise, QuickBox will handle this for you on install.
 
 
 
@@ -207,6 +202,7 @@ After installing you will have access to the following commands to be used direc
 * __showspace__ - shows amount of space used by each user
 * __reload__ - restarts your seedbox services, i.e; rtorrent & irssi
 * __upgradeBTSync__ - upgrades btsync when new version is available
+* __upgradeOmbi__ - upgrades Ombi when new version is available
 * __upgradePlex__ - upgrades Plex when new version is available
 * __removepackage-cron__ - upgrades your system to make use of systemd
  <sup> + (must be on Ubuntu 15.10+ or Debian 8)</sup>
