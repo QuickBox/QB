@@ -65,9 +65,9 @@ function _installSonarr6() {
   systemctl enable sonarr@${username} >/dev/null 2>&1
   systemctl start sonarr@${username}
   systemctl stop sonarr@${username}
-  sleep 30
+  sleep 10
   systemctl start sonarr@${username}
-  sleep 30
+  sleep 10
   systemctl stop sonarr@${username}
   sed -i "s/<UrlBase>.*/<UrlBase>sonarr<\/UrlBase>/g" /home/${username}/.config/NzbDrone/config.xml
   sed -i "s/<BindAddress>.*/<BindAddress>127.0.0.1<\/BindAddress>/g" /home/${username}/.config/NzbDrone/config.xml
