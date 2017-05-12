@@ -212,7 +212,7 @@ After installing you will have access to the following commands to be used direc
 * __upgradepyLoad__ - upgrades pyLoad when new version is available
 * More commands detailed here: [QuickBox Commands](https://quickbox.io/wiki/quickbox-commands/)
 
-If your disk space widget is not showing the correct amount of space, run one of the followng commands based on mount the mount you use:
+If your disk space widget is not showing the correct amount of space, run one of the followng commands based on the mount you use:
 * If you're using a /home mounted partition then run: __fix-disk_widget_home__
 * If you're using a /(root) mounted partition then run: __fix-disk_widget_root__
 <br/>
