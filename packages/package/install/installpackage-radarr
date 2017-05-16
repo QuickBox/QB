@@ -95,12 +95,31 @@ EOF
   systemctl daemon-reload
   systemctl enable radarr.service > /dev/null 2>&1
   systemctl start radarr.service
-  sleep 5
+  sleep 10
+
+  cat /home/${username}/.config/Radarr/config.xml <<EOF
+  <Config>
+    <Port>7878</Port>
+    <UrlBase>radarr</UrlBase>
+    <BindAddress>127.0.0.1</BindAddress>
+    <SslPort>9898</SslPort>
+    <EnableSsl>False</EnableSsl>
+    <ApiKey></ApiKey>
+    <AuthenticationMethod>None</AuthenticationMethod>
+    <LogLevel>Info</LogLevel>
+    <Branch>master</Branch>
+    <LaunchBrowser>False</LaunchBrowser>
+    <SslCertHash></SslCertHash>
+    <UpdateMechanism>BuiltIn</UpdateMechanism>
+    <AnalyticsEnabled>False</AnalyticsEnabled>
+  </Config>
+EOF
+
   systemctl stop radarr.service
-  sleep 5
+  sleep 10
   if [[ -f /home/${username}/.config/Radarr/config.xml ]]; then
-    sed -i "s/<UrlBase>.*/<UrlBase>radarr<\/UrlBase>/g" /home/${username}/.config/Radarr/config.xml
-    sed -i "s/<BindAddress>.*/<BindAddress>127.0.0.1<\/BindAddress>/g" /home/${username}/.config/Radarr/config.xml
+    #sed -i "s/<UrlBase>.*/<UrlBase>radarr<\/UrlBase>/g" /home/${username}/.config/Radarr/config.xml
+    #sed -i "s/<BindAddress>.*/<BindAddress>127.0.0.1<\/BindAddress>/g" /home/${username}/.config/Radarr/config.xml
     service apache2 reload
   else
     # output to dashboard
