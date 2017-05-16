@@ -33,8 +33,6 @@ function _installRadarrIntro() {
 }
 
 function _installRadarrDepdendencies() {
-  # output to dashboard
-  echo "Installing dependencies ... " >>"${OUTTO}" 2>&1;
   # output to box
   echo "Installing dependencies ... "
 	apt update >/dev/null 2>&1
@@ -42,8 +40,6 @@ function _installRadarrDepdendencies() {
 }
 
 function _installRadarrCode() {
-  # output to dashboard
-  echo "Installing Radar ... " >>"${OUTTO}" 2>&1;
   # output to box
   echo "Installing Radar ... "
   cd /opt
@@ -54,8 +50,6 @@ function _installRadarrCode() {
 }
 
 function _installRadarrConfigure() {
-  # output to dashboard
-  echo "Configuring Radar ... " >>"${OUTTO}" 2>&1;
   # output to box
   echo "Configuring Radar ... "
 cat > /etc/systemd/system/radarr.service <<EOF
@@ -97,26 +91,12 @@ EOF
   systemctl start radarr.service
   sleep 10
 
-  cat /home/${username}/.config/Radarr/config.xml <<EOF
-  <Config>
-    <Port>7878</Port>
-    <UrlBase>radarr</UrlBase>
-    <BindAddress>127.0.0.1</BindAddress>
-    <SslPort>9898</SslPort>
-    <EnableSsl>False</EnableSsl>
-    <ApiKey></ApiKey>
-    <AuthenticationMethod>None</AuthenticationMethod>
-    <LogLevel>Info</LogLevel>
-    <Branch>master</Branch>
-    <LaunchBrowser>False</LaunchBrowser>
-    <SslCertHash></SslCertHash>
-    <UpdateMechanism>BuiltIn</UpdateMechanism>
-    <AnalyticsEnabled>False</AnalyticsEnabled>
-  </Config>
-EOF
+  cp ${local_setup}configs/Radarr/config.xml /home/${username}/.config/Radarr/config.xml
+  chown ${username}:${username} /home/${username}/.config/Radarr/config.xml
 
   systemctl stop radarr.service
   sleep 10
+
   if [[ -f /home/${username}/.config/Radarr/config.xml ]]; then
     #sed -i "s/<UrlBase>.*/<UrlBase>radarr<\/UrlBase>/g" /home/${username}/.config/Radarr/config.xml
     #sed -i "s/<BindAddress>.*/<BindAddress>127.0.0.1<\/BindAddress>/g" /home/${username}/.config/Radarr/config.xml
@@ -130,8 +110,6 @@ EOF
 }
 
 function _installRadarrStart() {
-  # output to dashboard
-  echo "Starting Radar ... " >>"${OUTTO}" 2>&1;
   # output to box
   echo "Starting Radar ... "
   systemctl start radarr.service
