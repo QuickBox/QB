@@ -17,6 +17,11 @@
 #   including (via compiler) GPL-licensed code must also be made available
 #   under the GPL along with build & install instructions.
 #
+#   QuickBox.IO does not grant the end-user the right to distribute this
+#   code in a means to supply commercial monetization. If you would like
+#   to include QuickBox in your commercial project, write to echo@quickbox.io
+#   with a summary of your project as well as its intended use for moentization.
+#
 MASTER=$(cat /srv/rutorrent/home/db/master.txt)
 IRSSIIP=$(curl -s http://ipecho.net/plain || curl -s http://ifconfig.me/ip ; echo)
 
