@@ -25,6 +25,10 @@ function _installSonarrintro() {
   echo "Sonarr will now be installed." >>"${OUTTO}" 2>&1;
   echo "This process may take up to 2 minutes." >>"${OUTTO}" 2>&1;
   echo "Please wait until install is completed." >>"${OUTTO}" 2>&1;
+  # output to box
+  echo "Sonarr will now be installed."
+  echo "This process may take up to 2 minutes."
+  echo "Please wait until install is completed."
   echo
   sleep 5
 }
@@ -64,13 +68,27 @@ function _installSonarr6() {
   cp ${local_setup}templates/sysd/sonarr.template /etc/systemd/system/sonarr@.service
   systemctl enable sonarr@${username} >/dev/null 2>&1
   systemctl start sonarr@${username}
-  systemctl stop sonarr@${username}
   sleep 10
-  systemctl start sonarr@${username}
+
+  cp ${local_setup}configs/Sonarr/config.xml /home/${username}/.config/NzbDrone/config.xml
+  chown ${username}:${username} /home/${username}/.config/NzbDrone/config.xml
+
+  systemctl stop sonarr@{$username}.service
   sleep 10
+
+  if [[ -f /home/${username}/.config/NzbDrone/config.xml ]]; then
+    #sed -i "s/<UrlBase>.*/<UrlBase>sonarr<\/UrlBase>/g" /home/${username}/.config/NzbDrone/config.xml
+    #sed -i "s/<BindAddress>.*/<BindAddress>127.0.0.1<\/BindAddress>/g" /home/${username}/.config/NzbDrone/config.xml
+    service apache2 reload
+  else
+    # output to dashboard
+    echo "ERROR INSTALLING - COULD NOT FIND config.xml in /home/${username}/.config/NzbDrone/config.xml" >> "${OUTTO}" 2>&1
+    # output to box
+    echo "ERROR INSTALLING - COULD NOT FIND config.xml in /home/${username}/.config/NzbDrone/config.xml"
+  fi
+
   systemctl stop sonarr@${username}
-  sed -i "s/<UrlBase>.*/<UrlBase>sonarr<\/UrlBase>/g" /home/${username}/.config/NzbDrone/config.xml
-  sed -i "s/<BindAddress>.*/<BindAddress>127.0.0.1<\/BindAddress>/g" /home/${username}/.config/NzbDrone/config.xml
+
   cat > /etc/apache2/sites-enabled/sonarr.conf <<EOF
 <Location /sonarr>
 ProxyPass http://localhost:8989/sonarr
