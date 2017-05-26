@@ -58,39 +58,39 @@ function _installRadarrCode() {
 }
 
 function _installRadarrConfigure() {
-	# output to box
-	echo "Configuring Radarr ... "
-	#
-	# ${package^} makes the variable start with a Capital or ${package} matches the case of the variable defined above in package=""
-	#
-	mkdir -p /home/${username}/.config/${package^}
-	chown -R ${username}:${username} /home/${username}/.config
-	chmod 775 /home/${username}/.config
-	chown -R ${username}:${username} /opt/${package^}/
-	#
-	cp ${local_setup}configs/${package^}/config.xml /home/${username}/.config/${package^}/config.xml
-	chown ${username}:${username} /home/${username}/.config/${package^}/config.xml
-	#
-	# Create the Apache2 configuration from a template file.
-	cp ${local_setup}configs/Apache2/package.conf /etc/apache2/sites-enabled/$package.conf
-	# Edit the configuration file.
-	sed -i 's|PACKAGE|'"${package}"'|g' /etc/apache2/sites-enabled/$package.conf
-	sed -i 's|PORT|'"${port}"'|g' /etc/apache2/sites-enabled/$package.conf
-	sed -i 's|USERNAME|'"${username}"'|g' /etc/apache2/sites-enabled/$package.conf
-	chown www-data:www-data /etc/apache2/sites-enabled/${package}.conf
-	service apache2 reload
-	#
-	# Create service using template file. 
-	cp ${local_setup}configs/systemd/package.service /etc/systemd/system/${package}.service
-	# Edit the file.
-	sed -i 's|PACKAGE|'"${package^}"'|g' /etc/systemd/system/${package}.service
-	sed -i 's|USERNAME|'"${username}"'|g' /etc/systemd/system/${package}.service
-	sed -i 's|COMMAND|'"${startcommand}"'|g' /etc/systemd/system/${package}.service
-	#
-	# Start the service
-	systemctl daemon-reload
-	systemctl enable ${package}.service > /dev/null 2>&1
-	#
+  # output to box
+  echo "Configuring Radarr ... "
+  #
+  # ${package^} makes the variable start with a Capital or ${package} matches the case of the variable defined above in package=""
+  #
+  mkdir -p /home/${username}/.config/${package^}
+  chown -R ${username}:${username} /home/${username}/.config
+  chmod 775 /home/${username}/.config
+  chown -R ${username}:${username} /opt/${package^}/
+  #
+  cp ${local_setup}configs/${package^}/config.xml /home/${username}/.config/${package^}/config.xml
+  chown ${username}:${username} /home/${username}/.config/${package^}/config.xml
+  #
+  # Create the Apache2 configuration from a template file.
+  cp ${local_setup}configs/Apache2/package.conf /etc/apache2/sites-enabled/$package.conf
+  # Edit the configuration file.
+  sed -i 's|PACKAGE|'"${package}"'|g' /etc/apache2/sites-enabled/$package.conf
+  sed -i 's|PORT|'"${port}"'|g' /etc/apache2/sites-enabled/$package.conf
+  sed -i 's|USERNAME|'"${username}"'|g' /etc/apache2/sites-enabled/$package.conf
+  chown www-data:www-data /etc/apache2/sites-enabled/${package}.conf
+  service apache2 reload
+  #
+  # Create service using template file. 
+  cp ${local_setup}configs/systemd/package.service /etc/systemd/system/${package}.service
+  # Edit the file.
+  sed -i 's|PACKAGE|'"${package^}"'|g' /etc/systemd/system/${package}.service
+  sed -i 's|USERNAME|'"${username}"'|g' /etc/systemd/system/${package}.service
+  sed -i 's|COMMAND|'"${startcommand}"'|g' /etc/systemd/system/${package}.service
+  #
+  # Start the service
+  systemctl daemon-reload
+  systemctl enable ${package}.service > /dev/null 2>&1
+  #
 }
 
 function _installRadarrStart() {
