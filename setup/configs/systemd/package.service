@@ -1,0 +1,15 @@
+[Unit]
+Description=PACKAGE Daemon
+After=syslog.target network.target
+
+[Service]
+User=USERNAME
+Group=USERNAME
+Type=simple
+ExecStart=COMMAND
+TimeoutStopSec=20
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
