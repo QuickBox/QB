@@ -32,7 +32,7 @@ function _installRadarrIntro() {
   sleep 5
 }
 
-function _installRadarrDepdendencies() {
+function _installRadarrDependencies() {
   # output to box
   echo "Installing dependencies ... "
 	apt update >/dev/null 2>&1
