@@ -81,7 +81,10 @@ Require user ${username}
 </Location>
 EOF
 
+  #Make sure .config/Radarr dir exists
   mkdir -p /home/${username}/.config
+  mkdir -p /home/${username}/.config/Radarr
+  
   chown -R ${username}:${username} /home/${username}/.config
   chmod 775 /home/${username}/.config
   chown -R ${username}:${username} /opt/Radarr/
