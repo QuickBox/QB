@@ -42,7 +42,7 @@ function _installRadarrDependencies() {
   # output to box
   echo "Installing dependencies ... "
 	apt update >/dev/null 2>&1
-	# incase of an error exprienced where the apt-get install -y libmono-cil-dev curl mediainfo command failed. Cause unknown.
+  # incase of an error exprienced where the apt-get install -y libmono-cil-dev curl mediainfo command failed. Cause unknown.
   # the apt-get command was run as root via ssh and not as part of the script since i missed the typo in the function name.
 	dpkg --configure -a >/dev/null 2>&1
 	apt-get install -y libmono-cil-dev curl mediainfo >/dev/null 2>&1
