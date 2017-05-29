@@ -1604,6 +1604,7 @@ function upgradePlex() {
   PASS=$pass
   DOWNLOADDIR="/opt/plex-tmp"
   PLEXSERVER=$PUBLICIP
+  OK=$(echo -e "[ \e[0;32mUpgrade Complete\e[00m ]")
 
   mkdir /opt/plex-tmp
 
@@ -1840,6 +1841,7 @@ function upgradePlex() {
   	  if [ "${AUTOINSTALL}" = "yes" ]; then
   		  rm -rf "${DOWNLOADDIR}/${FILENAME}" && rm -rf /opt/plex-tmp
   		  echo "Deleted \"${FILENAME}\""
+              echo ${OK}
       fi
     fi
   fi
