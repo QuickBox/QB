@@ -288,7 +288,7 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   include ($_SERVER['DOCUMENT_ROOT'].'/custom/url.override.php');
   // END CUSTOM URL OVERRIDES ////
 } else {
-  $btsyncURL = "https://" . $_SERVER['HTTP_HOST'] . ":8888/gui/";
+  $btsyncURL = "http://" . $_SERVER['HTTP_HOST'] . ":8888/gui/";
   $cpURL = "https://" . $_SERVER['HTTP_HOST'] . "/couchpotato";
   $csfURL = "https://" . $_SERVER['HTTP_HOST'] . ":3443";
   if ($dwssl == "true") { $dwURL = "https://" . $_SERVER['HTTP_HOST'] . ":$dwport"; }
