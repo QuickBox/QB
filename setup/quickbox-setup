@@ -959,6 +959,23 @@ function _ftpdconfig() {
   openssl req -config /root/.openssl.cnf -x509 -nodes -days 365 -newkey rsa:1024 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem >/dev/null 2>&1
 
   cp ${local_setup}templates/vsftpd.conf.template /etc/vsftpd.conf
+  
+  # Enabling passive mode
+  sed -i 's/^\(pasv_min_port=\).*/\110090/' /etc/vsftpd.conf
+  sed -i 's/^\(pasv_max_port=\).*/\110100/' /etc/vsftpd.conf
+  
+  if [ ! -f /etc/hostname ]; then
+    read HOSTNAME < /etc/hostname
+    echo "pasv_address="$HOSTNAME >> /etc/vsftpd.conf
+    echo "pasv_addr_resolve=YES" >> /etc/vsftpd.conf
+    iptables -I INPUT -p tcp --destination-port 10090:10100 -j ACCEPT
+  else
+    echo "Please, write your public server IP (used for ftp):"
+    defaultlIP = $(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')
+    read -e -p "IP: " -i $defaultIP IP
+    echo "pasv_address="$IP >> /etc/vsftpd.conf
+  fi
+  
   echo "" > /etc/vsftpd.chroot_list
 }
 
