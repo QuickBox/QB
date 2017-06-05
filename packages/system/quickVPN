@@ -385,7 +385,7 @@ dev tun
 proto udp
 sndbuf 0
 rcvbuf 0
-remote $IP $OVPNPORT
+remote $IP $PORT
 resolv-retry infinite
 nobind
 persist-key
