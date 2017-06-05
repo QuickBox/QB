@@ -6,7 +6,7 @@
 # GitHub _ packages  :   https://github.com/QuickBox/quickbox_packages
 # LOCAL REPOS
 # Local _ packages   :   /etc/QuickBox/packages
-# Author             :   QuickBox.IO
+# Author             :   QuickBox.IO | d2dyno
 # URL                :   https://quickbox.io
 #
 # QuickBox Copyright (C) 2017 QuickBox.io
@@ -52,6 +52,8 @@ chmod 700 /home/${username}/.config/Jackett
 chown ${username}.${username} -R /home/${username}/.config/Jackett
 sed -i "s/\"AllowExternal.*/\"AllowExternal\": false,/g" /home/${username}/.config/Jackett/ServerConfig.json
 sed -i "s/\"BasePathOverride.*/\"BasePathOverride\": \"\/jackett\"/g" /home/${username}/.config/Jackett/ServerConfig.json
+# Disable native auto-update, since we have a command for that.
+sed -i "s/\"UpdateDisabled.*/\"UpdateDisabled\": true,/g" /home/${username}/.config/Jackett/ServerConfig.json
 
 cat > /etc/apache2/sites-enabled/jackett.conf <<EOF
 <Location /jackett>
