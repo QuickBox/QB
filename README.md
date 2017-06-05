@@ -7,7 +7,7 @@
 >This step is only required for users who are coming off of our self-hosted GitLab repositories. If you are installing from fresh, please see [How to install](#how-to-install)
 
 ### [1]:
-login to your server via ssh. Gain root access with `sudo su` followed up with `cd` to place you in your /root directory. Once in your /root directory, type the following to remove your current local QuickBox respositories.
+login to your server via ssh. Gain root access with `sudo su` followed up with `cd` to place you in your /root directory. Once in your /root directory, type the following to remove your current local QuickBox repositories.
 ```
 rm -rf ~/QuickBox
 ```
@@ -77,7 +77,7 @@ updateQuickBox
 grsec is built into OVH's custom kernel and it absolutely wrecks havoc when using these panels where we depend on the ability for one user (www-data) to see the processes of another running user ($username).
 <br>This can be seen clearly by using a task manager such as h/top.
 <br>With grsec enabled you can only see the processes owned by your user unless you run htop as root. As such, it is highly recommended to use the stock kernel for your distribution or at the very least installing an OVH kernel that is not compiled with grsec
-<br>If you are using So You Start (SYS) as a host, you should opt to use the distribution kernel. You will see this as a checkbox option when installing your server. Otherwise, QuickBox will handle this for you on install.
+<br>If you are using So You Start (SYS) as a host, you should opt to use the distribution kernel. You will see this as a check box option when installing your server. Otherwise, QuickBox will handle this for you on install.
 
 
 
@@ -212,7 +212,7 @@ After installing you will have access to the following commands to be used direc
 * __upgradepyLoad__ - upgrades pyLoad when new version is available
 * More commands detailed here: [QuickBox Commands](https://quickbox.io/wiki/quickbox-commands/)
 
-If your disk space widget is not showing the correct amount of space, run one of the followng commands based on the mount you use:
+If your disk space widget is not showing the correct amount of space, run one of the following commands based on the mount you use:
 * If you're using a /home mounted partition then run: __fix-disk_widget_home__
 * If you're using a /(root) mounted partition then run: __fix-disk_widget_root__
 <br/>
