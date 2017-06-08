@@ -24,7 +24,7 @@ local_setup=/etc/QuickBox/setup/
 function _removeDeluge() {
   killall deluged
   killall deluge-web
-  cp "${local_setup}"templates/startup.template /home/"${username}"/.startup
+  ##cp "${local_setup}"templates/startup.template /home/"${username}"/.startup
     sleep 5
   systemctl disable deluged@* > /dev/null 2>&1
   systemctl stop deluged@* > /dev/null 2>&1
