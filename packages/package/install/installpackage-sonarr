@@ -70,6 +70,7 @@ function _installSonarr6() {
   systemctl start sonarr@${username}
   sleep 10
 
+  rm -rf /home/${username}/.config/NzbDrone/config.xml
   cp ${local_setup}configs/Sonarr/config.xml /home/${username}/.config/NzbDrone/config.xml
   chown ${username}:${username} /home/${username}/.config/NzbDrone/config.xml
 
@@ -85,6 +86,7 @@ function _installSonarr6() {
     echo "ERROR INSTALLING - COULD NOT FIND config.xml in /home/${username}/.config/NzbDrone/config.xml" >> "${OUTTO}" 2>&1
     # output to box
     echo "ERROR INSTALLING - COULD NOT FIND config.xml in /home/${username}/.config/NzbDrone/config.xml"
+    exit 1
   fi
 
   systemctl stop sonarr@${username}
