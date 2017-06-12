@@ -155,6 +155,14 @@
                     </tr>
                     <?php } ?>
 
+                    <?php if (file_exists("/install/.headphones.lock")) { ?>
+                    <tr>
+                      <td><?php echo "$hpval"; ?> Headphones </td>
+                      <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=headphones'" class="btn btn-xs btn-info"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
+                      <td class="text-center"><?php echo "$cbodyhp"; ?></td>
+                    </tr>
+                    <?php } ?>
+
                     <?php if (file_exists("/install/.jackett.lock")) { ?>
                     <tr>
                       <td><?php echo "$jval"; ?> Jackett </td>

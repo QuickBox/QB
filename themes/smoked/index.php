@@ -155,6 +155,14 @@
                     </tr>
                     <?php } ?>
 
+                    <?php if (file_exists("/install/.headphones.lock")) { ?>
+                    <tr>
+                      <td><?php echo "$hpval"; ?> Headphones </td>
+                      <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=headphones'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
+                      <td class="text-center"><?php echo "$cbodyhp"; ?></td>
+                    </tr>
+                    <?php } ?>
+
                     <?php if (file_exists("/install/.jackett.lock")) { ?>
                     <tr>
                       <td><?php echo "$jval"; ?> Jackett </td>
@@ -331,6 +339,15 @@
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#embyRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="?installpackage-emby=true" data-toggle="modal" data-target="#sysResponse" id="embyInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
+                      <?php } ?>
+                    </tr>
+                    <tr>
+                      <td>Headphones</td>
+                      <td><?php echo T('HEADPHONES'); ?></td>
+                      <?php if (file_exists("/install/.headphones.lock")) { ?>
+                        <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#headphonesRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
+                      <?php } else { ?>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-headphones=true" data-toggle="modal" data-target="#sysResponse" id="headphonesInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
@@ -580,7 +597,7 @@
                   <div class="panel-heading">
                     <h4 class="panel-title text-success"><?php echo T('RECENT_UPDATES'); ?>
 
-                        <a href="https://github.com/QuickBox/QB/compare/<?php echo $version ?>...master" target="blank" title="View your current versions changelog" data-placement="top" class="label label-primary tooltips" style="font-size:10px; padding-top:0; padding-bottom:0px; top: -2px; position: relative;" target='_blank'>QuickBox :: <span style="color: #fff;text-shadow: 0px 0px 6px #fff;"><?php echo "$version"; ?></span></a> <small>
+                        <a href="https://github.com/QuickBox/QB/compare/<?php echo $version ?>...master" target="blank" title="View your current versions changelog" data-placement="top" class="label label-primary tooltips" style="font-size:10px; padding-top:0; padding-bottom:0px; top: -2px; position: relative;" target='_blank'>QuickBox :: <span style="color: #fff;text-shadow: 0px 0px 6px #fff;"><?php echo "$version"; ?></span></a>
 
                     </h4>
                   </div>
