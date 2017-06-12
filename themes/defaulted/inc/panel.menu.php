@@ -30,7 +30,7 @@
                 <ul class="dropdown-menu pull-right" style="font-size: 13px">
                   <li><a href="//quickbox.io/category/announcements/" target="_blank">Announcements</a></li>
                   <li><a href="https://quickbox.io/readme-md/" target="_blank">README.md</a></li>
-                  <li><a href="/t/quickbox-changelog/45" target="_blank">CHANGELOG</a></li>
+                  <li><a href="https://github.com/QuickBox/QB/compare/v2.5.0...<?php echo $version; ?>" target="_blank">CHANGELOG</a></li>
                 </ul>
               </div>
             </li>

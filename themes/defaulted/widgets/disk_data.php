@@ -103,7 +103,12 @@ if (file_exists('/home/'.$username.'/.sessions/rtorrent.lock')) {
                       <p style="font-size:10px"><?php echo T('PERCENTAGE_TXT_1'); ?> <?php echo "$perused" ?>% <?php echo T('PERCENTAGE_TXT_2'); ?></p>
                     </div>
                     <div class="col-sm-4 text-right">
-                      <i class="fa fa-hdd-o" style="font-size: 90px; color: #e7e9ee"></i>
+                      <?php
+                        if ($perused < "70") { $diskcolor="disk-good"; }
+                        if ($perused > "70") { $diskcolor="disk-warning"; }
+                        if ($perused > "90") { $diskcolor="disk-danger"; }
+                      ?>
+                      <i class="fa fa-hdd-o <?php echo $diskcolor ?>" style="font-size: 90px;"></i>
                     </div>
                   </div>
                   <hr />

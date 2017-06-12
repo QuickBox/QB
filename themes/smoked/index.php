@@ -163,6 +163,22 @@
                     </tr>
                     <?php } ?>
 
+                    <?php if (file_exists("/install/.nzbhydra.lock")) { ?>
+                    <tr>
+                      <td><?php echo "$nzbval"; ?> NZBHydra </td>
+                      <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=nzbhydra'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
+                      <td class="text-center"><?php echo "$cbodynzb"; ?></td>
+                    </tr>
+                    <?php } ?>
+
+                    <?php if (file_exists("/install/.ombi.lock")) { ?>
+                    <tr>
+                      <td><?php echo "$prval"; ?> Ombi </td>
+                      <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=ombi'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
+                      <td class="text-center"><?php echo "$cbodypr"; ?></td>
+                    </tr>
+                    <?php } ?>
+
                     <?php if (file_exists("/install/.plex.lock")) { ?>
                     <tr>
                       <td><?php echo "$pval"; ?> Plex </td>
@@ -176,14 +192,6 @@
                       <td><?php echo "$ppval"; ?> PlexPy </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=plexpy'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodypp"; ?></td>
-                    </tr>
-                    <?php } ?>
-
-                    <?php if (file_exists("/install/.ombi.lock")) { ?>
-                    <tr>
-                      <td><?php echo "$prval"; ?> Ombi </td>
-                      <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=ombi'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
-                      <td class="text-center"><?php echo "$cbodypr"; ?></td>
                     </tr>
                     <?php } ?>
 
@@ -344,6 +352,15 @@
                       <?php } ?>
                     </tr>
                     <tr>
+                      <td>NZBHydra</td>
+                      <td><?php echo T('NZBHYDRA'); ?></td>
+                      <?php if (file_exists("/install/.nzbhydra.lock")) { ?>
+                        <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#nzbhydraRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
+                      <?php } else { ?>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-nzbhydra=true" data-toggle="modal" data-target="#sysResponse" id="nzbhydraInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
+                      <?php } ?>
+                    </tr>
+                    <tr>
                       <td>OpenVPN</td>
                       <td><?php echo T('OVPN'); ?></td>
                       <?php if (file_exists("/install/.vpn.lock")) { ?>
@@ -371,7 +388,7 @@
                       <?php } ?>
                     </tr>
                     <tr>
-                      <td>Ombi (formerly Plex Requests.NET)</td>
+                      <td>Ombi</td>
                       <td><?php echo T('PLEX_REQUESTS'); ?></td>
                       <?php if (file_exists("/install/.ombi.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#ombiRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
@@ -563,7 +580,7 @@
                   <div class="panel-heading">
                     <h4 class="panel-title text-success"><?php echo T('RECENT_UPDATES'); ?>
 
-                        <a href="https://github.com/QuickBox/QB/compare/<?php echo $version ?>...master" target="blank" title="View your current versions changelog" data-placement="top" class="label label-primary tooltips" style="font-size:10px; padding-top:0; padding-bottom:0px; top: -2px; position: relative;" target='_blank'>QuickBox :: <span style="color: #fff;text-shadow: 0px 0px 6px #fff;"><?php echo "$version"; ?></span></a> <small>- <a href="https://github.com/QuickBox/QB/compare/v2.5.0...v2.5.1" target="_blank"> CHANGELOG </a></small>
+                        <a href="https://github.com/QuickBox/QB/compare/<?php echo $version ?>...master" target="blank" title="View your current versions changelog" data-placement="top" class="label label-primary tooltips" style="font-size:10px; padding-top:0; padding-bottom:0px; top: -2px; position: relative;" target='_blank'>QuickBox :: <span style="color: #fff;text-shadow: 0px 0px 6px #fff;"><?php echo "$version"; ?></span></a> <small>
 
                     </h4>
                   </div>

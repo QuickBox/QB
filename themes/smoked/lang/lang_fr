@@ -12,8 +12,14 @@
 
 // main menu tab
 $L['MAIN_MENU'] = 'Menu Principal';
-$L['DOWNLOADS'] = 'Téléchargements';
+$L['DOWNLOADS'] = 'Téléchargement';
 $L['WEB_CONSOLE'] = 'Console Web';
+$L['ANNOUCEMENTS'] = 'Annonces';
+$L['JOIN_US_TXT'] = 'Rejoignez-nous sur le Chat Live!';
+$L['CHAT_CONNECT_TXT'] = 'Se connecter';
+$L['ISSUE_REPORT_TXT'] = 'Reporter un problème';
+$L['MARKETPLACE'] = 'Marché';
+$L['LANG_SELECT'] = 'Selectionner Langue';
 $L['THEME_SELECT'] = 'Selectionner Thème';
 
 // plugin menu tab
@@ -86,8 +92,8 @@ $L['CPU_STATUS'] = 'Statut CPU';
 $L['SERVER_LOAD'] = 'Charge Serveur';
 
 // recent updates widget
-$L['RECENT_UPDATES'] = 'Recent Activity & Updates';
-$L['RECENT_UPDATES_TXT'] = 'To view feed, scroll with your mouse wheel.';
+$L['RECENT_UPDATES'] = 'Activités Récentes & MaJ';
+$L['RECENT_UPDATES_TXT'] = 'Pour voir le fil, défilez vers le bas.';
 
 
 ////////////////////////////////////////
@@ -107,15 +113,18 @@ $L['BTSYNC_DETAILS'] = 'BitTorrent Sync par BitTorrent.Inc est un outil proprié
 $L['COUCHPOTATO'] = 'Téléchargez automatiquement des films, facilement et dans la meilleure qualité dès qu\'ils sont libérés, par l\'intermédiaire d\'Usenet ou de torrents.';
 $L['CSF'] = 'ConfigServer Firewall, connu sous le nom de CSF, est un script de configuration de pare-feu créé pour assurer une meilleure sécurité pour votre serveur tout en vous donnant une interface avancée et facile à utiliser pour gérer vos paramètres de pare-feu.';
 $L['DELUGE'] = 'Deluge est un client BitTorrent léger, gratuit et multi-plateforme.';
+$L['EMBY'] = 'Apporter toutes vos vidéos, vos musiques et vos photos dans un seul endroit n\'a jamais été aussi simple. Votre Serveur Emby personnel convertit automatiquement et diffuse vos médias à la volée pour jouer sur n\'importe quel appareil (Android TV, Apple TV, smartphones, Roku, Consoles de jeu et <a href="https://emby.media/download.html" target="_blank">plein d\'autres</a>).';
 $L['JACKETT'] = 'Support API pour vos trackers privés préférés.';
 $L['NEXTCLOUD'] = 'NextCloud est un logiciel open source vous permettant d\'accéder depuis n\'importe quel endroit à vos documents importants. Il peut être installé sur n\'importe quel serveur et vous permet de synchroniser vos données (contacts, calendriers) \'dans le nuage\' sur votre serveur. Vous décidez de ce qui se passe avec vos données, où elles sont et qui peut y accéder!';
+$L['NZBHYDRA'] = 'Il offre un accès facile à un certain nombre d\'indexeurs basés sur raw et newznab. Vous pouvez rechercher tous vos indexateurs au même endroit et l\'utiliser comme source d\'indexation pour des outils tels que Sonarr ou CouchPotato.';
 $L['OVPN'] = 'VPN basé sur SSL/TLS. Supporté sur Solaris, OpenBSD, FreeBSD, NetBSD, Mac OS X, et Windows 2000/XP+.';
 $L['PLEX'] = 'Plex vous permet de diffuser votre contenu à tous vos dispositifs Plex activés.';
-$L['PLEX_REQUESTS'] = 'Plex Requests offre une belle interface pour que vos utilisateurs vous demandent facilement d\'ajouter de nouveaux films à la bibliothèque. S\'intègre avec CouchPotato, SickRage et Sonarr.';
+$L['PLEX_REQUESTS'] = 'Ombi offre une belle interface pour que vos utilisateurs vous demandent facilement d\'ajouter de nouveaux films à la bibliothèque. S\'intègre avec CouchPotato, SickRage et Sonarr.';
 $L['PLEXPY'] = 'Une application web python conçue pour la surveillance, l\'analyse et les notifications de Plex Media Server';
 $L['PYLOAD'] = 'pyLoad vous permet de télécharger directement sur votre serveur des liens provenant de sites comme Sendspace ou Rapidshare (une liste de ces sites peut être trouvée en cliquant <a href="https://github.com/pyload/pyload/wiki/Supported-Hoster" target="_blank">ici</a>. Vous pourrez ensuite facilement récupérer ces fichiers via votre client FTP habituel.';
 $L['QUASSEL'] = 'Quassel est un client IRC multi-plateforme moderne basé sur le framework Qt4.';
 $L['QUOTAS'] = 'Cette fonctionnalité de Linux permet à l\'administrateur du système d\'allouer un montant maximum de l\'espace disque d\'un utilisateur.';
+$L['RADARR'] = 'Radarr est un fork indépendant de Sonarr retravaillé pour le téléchargement automatique de films via Usenet et BitTorrent. Il est inspiré d\'outils tels que CouchPotato.';
 $L['RAPIDLEECH'] = 'Rapid Leech est un script de transfert de serveur gratuit pour une utilisation sur différents sites de Direct Download populaires tels que uploaded.net, rapidshare.com et plus de 120 autres.';
 $L['SABNZBD'] = 'SABnzbd est un projet Open Source de lecteur de newsgroup pour fichier binaire écrit en Python. Le programme fonctionne en arrière-plan et simplifie la vérification de téléchargement et l\'extraction de fichiers à partir de Usenet. SABnzbd utilise des fichiers NZB (similaires aux fichiers .torrent, mais pour Usenet), au lieu de naviguer sur Usenet.';
 $L['SICKRAGE'] = 'Gestionnaire de fichiers vidéo pour Séries TV. Il surveille les nouveaux épisodes de vos émissions préférées et quand ils sont postés, sa magie entre en jeu.';
@@ -182,12 +191,12 @@ $L['FREE'] = 'Libre';
 $L['USED'] = 'Utilisé';
 $L['SIZE'] = 'Taille';
 $L['DISK_SPACE'] = 'Espace Disque';
-$L['RTORRENTS_TITLE'] = 'Torrents dans rTorrent';
-$L['DTORRENTS_TITLE'] = 'Torrents dans Deluge';
+$L['RTORRENTS_TITLE'] = 'Torrents dans rTorrent: ';
+$L['DTORRENTS_TITLE'] = 'Torrents dans Deluge: ';
 $L['PERCENTAGE_TXT_1'] = 'Vous avez utilisé';
-$L['PERCENTAGE_TXT_2'] = 'de votre espace disque total';
+$L['PERCENTAGE_TXT_2'] = 'de votre espace disque total.';
 $L['TORRENTS_LOADED_1'] = 'Il y a';
-$L['TORRENTS_LOADED_2'] = 'torrents chargés';
+$L['TORRENTS_LOADED_2'] = 'torrents chargés.';
 
 
 ////////////////////////////////////////
@@ -216,7 +225,7 @@ $L['SWAP_USED_TXT'] = 'Utilisé:';
 $L['SWAP_IDLE_TXT'] = 'Libre:';
 
 // total ram
-$L['TOTAL_RAM'] = 'RAM Totale du Système';
+$L['TOTAL_RAM'] = 'RAM Totale du Système: ';
 
 // clean mem button
 $L['CLEAR_CACHE'] = 'Nettoyer le cache Mémoire';
@@ -299,15 +308,18 @@ $L['UNINSTALL_TITLE'] = 'Désinstaller';
 $L['UNINSTALL_BTSYNC_TXT'] = 'Vous êtes sur le point de désinstaller BitTorrent Sync de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres de dossiers partagés ... cette action est irréversible. <br/><br/>Vous pouvez réinstaller BitTorrent Sync à tout moment, cependant, vos chemin de stockage et les paramètres des dossiers liés seront réinitialisés.';
 $L['UNINSTALL_CSF_TXT'] = 'Vous êtes sur le point de désinstaller Config Server Firewall (CSF) de votre système.<br/><br/>Cela va complètement supprimer tous ses paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller Config Server Firewall (CSF) à tout moment, cependant, vos paramètres de configuration (si des modifications ont été apportées) seront réinitialisés.';
 $L['UNINSTALL_COUCHPOTATO_TXT'] = 'Vous êtes sur le point de désinstaller CouchPotato de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller CouchPotato à tout moment, cependant, vos paramètres seront réinitialisés.';
-$L['UNINSTALL_DELUGE_TXT'] = 'Vous êtes sur le point de désinstaller Deluge de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres de dossiers partagés pour <strong>tous les utilisateurs</strong>... cette action est irréversible. <br/><br/>Vous pouvez réinstaller Deluge à tout moment, cependant, vos chemin de stockage et les paramètres des dossiers liés seront réinitialisés.';
+$L['UNINSTALL_DELUGE_TXT'] = 'Vous êtes sur le point de désinstaller Deluge de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres de dossiers partagés pour <strong>tous les utilisateurs</strong>... cette action est irréversible. <br/><br/>Vous pouvez réinstaller Deluge à tout moment, cependant, vos chemins de stockage et les paramètres des dossiers liés seront réinitialisés.';
+$L['UNINSTALL_EMBY_TXT'] = 'Vous êtes sur le point de désinstaller Emby de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres de dossiers partagés... cette action est irréversible. <br/><br/>Vous pouvez réinstaller CouchPotato à tout moment, however, vos chemins de stockage et les paramètres des dossiers liés seront réinitialisés.';
 $L['UNINSTALL_JACKETT_TXT'] = 'Vous êtes sur le point de désinstaller Jackett de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller Jackett à tout moment, cependant, vos paramètres seront réinitialisés.';
 $L['UNINSTALL_NEXTCLOUD_TXT'] = 'Vous êtes sur le point de désinstaller NextCloud de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller NextCloud à tout moment, cependant, vos paramètres seront réinitialisés.';
+$L['UNINSTALL_NZBHYDRA_TXT'] = 'Vous êtes sur le point de désinstaller NZBHydra de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller NZBHydra à tout moment, cependant, vos paramètres seront réinitialisés.';
 $L['UNINSTALL_PLEX_TXT'] = 'Vous êtes sur le point de désinstaller Plex Media Server de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres de librairies... cette action est irréversible. <br/><br/>Vous pouvez réinstaller Plex à tout moment, cependant, vos paramètres et librairies seront réinitialisés.';
 $L['UNINSTALL_PLEXPY_TXT'] = 'Vous êtes sur le point de désinstaller PlexPy de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres de librairies... cette action est irréversible. <br/><br/>Vous pouvez réinstaller PlexPy à tout moment, cependant, vos paramètres seront réinitialisés.';
 $L['UNINSTALL_PLEXREQUESTS_TXT'] = 'Vous êtes sur le point de désinstaller Plex Requests de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres de librairies... cette action est irréversible. <br/><br/>Vous pouvez réinstaller Plex Requests à tout moment, cependant, vos paramètres de librairies et vos requêtes en cours seront réinitialisés.';
 $L['UNINSTALL_PYLOAD_TXT'] = 'Vous êtes sur le point de désinstaller pyLoad de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller pyLoad à tout moment, cependant, vos paramètres seront réinitialisés.';
 $L['UNINSTALL_QUASSEL_TXT'] = 'Vous êtes sur le point de désinstaller Quassel de votre système.<br/><br/>Cela va complètement supprimer Quassel et tous ses paramètres / logs de votre système.';
 $L['UNINSTALL_QUOTAS_TXT'] = 'Vous êtes sur le point de désinstaller Quotas de votre système.<br/><br/>Cela va complètement supprimer les Quotas de vos utilisateurs et tout paramètres associés avec eux.';
+$L['UNINSTALL_RADARR_TXT'] = 'Vous êtes sur le point de désinstaller Radarr de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller Radarr à tout moment, cependant, vos paramètres seront réinitialisés.';
 $L['UNINSTALL_RAPIDLEECH_TXT'] = 'Vous êtes sur le point de désinstaller Rapidleech de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller Rapidleech à tout moment, cependant, vos paramètres de configuration seront réinitialisés.';
 $L['UNINSTALL_SABNZBD_TXT'] = 'Vous êtes sur le point de désinstaller SABnzbd de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller SABnzbd à tout moment, cependant, vos paramètres seront réinitialisés.';
 $L['UNINSTALL_SICKRAGE_TXT'] = 'Vous êtes sur le point de désinstaller SickRage de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller SickRage à tout moment, cependant, vos paramètres de configuration seront réinitialisés.';
