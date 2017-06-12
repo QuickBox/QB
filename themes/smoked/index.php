@@ -580,7 +580,7 @@
                   <div class="panel-heading">
                     <h4 class="panel-title text-success"><?php echo T('RECENT_UPDATES'); ?>
 
-                        <a href="https://github.com/QuickBox/QB/compare/<?php echo $version ?>...master" target="blank" title="View your current versions changelog" data-placement="top" class="label label-primary tooltips" style="font-size:10px; padding-top:0; padding-bottom:0px; top: -2px; position: relative;" target='_blank'>QuickBox :: <span style="color: #fff;text-shadow: 0px 0px 6px #fff;"><?php echo "$version"; ?></span></a> <small>- <a href="https://github.com/QuickBox/QB/compare/v2.5.0...v2.5.1" target="_blank"> CHANGELOG </a></small>
+                        <a href="https://github.com/QuickBox/QB/compare/<?php echo $version ?>...master" target="blank" title="View your current versions changelog" data-placement="top" class="label label-primary tooltips" style="font-size:10px; padding-top:0; padding-bottom:0px; top: -2px; position: relative;" target='_blank'>QuickBox :: <span style="color: #fff;text-shadow: 0px 0px 6px #fff;"><?php echo "$version"; ?></span></a> <small>
 
                     </h4>
                   </div>
