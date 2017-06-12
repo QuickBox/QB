@@ -88,7 +88,7 @@ sudo mv $DEFAULTFILE "/etc/default/"$APPNAME || { echo 'Could not move '$APPTITL
 cp ${local_setup}templates/sysd/headphones.template /etc/systemd/system/headphones.service
 sed -i "s/USER/${USERNAME}/g" /etc/systemd/system/headphones.service
 systemctl enable headphones >/dev/null 2>&1
-systemctl start headphones || { echo $RED'Creating sysd file failed.'$ENDCOLOR ; exit 1; }
+systemctl start headphones >/dev/null 2>&1
 systemctl stop headphones >/dev/null 2>&1
 #/etc/init.d/$APPNAME start >/dev/null 2>&1
 #/etc/init.d/$APPNAME stop >/dev/null 2>&1
