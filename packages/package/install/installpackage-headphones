@@ -36,7 +36,7 @@ APPTITLE='Headphones'
 APPDEPS='git-core python python-cheetah python-pyasn1'
 APPGIT='https://github.com/rembo10/headphones.git'
 APPDPORT='8004'
-APPSETTINGS=$APPPATH'/headphones.ini'
+APPSETTINGS=$APPPATH'/config.ini'
 PORTSEARCH='http_port = '
 USERSEARCH='http_username = '
 PASSSEARCH='http_password = '
@@ -96,8 +96,8 @@ systemctl stop $APPNAME >/dev/null 2>&1
 
 cat > /etc/apache2/sites-enabled/$APPNAME.conf <<EOF
 <Location /$APPNAME>
-ProxyPass http://localhost:$APPDPORT/$APPNAME
-ProxyPassReverse http://localhost:$APPDPORT/$APPNAME
+ProxyPass http://localhost:$APPDPORT
+ProxyPassReverse http://localhost:$APPDPORT
 AuthType Digest
 AuthName "rutorrent"
 AuthUserFile '/etc/htpasswd'
@@ -118,9 +118,15 @@ sleep 1
 echo -e "Starting $APPTITLE ... " >>"${OUTTO}" 2>&1;
 echo -e $YELLOW'--->Starting '$APPTITLE$ENDCOLOR
 systemctl start $APPNAME >/dev/null 2>&1
+sleep 10
 systemctl stop $APPNAME >/dev/null 2>&1
 
-sudo sed -i 's@http_host = localhost@http_host = 0.0.0.0@g' $APPSETTINGS  || { echo -e $RED'Modifying http_host in config file failed.'$ENDCOLOR; exit 1; }
+mkdir -p $APPPATH/logs
+cp ${local_setup}configs/headphones/config.ini $APPPATH/config.ini
+sudo chown -R $USERNAME:$USERNAME $APPPATH
+
+sudo sed -i "s/USER/${USERNAME}/g" $APPSETTINGS  || { echo -e $RED'Modifying config file failed.'$ENDCOLOR; exit 1; }
+#sudo sed -i 's@http_host = localhost@http_host = 0.0.0.0@g' $APPSETTINGS  || { echo -e $RED'Modifying http_host in config file failed.'$ENDCOLOR; exit 1; }
 
 systemctl start $APPNAME
 
