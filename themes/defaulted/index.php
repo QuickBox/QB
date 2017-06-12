@@ -165,9 +165,9 @@
 
                     <?php if (file_exists("/install/.nzbhydra.lock")) { ?>
                     <tr>
-                      <td><?php echo "$nzbval"; ?> Ombi </td>
+                      <td><?php echo "$nzbval"; ?> NZBHydra </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=nzbhydra'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
-                      <td class="text-center"><?php echo "$cbodyznb"; ?></td>
+                      <td class="text-center"><?php echo "$cbodynzb"; ?></td>
                     </tr>
                     <?php } ?>
 
