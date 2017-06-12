@@ -350,7 +350,7 @@ if ($emby == "1") { $eval = "<span class=\"badge badge-service-running-dot\"></s
 } else { $eval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
 }
 
-if ($headphones == "1") { $eval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
+if ($headphones == "1") { $hpval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
 } else { $hpval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
 }
 
