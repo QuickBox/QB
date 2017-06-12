@@ -163,6 +163,22 @@
                     </tr>
                     <?php } ?>
 
+                    <?php if (file_exists("/install/.nzbhydra.lock")) { ?>
+                    <tr>
+                      <td><?php echo "$nzbval"; ?> Ombi </td>
+                      <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=nzbhydra'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
+                      <td class="text-center"><?php echo "$cbodyznb"; ?></td>
+                    </tr>
+                    <?php } ?>
+
+                    <?php if (file_exists("/install/.ombi.lock")) { ?>
+                    <tr>
+                      <td><?php echo "$prval"; ?> Ombi </td>
+                      <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=ombi'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
+                      <td class="text-center"><?php echo "$cbodypr"; ?></td>
+                    </tr>
+                    <?php } ?>
+
                     <?php if (file_exists("/install/.plex.lock")) { ?>
                     <tr>
                       <td><?php echo "$pval"; ?> Plex </td>
@@ -176,14 +192,6 @@
                       <td><?php echo "$ppval"; ?> PlexPy </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=plexpy'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodypp"; ?></td>
-                    </tr>
-                    <?php } ?>
-
-                    <?php if (file_exists("/install/.ombi.lock")) { ?>
-                    <tr>
-                      <td><?php echo "$prval"; ?> Ombi </td>
-                      <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=ombi'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
-                      <td class="text-center"><?php echo "$cbodypr"; ?></td>
                     </tr>
                     <?php } ?>
 
@@ -341,6 +349,15 @@
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#nextcloudRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
                         <td style="vertical-align: middle; text-align: center"><button data-toggle="tooltip" title="<?php echo T('BOX_TOOLTIP_NEXTCLOUD'); ?>" data-placement="top" class="btn btn-xs btn-danger disabled tooltips"><?php echo T('BOX'); ?></button></td>
+                      <?php } ?>
+                    </tr>
+                    <tr>
+                      <td>NZBHydra</td>
+                      <td><?php echo T('NZBHYDRA'); ?></td>
+                      <?php if (file_exists("/install/.nzbhydra.lock")) { ?>
+                        <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#nzbhydraRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
+                      <?php } else { ?>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-nzbhydra=true" data-toggle="modal" data-target="#sysResponse" id="nzbhydraInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>

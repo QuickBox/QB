@@ -119,7 +119,7 @@ $L['NEXTCLOUD'] = 'NextCloud est un logiciel open source vous permettant d\'acc�
 $L['NZBHYDRA'] = 'Il offre un accès facile à un certain nombre d\'indexeurs basés sur raw et newznab. Vous pouvez rechercher tous vos indexateurs au même endroit et l\'utiliser comme source d\'indexation pour des outils tels que Sonarr ou CouchPotato.';
 $L['OVPN'] = 'VPN basé sur SSL/TLS. Supporté sur Solaris, OpenBSD, FreeBSD, NetBSD, Mac OS X, et Windows 2000/XP+.';
 $L['PLEX'] = 'Plex vous permet de diffuser votre contenu à tous vos dispositifs Plex activés.';
-$L['PLEX_REQUESTS'] = 'Omni offre une belle interface pour que vos utilisateurs vous demandent facilement d\'ajouter de nouveaux films à la bibliothèque. S\'intègre avec CouchPotato, SickRage et Sonarr.';
+$L['PLEX_REQUESTS'] = 'Ombi offre une belle interface pour que vos utilisateurs vous demandent facilement d\'ajouter de nouveaux films à la bibliothèque. S\'intègre avec CouchPotato, SickRage et Sonarr.';
 $L['PLEXPY'] = 'Une application web python conçue pour la surveillance, l\'analyse et les notifications de Plex Media Server';
 $L['PYLOAD'] = 'pyLoad vous permet de télécharger directement sur votre serveur des liens provenant de sites comme Sendspace ou Rapidshare (une liste de ces sites peut être trouvée en cliquant <a href="https://github.com/pyload/pyload/wiki/Supported-Hoster" target="_blank">ici</a>. Vous pourrez ensuite facilement récupérer ces fichiers via votre client FTP habituel.';
 $L['QUASSEL'] = 'Quassel est un client IRC multi-plateforme moderne basé sur le framework Qt4.';
