@@ -8,25 +8,25 @@ APPTITLE='Headphones'
 echo
 sleep 1
 # for output to box
-echo -e "Disabling and stopping $APPNAME ..."
+echo -e "Disabling and stopping $APPTITLE ..."
 # for output to dashboard
-echo -e "Disabling and stopping $APPNAME ..." >>"${OUTTO}" 2>&1;
+echo -e "Disabling and stopping $APPTITLE ..." >>"${OUTTO}" 2>&1;
 systemctl disable $APPNAME
 systemctl stop $APPNAME
 
 # for output to box
-echo -e "Removing service and configuration files for $APPNAME ..."
+echo -e "Removing service and configuration files for $APPTITLE ..."
 # for output to dashboard
-echo -e "Removing service and configuration files for $APPNAME ..." >>"${OUTTO}" 2>&1;
+echo -e "Removing service and configuration files for $APPTITLE ..." >>"${OUTTO}" 2>&1;
 rm /etc/systemd/system/$APPNAME.service
 rm -f /etc/apache2/sites-enabled/$APPNAME.conf
 rm -rf /etc/default/$APPNAME
 rm -rf $APPPATH
 
 # for output to box
-echo -e "Removing $APPNAME lock file ..."
+echo -e "Removing $APPTITLE lock file ..."
 # for output to dashboard
-echo -e "Removing $APPNAME lock file ..." >>"${OUTTO}" 2>&1;
+echo -e "Removing $APPTITLE lock file ..." >>"${OUTTO}" 2>&1;
 rm -f /install/.$APPNAME.lock
 
 # for output to box
@@ -36,10 +36,10 @@ echo -e "Reloading apache ..." >>"${OUTTO}" 2>&1;
 service apache2 reload
 
 # for output to box
-echo "$APPNAME has been removed"
+echo "$APPTITLE has been removed"
 echo
 echo
 # for output to dashboard
-echo "$APPNAME has been removed" >>"${OUTTO}" 2>&1;
+echo "$APPTITLE has been removed" >>"${OUTTO}" 2>&1;
 echo >>"${OUTTO}" 2>&1;
 echo >>"${OUTTO}" 2>&1;
