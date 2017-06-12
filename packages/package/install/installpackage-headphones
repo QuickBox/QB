@@ -125,7 +125,7 @@ mkdir -p $APPPATH/logs
 cp ${local_setup}configs/headphones/config.ini $APPPATH/config.ini
 sudo chown -R $USERNAME:$USERNAME $APPPATH
 
-sudo sed -i "s/USER/${USERNAME}/g" $APPSETTINGS  || { echo -e $RED'Modifying config file failed.'$ENDCOLOR; exit 1; }
+sudo sed -i "s/USER/${USERNAME}/g" $APPSETTINGS ## || { echo -e $RED'Modifying config file failed.'$ENDCOLOR; exit 1; }
 #sudo sed -i 's@http_host = localhost@http_host = 0.0.0.0@g' $APPSETTINGS  || { echo -e $RED'Modifying http_host in config file failed.'$ENDCOLOR; exit 1; }
 
 systemctl start $APPNAME
