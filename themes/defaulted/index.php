@@ -158,7 +158,7 @@
                     <?php if (file_exists("/install/.headphones.lock")) { ?>
                     <tr>
                       <td><?php echo "$hpval"; ?> Headphones </td>
-                      <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=headphones'" class="btn btn-xs btn-info"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
+                      <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=headphones'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodyhp"; ?></td>
                     </tr>
                     <?php } ?>
@@ -339,6 +339,15 @@
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#embyRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="?installpackage-emby=true" data-toggle="modal" data-target="#sysResponse" id="embyInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                      <?php } ?>
+                    </tr>
+                    <tr>
+                      <td>Headphones</td>
+                      <td><?php echo T('HEADPHONES'); ?></td>
+                      <?php if (file_exists("/install/.headphones.lock")) { ?>
+                        <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#headphonesRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
+                      <?php } else { ?>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-headphones=true" data-toggle="modal" data-target="#sysResponse" id="headphonesInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
