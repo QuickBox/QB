@@ -38,9 +38,8 @@ service apache2 reload
 # for output to box
 echo "$APPNAME has been removed"
 echo
+echo
 # for output to dashboard
 echo "$APPNAME has been removed" >>"${OUTTO}" 2>&1;
 echo >>"${OUTTO}" 2>&1;
 echo >>"${OUTTO}" 2>&1;
-# for output to dashboard
-echo "Close this dialog box to refresh your browser" >>"${OUTTO}" 2>&1;
