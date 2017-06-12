@@ -1,0 +1,46 @@
+#!/bin/bash
+OUTTO=/srv/rutorrent/home/db/output.log
+USERNAME=$(cat /srv/rutorrent/home/db/master.txt)
+APPNAME='headphones'
+APPPATH='/home/'$USERNAME'/.headphones'
+APPTITLE='Headphones'
+
+echo
+sleep 1
+# for output to box
+echo -e "Disabling and stopping $APPNAME ..."
+# for output to dashboard
+echo -e "Disabling and stopping $APPNAME ..." >>"${OUTTO}" 2>&1;
+systemctl disable $APPNAME
+systemctl stop $APPNAME
+
+# for output to box
+echo -e "Removing service and configuration files for $APPNAME ..."
+# for output to dashboard
+echo -e "Removing service and configuration files for $APPNAME ..." >>"${OUTTO}" 2>&1;
+rm /etc/systemd/system/$APPNAME.service
+rm -f /etc/apache2/sites-enabled/$APPNAME.conf
+rm -rf /etc/default/$APPNAME
+rm -rf $APPPATH
+
+# for output to box
+echo -e "Removing $APPNAME lock file ..."
+# for output to dashboard
+echo -e "Removing $APPNAME lock file ..." >>"${OUTTO}" 2>&1;
+rm -f /install/.$APPNAME.lock
+
+# for output to box
+echo -e "Reloading apache ..."
+# for output to dashboard
+echo -e "Reloading apache ..." >>"${OUTTO}" 2>&1;
+service apache2 reload
+
+# for output to box
+echo "$APPNAME has been removed"
+echo
+# for output to dashboard
+echo "$APPNAME has been removed" >>"${OUTTO}" 2>&1;
+echo >>"${OUTTO}" 2>&1;
+echo >>"${OUTTO}" 2>&1;
+# for output to dashboard
+echo "Close this dialog box to refresh your browser" >>"${OUTTO}" 2>&1;
