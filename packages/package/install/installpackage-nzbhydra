@@ -21,11 +21,10 @@ function _install() {
 # for output to dashboard
 echo "Installing NZBHydra ... " >>"${OUTTO}" 2>&1;
 # for output to box
-echo "Installing NZBHydra ... "
+#echo "Installing NZBHydra ... "
 warning=$(echo -e "[ \e[1;91mWARNING\e[0m ]")
 apt -y update >/dev/null 2>&1
 apt -y install git-core python >/dev/null 2>&1;
-echo >>"${OUTTO}" 2>&1;
 echo >>"${OUTTO}" 2>&1;
 echo "Cloning NZBHydra git ... " >>"${OUTTO}" 2>&1;
 git clone -q https://github.com/theotherp/nzbhydra.git /home/${MASTER}/nzbhydra || (echo "GIT failed" && exit 1)
@@ -33,14 +32,13 @@ chown ${MASTER}:${MASTER} -R /home/${MASTER}/nzbhydra
 }
 
 function _services(){
-echo >>"${OUTTO}" 2>&1;
-echo >>"${OUTTO}" 2>&1;
 # for output to dashboard
 echo "Installing and enabling service ... " >>"${OUTTO}" 2>&1;
 # for output to box
 echo "Installing and enabling service ... "
 
 cp ${local_setup}templates/sysd/nzbhydra.template /etc/systemd/system/nzbhydra@.service
+sed -i "s/USER/${MASTER}/g" /etc/systemd/system/nzbhydra@.service
 systemctl enable nzbhydra@${MASTER} >/dev/null 2>&1
 systemctl start nzbhydra@${MASTER} >/dev/null 2>&1
 sleep 30
