@@ -35,7 +35,7 @@ APPPATH='/home/'$USERNAME'/.headphones'
 APPTITLE='Headphones'
 APPDEPS='git-core python python-cheetah python-pyasn1'
 APPGIT='https://github.com/rembo10/headphones.git'
-APPDPORT='8181'
+APPDPORT='8004'
 APPSETTINGS=$APPPATH'/config.ini'
 PORTSEARCH='http_port = '
 USERSEARCH='http_username = '
@@ -82,10 +82,17 @@ echo $APPSHORTNAMEU"_HOME="$APPPATH"/" >> $DEFAULTFILE || { echo 'Could not crea
 echo $APPSHORTNAMEU"_DATA="$APPPATH"/" >> $DEFAULTFILE
 echo -e 'Enabling user '$CYAN$USERNAME$ENDCOLOR' to run '$APPTITLE'...'
 echo $APPSHORTNAMEU"_USER="$USERNAME >> $DEFAULTFILE
+
+
 sudo mv $DEFAULTFILE "/etc/default/"$APPNAME || { echo 'Could not move '$APPTITLE' default file.' ; exit 1; }
-/etc/init.d/$APPNAME start >/dev/null 2>&1
-/etc/init.d/$APPNAME stop >/dev/null 2>&1
-sudo cp $APPPATH/init-scripts/init.ubuntu /etc/init.d/headphones || { echo $RED'Creating init file failed.'$ENDCOLOR ; exit 1; }
+cp ${local_setup}templates/sysd/headphones.template /etc/systemd/system/headphones.service
+sed -i "s/USER/${USERNAME}/g" /etc/systemd/system/headphones.service
+systemctl enable headphones >/dev/null 2>&1
+systemctl start headphones { echo $RED'Creating sysd file failed.'$ENDCOLOR ; exit 1; }
+systemctl stop headphones >/dev/null 2>&1
+#/etc/init.d/$APPNAME start >/dev/null 2>&1
+#/etc/init.d/$APPNAME stop >/dev/null 2>&1
+#sudo cp $APPPATH/init-scripts/init.ubuntu /etc/init.d/headphones || { echo $RED'Creating init file failed.'$ENDCOLOR ; exit 1; }
 
 cat > /etc/apache2/sites-enabled/$APPNAME.conf <<EOF
 <Location /$APPNAME>
