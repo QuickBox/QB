@@ -3,7 +3,7 @@
 # [Quick Box :: Install Headphones package]
 #
 # GITHUB REPOS
-# GitHub _ packages  :   https://github.com/QuickBox/quickbox_packages
+# GitHub _ packages  :   https://github.com/QuickBox/QB/packages
 # LOCAL REPOS
 # Local _ packages   :   /etc/QuickBox/packages
 # Author             :   QuickBox.IO | JMSolo
@@ -16,6 +16,12 @@
 #   changes/dates in source files. Any modifications to our software
 #   including (via compiler) GPL-licensed code must also be made available
 #   under the GPL along with build & install instructions.
+#
+#   QuickBox.IO does not grant the end-user the right to distribute this
+#   code in a means to supply commercial monetization. If you would like
+#   to include QuickBox in your commercial project, write to echo@quickbox.io
+#   with a summary of your project as well as its intended use for moentization.
+#
 
 YELLOW='\e[93m'
 RED='\e[91m'
@@ -71,6 +77,9 @@ chown www-data: /etc/apache2/sites-enabled/$APPNAME.conf  >/dev/null 2>&1
 sudo chown -R $USERNAME:$USERNAME $APPPATH >/dev/null 2>&1
 sudo chmod -R 775 $APPPATH >/dev/null 2>&1
 sudo chmod -R g+s $APPPATH >/dev/null 2>&1
+sudo mkdir -p /var/run/$APPNAME >/dev/null 2>&1
+sudo chmod 755 /var/run/$APPNAME >/dev/null 2>&1
+sudo chown -R $USERNAME /var/run/$APPNAME >/dev/null 2>&1
 
 echo
 sleep 1
