@@ -971,7 +971,7 @@ function _ftpdconfig() {
     echo "pasv_addr_resolve=YES" >> /etc/vsftpd.conf
   else
     echo "Please, write your public server IP (used for ftp):"
-    defaultlIP = $(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')
+    defaultIP = $(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')
     read -e -p "IP: " -i $defaultIP IP
     echo "pasv_address="$IP >> /etc/vsftpd.conf
   fi
