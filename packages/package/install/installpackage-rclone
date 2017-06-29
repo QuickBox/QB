@@ -6,7 +6,7 @@
 # GitHub _ packages  :   https://github.com/QuickBox/quickbox_packages
 # LOCAL REPOS
 # Local _ packages   :   /etc/QuickBox/packages
-# Author             :   DedSec
+# Author             :   DedSec | d2dyno
 # URL                :   https://quickbox.io
 #
 # QuickBox Copyright (C) 2017 QuickBox.io
@@ -25,10 +25,8 @@ arch=$(arch)
 echo "Downloading rclone ... " >>"${OUTTO}" 2>&1;
 
 if [[ $arch == x86_64 ]]; then
-  #current=$(curl -s -N http://downloads.rclone.org/ | grep -m1 linux-amd64 | cut -d\" -f2)
-  current=$(curl -O https://downloads.rclone.org/rclone-current-linux-amd64.zip)
   cd /tmp
-  wget $current
+  wget https://downloads.rclone.org/rclone-current-linux-amd64.zip
   unzip rclone-*
   cd rclone-*
   cp rclone /usr/sbin/
@@ -42,10 +40,8 @@ if [[ $arch == x86_64 ]]; then
   rm -rf rclone-*
 fi
 if [[ $arch == i386 ]]; then
-  #current=$(curl -s -N http://rclone.org/downloads/ | grep -m1 linux-386 | cut -d\" -f2)
-  current=$(curl -O https://downloads.rclone.org/rclone-current-linux-386.zip)
   cd /tmp
-  wget $current
+  wget https://downloads.rclone.org/rclone-current-linux-386.zip
   unzip rclone-*
   cd rclone-*
   cp rclone /usr/sbin/
