@@ -27,8 +27,8 @@ echo "Downloading rclone ... " >>"${OUTTO}" 2>&1;
 if [[ $arch == x86_64 ]]; then
   cd /tmp
   curl -O https://downloads.rclone.org/rclone-current-linux-amd64.zip
-  unzip rclone-*-linux-amd64
-  cd rclone-*
+  unzip rclone-*
+  cd rclone-*-linux-amd64
   cp rclone /usr/sbin/
   chown root:root /usr/sbin/rclone
   chmod 755 /usr/sbin/rclone
@@ -42,8 +42,8 @@ fi
 if [[ $arch == i386 ]]; then
   cd /tmp
   curl -O https://downloads.rclone.org/rclone-current-linux-386.zip
-  unzip rclone-*-linux-386
-  cd rclone-*
+  unzip rclone-*
+  cd rclone-*-linux-386
   cp rclone /usr/sbin/
   chown root:root /usr/sbin/rclone
   chmod 755 /usr/sbin/rclone
