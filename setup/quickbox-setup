@@ -325,12 +325,11 @@ function _askvsftpd() {
   local DEFAULTIP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1');
   echo -ne "${bold}${yellow}Please, write your public server IP (used for ftp)${normal} (Default: ${green}${bold}$DEFAULTIP${normal}) "; read input
   if [[ -z "$input" ]]; then
-    local IP=$DEFAULTIP
+    IP=$DEFAULTIP
   else
-    local IP=$input
+    IP=$input
   fi
-
-  echo "pasv_address="$IP >> /etc/vsftpd.conf
+  
   echo
 }
 
@@ -977,6 +976,7 @@ function _ftpdconfig() {
   # Enabling passive mode
   sed -i 's/^\(pasv_min_port=\).*/\110090/' /etc/vsftpd.conf
   sed -i 's/^\(pasv_max_port=\).*/\110100/' /etc/vsftpd.conf
+  echo "pasv_address="$IP >> /etc/vsftpd.conf
   iptables -I INPUT -p tcp --destination-port 10090:10100 -j ACCEPT
 
   echo "" > /etc/vsftpd.chroot_list
