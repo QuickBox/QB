@@ -29,6 +29,8 @@ apt -y install git-core python >/dev/null 2>&1;
 echo "Cloning NZBHydra git ... " >>"${OUTTO}" 2>&1;
 git clone -q https://github.com/theotherp/nzbhydra.git /home/${MASTER}/nzbhydra || (echo "GIT failed" && exit 1)
 chown ${MASTER}:${MASTER} -R /home/${MASTER}/nzbhydra
+mkdir /home/${MASTER}/.nzbhydra
+chown ${MASTER}:${MASTER} -R /home/${MASTER}/.nzbhydra
 }
 
 function _services(){
@@ -47,11 +49,12 @@ sleep 30
 systemctl stop nzbhydra@${MASTER} >/dev/null 2>&1
 
 sed -i "s/urlBase.*/urlBase\": \"\/nzbhydra\",/g"  /home/"${MASTER}"/.nzbhydra/settings.cfg
+sed -i "s/host.*/host\": \"127.0.0.1\",/g"  /home/"${MASTER}"/.nzbhydra/settings.cfg
 
 cat > /etc/apache2/sites-enabled/nzbhydra.conf <<EOF
 <Location /nzbhydra>
-ProxyPass http://localhost:5075/nzbhydra
-ProxyPassReverse http://localhost:5075/nzbhydra
+ProxyPass http://localhost:5075/nzbhydra/
+ProxyPassReverse http://localhost:5075/nzbhydra/
 AuthType Digest
 AuthName "rutorrent"
 AuthUserFile '/etc/htpasswd'
