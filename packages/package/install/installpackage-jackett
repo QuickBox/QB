@@ -49,7 +49,7 @@ systemctl stop jackett@${username}
 # Make sure .config/Jackett exists and has correct permissions.
 mkdir -p /home/${username}/.config/Jackett
 chmod 700 /home/${username}/.config/Jackett
-cp ${local_setup}configs/jacket/ServerConfig.json /home/${username}/.config/Jackett/ServerConfig.json
+cp ${local_setup}configs/jackett/ServerConfig.json /home/${username}/.config/Jackett/ServerConfig.json
 
 chown ${username}.${username} -R /home/${username}/.config/Jackett
 sed -i "s/\"AllowExternal.*/\"AllowExternal\": false,/g" /home/${username}/.config/Jackett/ServerConfig.json
