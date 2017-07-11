@@ -1,0 +1,11 @@
+{
+  "Port": 9117,
+  "AllowExternal": true,
+  "APIKey": "",
+  "AdminPassword": null,
+  "InstanceId": "",
+  "BlackholeDir": null,
+  "UpdateDisabled": false,
+  "UpdatePrerelease": false,
+  "BasePathOverride": /jackett
+}
