@@ -49,6 +49,8 @@ systemctl stop jackett@${username}
 # Make sure .config/Jackett exists and has correct permissions.
 mkdir -p /home/${username}/.config/Jackett
 chmod 700 /home/${username}/.config/Jackett
+cp ${local_setup}configs/jackett/ServerConfig.json /home/${username}/.config/Jackett/ServerConfig.json
+
 chown ${username}.${username} -R /home/${username}/.config/Jackett
 sed -i "s/\"AllowExternal.*/\"AllowExternal\": false,/g" /home/${username}/.config/Jackett/ServerConfig.json
 sed -i "s/\"BasePathOverride.*/\"BasePathOverride\": \"\/jackett\"/g" /home/${username}/.config/Jackett/ServerConfig.json
@@ -68,15 +70,15 @@ EOF
 
 # Write public IP to ProxyPass if user will be using Jackett remotely.
 # Ask user what they want to do.
-echo "Should Jackett be setup for internal use only (localhost) or external use (IP address)?"
+#echo "Should Jackett be setup for internal use only (localhost) or external use (IP address)?"
 # Input should be either "int" for internal use (do nothing) or "ext" for external use (change ProxyPass).
-read -p 'int/ext: ' ipvar
-if [ "$ipvar" = "ext" ]; then
-  ip_ext=$(wget -qO- http://ipecho.net/plain)
-  ip_int="localhost"
-  sed -i "s~ProxyPass http://${ip_int}:9117/jackett~ProxyPass http://${ip_ext}:9117/jackett~" /etc/apache2/sites-enabled/jackett.conf
-  sed -i "s/\"AllowExternal.*/\"AllowExternal\": true,/g" /home/${username}/.config/Jackett/ServerConfig.json
-fi
+#read -p 'int/ext: ' ipvar
+#if [ "$ipvar" = "ext" ]; then
+#  ip_ext=$(wget -qO- http://ipecho.net/plain)
+#  ip_int="localhost"
+#  sed -i "s~ProxyPass http://$ip_int:9117/jackett~ProxyPass http://$ip_ext:9117/jackett~" /etc/apache2/sites-enabled/jackett.conf
+#  sed -i "s/\"AllowExternal.*/\"AllowExternal\": true,/g" /home/${username}/.config/Jackett/ServerConfig.json
+#fi
 
 chown www-data: /etc/apache2/sites-enabled/jackett.conf
 service apache2 reload
