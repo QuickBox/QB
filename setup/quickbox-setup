@@ -449,6 +449,19 @@ function _depends() {
   fi
 }
 
+# build openssl from source to combat recent apt source updates
+function _openssl() {
+  cd /tmp
+  wget https://www.openssl.org/source/openssl-1.1.0f.tar.gz
+  tar -xzvf openssl-1.1.0f.tar.gz
+  cd openssl-1.1.0f
+  ./config
+  make
+  make install
+  cd /tmp
+  rm -rf openssl-1.1.0f.tar.gz openssl-1.1.0f
+}
+
 function _syscommands() {
   mkdir -p /usr/local/bin/quickbox
   cp -r ${local_packages}/. /usr/local/bin/quickbox
@@ -1223,6 +1236,7 @@ echo ""
 echo -n "Pulling QuickBox Ecosystem ... ";_repos & spinner $!;echo
 echo -n "Updating system ... ";_updates & spinner $!;echo
 echo -n "Installing all needed dependencies ... ";_depends & spinner $!;echo
+_openssl
 echo -n "Setting up system executables ... ";_syscommands & spinner $!;echo
 echo -n "Building required user directories ... ";_skel & spinner $!;echo
 if [[ ${quota} == "yes" ]]; then
