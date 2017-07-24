@@ -11,7 +11,7 @@
 ///////////////////////////////////////
 
 // main menu tab
-$L['ANNOUCEMENTS'] = 'Annonceringer';
+$L['ANNOUNCEMENTS'] = 'Annonceringer';
 $L['CHAT_CONNECT_TXT'] = 'Klik for at oprette forbindelse';
 $L['DEV_REPO_TXT'] = 'Du er på QuickBox Development Repo';
 $L['DOWNLOADS'] = 'Downloads';

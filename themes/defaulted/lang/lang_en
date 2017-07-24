@@ -11,7 +11,7 @@
 ///////////////////////////////////////
 
 // main menu tab
-$L['ANNOUCEMENTS'] = 'Announcements';
+$L['ANNOUNCEMENTS'] = 'Announcements';
 $L['CHAT_CONNECT_TXT'] = 'Click to connect';
 $L['DEV_REPO_TXT'] = 'You are on the QuickBox Development Repo';
 $L['DOWNLOADS'] = 'Downloads';
