@@ -320,6 +320,19 @@ function _askffmpeg() {
   echo
 }
 
+# ask user for pure-ftpd conf (10.5)
+function _askvsftpd() {
+  local DEFAULTIP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1');
+  echo -ne "${bold}${yellow}Please, write your public server IP (used for ftp)${normal} (Default: ${green}${bold}$DEFAULTIP${normal}) "; read input
+  if [[ -z "$input" ]]; then
+    IP=$DEFAULTIP
+  else
+    IP=$input
+  fi
+  
+  echo
+}
+
 # ban public trackers [iptables option] (11)
 function _denyhosts() {
   echo -ne "${bold}${yellow}Block Public Trackers?${normal}: [${green}y${normal}]es or [n]o: "; read responce
@@ -406,7 +419,7 @@ function _depends() {
     yes '' | apt-get install --force-yes fail2ban bc ed sudo screen zip irssi unzip nano bwm-ng htop iotop \
                      dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
-                     apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
+                     apache2-utils autoconf cron curl libapache2-mod-fastcgi rtorrent libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket libapache2-mod-php7.0 \
                      php7.0-dev php7.0-geoip libgeoip-dev php7.0 php7.0-fpm php7.0-mbstring php7.0-mysql \
                      php7.0-curl php7.0-memcached memcached php7.0-gd php7.0-json php7.0-mcrypt php7.0-opcache \
@@ -421,7 +434,7 @@ function _depends() {
     apt-get -y -f --allow-unauthenticated install build-essential debian-archive-keyring fail2ban bc sudo \
                      screen zip irssi unzip nano bwm-ng htop iotop git \
                      dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
-                     pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
+                     pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev rtorrent libsigc++-2.0-dev \
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket \
                      libdbd-mysql-perl libdbi-perl php7.0 php7.0-fpm php7.0-mbstring php7.0-mysql \
@@ -959,23 +972,13 @@ function _ftpdconfig() {
   openssl req -config /root/.openssl.cnf -x509 -nodes -days 365 -newkey rsa:1024 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem >/dev/null 2>&1
 
   cp ${local_setup}templates/vsftpd.conf.template /etc/vsftpd.conf
-  
+
   # Enabling passive mode
   sed -i 's/^\(pasv_min_port=\).*/\110090/' /etc/vsftpd.conf
   sed -i 's/^\(pasv_max_port=\).*/\110100/' /etc/vsftpd.conf
+  echo "pasv_address="$IP >> /etc/vsftpd.conf
   iptables -I INPUT -p tcp --destination-port 10090:10100 -j ACCEPT
-  
-  if [ ! -f /etc/hostname ]; then
-    read HOSTNAME < /etc/hostname
-    echo "pasv_address="$HOSTNAME >> /etc/vsftpd.conf
-    echo "pasv_addr_resolve=YES" >> /etc/vsftpd.conf
-  else
-    echo "Please, write your public server IP (used for ftp):"
-    defaultlIP = $(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')
-    read -e -p "IP: " -i $defaultIP IP
-    echo "pasv_address="$IP >> /etc/vsftpd.conf
-  fi
-  
+
   echo "" > /etc/vsftpd.chroot_list
 }
 
@@ -1209,6 +1212,7 @@ _askdeluge
 _askdashtheme
 _adduser
 _askffmpeg
+_askvsftpd
 _denyhosts
 
 echo

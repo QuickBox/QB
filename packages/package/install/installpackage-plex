@@ -55,7 +55,9 @@ echo "Updating system ... "
     if [[ ! $perm == plex ]]; then
       chown -R plex:plex /var/lib/plexmediaserver
     fi
-    service plexmediaserver restart >/dev/null 2>&1
+    cp ${local_setup}templates/sysd/plexmediaserver.template /lib/systemd/system/plexmediaserver.service
+    systemctl daemon-reload >/dev/null 2>&1
+    systemlctl restart plexmediaserver >/dev/null 2>&1
     touch /install/.plex.lock
     echo
 
