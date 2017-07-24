@@ -11,22 +11,24 @@
 ///////////////////////////////////////
 
 // main menu tab
-$L['MAIN_MENU'] = 'Menu Principal';
-$L['DOWNLOADS'] = 'Téléchargement';
-$L['WEB_CONSOLE'] = 'Console Web';
-$L['ANNOUCEMENTS'] = 'Annonces';
-$L['JOIN_US_TXT'] = 'Rejoignez-nous sur le Chat Live!';
+$L['ANNOUNCEMENTS'] = 'Annonces';
 $L['CHAT_CONNECT_TXT'] = 'Se connecter';
+$L['DEV_REPO_TXT'] = 'Vous êtes sur le Repo Developpement QuickBox';
+$L['DOWNLOADS'] = 'Téléchargement';
 $L['ISSUE_REPORT_TXT'] = 'Reporter un problème';
+$L['JOIN_US_TXT'] = 'Rejoignez-nous sur le Chat Live!';
+$L['LANG_SELECT'] = 'Langue';
+$L['MAIN_MENU'] = 'Menu Principal';
 $L['MARKETPLACE'] = 'Marché';
-$L['LANG_SELECT'] = 'Selectionner Langue';
-$L['THEME_SELECT'] = 'Selectionner Thème';
+$L['THEME_SELECT'] = 'Thème';
+$L['WEB_CONSOLE'] = 'Console Web';
 
 // plugin menu tab
 $L['PLUGIN_MENU'] = 'Menu Plugins';
 $L['RPLUGIN_MENU'] = 'Menu Plugins ruTorrent';
 $L['PMENU_NOTICE_TXT'] = 'Installez et désinstallez facilement les plugins ruTorrent en cliquant simplement sur le nom du plugin.';
 $L['PLUGINS'] = 'Plugins';
+$L['DONATE'] = 'Faire un Don';
 
 // quick help menu tab
 $L['HELP_COMMANDS'] = 'Commandes d\'aide et plus';
@@ -53,8 +55,6 @@ $L['ESSENTIAL_USER_COMMANDS'] = 'Commandes utilisateur essentielles';
 $L['RELOAD_TXT'] = 'Autorise l’utilisateur à recharger ses services (rTorrent et IRSSI).';
 $L['SCREEN_RTORRNENT_TXT'] = 'Autorise l’utilisateur à redémarrer/remonter rTorrent en SSH.';
 $L['SCREEN_IRSSI_TXT'] = 'Autorise l’utilisateur à redémarrer/remonter IRSSI en SSH.';
-
-$L['LANG_SELECT'] = 'Selectionner Langue';
 
 
 ////////////////////////////////////////
@@ -92,16 +92,20 @@ $L['CPU_STATUS'] = 'Statut CPU';
 $L['SERVER_LOAD'] = 'Charge Serveur';
 
 // recent updates widget
-$L['RECENT_UPDATES'] = 'Activités Récentes & MaJ';
+$L['COMPARE_COMMITS'] = 'Comparez votre état actuel avec les derniers commits.';
+$L['CURRENT_COMMIT'] = 'Voir l\'état de votre dernier commit';
+$L['CURRENT_VERSIONS_CHANGELOG'] = 'Affiche le changelog de la version actuelle.';
+$L['LATEST_COMMIT'] = 'Dernier.';
+$L['QUICKBOX_COMMIT'] = 'Vous êtes sur le commit - ';
+$L['RECENT_UPDATES'] = 'Activités Récentes';
 $L['RECENT_UPDATES_TXT'] = 'Pour voir le fil, défilez vers le bas.';
-
 
 ////////////////////////////////////////
 //PACKAGE MANAGEMENT CENTER
 ///////////////////////////////////////
 
 // package management center notice
-$L['PMC_NOTICE_TXT'] = '<strong>Attention!</strong> S\'il vous plaît, notez que ces options ne sont pas les mêmes que pour l\'activation et la désactivation d\'un logiciel. Ces options sont conçues uniquement pour les installer ou désinstaller.';
+$L['PMC_NOTICE_TXT'] = '<strong>Attention!</strong> Ces options ne sont pas les mêmes que pour l\'activation et la désactivation d\'un logiciel. Elles sont conçues uniquement pour les installer ou désinstaller.';
 
 // package management center column headers
 $L['NAME'] = 'Nom';
@@ -114,6 +118,7 @@ $L['COUCHPOTATO'] = 'Téléchargez automatiquement des films, facilement et dans
 $L['CSF'] = 'ConfigServer Firewall, connu sous le nom de CSF, est un script de configuration de pare-feu créé pour assurer une meilleure sécurité pour votre serveur tout en vous donnant une interface avancée et facile à utiliser pour gérer vos paramètres de pare-feu.';
 $L['DELUGE'] = 'Deluge est un client BitTorrent léger, gratuit et multi-plateforme.';
 $L['EMBY'] = 'Apporter toutes vos vidéos, vos musiques et vos photos dans un seul endroit n\'a jamais été aussi simple. Votre Serveur Emby personnel convertit automatiquement et diffuse vos médias à la volée pour jouer sur n\'importe quel appareil (Android TV, Apple TV, smartphones, Roku, Consoles de jeu et <a href="https://emby.media/download.html" target="_blank">plein d\'autres</a>).';
+$L['HEADPHONES'] = 'Headphones est un logiciel de téléchargement automatique de musique pour NZB et Torrent, écrit en Python. Il supporte SABnzbd, NZBget, Transmission, μTorrent, Deluge et Blackhole.';
 $L['JACKETT'] = 'Support API pour vos trackers privés préférés.';
 $L['NEXTCLOUD'] = 'NextCloud est un logiciel open source vous permettant d\'accéder depuis n\'importe quel endroit à vos documents importants. Il peut être installé sur n\'importe quel serveur et vous permet de synchroniser vos données (contacts, calendriers) \'dans le nuage\' sur votre serveur. Vous décidez de ce qui se passe avec vos données, où elles sont et qui peut y accéder!';
 $L['NZBHYDRA'] = 'Il offre un accès facile à un certain nombre d\'indexeurs basés sur raw et newznab. Vous pouvez rechercher tous vos indexateurs au même endroit et l\'utiliser comme source d\'indexation pour des outils tels que Sonarr ou CouchPotato.';
@@ -220,7 +225,7 @@ $L['REAL_MEMORY_FREE_TXT'] = 'Mémoire Réelle libre:';
 
 // swap usage
 $L['SWAP_TITLE'] = 'Utilisation Swap';
-$L['SWAP_TOTAL_TXT'] = 'Zone SWAP:';
+$L['SWAP_TOTAL_TXT'] = 'Zone SWAP';
 $L['SWAP_USED_TXT'] = 'Utilisé:';
 $L['SWAP_IDLE_TXT'] = 'Libre:';
 
@@ -250,7 +255,7 @@ $L['SECONDARY'] = 'Cache Secondaire:';
 //SERVER LOAD WIDGET
 ///////////////////////////////////////
 
-$L['SL_TXT'] = 'Ceci est la moyenne de charge de votre serveur';
+$L['SL_TXT'] = 'Ceci est la moyenne de charge de votre serveur.';
 $L['UPTIME'] = 'Uptime';
 
 
@@ -309,7 +314,8 @@ $L['UNINSTALL_BTSYNC_TXT'] = 'Vous êtes sur le point de désinstaller BitTorren
 $L['UNINSTALL_CSF_TXT'] = 'Vous êtes sur le point de désinstaller Config Server Firewall (CSF) de votre système.<br/><br/>Cela va complètement supprimer tous ses paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller Config Server Firewall (CSF) à tout moment, cependant, vos paramètres de configuration (si des modifications ont été apportées) seront réinitialisés.';
 $L['UNINSTALL_COUCHPOTATO_TXT'] = 'Vous êtes sur le point de désinstaller CouchPotato de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller CouchPotato à tout moment, cependant, vos paramètres seront réinitialisés.';
 $L['UNINSTALL_DELUGE_TXT'] = 'Vous êtes sur le point de désinstaller Deluge de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres de dossiers partagés pour <strong>tous les utilisateurs</strong>... cette action est irréversible. <br/><br/>Vous pouvez réinstaller Deluge à tout moment, cependant, vos chemins de stockage et les paramètres des dossiers liés seront réinitialisés.';
-$L['UNINSTALL_EMBY_TXT'] = 'Vous êtes sur le point de désinstaller Emby de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres de dossiers partagés... cette action est irréversible. <br/><br/>Vous pouvez réinstaller CouchPotato à tout moment, however, vos chemins de stockage et les paramètres des dossiers liés seront réinitialisés.';
+$L['UNINSTALL_EMBY_TXT'] = 'Vous êtes sur le point de désinstaller Emby de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres de dossiers partagés... cette action est irréversible. <br/><br/>Vous pouvez réinstaller CouchPotato à tout moment, cependant, vos chemins de stockage et les paramètres des dossiers liés seront réinitialisés.';
+$L['UNINSTALL_HEADPHONES_TXT'] = 'Vous êtes sur le point de désinstaller Headphones de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres de dossiers partagés... cette action est irréversible. <br/><br/>Vous pouvez réinstaller Headphones à tout moment, cependant, vos chemins de stockage et les paramètres des dossiers liés seront réinitialisés.';
 $L['UNINSTALL_JACKETT_TXT'] = 'Vous êtes sur le point de désinstaller Jackett de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller Jackett à tout moment, cependant, vos paramètres seront réinitialisés.';
 $L['UNINSTALL_NEXTCLOUD_TXT'] = 'Vous êtes sur le point de désinstaller NextCloud de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller NextCloud à tout moment, cependant, vos paramètres seront réinitialisés.';
 $L['UNINSTALL_NZBHYDRA_TXT'] = 'Vous êtes sur le point de désinstaller NZBHydra de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller NZBHydra à tout moment, cependant, vos paramètres seront réinitialisés.';
@@ -328,12 +334,10 @@ $L['UNINSTALL_SUBSONIC_TXT'] = 'Vous êtes sur le point de désinstaller Subsoni
 $L['UNINSTALL_SYNCTHING_TXT'] = 'Vous êtes sur le point de désinstaller Syncthing de votre système.<br/><br/>Cela va complètement supprimer tous ses paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller Syncthing à tout moment, cependant, vos paramètres de configuration seront réinitialisés.';
 $L['UNINSTALL_X2GO_TXT'] = 'Vous êtes sur le point de désinstaller x2go de votre système.<br/><br/>Cela va complètement supprimer x2goserver et l\'environnement de bureau xfce4 de votre système.';
 $L['UNINSTALL_ZNC_TXT'] = 'Vous êtes sur le point de désinstaller ZNC de votre système.<br/><br/>Cela va complètement supprimer toutes ses configurations et paramètres... cette action est irréversible. <br/><br/>Vous pouvez réinstaller ZNC à tout moment, cependant, vos paramètres seront réinitialisés.';
-$L['THEME_CHANGE_TXT'] = 'Vous allez changer de thèmes. Si le thème ne s\'affiche pas correctement après le rafraîchissement, il vous faudra probablement effacer le cache de votre navigateur et réessayer.';
+$L['THEME_CHANGE_TXT'] = 'Vous allez changer de thème. Si le thème ne s\'affiche pas correctement après le rafraîchissement, il vous faudra probablement effacer le cache de votre navigateur et réessayer.';
 
 //SYSTEM RESPONSE MODAL
 $L['SYSTEM_RESPONSE_TITLE'] = 'Réponse Système';
-
-
 
 //GRITTER POPUPS
 $L['UNINSTALLING_TITLE'] = 'Désinstallation';
