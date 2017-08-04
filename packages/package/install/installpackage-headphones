@@ -105,8 +105,8 @@ systemctl stop $APPNAME >/dev/null 2>&1
 
 cat > /etc/apache2/sites-enabled/$APPNAME.conf <<EOF
 <Location /$APPNAME>
-ProxyPass http://localhost:$APPDPORT
-ProxyPassReverse http://localhost:$APPDPORT
+ProxyPass http://localhost:$APPDPORT/$APPNAME
+ProxyPassReverse http://localhost:$APPDPORT/$APPNAME
 AuthType Digest
 AuthName "rutorrent"
 AuthUserFile '/etc/htpasswd'
