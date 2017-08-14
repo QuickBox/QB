@@ -210,6 +210,7 @@ After installing you will have access to the following commands to be used direc
 * __upgradeOmbi__ - upgrades Ombi when new version is available
 * __upgradePlex__ - upgrades Plex when new version is available
 * __upgradepyLoad__ - upgrades pyLoad when new version is available
+* __box install letsencrypt__ used to install letsencrypt
 * More commands detailed here: [QuickBox Commands](https://quickbox.io/wiki/quickbox-commands/)
 
 If your disk space widget is not showing the correct amount of space, run one of the following commands based on the mount you use:
