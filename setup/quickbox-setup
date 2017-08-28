@@ -452,14 +452,23 @@ function _depends() {
 # build openssl from source to combat recent apt source updates
 function _openssl() {
   cd /tmp
-  wget https://www.openssl.org/source/openssl-1.1.0f.tar.gz
-  tar -xzvf openssl-1.1.0f.tar.gz
-  cd openssl-1.1.0f
-  ./config
-  make
-  make install
-  cd /tmp
-  rm -rf openssl-1.1.0f.tar.gz openssl-1.1.0f
+  #wget https://www.openssl.org/source/openssl-1.1.0f.tar.gz 
+  #tar -xzvf openssl-1.1.0f.tar.gz
+  #cd openssl-1.1.0f
+  #./config >>"${OUTTO}" 2>&1;
+  #make >>"${OUTTO}" 2>&1;
+  #make install >>"${OUTTO}" 2>&1;
+  #cd /tmp
+  #rm -rf openssl-1.1.0f.tar.gz openssl-1.1.0f
+  git clone git://git.openssl.org/openssl.git >>"${OUTTO}" 2>&1;
+  cd openssl
+  git config core.autocrlf false
+  git config core.eol lf
+  git checkout .
+  ./config >>"${OUTTO}" 2>&1;
+  make >>"${OUTTO}" 2>&1;
+  make install >>"${OUTTO}" 2>&1;
+  cd
 }
 
 function _syscommands() {
