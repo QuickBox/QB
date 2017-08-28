@@ -621,6 +621,8 @@ function _xmlrpc() {
 }
 
 # libtorent function (20)
+# apt rtorrent handles the libtorrent install
+# remember this is temporary until patched
 function _libtorrent() {
   if [[ -d /root/tmp ]]; then rm -r tmp;fi
   mkdir /root/tmp && cd /root/tmp
@@ -659,6 +661,7 @@ function _libtorrent() {
 #}
 function _rtorrent() {
   apt-get install -y rtorrent >>"${OUTTO}" 2>&1
+  touch /install/.rtorrent.lock
 }
 
 # deluge function (xx)
@@ -1253,7 +1256,7 @@ if [[ ${ffmpeg} == "yes" ]]; then
 fi
 _apachesudo
 echo -n "Installing xmlrpc-c-${green}1.33.12${normal} ... ";_xmlrpc & spinner $!;echo
-echo -n "Installing libtorrent-${green}$LTORRENT${normal} ... ";_libtorrent & spinner $!;echo
+#echo -n "Installing libtorrent-${green}$LTORRENT${normal} ... ";_libtorrent & spinner $!;echo
 #echo -n "Installing rtorrent-${green}$RTVERSION${normal} ... ";_rtorrent & spinner $!;echo
 echo -n "Installing rtorrent ... ";_rtorrent & spinner $!;echo
 echo -n "Installing rutorrent into /srv ... ";_rutorrent & spinner $!;echo
