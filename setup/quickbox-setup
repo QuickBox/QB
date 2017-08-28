@@ -650,25 +650,25 @@ function _libtorrent() {
 # rtorrent function (21)
 # commenting until patch comes for comp/build 
 # using apt install rtorrent in the meantime
-#function _rtorrent() {
-#  if [[ -d /root/tmp ]]; then rm -r tmp;fi
-#  mkdir /root/tmp && cd /root/tmp
-#  MAXCPUS=$(echo "$(nproc) / 2"|bc)
-#  rm -rf libtorrent-${LTORRENT}* >>"${OUTTO}" 2>&1
-#  if [[ -e /root/tmp/libtorrent-${LTORRENT}.tar.gz ]]; then rm -rf libtorrent-${LTORRENT}.tar.gz;fi
-#  cp ${local_setup}sources/rtorrent-${RTVERSION}.tar.gz .
-#  tar -xzvf rtorrent-${RTVERSION}.tar.gz >>"${OUTTO}" 2>&1
-#  cd rtorrent-${RTVERSION}
-#  ./autogen.sh >>"${OUTTO}" 2>&1
-#  ./configure --prefix=/usr --with-xmlrpc-c >>"${OUTTO}" 2>&1
-#  make -j${MAXCPUS} >>"${OUTTO}" 2>&1
-#  make install >>"${OUTTO}" 2>&1
-#  cd /root/tmp
-#  ldconfig >>"${OUTTO}" 2>&1
-#  rm -rf /root/tmp/rtorrent-${RTVERSION}* >>"${OUTTO}" 2>&1
-#  touch /install/.rtorrent.lock
-#}
 function _rtorrent() {
+  if [[ -d /root/tmp ]]; then rm -r tmp;fi
+  mkdir /root/tmp && cd /root/tmp
+  MAXCPUS=$(echo "$(nproc) / 2"|bc)
+  rm -rf libtorrent-${LTORRENT}* >>"${OUTTO}" 2>&1
+  if [[ -e /root/tmp/libtorrent-${LTORRENT}.tar.gz ]]; then rm -rf libtorrent-${LTORRENT}.tar.gz;fi
+  cp ${local_setup}sources/rtorrent-${RTVERSION}.tar.gz .
+  tar -xzvf rtorrent-${RTVERSION}.tar.gz >>"${OUTTO}" 2>&1
+  cd rtorrent-${RTVERSION}
+  ./autogen.sh >>"${OUTTO}" 2>&1
+  ./configure --prefix=/usr --with-xmlrpc-c >>"${OUTTO}" 2>&1
+  make -j${MAXCPUS} >>"${OUTTO}" 2>&1
+  make install >>"${OUTTO}" 2>&1
+  cd /root/tmp
+  ldconfig >>"${OUTTO}" 2>&1
+  rm -rf /root/tmp/rtorrent-${RTVERSION}* >>"${OUTTO}" 2>&1
+  touch /install/.rtorrent.lock
+}
+function _rtorrent_fallback() {
   apt-get install -y rtorrent >>"${OUTTO}" 2>&1
   touch /install/.rtorrent.lock
 }
@@ -1237,7 +1237,7 @@ clear
 #_askservices
 _askpartition
 _ask10g
-#_askrtorrent
+_askrtorrent
 _askdeluge
 _askdashtheme
 _adduser
@@ -1265,9 +1265,9 @@ if [[ ${ffmpeg} == "yes" ]]; then
 fi
 _apachesudo
 echo -n "Installing xmlrpc-c-${green}1.33.12${normal} ... ";_xmlrpc & spinner $!;echo
-#echo -n "Installing libtorrent-${green}$LTORRENT${normal} ... ";_libtorrent & spinner $!;echo
-#echo -n "Installing rtorrent-${green}$RTVERSION${normal} ... ";_rtorrent & spinner $!;echo
-echo -n "Installing rtorrent ... ";_rtorrent & spinner $!;echo
+echo -n "Installing libtorrent-${green}$LTORRENT${normal} ... ";_libtorrent & spinner $!;echo
+echo -n "Installing rtorrent-${green}$RTVERSION${normal} ... ";_rtorrent & spinner $!;echo
+#echo -n "Installing rtorrent ... ";_rtorrent_fallback & spinner $!;echo
 echo -n "Installing rutorrent into /srv ... ";_rutorrent & spinner $!;echo
 echo -n "Installing rutorrent plugins ... ";_rutorrent-plugins & spinner $!;echo
 echo -n "Installing deluge ... ";_deluge & spinner $!;echo
