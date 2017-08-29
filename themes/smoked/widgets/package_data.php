@@ -18,6 +18,7 @@ $packages = array(
         'rapidleech',
         'sabnzbd',
         'sickrage',
+        'medusa',
         'subsonic',
         'sonarr',
         'syncthing',
