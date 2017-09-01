@@ -255,10 +255,12 @@ $btsync = processExists("resilio-sync",rslsync);
 $deluged = processExists("deluged",$username);
 $delugedweb = processExists("deluge-web",$username);
 $emby = processExists("emby-server",$username);
+$headphones = processExists("headphones",$username);
 $irssi = processExists("irssi",$username);
+$nzbhydra = processExists("nzbhydra",$username);
+$ombi = processExists("ombi",$username);
 $plex = processExists("Plex",plex);
 $plexpy = processExists("plexpy",plexpy);
-$ombi = processExists("ombi",$username);
 $pyload = processExists("pyload",$username);
 $radarr = processExists("radarr",$username);
 $rtorrent = processExists("rtorrent",$username);
@@ -288,13 +290,14 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   include ($_SERVER['DOCUMENT_ROOT'].'/custom/url.override.php');
   // END CUSTOM URL OVERRIDES ////
 } else {
-  $btsyncURL = "https://" . $_SERVER['HTTP_HOST'] . ":8888/gui/";
+  $btsyncURL = "http://" . $_SERVER['HTTP_HOST'] . ":8888/gui/";
   $cpURL = "https://" . $_SERVER['HTTP_HOST'] . "/couchpotato";
   $csfURL = "https://" . $_SERVER['HTTP_HOST'] . ":3443";
   if ($dwssl == "true") { $dwURL = "https://" . $_SERVER['HTTP_HOST'] . ":$dwport"; }
   if ($dwssl == "false") { $dwURL = "http://" . $_SERVER['HTTP_HOST'] . ":$dwport"; }
   $embyURL = "https://" . $_SERVER['HTTP_HOST'] . "/emby";
-  $jackettURL = "https://" . $_SERVER['HTTP_HOST'] . "/jackett/Admin/Dashboard";
+  $headphonesURL = "https://" . $_SERVER['HTTP_HOST'] . "/headphones/home";
+  $jackettURL = "https://" . $_SERVER['HTTP_HOST'] . "/jackett/UI/Dashboard";
   $nextcloudURL = "https://" . $_SERVER['HTTP_HOST'] . "/nextcloud";
   $nzbhydraURL = "https://" . $_SERVER['HTTP_HOST'] . "/nzbhydra";
   $plexURL = "http://" . $_SERVER['HTTP_HOST'] . ":31400/web/";
@@ -347,8 +350,20 @@ if ($emby == "1") { $eval = "<span class=\"badge badge-service-running-dot\"></s
 } else { $eval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
 }
 
+if ($headphones == "1") { $hpval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
+} else { $hpval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
+}
+
 if ($jackett == "1") { $jval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
 } else { $jval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
+}
+
+if ($nzbhydra == "1") { $nzbval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
+} else { $nzbval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
+}
+
+if ($ombi == "1") { $prval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
+} else { $prval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
 }
 
 if ($plex == "1") { $pval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
@@ -357,10 +372,6 @@ if ($plex == "1") { $pval = "<span class=\"badge badge-service-running-dot\"></s
 
 if ($plexpy == "1") { $ppval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
 } else { $ppval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
-}
-
-if ($ombi == "1") { $prval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
-} else { $prval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
 }
 
 if ($pyload == "1") { $plval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
@@ -436,14 +447,18 @@ case 0:
     $cbodycp .= $couchpotato;
   $emby = isEnabled("emby-server", $username);
     $cbodye .= $emby;
+  $headphones = isEnabled("headphones", $username);
+    $cbodyhp .= $headphones;
   $jackett = isEnabled("jackett", $username);
     $cbodyj .= $jackett;
+  $nzbhydra = isEnabled("nzbhydra", $username);
+    $cbodynzb .= $nzbhydra;
+  $ombi = isEnabled("ombi", $username);
+    $cbodypr .= $ombi;
   $plex = isEnabled("plexmediaserver",plex);
     $cbodyp .= $plex;
   $plexpy = isEnabled("plexpy",plexpy);
     $cbodypp .= $plexpy;
-  $ombi = isEnabled("ombi", $username);
-    $cbodypr .= $ombi;
   $pyload = isEnabled("pyload", $username);
     $cbodypl .= $pyload;
   $quassel = isEnabled("quassel", $username);
@@ -481,6 +496,9 @@ case 66:
     } elseif ($process == "emby-server"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
+    } elseif ($process == "headphones"){
+      shell_exec("sudo systemctl enable $process");
+      shell_exec("sudo systemctl start $process");
     } elseif ($process == "plexmediaserver"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
@@ -515,6 +533,9 @@ case 77:
     } elseif ($process == "emby-server"){
       shell_exec("sudo systemctl stop $process");
       shell_exec("sudo systemctl disable $process");
+    } elseif ($process == "headphones"){
+      shell_exec("sudo systemctl stop $process");
+      shell_exec("sudo systemctl disable $process");
     } elseif ($process == "plexmediaserver"){
       shell_exec("sudo systemctl stop $process");
       shell_exec("sudo systemctl disable $process");
@@ -547,6 +568,9 @@ case 88:
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
     } elseif ($process == "emby-server"){
+      shell_exec("sudo systemctl enable $process");
+      shell_exec("sudo systemctl restart $process");
+    } elseif ($process == "headphones"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
     } elseif ($process == "plexmediaserver"){

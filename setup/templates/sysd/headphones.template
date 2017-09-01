@@ -1,0 +1,14 @@
+[Unit]
+Description=Headphones
+Wants=network.target network-online.target
+After=network.target network-online.target
+
+[Service]
+ExecStart=/usr/bin/python2 /home/USER/.headphones/Headphones.py -d --pidfile /var/run/headphones/headphones.pid --datadir /home/USER/.headphones --nolaunch --config /home/USER/.headphones/config.ini --port 8004
+PIDFile=/var/run/headphones/headphones.pid
+Type=forking
+User=USER
+Group=USER
+
+[Install]
+WantedBy=multi-user.target

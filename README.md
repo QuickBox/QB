@@ -7,7 +7,7 @@
 >This step is only required for users who are coming off of our self-hosted GitLab repositories. If you are installing from fresh, please see [How to install](#how-to-install)
 
 ### [1]:
-login to your server via ssh. Gain root access with `sudo su` followed up with `cd` to place you in your /root directory. Once in your /root directory, type the following to remove your current local QuickBox respositories.
+login to your server via ssh. Gain root access with `sudo su` followed up with `cd` to place you in your /root directory. Once in your /root directory, type the following to remove your current local QuickBox repositories.
 ```
 rm -rf ~/QuickBox
 ```
@@ -77,7 +77,7 @@ updateQuickBox
 grsec is built into OVH's custom kernel and it absolutely wrecks havoc when using these panels where we depend on the ability for one user (www-data) to see the processes of another running user ($username).
 <br>This can be seen clearly by using a task manager such as h/top.
 <br>With grsec enabled you can only see the processes owned by your user unless you run htop as root. As such, it is highly recommended to use the stock kernel for your distribution or at the very least installing an OVH kernel that is not compiled with grsec
-<br>If you are using So You Start (SYS) as a host, you should opt to use the distribution kernel. You will see this as a checkbox option when installing your server. Otherwise, QuickBox will handle this for you on install.
+<br>If you are using So You Start (SYS) as a host, you should opt to use the distribution kernel. You will see this as a check box option when installing your server. Otherwise, QuickBox will handle this for you on install.
 
 
 
@@ -99,20 +99,21 @@ This script has the following features
 * Creates a limited shell access environment. This gives your additional created users the ability to interact with their seedbox via ssh on port 4747 w/o having access to other users shells and/or root/sudo commands and functions.
 
 ## Installed software
+* IRSSI
 * Linux Quota
 * LShell - (LimitedShell for additional users to ssh)
-* SSH Server (for SSH terminal and sFTP connections)
-* pureftp - vsftp (CuteFTP multi-segmented download friendly)
-* HTTPS - Web Console
-* ruTorrent 3.7 + official plugins
-* rTorrent 0.9.6
-* libTorrrent 0.13.6
 * mktorrent
-* Deluge (Web-client and thin-client)
-* IRSSI
+* pureftp - vsftp (CuteFTP multi-segmented download friendly)
+* __ruTorrent 3.7__ + official plugins
+* __rTorrent 0.9.6 + libTorrrent 0.13.6__
+* SSH Server (for SSH terminal and sFTP connections)
+* HTTPS - Web Console
+
+## Optional software
 * BTSync
 * CouchPotato
 * ConfigServer Firewall
+* __Deluge (Web-client and thin-client)__
 * Emby
 * Jackett
 * NextCloud
@@ -123,6 +124,7 @@ This script has the following features
 * pyLoad
 * Quassel
 * Quotas
+* Radarr
 * Rapidleech
 * SABnzbd
 * SickRage
@@ -159,7 +161,7 @@ After that access your box using a SSH client, like PuTTY.
 
 ---
 
-### Ubuntu 15.10, 16.04 & 16.10 || Debian 8
+### Ubuntu 15.10, 16.04 & ~~16.10 || Debian 8~~
 
 **Run the following command to grab our latest stable release ...**
 ```
@@ -192,21 +194,26 @@ sudo box upgrade
 
 
 ## Commands
-After installing you will have access to the following commands to be used directly in terminal
+After installing you will have access to the following commands to be used directly in terminal (as root)
 
+* __changeUserpass__ - change users SSH/FTP/deluge/ruTorrent password
+* __clean_mem__ - flushes servers physical memory cache (helps avoid swap overflow)
 * __createSeedboxUser__ - creates a shelled seedbox user
 * __deleteSeedboxUser__ - deletes a created seedbox user and their directories
 <sup>**This is permanent, current data will be deleted - you can create them again at any time**</sup>
-* __changeUserpass__ - change users SSH/FTP/deluge/ruTorrent password
+* __reload__ - restarts your seedbox services, i.e; rtorrent & irssi
+* __removepackage-cron__ - upgrades your system to make use of systemd
 * __setdisk__ - set your disk quota for any given user
 * __showspace__ - shows amount of space used by each user
-* __reload__ - restarts your seedbox services, i.e; rtorrent & irssi
 * __upgradeBTSync__ - upgrades btsync when new version is available
+* __upgradeJackett__ - upgrades Jackett when new version is available
 * __upgradeOmbi__ - upgrades Ombi when new version is available
 * __upgradePlex__ - upgrades Plex when new version is available
-* __removepackage-cron__ - upgrades your system to make use of systemd
- <sup> + (must be on Ubuntu 15.10+ or Debian 8)</sup>
-* __clean_mem__ - flushes servers physical memory cache (helps avoid swap overflow)
+* __upgradepyLoad__ - upgrades pyLoad when new version is available
+* __box install letsencrypt__ used to install letsencrypt
+* More commands detailed here: [QuickBox Commands](https://quickbox.io/wiki/quickbox-commands/)
 
-
+If your disk space widget is not showing the correct amount of space, run one of the following commands based on the mount you use:
+* If you're using a /home mounted partition then run: __fix-disk_widget_home__
+* If you're using a /(root) mounted partition then run: __fix-disk_widget_root__
 <br/>

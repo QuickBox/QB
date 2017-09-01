@@ -6,6 +6,7 @@ $packages = array(
         'couchpotato',
         'deluge',
         'emby',
+        'headphones',
         'jackett',
         'nextcloud',
         'nzbhydra',

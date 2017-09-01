@@ -90,7 +90,7 @@
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=rtorrent'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodyr"; ?></td>
                     </tr>
-                    <?php } ?>
+                  <?php } ?>
 
                   <?php if (file_exists("/install/.autodlirssi.lock")) { ?>
                     <tr>
@@ -155,11 +155,35 @@
                     </tr>
                     <?php } ?>
 
+                    <?php if (file_exists("/install/.headphones.lock")) { ?>
+                    <tr>
+                      <td><?php echo "$hpval"; ?> Headphones </td>
+                      <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=headphones'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
+                      <td class="text-center"><?php echo "$cbodyhp"; ?></td>
+                    </tr>
+                    <?php } ?>
+
                     <?php if (file_exists("/install/.jackett.lock")) { ?>
                     <tr>
                       <td><?php echo "$jval"; ?> Jackett </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=jackett'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodyj"; ?></td>
+                    </tr>
+                    <?php } ?>
+
+                    <?php if (file_exists("/install/.nzbhydra.lock")) { ?>
+                    <tr>
+                      <td><?php echo "$nzbval"; ?> NZBHydra </td>
+                      <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=nzbhydra'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
+                      <td class="text-center"><?php echo "$cbodynzb"; ?></td>
+                    </tr>
+                    <?php } ?>
+
+                    <?php if (file_exists("/install/.ombi.lock")) { ?>
+                    <tr>
+                      <td><?php echo "$prval"; ?> Ombi </td>
+                      <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=ombi'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
+                      <td class="text-center"><?php echo "$cbodypr"; ?></td>
                     </tr>
                     <?php } ?>
 
@@ -176,14 +200,6 @@
                       <td><?php echo "$ppval"; ?> PlexPy </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=plexpy'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodypp"; ?></td>
-                    </tr>
-                    <?php } ?>
-
-                    <?php if (file_exists("/install/.ombi.lock")) { ?>
-                    <tr>
-                      <td><?php echo "$prval"; ?> Ombi </td>
-                      <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=ombi'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
-                      <td class="text-center"><?php echo "$cbodypr"; ?></td>
                     </tr>
                     <?php } ?>
 
@@ -286,7 +302,7 @@
                       <?php if (file_exists("/install/.btsync.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#btsyncRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-btsync=true" data-toggle="modal" data-target="#sysResponse" id="btsyncInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-btsync=true" data-toggle="modal" data-target="#sysResponse" id="btsyncInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
@@ -295,7 +311,7 @@
                       <?php if (file_exists("/install/.couchpotato.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#couchpotatoRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-couchpotato=true" data-toggle="modal" data-target="#sysResponse" id="couchpotatoInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-couchpotato=true" data-toggle="modal" data-target="#sysResponse" id="couchpotatoInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
@@ -313,7 +329,7 @@
                       <?php if (file_exists("/install/.deluge.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#delugeRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-deluge=true" data-toggle="modal" data-target="#sysResponse" id="delugeInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-deluge=true" data-toggle="modal" data-target="#sysResponse" id="delugeInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
@@ -322,7 +338,16 @@
                       <?php if (file_exists("/install/.emby.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#embyRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-emby=true" data-toggle="modal" data-target="#sysResponse" id="embyInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-emby=true" data-toggle="modal" data-target="#sysResponse" id="embyInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
+                      <?php } ?>
+                    </tr>
+                    <tr>
+                      <td>Headphones</td>
+                      <td><?php echo T('HEADPHONES'); ?></td>
+                      <?php if (file_exists("/install/.headphones.lock")) { ?>
+                        <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#headphonesRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
+                      <?php } else { ?>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-headphones=true" data-toggle="modal" data-target="#sysResponse" id="headphonesInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
@@ -331,7 +356,7 @@
                       <?php if (file_exists("/install/.jackett.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#jackettRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-jackett=true" data-toggle="modal" data-target="#sysResponse" id="jackettInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-jackett=true" data-toggle="modal" data-target="#sysResponse" id="jackettInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
@@ -341,6 +366,15 @@
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#nextcloudRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
                         <td style="vertical-align: middle; text-align: center"><button data-toggle="tooltip" title="<?php echo T('BOX_TOOLTIP_NEXTCLOUD'); ?>" data-placement="top" class="btn btn-xs btn-danger disabled tooltips"><?php echo T('BOX'); ?></button></td>
+                      <?php } ?>
+                    </tr>
+                    <tr>
+                      <td>NZBHydra</td>
+                      <td><?php echo T('NZBHYDRA'); ?></td>
+                      <?php if (file_exists("/install/.nzbhydra.lock")) { ?>
+                        <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#nzbhydraRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
+                      <?php } else { ?>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-nzbhydra=true" data-toggle="modal" data-target="#sysResponse" id="nzbhydraInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
@@ -358,7 +392,7 @@
                       <?php if (file_exists("/install/.plex.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#plexRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-plex=true" data-toggle="modal" data-target="#sysResponse" id="plexInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-plex=true" data-toggle="modal" data-target="#sysResponse" id="plexInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
@@ -367,7 +401,7 @@
                       <?php if (file_exists("/install/.plexpy.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#plexpyRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-plexpy=true" data-toggle="modal" data-target="#sysResponse" id="plexpyInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-plexpy=true" data-toggle="modal" data-target="#sysResponse" id="plexpyInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
@@ -376,7 +410,7 @@
                       <?php if (file_exists("/install/.ombi.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#ombiRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-ombi=true" data-toggle="modal" data-target="#sysResponse" id="ombiInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-ombi=true" data-toggle="modal" data-target="#sysResponse" id="ombiInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
@@ -385,7 +419,7 @@
                       <?php if (file_exists("/install/.pyload.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#pyloadRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-pyload=true" data-toggle="modal" data-target="#sysResponse" id="pyloadInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-pyload=true" data-toggle="modal" data-target="#sysResponse" id="pyloadInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
@@ -394,7 +428,7 @@
                       <?php if (file_exists("/install/.quassel.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#quasselRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-quassel=true" data-toggle="modal" data-target="#sysResponse" id="quasselInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-quassel=true" data-toggle="modal" data-target="#sysResponse" id="quasselInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
@@ -403,7 +437,7 @@
                       <?php if (file_exists("/install/.quota.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#quotaRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-quota=true" data-toggle="modal" data-target="#sysResponse" id="quotaInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-quota=true" data-toggle="modal" data-target="#sysResponse" id="quotaInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
@@ -412,7 +446,7 @@
                       <?php if (file_exists("/install/.radarr.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#radarrRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-radarr=true" data-toggle="modal" data-target="#sysResponse" id="radarrInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-radarr=true" data-toggle="modal" data-target="#sysResponse" id="radarrInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
@@ -421,7 +455,7 @@
                       <?php if (file_exists("/install/.rapidleech.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#rapidleechRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-rapidleech=true" data-toggle="modal" data-target="#sysResponse" id="rapidleechInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-rapidleech=true" data-toggle="modal" data-target="#sysResponse" id="rapidleechInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
@@ -430,7 +464,7 @@
                       <?php if (file_exists("/install/.sabnzbd.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#sabnzbdRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-sabnzbd=true" data-toggle="modal" data-target="#sysResponse" id="sabnzbdInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-sabnzbd=true" data-toggle="modal" data-target="#sysResponse" id="sabnzbdInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
@@ -439,7 +473,7 @@
                       <?php if (file_exists("/install/.sickrage.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#sickrageRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-sickrage=true" data-toggle="modal" data-target="#sysResponse" id="sickrageInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-sickrage=true" data-toggle="modal" data-target="#sysResponse" id="sickrageInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
@@ -448,7 +482,7 @@
                       <?php if (file_exists("/install/.sonarr.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#sonarrRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-sonarr=true" data-toggle="modal" data-target="#sysResponse" id="sonarrInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-sonarr=true" data-toggle="modal" data-target="#sysResponse" id="sonarrInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
@@ -457,7 +491,7 @@
                       <?php if (file_exists("/install/.subsonic.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#subsonicRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-subsonic=true" data-toggle="modal" data-target="#sysResponse" id="subsonicInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-subsonic=true" data-toggle="modal" data-target="#sysResponse" id="subsonicInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <td>Syncthing</td>
@@ -465,7 +499,7 @@
                     <?php if (file_exists("/install/.syncthing.lock")) { ?>
                       <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#syncthingRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                     <?php } else { ?>
-                      <td style="vertical-align: middle; text-align: center"><a href="?installpackage-syncthing=true" data-toggle="modal" data-target="#sysResponse" id="syncthingInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                      <td style="vertical-align: middle; text-align: center"><a href="?installpackage-syncthing=true" data-toggle="modal" data-target="#sysResponse" id="syncthingInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                     <?php } ?>
                   </tr>
                     <tr>
@@ -474,7 +508,7 @@
                       <?php if (file_exists("/install/.x2go.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#x2goRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-x2go=true" data-toggle="modal" data-target="#sysResponse" id="x2goInstall" class="btn btn-xs btn-info"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-x2go=true" data-toggle="modal" data-target="#sysResponse" id="x2goInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
@@ -552,7 +586,7 @@
                   <hr />
                   <span class="nomargin" style="font-size:14px">
                     <?php echo $sysInfo['cpu']['model'];?><br/>
-                    [<span style="color:#111;font-weight:600">x<?php echo $sysInfo['cpu']['num']; ?></span> core]
+                    [<span style="color:#999;font-weight:600">x<?php echo $sysInfo['cpu']['num']; ?></span> core]
                   </span>
                 </div>
               </div>
@@ -563,13 +597,13 @@
                   <div class="panel-heading">
                     <h4 class="panel-title text-success"><?php echo T('RECENT_UPDATES'); ?>
 
-                        <a href="https://github.com/QuickBox/QB/compare/<?php echo $version ?>...master" target="blank" title="View your current versions changelog" data-placement="top" class="label label-primary tooltips" style="font-size:10px; padding-top:0; padding-bottom:0px; top: -2px; position: relative;" target='_blank'>QuickBox :: <span style="color: #fff;text-shadow: 0px 0px 6px #fff;"><?php echo "$version"; ?></span></a> <small>- <a href="https://github.com/QuickBox/QB/compare/v2.5.0...v2.5.1" target="_blank"> CHANGELOG </a></small>
+                        <a href="https://github.com/QuickBox/QB/compare/<?php echo $version ?>...master" target="blank" title="<?php echo T('CURRENT_VERSIONS_CHANGELOG'); ?>" data-placement="top" class="label label-primary tooltips" style="font-size:10px; padding-top:0; padding-bottom:0px; top: -2px; position: relative;" target='_blank'>QuickBox :: <span style="color: #fff;text-shadow: 0px 0px 6px #fff;"><?php echo "$version"; ?></span></a>
 
                     </h4>
                   </div>
                   <div class="panel-body ps-container" style="max-height: 350px; padding: 0;">
                     <div class="alert alert-default" style="margin-bottom: 4px; text-align: center" role="alert">
-                      You are on QuickBox commit - <code><a href="https://github.com/QuickBox/QB/commit/<?php echo shell_exec('git -C /etc/QuickBox/.git/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>" target="_blank" title="View your current commit status" data-placement="top" class="tooltips"><?php echo shell_exec('git -C /etc/QuickBox/.git/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?></a> ... <a href="https://github.com/QuickBox/QB/compare/<?php echo shell_exec('git -C /etc/QuickBox/.git/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>...<?php if (file_exists('/install/.developer.lock')) { ?>development<?php } else { ?>master<?php } ?>" target="_blank" title="Compare your current status to the latest commits" data-placement="top" class="tooltips">latest</a></code></a><br>
+                      <?php echo T('QUICKBOX_COMMIT'); ?> - <code><a href="https://github.com/QuickBox/QB/commit/<?php echo shell_exec('git -C /etc/QuickBox/.git/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>" target="_blank" title="<?php echo T('CURRENT_COMMIT'); ?>" data-placement="top" class="tooltips"><?php echo shell_exec('git -C /etc/QuickBox/.git/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?></a> ... <a href="https://github.com/QuickBox/QB/compare/<?php echo shell_exec('git -C /etc/QuickBox/.git/ show --oneline -s | head -n 5 | cut -d\  -f 1;'); ?>...<?php if (file_exists('/install/.developer.lock')) { ?>development<?php } else { ?>master<?php } ?>" target="_blank" title="<?php echo T('COMPARE_COMMITS'); ?>" data-placement="top" class="tooltips"><?php echo T('LATEST_COMMIT'); ?></a></code></a><br>
                       <strong><?php echo T('RECENT_UPDATES_TXT'); ?></strong>
                     </div>
                     <div id="activityfeed"></div>

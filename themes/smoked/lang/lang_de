@@ -11,10 +11,18 @@
 ///////////////////////////////////////
 
 // main menu tab
-$L['MAIN_MENU'] = 'Hauptmenü';
+$L['ANNOUNCEMENTS'] = 'Announcements';
+$L['CHAT_CONNECT_TXT'] = 'Click to connect';
+$L['DEV_REPO_TXT'] = 'You are on the QuickBox Development Repo';
 $L['DOWNLOADS'] = 'Downloads';
-$L['WEB_CONSOLE'] = 'Webkonsole';
+$L['ISSUE_REPORT_TXT'] = 'Report an issue';
+$L['JOIN_US_TXT'] = 'Join Us On Live Chat!';
+$L['LANG_SELECT'] = 'Wähle die Sprache aus';
+$L['MAIN_MENU'] = 'Hauptmenü';
+$L['MARKETPLACE'] = 'Marketplace';
 $L['THEME_SELECT'] = 'Thema wählen';
+$L['WEB_CONSOLE'] = 'Webkonsole';
+$L['DONATE'] = 'Donate';
 
 // plugin menu tab
 $L['PLUGIN_MENU'] = 'Plugin Menü';
@@ -42,14 +50,11 @@ $L['UPGRADEJACKETT_TXT'] = 'Führe diesen Befehl via SSH aus, um Jackett auf die
 $L['UPGRADEPYLOAD_TXT'] = 'Führe diesen Befehl via SSH aus, um pyLoad auf die neueste verfügbare Version zu aktualisieren.';
 $L['SETUPPYLOAD_TXT'] = 'Führe diesen Befehl via SSH aus, um das pyLoad Setup-Script auszuführen.';
 $L['CLEAN_MEM_TXT'] = 'Führe den oben genannten Befehl als root aus, wenn du den physikalischen Cache-Speicher deines Systems löschen möchtest.';
-
 // essential user commands section
 $L['ESSENTIAL_USER_COMMANDS'] = 'Grundlegende Nutzerbefehle';
 $L['RELOAD_TXT'] = 'Ermöglicht es dem Nutzer, seine Dienste neuzustarten (rTorrent sowie irssi)';
 $L['SCREEN_RTORRNENT_TXT'] = 'Ermöglicht es dem Nutzer, rTorrent via SSH neuzustarten oder neu einzubinden.';
 $L['SCREEN_IRSSI_TXT'] = 'Ermöglicht es dem Nutzer, irssi via SSH neuzustarten oder neu einzubinden.';
-
-$L['LANG_SELECT'] = 'Wähle die Sprache aus';
 
 
 ////////////////////////////////////////
@@ -87,9 +92,13 @@ $L['CPU_STATUS'] = 'Status der CPU';
 $L['SERVER_LOAD'] = 'Server-Last';
 
 // recent updates widget
-$L['RECENT_UPDATES'] = 'Recent Activity & Updates';
+$L['COMPARE_COMMITS'] = 'compare your current status to the latest commits.';
+$L['CURRENT_COMMIT'] = 'View your current commit status';
+$L['CURRENT_VERSIONS_CHANGELOG'] = 'View your current versions changelog.';
+$L['LATEST_COMMIT'] = 'latest.';
+$L['QUICKBOX_COMMIT'] = 'You are on the QuickBox commit - ';
+$L['RECENT_UPDATES'] = 'Recent Activity';
 $L['RECENT_UPDATES_TXT'] = 'To view feed, scroll with your mouse wheel.';
-
 
 ////////////////////////////////////////
 //PACKAGE MANAGEMENT CENTER
@@ -108,8 +117,11 @@ $L['BTSYNC_DETAILS'] = 'BitTorrent Sync von BitTorrent, Inc ist ein proprietäre
 $L['COUCHPOTATO'] = 'Lade deine Filme, nachdem sie released wurden, einfach und automatisiert in der besten Qualität via Torrent und UseNet runter.';
 $L['CSF'] = 'ConfigServer Firewall, auch CSF genannt, ist ein Firewall-Konfigurationsskript, das dir eine bessere Sicherheit für deinen Server ermöglicht und dir eine einfache und umfangreiche Benutzeroberfläche für die Firewall-Einstellungen bietet.';
 $L['DELUGE'] = 'Deluge ist ein leichter, kostenloser, Cross-Plattform BitTorrent-Client.';
+$L['EMBY'] = 'Emby Server is a client-server software package that lets consumers host their legal personal copies of multimedia — music, video and picture files. ... The Emby client software is an app you need to install on mobile devices and certain settop boxes for televisions, like Android TV.';
+$L['HEADPHONES'] = 'Headphones is an automated music downloader for NZB and Torrent, written in Python. It supports SABnzbd, NZBget, Transmission, µTorrent, Deluge and Blackhole.';
 $L['JACKETT'] = 'API-Unterstützung für deine favorisierten privaten Tracker.';
 $L['NEXTCLOUD'] = 'Nextcloud ist eine selbst-gehostete Open-Source, Dateisynchronisations- sowie Teilungs- und Kommunikationsplattform. Greife auf deine Dateien, deinen Kalender, deine Kontakte zu, synchronisiere sie und kommuniziere und kollaboriere auf all deinen Geräten. Dabei entscheidest du, was mit deinen Daten passiert, wo sie sind und wer auf diese zugreifen darf!';
+$L['NZBHYDRA'] = 'NZBHydra is a meta search for NZB indexers. It provides easy access to a number of raw and newznab based indexers. You can search all your indexers from one place and use it as indexer source for tools like Sonarr or CouchPotato.';
 $L['OVPN'] = 'SSL/TLS basierter User-Space VPN. Unterstützt Linux, Solaris, OpenBSD, FreeBSD, NetBSD, Mac OS X, und Windows 2000/XP+.';
 $L['PLEX'] = 'Mit Plex kannst du deine Medien verwalten und auf jedes Gerät streamen, auf dem Plex verfügbar ist.';
 $L['PLEX_REQUESTS'] = 'Plex Requests ist ein schicker und einfach zu bedienender Webdienst, über den die Benutzer Wünsche für die Plex-Bibliothek eintragen können. Dieser funktioniert mit CouchPotato, SickRage und Sonarr.';
@@ -117,6 +129,8 @@ $L['PLEXPY'] = 'Eine auf Python basierende Web-Applikation, um den Plex-Server z
 $L['PYLOAD'] = 'pyLoad ist ein Download-Manager für One-Click-Hoster, Video-Webseiten, und HTTP/FTP Links. Eine Liste von unterstützten Webseiten kann <a href="https://github.com/pyload/pyload/wiki/Supported-Hoster" target="_blank">hier</a> gefunden werden.';
 $L['QUASSEL'] = 'Quassel IRC ist ein moderner, plattformübergreifender, verteilter IRC-Client, der auf dem Qt4-Framework basiert.';
 $L['QUOTAS'] = 'Dieses Linux-Feature erlaubt es dem Systemadministrator, den maximal verfügbaren Speicherplatz einem Benutzer oder einer Gruppe zuzuweisen.';
+$L['RADARR'] = 'Radarr is an independent fork of Sonarr reworked for automatically downloading movies via Usenet and BitTorrent.<br>
+The project was inspired by other Usenet/BitTorrent movie downloaders such as CouchPotato.';
 $L['RAPIDLEECH'] = 'RapidLeech ist ein freies Server-Transfer-Skript, das Dateien von populären File-Hostern wie uploaded.net, zippyshare.com oder einem der über 100 anderen Hostern runter- oder sie hochlädt.';
 $L['SABNZBD'] = 'SABnzbd ist ein plattformunabhängiger Binary-Newsgroup-Downloader. Das Programm arbeitet im Hintergrund und vereinfacht das Downloaden, Prüfen und Extrahieren von Dateien aus dem Usenet. SABnzbd nutzt dafür NZB-Dateien (vergleichbar mit .torrent-Dateien, aber für das Usenet), anstatt das Usenet direkt zu durchsuchen.';
 $L['SICKRAGE'] = 'Video File Manager für Serien, der nach den neuesten Episoden deiner Lieblingsserien Ausschau hält und diese dann automatisiert runterlädt und organisiert.';
@@ -295,20 +309,23 @@ $L['USED_L'] = 'verwendet';
 //MODAL TITLES
 $L['UNINSTALL_TITLE'] = 'Deinstallieren';
 
-
 //MODAL TEXT
 $L['UNINSTALL_BTSYNC_TXT'] = 'Du bist gerade dabei, BitTorrent Sync auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Einstellungen gemeinsamer Ordner löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit BitTorrent Sync neu installieren, dabei werden jedoch dein Speicherpfad sowie die verknüpften Ordnereinstellungen kompett zurückgesetzt.';
 $L['UNINSTALL_CSF_TXT'] = 'Du bist gerade dabei, Config Server Firewall (CSF) auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Config Server Firewall (CSF) neu installieren, dabei werden jedoch Einstellungen (falls diese eingestellt wurden) komplett zurückgesetzt.';
 $L['UNINSTALL_COUCHPOTATO_TXT'] = 'Du bist gerade dabei, CouchPotato auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Einstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit CouchPotato neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
 $L['UNINSTALL_DELUGE_TXT'] = 'Du bist gerade dabei, Deluge auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Einstellungen gemeinsamer Ordner für <strong>alle Nutzer</strong> löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Deluge neu installieren, dabei werden jedoch dein Speicherpfad sowie die verknüpften Ordnereinstellungen kompett zurückgesetzt.';
+$L['UNINSTALL_EMBY_TXT'] = 'You are about to uninstall Emby from your system.<br/><br/>This will completely remove all of your configuration and shared folder settings... this action is irreversible. <br/><br/>You may reinstall Emby at any time, however, your storage path and linked folder settings will be reset to default.';
+$L['UNINSTALL_HEADPHONES_TXT'] = 'You are about to uninstall Headphones from your system.<br/><br/>This will completely remove all of your configuration and shared folder settings... this action is irreversible. <br/><br/>You may reinstall Headphones at any time, however, your storage path and linked folder settings will be reset to default.';
 $L['UNINSTALL_JACKETT_TXT'] = 'Du bist gerade dabei, Jackett auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Einstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Jackett neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
 $L['UNINSTALL_NEXTCLOUD_TXT'] = 'Du bist gerade dabei, NextCloud auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Einstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit NextCloud neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
+$L['UNINSTALL_NZBHYDRA_TXT'] = 'You are about to uninstall NZBHydra from your system.<br/><br/>This will completely remove all of your configurations and settings... this action is irreversible. <br/><br/>You may reinstall NZBHydra at any time, however, your settings will be reset to default.';
 $L['UNINSTALL_PLEX_TXT'] = 'Du bist gerade dabei, Plex Media Server auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Bibliothekseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Plex neu installieren, dabei werden jedoch deine Bibliothekseinstellungen komplett zurückgesetzt.';
 $L['UNINSTALL_PLEXPY_TXT'] = 'Du bist gerade dabei, PlexPy auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Bibliothekseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit PlexPy neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
 $L['UNINSTALL_PLEXREQUESTS_TXT'] = 'Du bist gerade dabei, Plex Requests auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Bibliothekseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Plex Requests neu installieren, dabei werden jedoch deine Bibliothekseinstellungen sowie Wünsche komplett zurückgesetzt.';
 $L['UNINSTALL_PYLOAD_TXT'] = 'Du bist gerade dabei, pyLoad auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit pyLoad neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
 $L['UNINSTALL_QUASSEL_TXT'] = 'Du bist gerade dabei, Quassel auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird Quassel sowie alle Einstellungen und gespeicherten Backlogs komplett von deinem System entfernen.';
 $L['UNINSTALL_QUOTAS_TXT'] = 'Du bist gerade dabei, quotas auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird user quotas sowie alle dazugehörigen Einstellungen komplett von deinem System entfernen.';
+$L['UNINSTALL_RADARR_TXT'] = 'You are about to uninstall Radarr from your system.<br/><br/>This will completely remove all of your configuration settings... this action is irreversible. <br/><br/>You may reinstall Radarr at any time, however, your configuration settings will be reset to default.';
 $L['UNINSTALL_RAPIDLEECH_TXT'] = 'Du bist gerade dabei, Rapidleech auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Rapidleech neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
 $L['UNINSTALL_SABNZBD_TXT'] = 'Du bist gerade dabei, SABnzbd auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit SABnzbd neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
 $L['UNINSTALL_SICKRAGE_TXT'] = 'Du bist gerade dabei, SickRage auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit SickRage neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
@@ -321,8 +338,6 @@ $L['THEME_CHANGE_TXT'] = 'Sie sind dabei, Themen zu ändern. Wenn das Thema nach
 
 //SYSTEM RESPONSE MODAL
 $L['SYSTEM_RESPONSE_TITLE'] = 'System-Antwort';
-
-
 
 //GRITTER POPUPS
 $L['UNINSTALLING_TITLE'] = 'Deinstalliere';

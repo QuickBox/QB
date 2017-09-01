@@ -11,16 +11,18 @@
 ///////////////////////////////////////
 
 // main menu tab
-$L['MAIN_MENU'] = 'Main Menu';
-$L['DOWNLOADS'] = 'Downloads';
-$L['WEB_CONSOLE'] = 'Web Console';
-$L['ANNOUCEMENTS'] = 'Announcements';
-$L['JOIN_US_TXT'] = 'Join Us On Live Chat!';
+$L['ANNOUNCEMENTS'] = 'Announcements';
 $L['CHAT_CONNECT_TXT'] = 'Click to connect';
+$L['DEV_REPO_TXT'] = 'You are on the QuickBox Development Repo';
+$L['DOWNLOADS'] = 'Downloads';
 $L['ISSUE_REPORT_TXT'] = 'Report an issue';
-$L['MARKETPLACE'] = 'Marketplace';
+$L['JOIN_US_TXT'] = 'Join Us On Live Chat!';
 $L['LANG_SELECT'] = 'Select Language';
+$L['MAIN_MENU'] = 'Main Menu';
+$L['MARKETPLACE'] = 'Marketplace';
 $L['THEME_SELECT'] = 'Select Theme';
+$L['WEB_CONSOLE'] = 'Web Console';
+$L['DONATE'] = 'Donate';
 
 // plugin menu tab
 $L['PLUGIN_MENU'] = 'Plugin Menu';
@@ -53,8 +55,6 @@ $L['ESSENTIAL_USER_COMMANDS'] = 'Essential User Commands';
 $L['RELOAD_TXT'] = 'allows user to reload their services (rtorrent and irssi)';
 $L['SCREEN_RTORRNENT_TXT'] = 'allows user to restart/remount rtorrent from SSH';
 $L['SCREEN_IRSSI_TXT'] = 'allows user to restart/remount irssi from SSH';
-
-$L['LANG_SELECT'] = 'Select Language';
 
 
 ////////////////////////////////////////
@@ -92,9 +92,13 @@ $L['CPU_STATUS'] = 'CPU Status';
 $L['SERVER_LOAD'] = 'Server Load';
 
 // recent updates widget
+$L['COMPARE_COMMITS'] = 'compare your current status to the latest commits.';
+$L['CURRENT_COMMIT'] = 'View your current commit status';
+$L['CURRENT_VERSIONS_CHANGELOG'] = 'View your current versions changelog.';
+$L['LATEST_COMMIT'] = 'latest.';
+$L['QUICKBOX_COMMIT'] = 'You are on the QuickBox commit - ';
 $L['RECENT_UPDATES'] = 'Recent Activity';
 $L['RECENT_UPDATES_TXT'] = 'To view feed, scroll with your mouse wheel.';
-
 
 ////////////////////////////////////////
 //PACKAGE MANAGEMENT CENTER
@@ -114,6 +118,7 @@ $L['COUCHPOTATO'] = 'Download movies automatically, easily and in the best quali
 $L['CSF'] = 'ConfigServer Firewall, also known as CSF, is a firewall configuration script created to provide better security for your server while giving you an easy to use, advanced interface for managing your firewall settings.';
 $L['DELUGE'] = 'Deluge is a lightweight, Free Software, cross-platform BitTorrent client.';
 $L['EMBY'] = 'Emby Server is a client-server software package that lets consumers host their legal personal copies of multimedia — music, video and picture files. ... The Emby client software is an app you need to install on mobile devices and certain settop boxes for televisions, like Android TV.';
+$L['HEADPHONES'] = 'Headphones is an automated music downloader for NZB and Torrent, written in Python. It supports SABnzbd, NZBget, Transmission, µTorrent, Deluge and Blackhole.';
 $L['JACKETT'] = 'API Support for your favorite private trackers.';
 $L['NEXTCLOUD'] = 'Nextcloud is an open source, self-hosted file sync and share and communication app platform. Access & sync your files, contacts, calendars & communicate and collaborate across your devices. You decide what happens with your data, where it is and who can access it!';
 $L['NZBHYDRA'] = 'NZBHydra is a meta search for NZB indexers. It provides easy access to a number of raw and newznab based indexers. You can search all your indexers from one place and use it as indexer source for tools like Sonarr or CouchPotato.';
@@ -304,13 +309,13 @@ $L['USED_L'] = 'used';
 //MODAL TITLES
 $L['UNINSTALL_TITLE'] = 'Uninstall';
 
-
 //MODAL TEXT
 $L['UNINSTALL_BTSYNC_TXT'] = 'You are about to uninstall BitTorrent Sync from your system.<br/><br/>This will completely remove all of your configuration and shared folder settings... this action is irreversible. <br/><br/>You may reinstall BitTorrent Sync at any time, however, your storage path and linked folder settings will be reset to default.';
 $L['UNINSTALL_CSF_TXT'] = 'You are about to uninstall Config Server Firewall (CSF) from your system.<br/><br/>This will completely remove all of your configuration settings... this action is irreversible. <br/><br/>You may reinstall Config Server Firewall (CSF) at any time, however, your configuration settings (if any changes were made) will be reset to default.';
 $L['UNINSTALL_COUCHPOTATO_TXT'] = 'You are about to uninstall CouchPotato from your system.<br/><br/>This will completely remove all of your configurations and settings... this action is irreversible. <br/><br/>You may reinstall CouchPotato at any time, however, your settings will be reset to default.';
 $L['UNINSTALL_DELUGE_TXT'] = 'You are about to uninstall Deluge from your system.<br/><br/>This will completely remove all of your configuration and shared folder settings for <strong>all users</strong>... this action is irreversible. <br/><br/>You may reinstall Deluge at any time, however, your storage path and linked folder settings will be reset to default.';
 $L['UNINSTALL_EMBY_TXT'] = 'You are about to uninstall Emby from your system.<br/><br/>This will completely remove all of your configuration and shared folder settings... this action is irreversible. <br/><br/>You may reinstall Emby at any time, however, your storage path and linked folder settings will be reset to default.';
+$L['UNINSTALL_HEADPHONES_TXT'] = 'You are about to uninstall Headphones from your system.<br/><br/>This will completely remove all of your configuration and shared folder settings... this action is irreversible. <br/><br/>You may reinstall Headphones at any time, however, your storage path and linked folder settings will be reset to default.';
 $L['UNINSTALL_JACKETT_TXT'] = 'You are about to uninstall Jackett from your system.<br/><br/>This will completely remove all of your configurations and settings... this action is irreversible. <br/><br/>You may reinstall Jackett at any time, however, your settings will be reset to default.';
 $L['UNINSTALL_NEXTCLOUD_TXT'] = 'You are about to uninstall NextCloud from your system.<br/><br/>This will completely remove all of your configurations and settings... this action is irreversible. <br/><br/>You may reinstall NextCloud at any time, however, your settings will be reset to default.';
 $L['UNINSTALL_NZBHYDRA_TXT'] = 'You are about to uninstall NZBHydra from your system.<br/><br/>This will completely remove all of your configurations and settings... this action is irreversible. <br/><br/>You may reinstall NZBHydra at any time, however, your settings will be reset to default.';
@@ -333,8 +338,6 @@ $L['THEME_CHANGE_TXT'] = 'You are about to change themes. If the theme doesn\'t 
 
 //SYSTEM RESPONSE MODAL
 $L['SYSTEM_RESPONSE_TITLE'] = 'System Response';
-
-
 
 //GRITTER POPUPS
 $L['UNINSTALLING_TITLE'] = 'Uninstalling';

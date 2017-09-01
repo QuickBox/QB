@@ -28,9 +28,9 @@
                   <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu pull-right" style="font-size: 13px">
-                  <li><a href="//quickbox.io/category/announcements/" target="_blank">Announcements</a></li>
+                  <li><a href="//quickbox.io/category/announcements/" target="_blank"><?php echo T('ANNOUNCEMENTS'); ?></a></li>
                   <li><a href="https://quickbox.io/readme-md/" target="_blank">README.md</a></li>
-                  <li><a href="/t/quickbox-changelog/45" target="_blank">CHANGELOG</a></li>
+                  <li><a href="https://github.com/QuickBox/QB/compare/v2.5.0...<?php echo $version; ?>" target="_blank">CHANGELOG</a></li>
                 </ul>
               </div>
             </li>
@@ -141,6 +141,9 @@
               <?php } ?>
               <?php if (file_exists('/install/.emby.lock')) { ?>
                 <li><a class="grayscale" href="<?php echo "$embyURL"; ?>" target="_blank"><img src="img/brands/emby.png" class="brand-ico"> <span>Emby</span></a></li>
+              <?php } ?>
+              <?php if (file_exists('/install/.headphones.lock')) { ?>
+                <li><a class="grayscale" href="<?php echo "$headphonesURL"; ?>" target="_blank"><img src="img/brands/headphones.png" class="brand-ico"> <span>Headphones</span></a></li>
               <?php } ?>
               <?php if (file_exists('/install/.jackett.lock')) { ?>
                 <li><a class="grayscale" href="<?php echo "$jackettURL"; ?>" target="_blank"><img src="img/brands/jackett.png" class="brand-ico"> <span>Jackett</span></a></li>
