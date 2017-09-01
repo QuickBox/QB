@@ -1,0 +1,80 @@
+#!/bin/bash
+#
+# [Quick Box :: Install Medusa package]
+#
+# GITHUB REPOS
+# GitHub _ packages  :   https://github.com/QuickBox/quickbox_packages
+# LOCAL REPOS
+# Local _ packages   :   /etc/QuickBox/packages
+# Author             :   QuickBox.IO | JMSolo
+# URL                :   https://quickbox.io
+#
+# QuickBox Copyright (C) 2017 QuickBox.io
+# Licensed under GNU General Public License v3.0 GPL-3 (in short)
+#
+#   You may copy, distribute and modify the software as long as you track
+#   changes/dates in source files. Any modifications to our software
+#   including (via compiler) GPL-licensed code must also be made available
+#   under the GPL along with build & install instructions.
+#
+MASTER=$(cat /srv/rutorrent/home/db/master.txt)
+OUTTO=/srv/rutorrent/home/db/output.log
+local_setup=/etc/QuickBox/setup/
+
+function _installMedusa1() {
+  sudo git clone https://github.com/pymedusa/Medusa.git  /home/"${MASTER}"/.medusa >/dev/null 2>&1
+}
+function _installMedusa2() {
+  touch /install/.medusa.lock
+  chown "${MASTER}":"${MASTER}" -R /home/"${MASTER}"/.medusa
+
+
+}
+function _installMedusa3() {
+  cp ${local_setup}templates/sysd/medusa.template /etc/systemd/system/medusa@.service
+  systemctl enable medusa@${MASTER} > /dev/null 2>&1
+  systemctl start medusa@${MASTER} > /dev/null 2>&1
+  systemctl stop medusa@${MASTER} > /dev/null 2>&1
+
+  # The config below is according to Medusa Wiki:
+  # https://github.com/pymedusa/Medusa/wiki/FAQ%27s-and-Fixes#reverse-proxy-is-not-working
+  LAN_IP_ADDR=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+
+  sed -i "s/web_root.*/web_root = \"medusa\"/g" /home/"${MASTER}"/.medusa/config.ini
+  sed -i "s/web_host.*/web_host = 0.0.0.0/g" /home/"${MASTER}"/.medusa/config.ini
+  sed -i "s/localhost_ip.*/localhost_ip = ${LAN_IP_ADDR}/g" /home/"${MASTER}"/.medusa/config.ini
+  sed -i "s/web_port.*/web_port = 8082/g" /home/"${MASTER}"/.medusa/config.ini
+  sed -i "s/ssl_verify.*/ssl_verify = 0/g" /home/"${MASTER}"/.medusa/config.ini
+  cat > /etc/apache2/sites-enabled/medusa.conf <<EOF
+<Location /medusa>
+  ProxyPass http://localhost:8082/medusa
+  ProxyPassReverse http://localhost:8082/medusa
+  AuthType Digest
+  AuthName "rutorrent"
+  AuthUserFile '/etc/htpasswd'
+  Require user ${MASTER}
+</Location>
+EOF
+  chown www-data: /etc/apache2/sites-enabled/medusa.conf
+  service apache2 reload
+  systemctl start medusa@${MASTER} > /dev/null 2>&1
+
+}
+
+
+function _installMedusa4() {
+  echo "Medusa Install Complete!" >>"${OUTTO}" 2>&1;
+  sleep 5
+  echo >>"${OUTTO}" 2>&1;
+  echo >>"${OUTTO}" 2>&1;
+  echo "Close this dialog box to refresh your browser" >>"${OUTTO}" 2>&1;
+}
+function _installMedusa5() {
+  exit
+}
+
+echo "Installing medusa ... " >>"${OUTTO}" 2>&1;_installMedusa1
+echo "Setting up medusa permissions ... " >>"${OUTTO}" 2>&1;_installMedusa2
+echo "Setting up medusa configurations and enabling ... " >>"${OUTTO}" 2>&1;_installMedusa3
+_installMedusa4
+_installMedusa5

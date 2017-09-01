@@ -128,6 +128,7 @@ This script has the following features
 * Rapidleech
 * SABnzbd
 * SickRage
+* Medusa
 * Sonarr
 * Subsonic
 * Syncthing
