@@ -43,7 +43,7 @@ for i in "${locks[@]}"; do
     fi
   fi
 done
-  for l in sonarr sickrage jackett couchpotato; do
+  for l in sonarr sickrage medusa jackett couchpotato; do
     if [[ -f /etc/init.d/$l ]]; then update-rc.d -f $l remove; fi
     if [[ -f /etc/init.d/$l ]]; then service $l stop; fi
     if [[ -f /etc/init.d/$l ]]; then rm /etc/init.d/$l; fi
