@@ -178,6 +178,9 @@
               <?php if (file_exists('/install/.sickrage.lock')) { ?>
                 <li><a class="grayscale" href="<?php echo "$sickrageURL"; ?>" target="_blank"><img src="img/brands/sickrage.png" class="brand-ico"> <span>SickRage</span></a></li>
               <?php } ?>
+              <?php if (file_exists('/install/.medusa.lock')) { ?>
+                <li><a class="grayscale" href="<?php echo "$medusaURL"; ?>" target="_blank"><img src="img/brands/medusa.png" class="brand-ico"> <span>Medusa</span></a></li>
+              <?php } ?>
               <?php if (processExists("nzbdrone",$username) && file_exists('/install/.sonarr.lock')) { ?>
                 <li><a class="grayscale" href="<?php echo "$sonarrURL"; ?>" target="_blank"><img src="img/brands/sonarr.png" class="brand-ico"> <span>Sonarr</span></a></li>
               <?php } ?>
