@@ -266,6 +266,7 @@ $radarr = processExists("radarr",$username);
 $rtorrent = processExists("rtorrent",$username);
 $sabnzbd = processExists("sabnzbd",$username);
 $sickrage = processExists("sickrage",$username);
+$medusa = processExists("medusa",$username);
 $sonarr = processExists("nzbdrone",$username);
 $subsonic = processExists("subsonic",$username);
 $syncthing = processExists("syncthing",$username);
@@ -297,7 +298,7 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   if ($dwssl == "false") { $dwURL = "http://" . $_SERVER['HTTP_HOST'] . ":$dwport"; }
   $embyURL = "https://" . $_SERVER['HTTP_HOST'] . "/emby";
   $headphonesURL = "https://" . $_SERVER['HTTP_HOST'] . "/headphones/home";
-  $jackettURL = "https://" . $_SERVER['HTTP_HOST'] . "/jackett/Admin/Dashboard";
+  $jackettURL = "https://" . $_SERVER['HTTP_HOST'] . "/jackett/UI/Dashboard";
   $nextcloudURL = "https://" . $_SERVER['HTTP_HOST'] . "/nextcloud";
   $nzbhydraURL = "https://" . $_SERVER['HTTP_HOST'] . "/nzbhydra";
   $plexURL = "http://" . $_SERVER['HTTP_HOST'] . ":31400/web/";
@@ -308,6 +309,7 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   $rapidleechURL = "https://" . $_SERVER['HTTP_HOST'] . "/rapidleech";
   $sabnzbdURL = "https://" . $_SERVER['HTTP_HOST'] . "/sabnzbd";
   $sickrageURL = "https://" . $_SERVER['HTTP_HOST'] . "/sickrage";
+  $medusaURL = "http://" . $_SERVER['HTTP_HOST'] . "/medusa";
   $sonarrURL = "https://" . $_SERVER['HTTP_HOST'] . "/sonarr";
   $subsonicURL = "https://" . $_SERVER['HTTP_HOST'] . "/subsonic";
   $syncthingURL = "https://" . $_SERVER['HTTP_HOST'] . "/syncthing/";
@@ -398,6 +400,10 @@ if ($sickrage == "1") { $srval = "<span class=\"badge badge-service-running-dot\
 } else { $srval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
 }
 
+if ($medusa == "1") { $srval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
+} else { $srval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
+}
+                                                                                                                                                                                              
 if ($sonarr == "1") { $sval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
 } else { $sval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
 }
@@ -471,6 +477,8 @@ case 0:
     $cbodysz .= $sabnzbd;
   $sickrage = isEnabled("sickrage", $username);
     $cbodysr .= $sickrage;
+  $medusa = isEnabled("medusa", $username);
+    $cbodypm .= $medusa;
   $sonarr = isEnabled("sonarr", $username);
     $cbodys .= $sonarr;
   $subsonic = isEnabled("subsonic", root);

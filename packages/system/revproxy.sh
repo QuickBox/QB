@@ -167,6 +167,33 @@ EOF
   fi
 }
 
+function _medusa() {
+  if [[ ! -f /etc/apache2/sites-enabled/medusa.conf ]]; then
+    # The config below is according to Medusa Wiki:
+    # https://github.com/pymedusa/Medusa/wiki/FAQ%27s-and-Fixes#reverse-proxy-is-not-working
+    LAN_IP_ADDR=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+    service medusa@${MASTER} stop
+    sed -i "s/web_root.*/web_root = \"medusa\"/g" /home/"${MASTER}"/.medusa/config.ini
+    sed -i "s/web_host.*/web_host = 0.0.0.0/g" /home/"${MASTER}"/.medusa/config.ini
+    sed -i "s/localhost_ip.*/localhost_ip = ${LAN_IP_ADDR}/g" /home/"${MASTER}"/.medusa/config.ini
+    sed -i "s/web_port.*/web_port = 8082/g" /home/"${MASTER}"/.medusa/config.ini
+    sed -i "s/ssl_verify.*/ssl_verify = 0/g" /home/"${MASTER}"/.medusa/config.ini
+    cat > /etc/apache2/sites-enabled/medusa.conf <<EOF
+<Location /medusa>
+  ProxyPass http://localhost:8082/medusa
+  ProxyPassReverse http://localhost:8082/medusa
+  AuthType Digest
+  AuthName "rutorrent"
+  AuthUserFile '/etc/htpasswd'
+  Require user ${MASTER}
+</Location>
+EOF
+    chown www-data: /etc/apache2/sites-enabled/medusa.conf
+    service apache2 reload
+    service medusa@${MASTER} start
+  fi
+}
+
 function _sonarr() {
   if [[ ! -f /etc/apache2/sites-enabled/sonarr.conf ]]; then
     systemctl stop sonarr@${MASTER}
@@ -249,6 +276,7 @@ if [[ -f /install/.plexpy.lock ]]; then _plexpy; fi
 #if [[ -f /install/.ombi.lock ]]; then _ombi; fi
 if [[ -f /install/.sabnzbd.lock ]]; then _sabnzbd; fi
 if [[ -f /install/.sickrage.lock ]]; then _sickrage; fi
+if [[ -f /install/.medusa.lock ]]; then _medusa; fi
 if [[ -f /install/.sonarr.lock ]]; then _sonarr; fi
 if [[ -f /install/.subsonic.lock ]]; then _subsonic; fi
 if [[ -f /install/.syncthing.lock ]]; then _syncthing; fi
