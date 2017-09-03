@@ -309,7 +309,7 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   $rapidleechURL = "https://" . $_SERVER['HTTP_HOST'] . "/rapidleech";
   $sabnzbdURL = "https://" . $_SERVER['HTTP_HOST'] . "/sabnzbd";
   $sickrageURL = "https://" . $_SERVER['HTTP_HOST'] . "/sickrage";
-  $medusaURL = "http://" . $_SERVER['HTTP_HOST'] . "/medusa";
+  $medusaURL = "https://" . $_SERVER['HTTP_HOST'] . "/medusa";
   $sonarrURL = "https://" . $_SERVER['HTTP_HOST'] . "/sonarr";
   $subsonicURL = "https://" . $_SERVER['HTTP_HOST'] . "/subsonic";
   $syncthingURL = "https://" . $_SERVER['HTTP_HOST'] . "/syncthing/";
