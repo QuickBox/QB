@@ -1976,23 +1976,6 @@ function upgradeJackett() {
   echo ${OK}
 }
 
-function upgradeSABnzbd() {
-  OK=$(echo -e "[ \e[0;32mUpgrade Complete\e[00m ]")
-  username=$(cat /srv/rutorrent/home/db/master.txt)
-  echo "Stopping Sabnzbd..."
-  systemctl stop sabnzbd@${username}
-  cd /home/${username}/SABnzbd
-  echo "Cloning latest stable SABnzbd Github Version"
-  git fetch --all
-  git reset --hard origin/master
-  git pull origin master
-  echo "Adjusting permissions..."
-  chown ${username}.${username} -R /home/${username}/SABnzbd
-  echo "Starting SABnzbd..."
-  systemctl start sabnzbd@${username}
-  echo ${OK}
-}
-
 function setup-pyLoad() {
   username=$(cat /srv/rutorrent/home/db/master.txt)
   if [ -d /home/${username}/.pyload ]; then
