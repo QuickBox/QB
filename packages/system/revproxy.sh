@@ -178,16 +178,40 @@ function _medusa() {
     sed -i "s/localhost_ip.*/localhost_ip = ${LAN_IP_ADDR}/g" /home/"${MASTER}"/.medusa/config.ini
     sed -i "s/web_port.*/web_port = 8082/g" /home/"${MASTER}"/.medusa/config.ini
     sed -i "s/ssl_verify.*/ssl_verify = 0/g" /home/"${MASTER}"/.medusa/config.ini
+    sed -i "s/enable_https.*/enable_https = 1/g" /home/"${MASTER}"/.medusa/config.ini
+    sed -i "s/https_cert.*/https_cert = ssl-cert-snakeoil.pem/g" /home/"${MASTER}"/.medusa/config.ini
+    sed -i "s/https_key.*/https_key = ssl-cert-snakeoil.key/g" /home/"${MASTER}"/.medusa/config.ini
+    sed -i "s/handle_reverse_proxy.*handle_reverse_proxy = 1/g" /home/"${MASTER}"/.medusa/config.ini
+
     cat > /etc/apache2/sites-enabled/medusa.conf <<EOF
-<Location /medusa>
-  ProxyPass http://localhost:8082/medusa
-  ProxyPassReverse http://localhost:8082/medusa
-  AuthType Digest
-  AuthName "rutorrent"
-  AuthUserFile '/etc/htpasswd'
-  Require user ${MASTER}
-</Location>
+LoadModule proxy_module /usr/lib/apache2/modules/mod_proxy.so
+LoadModule proxy_http_module /usr/lib/apache2/modules/mod_proxy_http.so
+LoadModule proxy_wstunnel_module /usr/lib/apache2/modules/mod_proxy_wstunnel.so
+LoadModule ssl_module modules/mod_ssl.so
+SSLProxyEngine on
+SSLProxyVerify none
+SSLProxyCheckPeerCN off
+SSLProxyCheckPeerName off
+SSLProxyCheckPeerExpire off
+LogLevel debug
+ProxyRequests Off
+<Proxy *>
+        AddDefaultCharset Off
+        Order deny,allow
+        Allow from all
+        AuthType Digest
+        AuthName "rutorrent"
+        AuthUserFile '/etc/htpasswd'
+        Require user ${MASTER}
+</Proxy>
+ProxyPass /medusa/ws wss://127.0.0.1:8082/medusa/ws keepalive=On timeout=600 retry=1 acquire=3000
+ProxyPassReverse /medusa/ws wss://127.0.0.1:8082/medusa/ws
+
+ProxyPass /medusa https://127.0.0.1:8082/medusa keepalive=On timeout=600 retry=1 acquire=3000
+ProxyPassReverse /medusa https://127.0.0.1:8082/medusa
+ProxyPassReverseCookieDomain 127.0.0.1 %{HTTP:Host}
 EOF
+
     chown www-data: /etc/apache2/sites-enabled/medusa.conf
     service apache2 reload
     service medusa@${MASTER} start
