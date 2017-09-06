@@ -1,9 +1,0 @@
-# Ignore everything in this directory
-*
-# Except this file
-!.gitignore
-!.defaulted.lock
-!branding-l.php
-!branding-m.php
-#!domain.list
-#!interface.txt

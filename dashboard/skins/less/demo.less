@@ -1,0 +1,159 @@
+
+// Button List
+.btn-demo {
+  .btn {
+    float: left;
+    margin: 10px 10px 0 0;
+    min-width: 100px;
+
+    &.btn-icon { min-width: 0; }
+  }
+
+  .clearfix();
+}
+
+// Icons
+.fontawesome-icon-list {
+  .col-md-3 { margin-bottom: 8px; }
+
+  i {
+    font-size: 14px;
+    width: 16px;
+    margin-right: 8px;
+    text-align: center;
+    color: @brand-quirk;
+  }
+}
+
+// Fonts
+.fonticon-list {
+  list-style: none;
+  margin: 20px 0;
+  padding: 0;
+}
+
+.fontawesome-list,
+.weathericon-list {
+  list-style: none;
+  padding: 0;
+}
+
+.fonticon-list,
+.fontawesome-list,
+.weathericon-list {
+  li {
+    display: block;
+    margin-bottom: 5px;
+
+    span {
+      color: #333333;
+      vertical-align: middle;
+      margin-right: 8px;
+      min-width: 20px;
+      display: inline-block;
+      width: 20px;
+    }
+  }
+}
+
+.weathericon-list li span { font-size: 16px; }
+
+
+// Alerts
+.tooltip-example,
+.popover-example {
+  .btn { margin: 0 5px 5px 0; }
+}
+
+// Graphs
+
+.flot-chart {
+  width: 100%;
+  height: 300px;
+}
+
+// Navigation
+.nav-wrapper {
+  border-radius: @border-radius-base;
+  padding: 1px 0;
+  margin-bottom: 20px;
+
+  &.white { background-color: #fff; }
+  &.quirk { background-color: lighten(@brand-quirk, 10%); }
+}
+
+.demo-navwrapper {
+  > div {
+    @media (max-width: 480px) {
+      width: auto;
+      float: none;
+      display: block;
+    }
+  }
+}
+
+
+// Calendar
+.calendar-widget {
+  margin-bottom: 20px;
+  .ui-datepicker-inline { border-color: transparent; }
+  .ui-datepicker-inline { max-width: none; }
+}
+
+// Gritter
+.gritter-demo {
+  .gritter-item-wrapper > .gritter-item {
+    z-index: 0;
+    p {
+      line-height: 22px;
+      margin-bottom: 0;
+    }
+    &:before { top: 13px; }
+  }
+}
+
+// Sign In Demo
+.signin-demo {
+  position: static;
+  transform: none;
+  width: auto;
+  background-color: lighten(@brand-quirk, 10%);
+
+  .panel-heading { padding-top: 10px; }
+
+  .panel-title {
+    color: #fff;
+    text-align: center;
+    margin: 20px 0 0;
+    text-transform: none;
+    font-weight: 200;
+    font-size: 18px;
+    font-family: @font-family-base;
+    letter-spacing: .5px;
+  }
+
+  .input-group-addon {
+    border-color: transparent;
+    background-color: #fff;
+    padding-right: 0;
+  }
+
+  .form-control {
+    border-color: transparent;
+    background-color: #fff;
+  }
+}
+
+// Colorpicker
+.demo-colorpicker {
+  > div {
+    margin-bottom: 20px;
+    &:last-child { margin-bottom: 0; }
+  }
+}
+
+
+// Misc
+.paddingtop10 { padding-top: 10px; }
+.paddingtop15 { padding-top: 15px; }
+.paddingtop20 { padding-top: 20px; }

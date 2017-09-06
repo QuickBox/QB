@@ -19,20 +19,23 @@
 #
 function _updatedashboard() {
   cd ${rutorrent}
-  #if [[ -f /srv/rutorrent/home/db/.smoked.lock ]]; then
-    if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
-      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}defaulted/* ${rutorrent}home
-      rm -f /srv/rutorrent/home/lang/*.php
-      rm -rf /srv/rutorrent/home/db/.smoked.lock >/dev/null 2>&1
-      printf "" > /srv/rutorrent/home/db/.defaulted.lock
-    else
-      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}defaulted/* ${rutorrent}home
-      rm -f /srv/rutorrent/home/lang/*.php
-      rm -rf /srv/rutorrent/home/db/.smoked.lock >/dev/null 2>&1
-      printf "" > /srv/rutorrent/home/db/.defaulted.lock
-    fi
-  #fi
+  #  if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
+  #    rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}defaulted/* ${rutorrent}home
+  #    rm -f /srv/rutorrent/home/lang/*.php
+  #    rm -rf /srv/rutorrent/home/db/.smoked.lock >/dev/null 2>&1
+  #    printf "" > /srv/rutorrent/home/db/.defaulted.lock
+  #  else
+  #    rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}defaulted/* ${rutorrent}home
+  #    rm -f /srv/rutorrent/home/lang/*.php
+  #    rm -rf /srv/rutorrent/home/db/.smoked.lock >/dev/null 2>&1
+  #    printf "" > /srv/rutorrent/home/db/.defaulted.lock
+  #  fi
 
+  \cp -fR  ${local_themes}defaulted/skins/* ${rutorrent}home/skins
+  \cp -fR  ${local_themes}defaulted/js/* ${rutorrent}home/js
+  \cp -fR  ${local_themes}defaulted/inc/* ${rutorrent}home/inc
+  rm -rf /srv/rutorrent/home/db/.smoked.lock >/dev/null 2>&1
+  printf "" > /srv/rutorrent/home/db/.defaulted.lock
   service apache2 reload
   sleep 5
 
