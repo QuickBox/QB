@@ -19,20 +19,23 @@
 #
 function _updatedashboard() {
   cd ${rutorrent}
-  #if [[ -f /srv/rutorrent/home/db/.defaulted.lock ]]; then
-    if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
-      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}smoked/* ${rutorrent}home
-      rm -f /srv/rutorrent/home/lang/*.php
-      rm -rf /srv/rutorrent/home/db/.defaulted.lock >/dev/null 2>&1
-      printf "" > /srv/rutorrent/home/db/.smoked.lock
-    else
-      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}smoked/* ${rutorrent}home
-      rm -f /srv/rutorrent/home/lang/*.php
-      rm -rf /srv/rutorrent/home/db/.defaulted.lock >/dev/null 2>&1
-      printf "" > /srv/rutorrent/home/db/.smoked.lock
-    fi
-  #fi
+  #  if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
+  #    rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}smoked/* ${rutorrent}home
+  #    rm -f /srv/rutorrent/home/lang/*.php
+  #    rm -rf /srv/rutorrent/home/db/.defaulted.lock >/dev/null 2>&1
+  #    printf "" > /srv/rutorrent/home/db/.smoked.lock
+  #  else
+  #    rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}smoked/* ${rutorrent}home
+  #    rm -f /srv/rutorrent/home/lang/*.php
+  #    rm -rf /srv/rutorrent/home/db/.defaulted.lock >/dev/null 2>&1
+  #    printf "" > /srv/rutorrent/home/db/.smoked.lock
+  #  fi
 
+  \cp -fR  ${local_themes}smoked/skins/* ${rutorrent}home/skins
+  \cp -fR  ${local_themes}smoked/js/* ${rutorrent}home/js
+  \cp -fR  ${local_themes}smoked/inc/* ${rutorrent}home/inc
+  rm -rf /srv/rutorrent/home/db/.defaulted.lock >/dev/null 2>&1
+  printf "" > /srv/rutorrent/home/db/.smoked.lock
   service apache2 reload
   sleep 5
 
