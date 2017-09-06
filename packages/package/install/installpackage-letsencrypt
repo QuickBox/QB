@@ -18,6 +18,7 @@
 #   under the GPL along with build & install instructions.
 
 service apache2 stop
+apt -y -qq install socat
 
 cd /root
 mkdir -p /etc/apache2/ssl/{site,certs}
