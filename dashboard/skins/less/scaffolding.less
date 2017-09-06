@@ -1,0 +1,42 @@
+
+body {
+  @media (min-width: @screen-md-min) {
+    overflow: visible !important;
+  }
+}
+
+a:hover,
+a:focus {
+  outline: none;
+}
+
+code {
+  background-color: transparent;
+  padding: 0;
+}
+p code {
+  font-family: @font-family-base;
+  font-size: @font-size-base;
+  letter-spacing: 0.2px;
+}
+
+label { font-weight: normal; }
+
+hr {
+  margin: 20px 0;
+  border-color: @border-color-base;
+
+  &.darken { border-color: darken(@border-color-base, 8%); }
+  &.hr15 { margin: 15px 0 !important; }
+  &.fadeout {
+    border-color: #fff;
+    opacity: .1;
+  }
+}
+
+blockquote {
+  color: lighten(@brand-quirk, 15%);
+  font-weight: 400;
+  font-size: 16px;
+  font-family: @font-family-serif;
+}
