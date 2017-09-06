@@ -421,7 +421,7 @@ alias syscommands='cd /usr/local/bin/quickbox'
 # -> Performs some quick adjustments for certain conditions.
 home_diskwidget() {
   rm -f /srv/rutorrent/home/widgets/disk_data.php
-  cp /etc/QuickBox/dashboardwidgets/disk_datah.php /srv/rutorrent/home/widgets/disk_data.php
+  cp /etc/QuickBox/dashboard/widgets/disk_datah.php /srv/rutorrent/home/widgets/disk_data.php
   chown www-data: /srv/rutorrent/home/widgets/disk_data.php
   service apache2 restart
 }
