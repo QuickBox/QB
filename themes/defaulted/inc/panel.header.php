@@ -54,16 +54,16 @@
       points: { show: false },
       legend: {
         show: true,
-        labelBoxBorderColor: '#222',
+        labelBoxBorderColor: '#ffffff',
         position: 'ne',
         margin: 10
       },
       grid: {
         borderWidth: 0,
         border: { show: false },
-        color: '#333',
+        color: '#eaeaea',
         labelMargin: 5,
-        backgroundColor: '#222'
+        backgroundColor: '#ffffff'
       },
       xaxis: {
         mode: "time",
@@ -153,7 +153,7 @@
     legend: {
       show: true,
       noColumns: 0,
-      labelBoxBorderColor: '#222',
+      labelBoxBorderColor: '#ffffff',
       position: 'ne',
     },
     grid: {
@@ -161,7 +161,7 @@
       border: { show: false },
       color: '#333',
       labelMargin: 5,
-      backgroundColor: '#222'
+      backgroundColor: '#ffffff'
     },
     xaxis: {
       mode: "time",
