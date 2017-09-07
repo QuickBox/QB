@@ -252,30 +252,31 @@ function _updateznc() {
 # function to update dashboard
 function _updatedashboard() {
   cd ${rutorrent}
+  \cp -fR ${local_dashboard} ${rutorrent}home
   if [[ -f /srv/rutorrent/home/db/.smoked.lock ]]; then
     if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
       rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}smoked/* ${rutorrent}home
-      rm -f /srv/rutorrent/home/lang/*.php
+      #rm -f /srv/rutorrent/home/lang/*.php
     else
       rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}smoked/* ${rutorrent}home
-      rm -f /srv/rutorrent/home/lang/*.php
+      #rm -f /srv/rutorrent/home/lang/*.php
     fi
   elif [[ -f /srv/rutorrent/home/db/.defaulted.lock ]]; then
     if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
       rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}defaulted/* ${rutorrent}home
-      rm -f /srv/rutorrent/home/lang/*.php
+      #rm -f /srv/rutorrent/home/lang/*.php
     else
       rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}defaulted/* ${rutorrent}home
-        rm -f /srv/rutorrent/home/lang/*.php
+        #rm -f /srv/rutorrent/home/lang/*.php
     fi
   else
     if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
       rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}defaulted/* ${rutorrent}home
-      rm -f /srv/rutorrent/home/lang/*.php
+      #rm -f /srv/rutorrent/home/lang/*.php
       touch /srv/rutorrent/home/db/.defaulted.lock
     else
       rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}defaulted/* ${rutorrent}home
-      rm -f /srv/rutorrent/home/lang/*.php
+      #rm -f /srv/rutorrent/home/lang/*.php
       touch /srv/rutorrent/home/db/.defaulted.lock
     fi
   fi
@@ -435,7 +436,7 @@ local_setup=/etc/QuickBox/setup/
 local_packages=/etc/QuickBox/packages/
 local_rutorrent=/etc/QuickBox/rutorrent/
 local_rplugins=/etc/QuickBox/rtplugins/
-#local_dashboard=/etc/QuickBox/dashboard/
+local_dashboard=/etc/QuickBox/dashboard/
 local_themes=/etc/QuickBox/themes/
 local_rtheme=/etc/QuickBox/rttheme/
 
