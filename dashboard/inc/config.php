@@ -275,6 +275,8 @@ $couchpotato = processExists("couchpotato",$username);
 $quassel = processExists("quassel",$username);
 $shellinabox = processExists("shellinabox",shellinabox);
 $csf = processExists("lfd",root);
+$sickgear = processExists("sickgear",$username);
+$nzbget = processExists("nzbget",$username);
 $znc = processExists("znc",$username);
 
 function isEnabled($process, $username){
@@ -300,6 +302,7 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   $headphonesURL = "https://" . $_SERVER['HTTP_HOST'] . "/headphones/home";
   $jackettURL = "https://" . $_SERVER['HTTP_HOST'] . "/jackett/UI/Dashboard";
   $nextcloudURL = "https://" . $_SERVER['HTTP_HOST'] . "/nextcloud";
+  $nzbgetURL = "https://" . $_SERVER['HTTP_HOST'] . "/nzbget";
   $nzbhydraURL = "https://" . $_SERVER['HTTP_HOST'] . "/nzbhydra";
   $plexURL = "http://" . $_SERVER['HTTP_HOST'] . ":31400/web/";
   $plexpyURL = "https://" . $_SERVER['HTTP_HOST'] . "/plexpy";
@@ -308,6 +311,7 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   $radarrURL = "https://" . $_SERVER['HTTP_HOST'] . "/radarr";
   $rapidleechURL = "https://" . $_SERVER['HTTP_HOST'] . "/rapidleech";
   $sabnzbdURL = "https://" . $_SERVER['HTTP_HOST'] . "/sabnzbd";
+  $sickgearURL = "https://" . $_SERVER['HTTP_HOST'] . "/sickgear";
   $sickrageURL = "https://" . $_SERVER['HTTP_HOST'] . "/sickrage";
   $medusaURL = "https://" . $_SERVER['HTTP_HOST'] . "/medusa";
   $sonarrURL = "https://" . $_SERVER['HTTP_HOST'] . "/sonarr";
@@ -457,6 +461,8 @@ case 0:
     $cbodyhp .= $headphones;
   $jackett = isEnabled("jackett", $username);
     $cbodyj .= $jackett;
+  $nzbget = isEnabled("nzbget", $username);
+    $cbodynzg .= $nzbget;
   $nzbhydra = isEnabled("nzbhydra", $username);
     $cbodynzb .= $nzbhydra;
   $ombi = isEnabled("ombi", $username);
@@ -475,10 +481,12 @@ case 0:
     $cbodyrl .= $rapidleech;
   $sabnzbd = isEnabled("sabnzbd", $username);
     $cbodysz .= $sabnzbd;
+  $sickgear = isEnabled("sickgear", $username);
+    $cbodysg .= $sickgear;
   $sickrage = isEnabled("sickrage", $username);
     $cbodysr .= $sickrage;
   $medusa = isEnabled("medusa", $username);
-    $cbodypm .= $medusa;
+    $cbodym .= $medusa;
   $sonarr = isEnabled("sonarr", $username);
     $cbodys .= $sonarr;
   $subsonic = isEnabled("subsonic", root);
@@ -507,6 +515,9 @@ case 66:
     } elseif ($process == "headphones"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
+    } elseif ($process == "nzbget"){
+      shell_exec("sudo systemctl enable $process");
+      shell_exec("sudo systemctl start $process");
     } elseif ($process == "plexmediaserver"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
@@ -517,6 +528,9 @@ case 66:
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
     } elseif ($process == "radarr"){
+      shell_exec("sudo systemctl enable $process");
+      shell_exec("sudo systemctl start $process");
+    } elseif ($process == "sickgear"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
     } elseif ($process == "subsonic"){
@@ -544,6 +558,9 @@ case 77:
     } elseif ($process == "headphones"){
       shell_exec("sudo systemctl stop $process");
       shell_exec("sudo systemctl disable $process");
+    } elseif ($process == "nzbget"){
+      shell_exec("sudo systemctl stop $process");
+      shell_exec("sudo systemctl disable $process");
     } elseif ($process == "plexmediaserver"){
       shell_exec("sudo systemctl stop $process");
       shell_exec("sudo systemctl disable $process");
@@ -554,6 +571,9 @@ case 77:
       shell_exec("sudo systemctl stop $process");
       shell_exec("sudo systemctl disable $process");
     } elseif ($process == "radarr"){
+      shell_exec("sudo systemctl stop $process");
+      shell_exec("sudo systemctl disable $process");
+    } elseif ($process == "sickgear"){
       shell_exec("sudo systemctl stop $process");
       shell_exec("sudo systemctl disable $process");
     } elseif ($process == "subsonic"){
@@ -581,6 +601,9 @@ case 88:
     } elseif ($process == "headphones"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
+    } elseif ($process == "nzbget"){
+      shell_exec("sudo systemctl enable $process");
+      shell_exec("sudo systemctl restart $process");
     } elseif ($process == "plexmediaserver"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
@@ -591,6 +614,9 @@ case 88:
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
     } elseif ($process == "radarr"){
+      shell_exec("sudo systemctl enable $process");
+      shell_exec("sudo systemctl restart $process");
+    } elseif ($process == "sickgear"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
     } elseif ($process == "subsonic"){
