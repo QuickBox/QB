@@ -65,7 +65,7 @@ SG_PORT=8081
 SG_HOST=localhost
 
 # String must begin with a slash, example.. /sickgear
-SG_WEB_ROOT=
+SG_WEB_ROOT=/sickgear
 
 SG_REPO=https://github.com/SickGear/SickGear.git
 
