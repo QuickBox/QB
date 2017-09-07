@@ -148,8 +148,14 @@
               <?php if (file_exists('/install/.jackett.lock')) { ?>
                 <li><a class="grayscale" href="<?php echo "$jackettURL"; ?>" target="_blank"><img src="img/brands/jackett.png" class="brand-ico"> <span>Jackett</span></a></li>
               <?php } ?>
+              <?php if (file_exists('/install/.medusa.lock')) { ?>
+                <li><a class="grayscale" href="<?php echo "$medusaURL"; ?>" target="_blank"><img src="img/brands/medusa.png" class="brand-ico"> <span>Medusa</span></a></li>
+              <?php } ?>
               <?php if (file_exists('/install/.nextcloud.lock')) { ?>
                 <li><a class="grayscale" href="<?php echo "$nextcloudURL"; ?>" target="_blank"><img src="img/brands/nextcloud.png" class="brand-ico"> <span>NextCloud</span></a></li>
+              <?php } ?>
+              <?php if (file_exists('/install/.nzbget.lock')) { ?>
+                <li><a class="grayscale" href="<?php echo "$nzbgetURL"; ?>" target="_blank"><img src="img/brands/nzbget.png" class="brand-ico"> <span>NZBGet</span></a></li>
               <?php } ?>
               <?php if (file_exists('/install/.nzbhydra.lock')) { ?>
                 <li><a class="grayscale" href="<?php echo "$nzbhydraURL"; ?>" target="_blank"><img src="img/brands/nzbhydra.png" class="brand-ico"> <span>NZBHydra</span></a></li>
@@ -175,11 +181,11 @@
               <?php if (file_exists('/install/.sabnzbd.lock')) { ?>
                 <li><a class="grayscale" href="<?php echo "$sabnzbdURL"; ?>" target="_blank"><img src="img/brands/sabnzbd.png" class="brand-ico"> <span>SABnzbd</span></a></li>
               <?php } ?>
+              <?php if (file_exists('/install/.sickgear.lock')) { ?>
+                <li><a class="grayscale" href="<?php echo "$sickgearURL"; ?>" target="_blank"><img src="img/brands/sickgear.png" class="brand-ico"> <span>SickGear</span></a></li>
+              <?php } ?>
               <?php if (file_exists('/install/.sickrage.lock')) { ?>
                 <li><a class="grayscale" href="<?php echo "$sickrageURL"; ?>" target="_blank"><img src="img/brands/sickrage.png" class="brand-ico"> <span>SickRage</span></a></li>
-              <?php } ?>
-              <?php if (file_exists('/install/.medusa.lock')) { ?>
-                <li><a class="grayscale" href="<?php echo "$medusaURL"; ?>" target="_blank"><img src="img/brands/medusa.png" class="brand-ico"> <span>Medusa</span></a></li>
               <?php } ?>
               <?php if (processExists("nzbdrone",$username) && file_exists('/install/.sonarr.lock')) { ?>
                 <li><a class="grayscale" href="<?php echo "$sonarrURL"; ?>" target="_blank"><img src="img/brands/sonarr.png" class="brand-ico"> <span>Sonarr</span></a></li>
@@ -256,11 +262,17 @@
             <li style="padding: 7px"><span style="font-size: 12px; color:#eee">upgradeJackett</span><br/>
               <small><?php echo T('UPGRADEJACKETT_TXT'); ?></small>
             </li>
+            <li style="padding: 7px"><span style="font-size: 12px; color:#eee">upgradeOmbi</span><br/>
+              <small><?php echo T('UPGRADEOMBI_TXT'); ?></small>
+            </li>
             <li style="padding: 7px"><span style="font-size: 12px; color:#eee">upgradePlex</span><br/>
               <small><?php echo T('UPGRADEPLEX_TXT'); ?></small>
             </li>
             <li style="padding: 7px"><span style="font-size: 12px; color:#eee">upgradepyLoad</span><br/>
               <small><?php echo T('UPGRADEPYLOAD_TXT'); ?></small>
+            </li>
+            <li style="padding: 7px"><span style="font-size: 12px; color:#eee">upgradeSABnzbd</span><br/>
+              <small><?php echo T('UPGRADESABNZBD_TXT'); ?></small>
             </li>
             <li style="padding: 7px"><span style="font-size: 12px; color:#eee">setup-pyLoad</span><br/>
               <small><?php echo T('SETUPPYLOAD_TXT'); ?></small>
