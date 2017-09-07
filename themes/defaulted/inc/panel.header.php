@@ -159,7 +159,7 @@
     grid: {
       borderWidth: 0,
       border: { show: false },
-      color: '#333',
+      color: '#eaeaea',
       labelMargin: 5,
       backgroundColor: '#ffffff'
     },
