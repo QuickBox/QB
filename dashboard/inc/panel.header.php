@@ -261,6 +261,49 @@
   </script>
   <script language="javascript" type="text/javascript">
   $(document).ready(function() {
+
+  /////////////////////////////////////////////
+  // BEGIN AJAX APP CALLS ON SERVICE STATUS //
+  ///////////////////////////////////////////
+  function appstatrtorrent() {
+    $.ajax({url: "widgets/app_status/app_status_rtorrent.php", cache:true, success: function (result) {
+      $('#appstatrtorrent').html(result);
+      setTimeout(function(){appstatrtorrent()}, 1000);
+    }});
+  }
+  appstatrtorrent();
+  function appstatirssi() {
+    $.ajax({url: "widgets/app_status/app_status_irssi.php", cache:true, success: function (result) {
+      $('#appstatirssi').html(result);
+      setTimeout(function(){appstatirssi()}, 1000);
+    }});
+  }
+  appstatirssi();
+  function appstatwebconsole() {
+    $.ajax({url: "widgets/app_status/app_status_webconsole.php", cache:true, success: function (result) {
+      $('#appstatwebconsole').html(result);
+      setTimeout(function(){appstatwebconsole()}, 1000);
+    }});
+  }
+  appstatwebconsole();
+  function appstatmedusa() {
+    $.ajax({url: "widgets/app_status/app_status_medusa.php", cache:true, success: function (result) {
+      $('#appstatmedusa').html(result);
+      setTimeout(function(){appstatmedusa()}, 1000);
+    }});
+  }
+  appstatmedusa();
+  function appstatplex() {
+    $.ajax({url: "widgets/app_status/app_status_plex.php", cache:true, success: function (result) {
+      $('#appstatplex').html(result);
+      setTimeout(function(){appstatplex()}, 1000);
+    }});
+  }
+  appstatplex();
+  ///////////////////////////////////////////
+  // END AJAX APP CALLS ON SERVICE STATUS //
+  /////////////////////////////////////////
+
   function uptime() {
     $.ajax({url: "widgets/up.php", cache:true, success: function (result) {
       $('#uptime').html(result);
