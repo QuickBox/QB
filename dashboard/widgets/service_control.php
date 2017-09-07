@@ -29,7 +29,7 @@
                           $scgiport = search($rtorrentrc_data, 'localhost:', "\n");
                       }
                       ?>
-                      <td><?php echo "$rval"; ?> RTorrent <span class="tooltips" data-toggle="tooltip" title="scgi_port: <?php echo $scgiport; ?>" data-placement="right"><i class="tooltips fa fa-usb"></i><span></td>
+                      <td><span id="appstatrtorrent"></span> RTorrent <span class="tooltips" data-toggle="tooltip" title="scgi_port: <?php echo $scgiport; ?>" data-placement="right"><i class="tooltips fa fa-usb"></i><span></td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=rtorrent'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodyr"; ?></td>
                     </tr>
@@ -37,7 +37,7 @@
 
                   <?php if (file_exists("/install/.autodlirssi.lock")) { ?>
                     <tr>
-                      <td><?php echo "$ival"; ?> iRSSi-AutoDL </td>
+                      <td><span id="appstatirssi"></span> iRSSi-AutoDL </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=irssi'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodyi"; ?></td>
                     </tr>
@@ -59,7 +59,7 @@
                 <?php if ($username == "$master") { ?>
 
                     <tr>
-                      <td><?php echo "$wcval"; ?> Web Console </td>
+                      <td><span id="appstatwebconsole"></span> Web Console </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=shellinabox'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$wcbodyb"; ?></td>
                     </tr>
@@ -116,7 +116,7 @@
 
                     <?php if (file_exists("/install/.medusa.lock")) { ?>
                     <tr>
-                      <td><?php echo "$mval"; ?> Medusa </td>
+                      <td><span id="appstatmedusa"></span> Medusa </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=medusa'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodypm"; ?></td>
                     </tr>
@@ -148,7 +148,7 @@
 
                     <?php if (file_exists("/install/.plex.lock")) { ?>
                     <tr>
-                      <td><?php echo "$pval"; ?> Plex </td>
+                      <td><span id="appstatplex"></span> Plex </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=plex'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodyp"; ?></td>
                     </tr>
