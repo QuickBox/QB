@@ -50,8 +50,8 @@ APP_REPO=http://nzbget.net/info/nzbget-version-linux.json
 REVERSE_PROXY_URL=http://${APP_HOST}:${APP_SERVICE_PORT} # ${APP_WEB_ROOT} << only append the web root if needed >> 
 
 # To print to shell, set to nothing, otherwise output to LOGFILE
-USE_LOGFILE=  #yes
-LOGFILE='/srv/rutorrent/home/db/output.log' # QuickBox logfile
+USE_LOGFILE=/srv/rutorrent/home/db/output.log
+LOGFILE=/srv/rutorrent/home/db/output.log
 
 # To get most output from commands that are run, set to nothing
 MIN_OUTPUT=  #yes
