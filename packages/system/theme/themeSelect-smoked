@@ -32,7 +32,6 @@ function _updatedashboard() {
   #  fi
 
   \cp -fR  ${local_themes}smoked/skins/* ${rutorrent}home/skins
-  \cp -fR  ${local_themes}smoked/js/* ${rutorrent}home/js
   \cp -fR  ${local_themes}smoked/inc/* ${rutorrent}home/inc
   rm -rf /srv/rutorrent/home/db/.defaulted.lock >/dev/null 2>&1
   printf "" > /srv/rutorrent/home/db/.smoked.lock
