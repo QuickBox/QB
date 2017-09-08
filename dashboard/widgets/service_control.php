@@ -148,7 +148,7 @@
 
                     <?php if (file_exists("/install/.plex.lock")) { ?>
                     <tr>
-                      <td><span id="appstatplex"></span> Plex </td>
+                      <td><span id="appstat_plex"></span> Plex </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=plex'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodyp"; ?></td>
                     </tr>
