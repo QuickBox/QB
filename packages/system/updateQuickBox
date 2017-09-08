@@ -252,7 +252,7 @@ function _updateznc() {
 # function to update dashboard
 function _updatedashboard() {
   cd ${rutorrent}
-  \cp -fR ${local_dashboard} ${rutorrent}home
+  \cp -fR ${local_dashboard}* ${rutorrent}home
   if [[ -f /srv/rutorrent/home/db/.smoked.lock ]]; then
     if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
       rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}smoked/* ${rutorrent}home
@@ -441,7 +441,7 @@ local_themes=/etc/QuickBox/themes/
 local_rtheme=/etc/QuickBox/rttheme/
 
 IFACE=$(ip link show|grep -i broadcast|grep -m1 UP|cut -d: -f 2|cut -d@ -f 1|sed -e 's/ //g');
-A1=$(cat /srv/rutorrent/home/db/master.txt) >> /dev/null 2>&1
+A1=$(cat /etc/apache2/master.txt) >> /dev/null 2>&1
 rutorrent=/srv/rutorrent/
 usrbin=/usr/local/bin/
 
