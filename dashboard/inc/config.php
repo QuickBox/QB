@@ -319,20 +319,7 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   $syncthingURL = "https://" . $_SERVER['HTTP_HOST'] . "/syncthing/";
   if ($zssl == "true") { $zncURL = "https://" . $_SERVER['HTTP_HOST'] . ":$zport"; }
   if ($zssl == "false") { $zncURL = "http://" . $_SERVER['HTTP_HOST'] . ":$zport"; }
-}
-
-<?php { ?> 
-<script language="javascript" type="text/javascript">
-  $(document).ready(function() {
-  function appstat() {
-    $.ajax({url: "widgets/app_status.php", cache:true, success: function (result) {
-      $('#appstat').html(result);
-      setTimeout(function(){appstat()}, 1000);
-    }});
-  }
-  appstat();
-</script>
-<?php } ?>
+ }
  
 include ($_SERVER['DOCUMENT_ROOT'].'/widgets/lang_select.php');
 include ($_SERVER['DOCUMENT_ROOT'].'/widgets/plugin_data.php');
