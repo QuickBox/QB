@@ -251,8 +251,8 @@ function _updateznc() {
 
 # function to update dashboard
 function _updatedashboard() {
-  cd ${rutorrent}
   \cp -fR ${local_dashboard}* ${rutorrent}home
+  cd ${rutorrent}
   if [[ -f /srv/rutorrent/home/db/.smoked.lock ]]; then
     if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
       rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}smoked/* ${rutorrent}home
