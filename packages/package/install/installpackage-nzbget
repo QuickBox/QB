@@ -262,6 +262,7 @@ _installApplicationOutro() {
 ################################################################################
 
 _removeApplicationIntro() {
+  APP_INSTALL_DIR=/home/${APP_USERNAME}/${APP_SERVICE}/
   _print "${APP_SERVICE_NAME} will be stopped and removed from ${APP_INSTALL_DIR}"
   _print "You can reinstall anytime with 'box install ${APP_SERVICE}"
   _print "Process begins in 10 seconds (giving time to Ctrl-C abort)"
