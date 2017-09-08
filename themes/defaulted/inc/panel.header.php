@@ -265,41 +265,49 @@
   /////////////////////////////////////////////
   // BEGIN AJAX APP CALLS ON SERVICE STATUS //
   ///////////////////////////////////////////
-  function appstatrtorrent() {
+  function appstat_rtorrent() {
     $.ajax({url: "widgets/app_status/app_status_rtorrent.php", cache:true, success: function (result) {
-      $('#appstatrtorrent').html(result);
-      setTimeout(function(){appstatrtorrent()}, 1000);
+      $('#appstat_rtorrent').html(result);
+      setTimeout(function(){appstat_rtorrent()}, 1000);
     }});
   }
-  appstatrtorrent();
-  function appstatirssi() {
+  appstat_rtorrent();
+  function appstat_irssi() {
     $.ajax({url: "widgets/app_status/app_status_irssi.php", cache:true, success: function (result) {
-      $('#appstatirssi').html(result);
-      setTimeout(function(){appstatirssi()}, 1000);
+      $('#appstat_irssi').html(result);
+      setTimeout(function(){appstat_irssi()}, 1000);
     }});
   }
-  appstatirssi();
-  function appstatwebconsole() {
+  appstat_irssi();
+  function appstat_webconsole() {
     $.ajax({url: "widgets/app_status/app_status_webconsole.php", cache:true, success: function (result) {
-      $('#appstatwebconsole').html(result);
-      setTimeout(function(){appstatwebconsole()}, 1000);
+      $('#appstat_webconsole').html(result);
+      setTimeout(function(){appstat_webconsole()}, 1000);
     }});
   }
-  appstatwebconsole();
-  function appstatmedusa() {
+  appstatweappstat_webconsolebconsole();
+  function appstat_medusa() {
     $.ajax({url: "widgets/app_status/app_status_medusa.php", cache:true, success: function (result) {
-      $('#appstatmedusa').html(result);
-      setTimeout(function(){appstatmedusa()}, 1000);
+      $('#appstat_medusa').html(result);
+      setTimeout(function(){appstat_medusa()}, 1000);
     }});
   }
-  appstatmedusa();
-  function appstatplex() {
+  appstat_medusa();
+  function appstat_plex() {
     $.ajax({url: "widgets/app_status/app_status_plex.php", cache:true, success: function (result) {
-      $('#appstatplex').html(result);
-      setTimeout(function(){appstatplex()}, 1000);
+      $('#appstat_plex').html(result);
+      setTimeout(function(){appstat_plex()}, 1000);
     }});
   }
-  appstatplex();
+  appstat_plex();
+
+  function appstat() {
+    $.ajax({url: "widgets/app_status.php", cache:true, success: function (result) {
+      $('#appstat').html(result);
+      setTimeout(function(){appstat()}, 1000);
+    }});
+  }
+  appstat();
   ///////////////////////////////////////////
   // END AJAX APP CALLS ON SERVICE STATUS //
   /////////////////////////////////////////

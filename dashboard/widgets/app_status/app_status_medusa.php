@@ -14,8 +14,10 @@ function processExists($processName, $username) {
 
 $medusa = processExists("medusa",$username);
 
-if ($medusa == "1") { $mval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
-} else { $mval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
+if ($medusa == "1") { 
+	$mval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
+} else { 
+	$mval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
 }
 
 echo "$mval";
