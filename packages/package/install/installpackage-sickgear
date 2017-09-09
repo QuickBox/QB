@@ -126,6 +126,7 @@ _installSickGearIntro() {
   _print "This process may take several minutes"
   _print "Please wait until process is completed"
 
+  _print
   echo
   sleep 5
 }
@@ -270,10 +271,11 @@ _tweakConfig() {
     </Location>
 EOF
     sudo chown www-data: ${APACHE_PATH}/${SG_SERVICE}.conf
-    #_do "service apache2 reload"    # only need this if mode is "enabled"
+    _do "service apache2 reload"    # only need this if mode is "enabled"
   fi
 
   _sudo "systemctl start ${SG_SERVICE}@${SG_PORT}"
+  _sudo "systemctl start ${SG_SERVICE}@${SG_USERNAME}"
 }
 
 _installSickGearOutro() {
@@ -282,6 +284,11 @@ _installSickGearOutro() {
   _print "  systemctl start ${SG_SERVICE}@${SG_PORT}"
   _print "  systemctl status ${SG_SERVICE}@${SG_PORT} -l"
   _print "  systemctl stop ${SG_SERVICE}@${SG_PORT}"
+  _print
+  _print "Systemd service user specific. Example commands.."
+  _print "  systemctl start ${SG_SERVICE}@${SG_USERNAME}"
+  _print "  systemctl status ${SG_SERVICE}@${SG_USERNAME} -l"
+  _print "  systemctl stop ${SG_SERVICE}@${SG_USERNAME}"
 
   _print
   sleep 5
@@ -301,6 +308,8 @@ _removeSickGearFiles() {
 
   _sudo "systemctl stop ${SG_SERVICE}@${SG_PORT}"
   _sudo "systemctl disable ${SG_SERVICE}@${SG_PORT}"
+  _sudo "systemctl stop ${SG_SERVICE}@${SG_USERNAME}"
+  _sudo "systemctl disable ${SG_SERVICE}@${SG_USERNAME}"
   _sudo "rm -f /etc/systemd/system/${SG_SERVICE}@.service"
 
   APACHE_MODE=enabled
