@@ -229,10 +229,10 @@ EOF
 _firstRunCycle() {
   _print "77%..Enabling SickGear service on port ${SG_PORT} ..."
 
-  _sudo "systemctl enable ${SG_SERVICE}@${SG_USERNAME}"
-  _sudo "systemctl start ${SG_SERVICE}@${SG_USERNAME}"
+  _sudo "systemctl enable ${SG_SERVICE}@${SG_PORT}"
+  _sudo "systemctl start ${SG_SERVICE}@${SG_PORT}"
   sleep 5
-  _sudo "systemctl stop ${SG_SERVICE}@${SG_USERNAME}"
+  _sudo "systemctl stop ${SG_SERVICE}@${SG_PORT}"
   sleep 5
 }
 
@@ -273,15 +273,15 @@ EOF
     #_do "service apache2 reload"    # only need this if mode is "enabled"
   fi
 
-  _sudo "systemctl start ${SG_SERVICE}@${SG_USERNAME}"
+  _sudo "systemctl start ${SG_SERVICE}@${SG_PORT}"
 }
 
 _installSickGearOutro() {
   _print "99%..SickGear installation complete, connect at port ${SG_PORT}"
   _print "Systemd service is named ${SG_SERVICE}. Example commands.."
-  _print "  systemctl start ${SG_SERVICE}@${SG_USERNAME}"
-  _print "  systemctl status ${SG_SERVICE}@${SG_USERNAME} -l"
-  _print "  systemctl stop ${SG_SERVICE}@${SG_PSG_USERNAME}"
+  _print "  systemctl start ${SG_SERVICE}@${SG_PORT}"
+  _print "  systemctl status ${SG_SERVICE}@${SG_PORT} -l"
+  _print "  systemctl stop ${SG_SERVICE}@${SG_PORT}"
 
   _print
   sleep 5
@@ -299,8 +299,8 @@ _removeSickGearIntro() {
 _removeSickGearFiles() {
   SG_PORT=`sudo grep ${SG_INSTALL_DIR}data/config.ini -e "web_port" | sed -n '${s/.* //p}'`
 
-  _sudo "systemctl stop ${SG_SERVICE}@${SG_USERNAME}"
-  _sudo "systemctl disable ${SG_SERVICE}@${SG_USERNAME}"
+  _sudo "systemctl stop ${SG_SERVICE}@${SG_PORT}"
+  _sudo "systemctl disable ${SG_SERVICE}@${SG_PORT}"
   _sudo "rm -f /etc/systemd/system/${SG_SERVICE}@.service"
 
   APACHE_MODE=enabled
