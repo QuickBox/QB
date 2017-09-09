@@ -45,12 +45,12 @@
 
                   <?php if (file_exists("/install/.deluge.lock")) { ?>
                     <tr>
-                      <td><?php echo "$dval"; ?> DelugeD </td>
+                      <td><span id="appstat_deluged"></span> DelugeD </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=deluged'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodyd"; ?></td>
                     </tr>
                     <tr>
-                      <td><?php echo "$dwval"; ?> Deluge Web </td>
+                      <td><span id="appstat_delugeweb"></span> Deluge Web </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=delugeweb'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodydw"; ?></td>
                     </tr>
@@ -76,7 +76,7 @@
 
                     <?php if (file_exists("/install/.btsync.lock")) { ?>
                     <tr>
-                      <td><?php echo "$bval"; ?> BTSync </td>
+                      <td><span id="appstat_btsync"></span> BTSync </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=btsync'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodyb"; ?></td>
                     </tr>
@@ -84,7 +84,7 @@
 
                     <?php if (file_exists("/install/.couchpotato.lock")) { ?>
                     <tr>
-                      <td><?php echo "$cpval"; ?> CouchPotato </td>
+                      <td><span id="appstat_couchpotato"></span> CouchPotato </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=couchpotato'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodycp"; ?></td>
                     </tr>
@@ -92,7 +92,7 @@
 
                     <?php if (file_exists("/install/.emby.lock")) { ?>
                     <tr>
-                      <td><?php echo "$eval"; ?> Emby </td>
+                      <td><span id="appstat_emby"></span> Emby </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=emby'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodye"; ?></td>
                     </tr>
@@ -100,7 +100,7 @@
 
                     <?php if (file_exists("/install/.headphones.lock")) { ?>
                     <tr>
-                      <td><?php echo "$hpval"; ?> Headphones </td>
+                      <td><span id="appstat_headphones"></span> Headphones </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=headphones'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodyhp"; ?></td>
                     </tr>
@@ -108,7 +108,7 @@
 
                     <?php if (file_exists("/install/.jackett.lock")) { ?>
                     <tr>
-                      <td><?php echo "$jval"; ?> Jackett </td>
+                      <td><span id="appstat_jackett"></span> Jackett </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=jackett'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodyj"; ?></td>
                     </tr>
@@ -124,7 +124,7 @@
 
                     <?php if (file_exists("/install/.nzbget.lock")) { ?>
                     <tr>
-                      <td><?php echo "$nzgval"; ?> NZBGet </td>
+                      <td><span id="appstat_nzbget"></span> NZBGet </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=nzbget'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodynzg"; ?></td>
                     </tr>
@@ -132,7 +132,7 @@
 
                     <?php if (file_exists("/install/.nzbhydra.lock")) { ?>
                     <tr>
-                      <td><?php echo "$nzbval"; ?> NZBHydra </td>
+                      <td><span id="appstat_nzbhydra"></span> NZBHydra </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=nzbhydra'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodynzb"; ?></td>
                     </tr>
@@ -140,7 +140,7 @@
 
                     <?php if (file_exists("/install/.ombi.lock")) { ?>
                     <tr>
-                      <td><?php echo "$prval"; ?> Ombi </td>
+                      <td><span id="appstat_ombi"></span> Ombi </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=ombi'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodypr"; ?></td>
                     </tr>
@@ -156,7 +156,7 @@
 
                     <?php if (file_exists("/install/.plexpy.lock")) { ?>
                     <tr>
-                      <td><?php echo "$ppval"; ?> PlexPy </td>
+                      <td><span id="appstat_plexpy"></span> PlexPy </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=plexpy'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodypp"; ?></td>
                     </tr>
@@ -164,7 +164,7 @@
 
                     <?php if (file_exists("/install/.pyload.lock")) { ?>
                     <tr>
-                      <td><?php echo "$plval"; ?> pyLoad </td>
+                      <td><span id="appstat_pyload"></span> pyLoad </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=pyload'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodypl"; ?></td>
                     </tr>
@@ -172,7 +172,7 @@
 
                     <?php if (file_exists("/install/.radarr.lock")) { ?>
                     <tr>
-                      <td><?php echo "$radval"; ?> Radarr </td>
+                      <td><span id="appstat_radarr"></span> Radarr </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=radarr'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodyrad"; ?></td>
                     </tr>
@@ -180,7 +180,7 @@
 
                     <?php if (file_exists("/install/.sabnzbd.lock")) { ?>
                     <tr>
-                      <td><?php echo "$szval"; ?> SABnzbd </td>
+                      <td><span id="appstat_sabnzbd"></span> SABnzbd </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=sabnzbd'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodysz"; ?></td>
                     </tr>
@@ -188,7 +188,7 @@
 
                     <?php if (file_exists("/install/.sickgear.lock")) { ?>
                     <tr>
-                      <td><?php echo "$sgval"; ?> SickGear </td>
+                      <td><span id="appstat_sickgear"></span> SickGear </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=sickgear'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodysg"; ?></td>
                     </tr>
@@ -196,7 +196,7 @@
 
                     <?php if (file_exists("/install/.sickrage.lock")) { ?>
                     <tr>
-                      <td><?php echo "$srval"; ?> SickRage </td>
+                      <td><span id="appstat_sickrage"></span> SickRage </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=sickrage'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodysr"; ?></td>
                     </tr>
@@ -204,7 +204,7 @@
                                                                                                                                                                                               
                     <?php if (file_exists("/install/.sonarr.lock")) { ?>
                     <tr>
-                      <td><?php echo "$sval"; ?> Sonarr </td>
+                      <td><span id="appstat_sonarr"></span> Sonarr </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=sonarr'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodys"; ?></td>
                     </tr>
@@ -212,7 +212,7 @@
 
                     <?php if (file_exists("/install/.subsonic.lock")) { ?>
                     <tr>
-                      <td><?php echo "$ssval"; ?> Subsonic </td>
+                      <td><span id="appstat_subsonic"></span> Subsonic </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=subsonic'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodyss"; ?></td>
                     </tr>
@@ -220,7 +220,7 @@
 
                     <?php if (file_exists("/install/.syncthing.lock")) { ?>
                     <tr>
-                      <td><?php echo "$stval"; ?> Syncthing </td>
+                      <td><span id="appstat_syncthing"></span> Syncthing </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=syncthing'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodyst"; ?></td>
                     </tr>
@@ -228,9 +228,9 @@
 
                     <?php if (file_exists("/install/.sample.lock")) { ?>
                     <tr>
-                      <td><?php echo "$val"; ?> SAMPLE </td>
+                      <td><?php echo "$sampleval"; ?> SAMPLE </td>
                       <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=sample'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
-                      <td class="text-center"><?php echo "$cbody"; ?></td>
+                      <td class="text-center"><?php echo "$samplebody"; ?></td>
                     </tr>
                     <?php } ?>
 
