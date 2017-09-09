@@ -171,7 +171,7 @@
         <h4 class="modal-title" id="NZBGetRemovalConfirm"><?php echo T('UNINSTALL_TITLE'); ?> NZBGet?</h4>
       </div>
       <div class="modal-body">
-        <?php echo T('UNINSTALL_NZBGet_TXT'); ?>
+        <?php echo T('UNINSTALL_NZBGET_TXT'); ?>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
