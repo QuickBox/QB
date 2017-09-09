@@ -257,6 +257,7 @@ $delugedweb = processExists("deluge-web",$username);
 $emby = processExists("emby-server",$username);
 $headphones = processExists("headphones",$username);
 $irssi = processExists("irssi",$username);
+$nzbget = processExists("nzbget",$username);
 $nzbhydra = processExists("nzbhydra",$username);
 $ombi = processExists("ombi",$username);
 $plex = processExists("Plex",plex);
