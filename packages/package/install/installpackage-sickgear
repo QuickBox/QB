@@ -252,8 +252,8 @@ _tweakConfig() {
     sed -i -e 's/password\W*=.*/password='"${SG_PASSWORD}"'/' ${SG_INSTALL_DIR}app/autoProcessTV/autoProcessTV.cfg
   fi
   if [[ ! -z ${SG_WEB_ROOT} ]]; then
-    sed -i -e 's/web_root\W*=.*/web_root = "'"${SG_WEB_ROOT}"'"/' ${SG_INSTALL_DIR}data/config.ini
-    sed -i -e 's/web_root\W*=.*/web_root="'${SG_WEB_ROOT}'"/' ${SG_INSTALL_DIR}app/autoProcessTV/autoProcessTV.cfg
+    sed -i -e 's/web_root\W*=.*/web_root = "\'"${SG_WEB_ROOT}"'"/' ${SG_INSTALL_DIR}data/config.ini
+    sed -i -e 's/web_root\W*=.*/web_root=\'${SG_WEB_ROOT}'/' ${SG_INSTALL_DIR}app/autoProcessTV/autoProcessTV.cfg
   fi
 
   APACHE_MODE=enabled
