@@ -50,7 +50,7 @@ APP_REPO=http://nzbget.net/info/nzbget-version-linux.json
 REVERSE_PROXY_URL=http://${APP_HOST}:${APP_SERVICE_PORT} # ${APP_WEB_ROOT} << only append the web root if needed >> 
 
 # To print to shell, set to nothing, otherwise output to LOGFILE
-USE_LOGFILE=/srv/rutorrent/home/db/output.log
+USE_LOGFILE=yes
 LOGFILE=/srv/rutorrent/home/db/output.log
 
 # To get most output from commands that are run, set to nothing
@@ -112,7 +112,7 @@ _installApplicationIntro() {
 _updateSystem() {
   _print "0%..Updating system..."
 
-  _sudo "apt-get -y update"
+  _sudo "apt-get -yqq update"
 }
 
 _installBaseDeps() {
@@ -121,7 +121,7 @@ _installBaseDeps() {
   for i in "${APP_BASEDEPS_WHICH}"; do
   app=${i}
     if [[ ! -n `which ${app}` ]]; then
-      _sudo "apt-get -y install ${app}"
+      _sudo "apt-get -yqq install ${app}"
     else
       _print "OK, ${app} dependencies are already installed"
     fi
@@ -148,9 +148,9 @@ _pullApplicationRepo() {
     #_sudo "git clone ${APP_REPO} ${APP_INSTALL_DIR}/"
 
     # wget and special conditions for grabbing example
-    _sudo wget -O - ${APP_REPO} | \
-      sed -n "s/^.*stable-download.*: \"\(.*\)\".*/\1/p" | \
-      wget --no-check-certificate -i - -O ${APP_SERVICE}-latest-bin-linux.run
+    wget -O - ${APP_REPO} | \
+          sed -n "s/^.*stable-download.*: \"\(.*\)\".*/\1/p" | \
+          wget --no-check-certificate -i - -O nzbget-latest-bin-linux.run
 
     sh ${APP_SERVICE}-latest-bin-linux.run --destdir ${APP_INSTALL_DIR}
     rm ${APP_SERVICE}-latest-bin-linux.run
@@ -198,9 +198,9 @@ After=network.target
 User=${APP_USERNAME}
 Group=${APP_USERNAME}
 Type=forking
-ExecStart=${APP_INSTALL_DIR} -c ${APP_INSTALL_DIR}nzbget.conf -D
-ExecStop=${APP_INSTALL_DIR} -Q
-ExecReload=${APP_INSTALL_DIR} -O
+ExecStart=${APP_INSTALL_DIR}nzbget -c ${APP_INSTALL_DIR}nzbget.conf -D
+ExecStop=${APP_INSTALL_DIR}nzbget -Q
+ExecReload=${APP_INSTALL_DIR}nzbget -O
 KillMode=process
 Restart=on-failure
 
@@ -222,13 +222,13 @@ _firstRunCycle() {
 _tweakConfig() {
   _print "85%..Setting up ${APP_SERVICE_NAME} config ..."
 
-  APACHE_MODE=available
+  APACHE_MODE=enabled
   APACHE_PATH=/etc/apache2/sites-${APACHE_MODE}
   if [[ -d ${APACHE_PATH} ]]; then
     sudo cat >${APACHE_PATH}/${APP_SERVICE}.conf<<-EOF
     <Location ${APP_WEB_ROOT}>
-    ProxyPass ${REVERSE_PROXY_URL}
-    ProxyPassReverse ${REVERSE_PROXY_URL}
+    ProxyPass ${REVERSE_PROXY_URL}/${APP_SERVICE}
+    ProxyPassReverse ${REVERSE_PROXY_URL}/${APP_SERVICE}
     AuthType Digest
     AuthName "rutorrent"
     AuthUserFile '/etc/htpasswd'
@@ -236,7 +236,9 @@ _tweakConfig() {
     </Location>
 EOF
     sudo chown www-data: ${APACHE_PATH}/${APP_SERVICE}.conf
-    #_do "service apache2 reload"    # only need this if mode is "enabled"
+    sudo chown ${APP_USERNAME}:${APP_USERNAME} -R ${APP_INSTALL_DIR}
+    sed -i "/DaemonUsername=/c\DaemonUsername=${APP_USERNAME}" ${APP_INSTALL_DIR}nzbget.conf
+    _do "service apache2 reload"    # only need this if mode is "enabled"
   fi
 
   _sudo "systemctl start ${APP_SERVICE}" # @.service" << only append port or username if necessary >> 
@@ -262,7 +264,6 @@ _installApplicationOutro() {
 ################################################################################
 
 _removeApplicationIntro() {
-  APP_INSTALL_DIR=/home/${APP_USERNAME}/${APP_SERVICE}/
   _print "${APP_SERVICE_NAME} will be stopped and removed from ${APP_INSTALL_DIR}"
   _print "You can reinstall anytime with 'box install ${APP_SERVICE}'"
   _print "Process begins in 10 seconds (giving time to Ctrl-C abort)"
@@ -304,6 +305,7 @@ _done() {
 }
 
 if [[ remove == $1 ]]; then
+  _getUserVars
   _removeApplicationIntro
   _removeApplicationFiles
   _removeApplicationOutro
@@ -312,7 +314,7 @@ else
   _getUserVars
   _installApplicationIntro;_updateSystem
   _installBaseDeps;_pullApplicationRepo
-  _applyPerms
+  #_applyPerms
   #_buildAdditionalDeps # << uncomment if function is used >>
   _setSystemd;_firstRunCycle
   _tweakConfig
