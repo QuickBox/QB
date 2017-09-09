@@ -15,9 +15,9 @@ function processExists($processName, $username) {
 $sickgear = processExists("sickgear",$username);
 
 if ($sickgear == "1") { $sgval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
-} else { $srval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
+} else { $sgval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
 }
 
-echo "$srval";
+echo "$sgval";
 
 ?>
