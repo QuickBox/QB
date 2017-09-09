@@ -276,7 +276,7 @@ $couchpotato = processExists("couchpotato",$username);
 $quassel = processExists("quassel",$username);
 $shellinabox = processExists("shellinabox",shellinabox);
 $csf = processExists("lfd",root);
-$sickgear = processExists("sickgear",$username);
+$sickgear = processExists("sickgear",8088);
 $nzbget = processExists("nzbget",$username);
 $znc = processExists("znc",$username);
 
@@ -373,7 +373,7 @@ case 0:
     $cbodyrl .= $rapidleech;
   $sabnzbd = isEnabled("sabnzbd", $username);
     $cbodysz .= $sabnzbd;
-  $sickgear = isEnabled("sickgear", $username);
+  $sickgear = isEnabled("sickgear", 8088);
     $cbodysg .= $sickgear;
   $sickrage = isEnabled("sickrage", $username);
     $cbodysr .= $sickrage;
@@ -422,9 +422,6 @@ case 66:
     } elseif ($process == "radarr"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
-    } elseif ($process == "sickgear"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl start $process");
     } elseif ($process == "subsonic"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
@@ -465,9 +462,6 @@ case 77:
     } elseif ($process == "radarr"){
       shell_exec("sudo systemctl stop $process");
       shell_exec("sudo systemctl disable $process");
-    } elseif ($process == "sickgear"){
-      shell_exec("sudo systemctl stop $process");
-      shell_exec("sudo systemctl disable $process");
     } elseif ($process == "subsonic"){
       shell_exec("sudo systemctl stop $process");
       shell_exec("sudo systemctl disable $process");
@@ -506,9 +500,6 @@ case 88:
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
     } elseif ($process == "radarr"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl restart $process");
-    } elseif ($process == "sickgear"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
     } elseif ($process == "subsonic"){
