@@ -275,7 +275,7 @@ EOF
   fi
 
   _sudo "systemctl start ${SG_SERVICE}@${SG_PORT}"
-  _sudo "systemctl start ${SG_SERVICE}@${SG_USERNAME}"
+  #_sudo "systemctl start ${SG_SERVICE}@${SG_USERNAME}"
 }
 
 _installSickGearOutro() {
@@ -285,10 +285,10 @@ _installSickGearOutro() {
   _print "  systemctl status ${SG_SERVICE}@${SG_PORT} -l"
   _print "  systemctl stop ${SG_SERVICE}@${SG_PORT}"
   _print
-  _print "Systemd service user specific. Example commands.."
-  _print "  systemctl start ${SG_SERVICE}@${SG_USERNAME}"
-  _print "  systemctl status ${SG_SERVICE}@${SG_USERNAME} -l"
-  _print "  systemctl stop ${SG_SERVICE}@${SG_USERNAME}"
+  #_print "Systemd service user specific. Example commands.."
+  #_print "  systemctl start ${SG_SERVICE}@${SG_USERNAME}"
+  #_print "  systemctl status ${SG_SERVICE}@${SG_USERNAME} -l"
+  #_print "  systemctl stop ${SG_SERVICE}@${SG_USERNAME}"
 
   _print
   sleep 5
