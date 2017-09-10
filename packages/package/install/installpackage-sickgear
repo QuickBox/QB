@@ -61,11 +61,11 @@ SG_USERNAME=
 SG_PASSWORD=
 
 # Default port to connect to reach the running SickGear application
-SG_PORT=8081
+SG_PORT=8088
 SG_HOST=localhost
 
 # String must begin with a slash, example.. /sickgear
-SG_WEB_ROOT=
+SG_WEB_ROOT=/sickgear
 
 SG_REPO=https://github.com/SickGear/SickGear.git
 
@@ -77,8 +77,8 @@ PYTHON_VER=2.7.13
 PYTHON_BIN=${SG_INSTALL_DIR}.pyenv/versions/${PYTHON_VER}/bin/
 
 # To print to shell, set to nothing, otherwise output to LOGFILE
-USE_LOGFILE=  #yes
-LOGFILE=/srv/rutorrent/home/db/output.log	# QuickBox logfile
+USE_LOGFILE=yes
+LOGFILE=/srv/rutorrent/home/db/output.log # QuickBox logfile
 
 # To get most output from commands that are run, set to nothing
 MIN_OUTPUT=  #yes
@@ -126,6 +126,7 @@ _installSickGearIntro() {
   _print "This process may take several minutes"
   _print "Please wait until process is completed"
 
+  _print
   echo
   sleep 5
 }
@@ -133,19 +134,19 @@ _installSickGearIntro() {
 _updateSystem() {
   _print "0%..Updating system..."
 
-  _sudo "apt-get -y update"
+  _sudo "apt-get -yqq update"
 }
 
 _installBaseDeps() {
   _print "11%..Installing application dependencies: git and unrar-free ..."
 
   if [[ ! -n `which git` ]]; then
-    _sudo "apt-get -y install git"
+    _sudo "apt-get -yqq install git"
   else
     _print "OK, git found"
   fi
   if [[ ! -n `which unrar-free` ]]; then
-    _sudo "apt-get -y install unrar-free"
+    _sudo "apt-get -yqq install unrar-free"
   else
     _print "OK, unrar-free found"
   fi
@@ -209,20 +210,20 @@ _buildPythonAndDeps() {
 _setSystemd() {
   _print "66%..Adding SickGear as a systemd service ..."
   sudo cat >/etc/systemd/system/${SG_SERVICE}@.service<<-EOF
-		[Unit]
-		Description=SickGear Service
+    [Unit]
+    Description=SickGear Service
 
-		[Service]
-		User=${FILE_OWNER}
-		Group=${FILE_OWNER}
+    [Service]
+    User=${FILE_OWNER}
+    Group=${FILE_OWNER}
 
-		Environment=PYTHONUNBUFFERED=true
-		ExecStart=${PYTHON_BIN}python2 ${SG_INSTALL_DIR}app/SickBeard.py --systemd --datadir=${SG_INSTALL_DIR}data --port=%I
-		KillMode=process
-		Restart=on-failure
+    Environment=PYTHONUNBUFFERED=true
+    ExecStart=${PYTHON_BIN}python2 ${SG_INSTALL_DIR}app/SickBeard.py --systemd --datadir=${SG_INSTALL_DIR}data --port=%I
+    KillMode=process
+    Restart=on-failure
 
-		[Install]
-		WantedBy=multi-user.target
+    [Install]
+    WantedBy=multi-user.target
 EOF
 }
 
@@ -252,28 +253,29 @@ _tweakConfig() {
     sed -i -e 's/password\W*=.*/password='"${SG_PASSWORD}"'/' ${SG_INSTALL_DIR}app/autoProcessTV/autoProcessTV.cfg
   fi
   if [[ ! -z ${SG_WEB_ROOT} ]]; then
-    sed -i -e 's/web_root\W*=.*/web_root = "'"${SG_WEB_ROOT}"'"/' ${SG_INSTALL_DIR}data/config.ini
-    sed -i -e 's/web_root\W*=.*/web_root="'${SG_WEB_ROOT}'"/' ${SG_INSTALL_DIR}app/autoProcessTV/autoProcessTV.cfg
+    sed -i -e 's/web_root\W*=.*/web_root = "\'"${SG_WEB_ROOT}"'"/' ${SG_INSTALL_DIR}data/config.ini
+    sed -i -e 's/web_root\W*=.*/web_root=\'${SG_WEB_ROOT}'/' ${SG_INSTALL_DIR}app/autoProcessTV/autoProcessTV.cfg
   fi
 
-  APACHE_MODE=available
+  APACHE_MODE=enabled
   APACHE_PATH=/etc/apache2/sites-${APACHE_MODE}
   if [[ -d ${APACHE_PATH} ]]; then
     sudo cat >${APACHE_PATH}/${SG_SERVICE}.conf<<-EOF
-		<Location ${SG_WEB_ROOT}>
-		AuthName "rutorrent"
-		AuthType Digest
-		AuthUserFile "/etc/htpasswd"
-		ProxyPass ${REVERSE_PROXY_URL}
-		ProxyPassReverse ${REVERSE_PROXY_URL}
-		Require user ${SG_USERNAME}
-		</Location>
+    <Location ${SG_WEB_ROOT}>
+    AuthName "rutorrent"
+    AuthType Digest
+    AuthUserFile "/etc/htpasswd"
+    ProxyPass ${REVERSE_PROXY_URL}
+    ProxyPassReverse ${REVERSE_PROXY_URL}
+    Require user ${SG_USERNAME}
+    </Location>
 EOF
     sudo chown www-data: ${APACHE_PATH}/${SG_SERVICE}.conf
-    #_do "service apache2 reload"    # only need this if mode is "enabled"
+    _do "service apache2 reload"    # only need this if mode is "enabled"
   fi
 
   _sudo "systemctl start ${SG_SERVICE}@${SG_PORT}"
+  #_sudo "systemctl start ${SG_SERVICE}@${SG_USERNAME}"
 }
 
 _installSickGearOutro() {
@@ -282,6 +284,11 @@ _installSickGearOutro() {
   _print "  systemctl start ${SG_SERVICE}@${SG_PORT}"
   _print "  systemctl status ${SG_SERVICE}@${SG_PORT} -l"
   _print "  systemctl stop ${SG_SERVICE}@${SG_PORT}"
+  _print
+  #_print "Systemd service user specific. Example commands.."
+  #_print "  systemctl start ${SG_SERVICE}@${SG_USERNAME}"
+  #_print "  systemctl status ${SG_SERVICE}@${SG_USERNAME} -l"
+  #_print "  systemctl stop ${SG_SERVICE}@${SG_USERNAME}"
 
   _print
   sleep 5
@@ -301,6 +308,8 @@ _removeSickGearFiles() {
 
   _sudo "systemctl stop ${SG_SERVICE}@${SG_PORT}"
   _sudo "systemctl disable ${SG_SERVICE}@${SG_PORT}"
+  #_sudo "systemctl stop ${SG_SERVICE}@${SG_USERNAME}"
+  #_sudo "systemctl disable ${SG_SERVICE}@${SG_USERNAME}"
   _sudo "rm -f /etc/systemd/system/${SG_SERVICE}@.service"
 
   APACHE_MODE=enabled

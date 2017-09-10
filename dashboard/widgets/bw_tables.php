@@ -116,9 +116,9 @@ function write_data_table_s($caption, $tab) {
   print "<thead>";
   print "<tr>";
   print "<th class=\"text-right\" style=\"width:25%;\">$caption</th>";
-  print "<th class=\"text-right\" style=\"width:24.5%;\">".T('In')."</th>";
   print "<th class=\"text-right\" style=\"width:24.5%;\">".T('Out')."</th>";
-  print "<th class=\"text-right\" style=\"width:24.5%;\">".T('Total')."</th>";
+  print "<th class=\"text-left\" style=\"width:24.5%;\">".T('In')."</th>";
+  print "<th class=\"text-left\" style=\"width:24.5%;\">".T('Total')."</th>";
   print "</tr>";
   print "</thead>";
   print "<tbody>\n";
@@ -131,10 +131,10 @@ function write_data_table_s($caption, $tab) {
       $total = kbytes_to_string($tab[$i]['rx']+$tab[$i]['tx']);
       $id = ($i & 1) ? 'odd' : 'even';
       print "<tr>";
-      print "<td class=\"label_$id\" style=\"font-size:12px;;text-align:right\"><b>$t</b></td>";
-      print "<td class=\"numeric_$id\" style=\"font-size:12px;;text-align:right\">$rx</td>";
-      print "<td class=\"numeric_$id\" style=\"font-size:12px;;text-align:right\">$tx</td>";
-      print "<td class=\"numeric_$id\" style=\"font-size:12px;;text-align:right\">$total</td>";
+      print "<td class=\"label_$id\" style=\"font-size:12px;text-align:right\"><b>$t</b></td>";
+      print "<td class=\"numeric_$id text-success\" style=\"font-size:12px;text-align:right\">$tx</td>";
+      print "<td class=\"numeric_$id text-primary\" style=\"font-size:12px;text-align:left\">$rx</td>";
+      print "<td class=\"numeric_$id\" style=\"font-size:12px;text-align:left\">$total</td>";
       print "</tr>\n";
     }
   }
@@ -148,9 +148,9 @@ function write_data_table_t($caption, $tab) {
   print "<thead>";
   print "<tr>";
   print "<th class=\"text-right\" style=\"width:25%;\">$caption</th>";
-  print "<th class=\"text-right\" style=\"width:24.5%;\">".T('In')."</th>";
   print "<th class=\"text-right\" style=\"width:24.5%;\">".T('Out')."</th>";
-  print "<th class=\"text-right\" style=\"width:24.5%;\">".T('Total')."</th>";
+  print "<th class=\"text-left\" style=\"width:24.5%;\">".T('In')."</th>";
+  print "<th class=\"text-left\" style=\"width:24.5%;\">".T('Total')."</th>";
   print "</tr>";
   print "</thead>";
 
@@ -165,9 +165,9 @@ function write_data_table_t($caption, $tab) {
       $id = ($i & 1) ? 'odd' : 'even';
       print "<tr>";
       print "<td class=\"label_$id\" style=\"font-size:12px;;text-align:right\"><b>$t</b></td>";
-      print "<td class=\"numeric_$id\" style=\"font-size:12px;text-align:right\">$rx</td>";
-      print "<td class=\"numeric_$id\" style=\"font-size:12px;;text-align:right\">$tx</td>";
-      print "<td class=\"numeric_$id\" style=\"font-size:12px;;text-align:right\">$total</td>";
+      print "<td class=\"numeric_$id text-success\" style=\"font-size:12px;text-align:right\">$tx</td>";
+      print "<td class=\"numeric_$id text-primary\" style=\"font-size:12px;text-align:left\">$rx</td>";
+      print "<td class=\"numeric_$id\" style=\"font-size:12px;text-align:left\">$total</td>";
       print "</tr>\n";
     }
   }
