@@ -308,8 +308,8 @@ _removeSickGearFiles() {
 
   _sudo "systemctl stop ${SG_SERVICE}@${SG_PORT}"
   _sudo "systemctl disable ${SG_SERVICE}@${SG_PORT}"
-  _sudo "systemctl stop ${SG_SERVICE}@${SG_USERNAME}"
-  _sudo "systemctl disable ${SG_SERVICE}@${SG_USERNAME}"
+  #_sudo "systemctl stop ${SG_SERVICE}@${SG_USERNAME}"
+  #_sudo "systemctl disable ${SG_SERVICE}@${SG_USERNAME}"
   _sudo "rm -f /etc/systemd/system/${SG_SERVICE}@.service"
 
   APACHE_MODE=enabled
