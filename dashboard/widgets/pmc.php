@@ -13,7 +13,7 @@
             <div class="panel-body text-center" style="padding:0;">
               <div class="alert alert-danger">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <?php echo T('PMC_NOTICE_TXT'); ?>
+                <div align = "center"><?php echo T('PMC_NOTICE_TXT'); ?></div>
               </div>
               <div class="table-responsive ps-container">
                 <table id="dataTable1" class="table table-bordered table-striped-col" style="font-size: 12px">
