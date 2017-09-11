@@ -127,7 +127,7 @@
                     </tr>
                     <tr>
                       <td>Ombi</td>
-                      <td><?php echo T('PLEX_REQUESTS'); ?></td>
+                      <td><?php echo T('OMBI'); ?></td>
                       <?php if (file_exists("/install/.ombi.lock")) { ?>
                         <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#ombiRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>

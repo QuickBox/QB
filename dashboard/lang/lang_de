@@ -120,11 +120,13 @@ $L['DELUGE'] = 'Deluge ist ein leichter, kostenloser, Cross-Plattform BitTorrent
 $L['EMBY'] = 'Emby Server is a client-server software package that lets consumers host their legal personal copies of multimedia — music, video and picture files. ... The Emby client software is an app you need to install on mobile devices and certain settop boxes for televisions, like Android TV.';
 $L['HEADPHONES'] = 'Headphones is an automated music downloader for NZB and Torrent, written in Python. It supports SABnzbd, NZBget, Transmission, µTorrent, Deluge and Blackhole.';
 $L['JACKETT'] = 'API-Unterstützung für deine favorisierten privaten Tracker.';
+$L['MEDUSA'] = 'Video File Manager für Serien, der nach den neuesten Episoden deiner Lieblingsserien Ausschau hält und diese dann automatisiert runterlädt und organisiert.';
 $L['NEXTCLOUD'] = 'Nextcloud ist eine selbst-gehostete Open-Source, Dateisynchronisations- sowie Teilungs- und Kommunikationsplattform. Greife auf deine Dateien, deinen Kalender, deine Kontakte zu, synchronisiere sie und kommuniziere und kollaboriere auf all deinen Geräten. Dabei entscheidest du, was mit deinen Daten passiert, wo sie sind und wer auf diese zugreifen darf!';
+$L['NZBGET'] = 'NZBGet is a binary downloader, which downloads files from Usenet based on information given in nzb-files.  NZBGet is written in C++ and is known for its extraordinary performance and efficiency.';
 $L['NZBHYDRA'] = 'NZBHydra is a meta search for NZB indexers. It provides easy access to a number of raw and newznab based indexers. You can search all your indexers from one place and use it as indexer source for tools like Sonarr or CouchPotato.';
+$L['OMBI'] = 'Ombi ist ein schicker und einfach zu bedienender Webdienst, über den die Benutzer Wünsche für die Plex-Bibliothek eintragen können. Dieser funktioniert mit CouchPotato, SickRage und Sonarr.';
 $L['OVPN'] = 'SSL/TLS basierter User-Space VPN. Unterstützt Linux, Solaris, OpenBSD, FreeBSD, NetBSD, Mac OS X, und Windows 2000/XP+.';
 $L['PLEX'] = 'Mit Plex kannst du deine Medien verwalten und auf jedes Gerät streamen, auf dem Plex verfügbar ist.';
-$L['PLEX_REQUESTS'] = 'Plex Requests ist ein schicker und einfach zu bedienender Webdienst, über den die Benutzer Wünsche für die Plex-Bibliothek eintragen können. Dieser funktioniert mit CouchPotato, SickRage und Sonarr.';
 $L['PLEXPY'] = 'Eine auf Python basierende Web-Applikation, um den Plex-Server zu überwachen, zu managen und das Nutzungsverhalten der Benutzer zu analysieren.';
 $L['PYLOAD'] = 'pyLoad ist ein Download-Manager für One-Click-Hoster, Video-Webseiten, und HTTP/FTP Links. Eine Liste von unterstützten Webseiten kann <a href="https://github.com/pyload/pyload/wiki/Supported-Hoster" target="_blank">hier</a> gefunden werden.';
 $L['QUASSEL'] = 'Quassel IRC ist ein moderner, plattformübergreifender, verteilter IRC-Client, der auf dem Qt4-Framework basiert.';
@@ -133,8 +135,8 @@ $L['RADARR'] = 'Radarr is an independent fork of Sonarr reworked for automatical
 The project was inspired by other Usenet/BitTorrent movie downloaders such as CouchPotato.';
 $L['RAPIDLEECH'] = 'RapidLeech ist ein freies Server-Transfer-Skript, das Dateien von populären File-Hostern wie uploaded.net, zippyshare.com oder einem der über 100 anderen Hostern runter- oder sie hochlädt.';
 $L['SABNZBD'] = 'SABnzbd ist ein plattformunabhängiger Binary-Newsgroup-Downloader. Das Programm arbeitet im Hintergrund und vereinfacht das Downloaden, Prüfen und Extrahieren von Dateien aus dem Usenet. SABnzbd nutzt dafür NZB-Dateien (vergleichbar mit .torrent-Dateien, aber für das Usenet), anstatt das Usenet direkt zu durchsuchen.';
+$L['SICKGEAR'] = 'SickGear is Sick-Beard evolved. Automate your TV enjoyment with innovation, proven stability and reliability.';
 $L['SICKRAGE'] = 'Video File Manager für Serien, der nach den neuesten Episoden deiner Lieblingsserien Ausschau hält und diese dann automatisiert runterlädt und organisiert.';
-$L['MEDUSA'] = 'Video File Manager für Serien, der nach den neuesten Episoden deiner Lieblingsserien Ausschau hält und diese dann automatisiert runterlädt und organisiert.';
 $L['SONARR'] = 'Sonarr ist ein Serien-Management-Tool, das mit Torrents und UseNet funktioniert.';
 $L['SUBSONIC'] = 'Subsonic ist ein webbasierter Media-Server. Da er in Java geschrieben ist, kann er auf jedem Betriebssystem mit Java-Support betrieben werden. Subsonic ermöglicht das simultane Streamen auf mehrere Clienten und unterstützt jedes streambare Medienformat (inklusive MP3, AAC, und Ogg).';
 $L['SYNCTHING'] = 'Syncthing ist eine quelloffen und in Go geschriebene Dateisynchronisation mit BitTorrent.';
@@ -248,10 +250,6 @@ $L['CPU_USED'] = 'genutzt';
 // idle percentage
 $L['CPU_IDLE'] = 'inaktiv';
 
-// cpu info
-$L['FREQUENCY'] = 'Frequenz:';
-$L['SECONDARY'] = 'Sekundärer Cache:';
-
 
 ////////////////////////////////////////
 //SERVER LOAD WIDGET
@@ -322,16 +320,16 @@ $L['UNINSTALL_NEXTCLOUD_TXT'] = 'Du bist gerade dabei, NextCloud auf deinem Syst
 $L['UNINSTALL_NZBHYDRA_TXT'] = 'You are about to uninstall NZBHydra from your system.<br/><br/>This will completely remove all of your configurations and settings... this action is irreversible. <br/><br/>You may reinstall NZBHydra at any time, however, your settings will be reset to default.';
 $L['UNINSTALL_PLEX_TXT'] = 'Du bist gerade dabei, Plex Media Server auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Bibliothekseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Plex neu installieren, dabei werden jedoch deine Bibliothekseinstellungen komplett zurückgesetzt.';
 $L['UNINSTALL_PLEXPY_TXT'] = 'Du bist gerade dabei, PlexPy auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Bibliothekseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit PlexPy neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
-$L['UNINSTALL_PLEXREQUESTS_TXT'] = 'Du bist gerade dabei, Plex Requests auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Bibliothekseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Plex Requests neu installieren, dabei werden jedoch deine Bibliothekseinstellungen sowie Wünsche komplett zurückgesetzt.';
+$L['UNINSTALL_OMBI_TXT'] = 'Du bist gerade dabei, Plex Requests auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamte Konfiguration sowie alle Bibliothekseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Plex Requests neu installieren, dabei werden jedoch deine Bibliothekseinstellungen sowie Wünsche komplett zurückgesetzt.';
 $L['UNINSTALL_PYLOAD_TXT'] = 'Du bist gerade dabei, pyLoad auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit pyLoad neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
 $L['UNINSTALL_QUASSEL_TXT'] = 'Du bist gerade dabei, Quassel auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird Quassel sowie alle Einstellungen und gespeicherten Backlogs komplett von deinem System entfernen.';
 $L['UNINSTALL_QUOTAS_TXT'] = 'Du bist gerade dabei, quotas auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird user quotas sowie alle dazugehörigen Einstellungen komplett von deinem System entfernen.';
 $L['UNINSTALL_RADARR_TXT'] = 'You are about to uninstall Radarr from your system.<br/><br/>This will completely remove all of your configuration settings... this action is irreversible. <br/><br/>You may reinstall Radarr at any time, however, your configuration settings will be reset to default.';
 $L['UNINSTALL_RAPIDLEECH_TXT'] = 'Du bist gerade dabei, Rapidleech auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Rapidleech neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
 $L['UNINSTALL_SABNZBD_TXT'] = 'Du bist gerade dabei, SABnzbd auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit SABnzbd neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
+$L['UNINSTALL_SICKGEAR_TXT'] = 'You are about to uninstall SickGear from your system.<br/><br/>This will completely remove all of your configuration settings... this action is irreversible. <br/><br/>You may reinstall SickGear at any time, however, your configuration settings will be reset to default.';
 $L['UNINSTALL_SICKRAGE_TXT'] = 'Du bist gerade dabei, SickRage auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit SickRage neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
-$L['UNINSTALL_MEDUSA_TXT'] = 'Du bist gerade dabei, Medusa auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nich
-t rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Medusa neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
+$L['UNINSTALL_MEDUSA_TXT'] = 'Du bist gerade dabei, Medusa auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Medusa neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
 $L['UNINSTALL_SONARR_TXT'] = 'Du bist gerade dabei, Sonarr auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Sonarr-NzbDrone neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
 $L['UNINSTALL_SUBSONIC_TXT'] = 'Du bist gerade dabei, Subsonic auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Subsonic neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
 $L['UNINSTALL_SYNCTHING_TXT'] = 'Du bist gerade dabei, Syncthing auf deinem System zu deinstallieren.<br/><br/>Diese Aktion wird deine gesamten Konfigurationseinstellungen löschen und ist nicht rückgängig zu machen. <br/><br/>Du kannst aber jederzeit Syncthing neu installieren, dabei werden jedoch deine Einstellungen komplett zurückgesetzt.';
