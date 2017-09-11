@@ -167,6 +167,57 @@ EOF
   fi
 }
 
+function _medusa() {
+  if [[ ! -f /etc/apache2/sites-enabled/medusa.conf ]]; then
+    # The config below is according to Medusa Wiki:
+    # https://github.com/pymedusa/Medusa/wiki/FAQ%27s-and-Fixes#reverse-proxy-is-not-working
+    LAN_IP_ADDR=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+    service medusa@${MASTER} stop
+    sed -i "s/web_root.*/web_root = \"medusa\"/g" /home/"${MASTER}"/.medusa/config.ini
+    sed -i "s/web_host.*/web_host = 0.0.0.0/g" /home/"${MASTER}"/.medusa/config.ini
+    sed -i "s/localhost_ip.*/localhost_ip = ${LAN_IP_ADDR}/g" /home/"${MASTER}"/.medusa/config.ini
+    sed -i "s/web_port.*/web_port = 8082/g" /home/"${MASTER}"/.medusa/config.ini
+    sed -i "s/ssl_verify.*/ssl_verify = 0/g" /home/"${MASTER}"/.medusa/config.ini
+    sed -i "s/enable_https.*/enable_https = 1/g" /home/"${MASTER}"/.medusa/config.ini
+    sed -i "s/https_cert.*/https_cert = ssl-cert-snakeoil.pem/g" /home/"${MASTER}"/.medusa/config.ini
+    sed -i "s/https_key.*/https_key = ssl-cert-snakeoil.key/g" /home/"${MASTER}"/.medusa/config.ini
+    sed -i "s/handle_reverse_proxy.*handle_reverse_proxy = 1/g" /home/"${MASTER}"/.medusa/config.ini
+
+    cat > /etc/apache2/sites-enabled/medusa.conf <<EOF
+LoadModule proxy_module /usr/lib/apache2/modules/mod_proxy.so
+LoadModule proxy_http_module /usr/lib/apache2/modules/mod_proxy_http.so
+LoadModule proxy_wstunnel_module /usr/lib/apache2/modules/mod_proxy_wstunnel.so
+LoadModule ssl_module modules/mod_ssl.so
+SSLProxyEngine on
+SSLProxyVerify none
+SSLProxyCheckPeerCN off
+SSLProxyCheckPeerName off
+SSLProxyCheckPeerExpire off
+LogLevel debug
+ProxyRequests Off
+<Proxy *>
+        AddDefaultCharset Off
+        Order deny,allow
+        Allow from all
+        AuthType Digest
+        AuthName "rutorrent"
+        AuthUserFile '/etc/htpasswd'
+        Require user ${MASTER}
+</Proxy>
+ProxyPass /medusa/ws wss://127.0.0.1:8082/medusa/ws keepalive=On timeout=600 retry=1 acquire=3000
+ProxyPassReverse /medusa/ws wss://127.0.0.1:8082/medusa/ws
+
+ProxyPass /medusa https://127.0.0.1:8082/medusa keepalive=On timeout=600 retry=1 acquire=3000
+ProxyPassReverse /medusa https://127.0.0.1:8082/medusa
+ProxyPassReverseCookieDomain 127.0.0.1 %{HTTP:Host}
+EOF
+
+    chown www-data: /etc/apache2/sites-enabled/medusa.conf
+    service apache2 reload
+    service medusa@${MASTER} start
+  fi
+}
+
 function _sonarr() {
   if [[ ! -f /etc/apache2/sites-enabled/sonarr.conf ]]; then
     systemctl stop sonarr@${MASTER}
@@ -249,6 +300,7 @@ if [[ -f /install/.plexpy.lock ]]; then _plexpy; fi
 #if [[ -f /install/.ombi.lock ]]; then _ombi; fi
 if [[ -f /install/.sabnzbd.lock ]]; then _sabnzbd; fi
 if [[ -f /install/.sickrage.lock ]]; then _sickrage; fi
+if [[ -f /install/.medusa.lock ]]; then _medusa; fi
 if [[ -f /install/.sonarr.lock ]]; then _sonarr; fi
 if [[ -f /install/.subsonic.lock ]]; then _subsonic; fi
 if [[ -f /install/.syncthing.lock ]]; then _syncthing; fi

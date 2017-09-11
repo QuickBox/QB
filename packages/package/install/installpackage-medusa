@@ -1,0 +1,106 @@
+#!/bin/bash
+#
+# [Quick Box :: Install Medusa package]
+#
+# GITHUB REPOS
+# GitHub _ packages  :   https://github.com/QuickBox/QB/tree/master/packages
+# LOCAL REPOS
+# Local _ packages   :   /etc/QuickBox/packages
+# Author             :   smoresmores
+# URL                :   https://quickbox.io
+#
+# QuickBox Copyright (C) 2017 QuickBox.io
+# Licensed under GNU General Public License v3.0 GPL-3 (in short)
+#
+#   You may copy, distribute and modify the software as long as you track
+#   changes/dates in source files. Any modifications to our software
+#   including (via compiler) GPL-licensed code must also be made available
+#   under the GPL along with build & install instructions.
+#
+MASTER=$(cat /srv/rutorrent/home/db/master.txt)
+OUTTO=/srv/rutorrent/home/db/output.log
+local_setup=/etc/QuickBox/setup/
+
+function _installMedusa1() {
+  sudo git clone https://github.com/pymedusa/Medusa.git  /home/"${MASTER}"/.medusa >/dev/null 2>&1
+}
+function _installMedusa2() {
+  touch /install/.medusa.lock
+  cp /etc/ssl/certs/ssl-cert-snakeoil.pem /home/"${MASTER}"/.medusa/
+  cp /etc/ssl/private/ssl-cert-snakeoil.key /home/"${MASTER}"/.medusa/
+  chown "${MASTER}":"${MASTER}" -R /home/"${MASTER}"/.medusa
+  chmod 664 /etc/ssl/private/ssl-cert-snakeoil.key
+  chmod 664 /etc/ssl/certs/ssl-cert-snakeoil.pem
+}
+function _installMedusa3() {
+  cp ${local_setup}templates/sysd/medusa.template /etc/systemd/system/medusa@.service
+  systemctl enable medusa@${MASTER} > /dev/null 2>&1
+  systemctl start medusa@${MASTER} > /dev/null 2>&1
+  systemctl stop medusa@${MASTER} > /dev/null 2>&1
+
+  # The config below is according to Medusa Wiki:
+  # https://github.com/pymedusa/Medusa/wiki/FAQ%27s-and-Fixes#reverse-proxy-is-not-working
+  LAN_IP_ADDR=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+
+  sed -i "s/web_root.*/web_root = \"medusa\"/g" /home/"${MASTER}"/.medusa/config.ini
+  sed -i "s/web_host.*/web_host = 0.0.0.0/g" /home/"${MASTER}"/.medusa/config.ini
+  sed -i "s/localhost_ip.*/localhost_ip = ${LAN_IP_ADDR}/g" /home/"${MASTER}"/.medusa/config.ini
+  sed -i "s/web_port.*/web_port = 8082/g" /home/"${MASTER}"/.medusa/config.ini
+  sed -i "s/ssl_verify.*/ssl_verify = 0/g" /home/"${MASTER}"/.medusa/config.ini
+  sed -i "s/enable_https.*/enable_https = 1/g" /home/"${MASTER}"/.medusa/config.ini
+  sed -i "s/https_cert.*/https_cert = ssl-cert-snakeoil.pem/g" /home/"${MASTER}"/.medusa/config.ini
+  sed -i "s/https_key.*/https_key = ssl-cert-snakeoil.key/g" /home/"${MASTER}"/.medusa/config.ini
+  sed -i "s/handle_reverse_proxy.*handle_reverse_proxy = 1/g" /home/"${MASTER}"/.medusa/config.ini
+
+  cat > /etc/apache2/sites-enabled/medusa.conf <<EOF
+LoadModule proxy_module /usr/lib/apache2/modules/mod_proxy.so
+LoadModule proxy_http_module /usr/lib/apache2/modules/mod_proxy_http.so
+LoadModule proxy_wstunnel_module /usr/lib/apache2/modules/mod_proxy_wstunnel.so
+LoadModule ssl_module modules/mod_ssl.so
+SSLProxyEngine on
+SSLProxyVerify none
+SSLProxyCheckPeerCN off
+SSLProxyCheckPeerName off
+SSLProxyCheckPeerExpire off
+LogLevel debug
+ProxyRequests Off
+<Proxy *>
+        AddDefaultCharset Off
+        Order deny,allow
+        Allow from all
+        AuthType Digest
+        AuthName "rutorrent"
+        AuthUserFile '/etc/htpasswd'
+        Require user ${MASTER}
+</Proxy>
+ProxyPass /medusa/ws wss://127.0.0.1:8082/medusa/ws keepalive=On timeout=600 retry=1 acquire=3000
+ProxyPassReverse /medusa/ws wss://127.0.0.1:8082/medusa/ws
+
+ProxyPass /medusa https://127.0.0.1:8082/medusa keepalive=On timeout=600 retry=1 acquire=3000
+ProxyPassReverse /medusa https://127.0.0.1:8082/medusa
+ProxyPassReverseCookieDomain 127.0.0.1 %{HTTP:Host}
+EOF
+
+  chown www-data: /etc/apache2/sites-enabled/medusa.conf
+  service apache2 reload
+  systemctl start medusa@${MASTER} > /dev/null 2>&1
+
+}
+
+
+function _installMedusa4() {
+  echo "Medusa Install Complete!" >>"${OUTTO}" 2>&1;
+  sleep 5
+  echo >>"${OUTTO}" 2>&1;
+  echo >>"${OUTTO}" 2>&1;
+  echo "Close this dialog box to refresh your browser" >>"${OUTTO}" 2>&1;
+}
+function _installMedusa5() {
+  exit
+}
+
+echo "Installing medusa ... " >>"${OUTTO}" 2>&1;_installMedusa1
+echo "Setting up medusa permissions ... " >>"${OUTTO}" 2>&1;_installMedusa2
+echo "Setting up medusa configurations and enabling ... " >>"${OUTTO}" 2>&1;_installMedusa3
+_installMedusa4
+_installMedusa5

@@ -1,0 +1,352 @@
+
+
+/***** NAVIGATION *****/
+
+.nav-dark-quirk {
+  background-color: lighten(@brand-quirk, 10%);
+  > li {
+    &,
+    &:last-child { border-color: lighten(@brand-quirk, 15%); }
+
+    > a {
+      color: lighten(@brand-quirk, 40%);
+      &:hover,
+      &:focus {
+        background-color: lighten(@brand-quirk, 5%);
+        color: #fff;
+      }
+    }
+  }
+}
+
+// Light
+.nav-quirk-primary { .nav-quirk-variant(@brand-primary);        }
+.nav-quirk-success { .nav-quirk-variant(@brand-success);        }
+.nav-quirk-warning { .nav-quirk-variant(@brand-warning);        }
+.nav-quirk-danger  { .nav-quirk-variant(@brand-danger);         }
+.nav-quirk-info    { .nav-quirk-variant(@brand-info);           }
+
+// Dark
+.nav-dark-primary  { .nav-quirk-dark-variant(@brand-primary);   }
+.nav-dark-success  { .nav-quirk-dark-variant(@brand-success);   }
+.nav-dark-warning  { .nav-quirk-dark-variant(@brand-warning);   }
+.nav-dark-danger   { .nav-quirk-dark-variant(@brand-danger);    }
+.nav-dark-info     { .nav-quirk-dark-variant(@brand-info);      }
+
+
+/***** DASHBOARD: PANEL ANNOUNCEMENTS *****/
+
+.panel-announcement {
+  background-color: #fff;
+  margin-bottom: 20px;
+
+  .panel-heading { padding-bottom: 5px; }
+  .panel-title { color: @brand-danger; }
+
+  .panel-body {
+    h2 {
+      margin: 0 0 10px;
+      font-weight: 500;
+      line-height: 24px;
+      font-size: 18px;
+      letter-spacing: normal;
+    }
+
+    h4 {
+      margin: 0;
+      font-weight: 400;
+      font-size: 12px;
+      color: fadeout(@brand-quirk, 30%);
+      line-height: 20px;
+
+      > a {
+        color: @brand-success;
+        &:hover,
+        &:focus {
+          color: lighten(@brand-success, 10%);
+        }
+      }
+    }
+  }
+}
+
+.list-announcement {
+  .panel-body {
+    padding: 0;
+
+    ul {
+      margin-bottom: 0;
+
+      > li {
+        padding: 10px 20px;
+        border-bottom: 1px solid lighten(@brand-quirk, 75%);
+        letter-spacing: normal;
+
+        a {
+          color: @brand-quirk;
+          font-weight: 500;
+        }
+
+        small {
+          margin-top: 4px;
+          display: block;
+          color: fadeout(@brand-quirk, 55%);
+
+          a {
+            font-weight: 400;
+            color: @brand-success;
+            float: right;
+          }
+        }
+      }
+    }
+  }
+
+  .panel-footer {
+    padding: 14px 20px;
+    background-color: #fff;
+  }
+}
+
+
+/***** DASHBOARD: QUICK PAGE ACCESS *****/
+
+
+.panel-quick-page {
+  margin: 0 0 20px;
+  > div {
+    padding: 0;
+    .panel {
+      border-radius: 0;
+      margin-left: 1px;
+      margin-bottom: 1px;
+
+      &:hover,
+      &:focus {
+        cursor: pointer;
+        position: relative;
+
+      }
+    }
+
+    @media (max-width: 360px) { width: 50%; }
+
+    .panel-heading {
+      @media (max-width: 560px) {
+        padding: 10px;
+      }
+    }
+
+    .panel-title {
+      @media (max-width: 560px) {
+        font-size: 11px;
+      }
+    }
+
+    &:first-child .panel {
+      margin-left: 0;
+      border-top-left-radius: @border-radius-base;
+    }
+
+    &:nth-child(2) .panel {
+      @media (max-width: 360px) { border-top-right-radius: @border-radius-base; }
+    }
+
+    &:nth-child(3) .panel {
+      @media (max-width: @screen-sm-max) {
+        border-top-right-radius: @border-radius-base;
+      }
+
+      @media (max-width: 360px) { border-top-right-radius: 0; }
+    }
+
+    &:nth-child(4) .panel {
+      border-top-right-radius: @border-radius-base;
+      @media (max-width: @screen-sm-max) {
+        margin-left: 0;
+        border-top-right-radius: 0;
+      }
+    }
+
+    &:nth-child(5) .panel {
+      margin-left: 0;
+      border-bottom-left-radius: @border-radius-base;
+      @media (max-width: @screen-sm-max) {
+        margin-left: 1px;
+        .border-left-radius(0);
+      }
+    }
+
+    &:nth-child(7) .panel {
+      @media (max-width: @screen-sm-max) {
+        margin-left: 0;
+        border-bottom-left-radius: @border-radius-base;
+      }
+
+      @media (max-width: 360px) { border-bottom-left-radius: 0; }
+    }
+
+    &:last-child .panel { border-bottom-right-radius: @border-radius-base; }
+
+    @media (max-width: 360px) {
+      &:nth-child(odd) > .panel { margin-left: 0; }
+      &:nth-child(even) > .panel { margin-left: 1px; }
+
+      &:last-child {
+        width: 100%;
+        > .panel { .border-bottom-radius(@border-radius-base); }
+      }
+    }
+
+  }
+
+  .hvr-shutter-out-vertical { display: block; }
+
+  .page-user > .panel       {  .panel-quick-page-hover(lighten(@brand-success, 5%), @brand-success);                  }
+  .page-products > .panel   {  .panel-quick-page-hover(darken(@brand-info, 10%), darken(@brand-info, 15%));           }
+  .page-events > .panel     {  .panel-quick-page-hover(lighten(@brand-primary, 15%), lighten(@brand-primary, 5%));    }
+  .page-messages > .panel   {  .panel-quick-page-hover(lighten(@brand-primary, 5%), @brand-primary);                  }
+  .page-reports > .panel    {  .panel-quick-page-hover(lighten(spin(@brand-danger, -20), 5%), darken(spin(@brand-danger, -20), 5%));  }
+
+  .page-statistics > .panel {   .panel-quick-page-hover(lighten(@brand-danger, 10%), @brand-danger);                  }
+  .page-support > .panel    {   .panel-quick-page-hover(lighten(spin(@brand-info, 70), 5%), darken(spin(@brand-info, 70), 5%));       }
+  .page-privacy > .panel    {   .panel-quick-page-hover(lighten(@brand-quirk, 35%), lighten(@brand-quirk, 25%));      }
+  .page-settings > .panel   {   .panel-quick-page-hover(lighten(@brand-quirk, 30%), lighten(@brand-quirk, 20%));      }
+
+  .panel-heading { padding: 15px 20px; }
+  .panel-title { color: #fff; }
+  .panel-body { padding-top: 0; }
+
+  .page-icon {
+    margin: 0;
+    color: #fff;
+    font-size: 70px;
+    height: 70px;
+    line-height: 0;
+    text-align: center;
+  }
+}
+
+
+/***** PANEL BANDWIDTH *****/
+
+.panel-site-traffic {
+  .panel-body {
+    .panel-title {
+      color: lighten(@brand-quirk, 40%);
+      font-size: 11px;
+      margin: 3px 0 0;
+    }
+
+    .row > div {
+      @media (max-width: 480px) {
+        width: 100%;
+        float: none;
+        .clearfix();
+
+        & + div { margin-top: 15px; }
+      }
+    }
+
+    h3 {
+      margin: 0 0 3px;
+      font-size: 32px;
+    }
+
+    .icon {
+      font-size: 48px;
+      color: #fff;
+      margin-right: 20px;
+      border-radius: @border-radius-base;
+      width: 70px;
+      line-height: 54px;
+    }
+
+    .ion-stats-bars {
+      background-color: @brand-primary;
+      padding: 7px 18px;
+    }
+
+    .ion-eye {
+      background-color: @brand-info;
+      padding: 7px 15px;
+    }
+
+    .ion-clock {
+      background-color: @brand-success;
+      padding: 7px 14px;
+    }
+
+    h5 {
+      margin: 0;
+      font-weight: 300;
+    }
+  }
+}
+
+
+/***** DASHBOARD: PANEL STAT OBJECTS *****/
+
+.panel-statistics {
+  margin: 0 0 20px;
+
+  .panel {
+    margin: 0;
+    border-radius: 0;
+    min-height: 130px;
+  }
+
+  > div {
+    padding: 0;
+
+    &:first-child > .panel { border-top-left-radius: @border-radius-base; }
+    &:nth-child(2) > .panel { border-top-right-radius: @border-radius-base; }
+    &:nth-child(3) > .panel { border-bottom-left-radius: @border-radius-base; }
+    &:last-child > .panel { border-bottom-right-radius: @border-radius-base; }
+
+    &:nth-child(odd) > .panel { margin-left: 0; }
+    &:nth-child(3) > .panel,
+    &:last-child > .panel { margin-bottom: 0; }
+
+
+    @media (max-width: 767px) {
+      &:nth-child(2) > .panel {
+        margin-bottom: 1px;
+        border-top-right-radius: 0;
+      }
+      &:nth-child(3) > .panel { border-bottom-left-radius: 0; }
+      &:first-child > .panel { border-top-right-radius: @border-radius-base; }
+      &:last-child > .panel { border-bottom-left-radius: @border-radius-base; }
+    }
+  }
+}
+
+.panel-updates {
+
+  h3 {
+    margin: 5px 0 5px;
+    font-size: 32px;
+  }
+
+  .progress {
+    height: 5px;
+    margin-bottom: 15px;
+  }
+
+  p, p + p {
+    margin: 0;
+    font-size: 11px;
+    letter-spacing: 0;
+    color: lighten(@brand-quirk, 20%);
+  }
+
+  &.panel-success-full,
+  &.panel-danger-full {
+    .panel-body .panel-title { font-weight: 700; }
+
+    .progress { background-color: fadeout(#fff, 70%); }
+    .progress-bar { background-color: #fff; }
+
+    p { color: #fff; }
+  }
+}

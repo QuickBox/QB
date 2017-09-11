@@ -1,0 +1,15 @@
+[Unit]
+Description=Medusa
+After=syslog.target network.target
+
+[Service]
+Type=forking
+GuessMainPID=no
+User=%I
+Group=%I
+ExecStart=/usr/bin/python /home/%I/.medusa/SickBeard.py -q --daemon --nolaunch --datadir=/home/%I/.medusa
+ExecStop=-/bin/kill -HUP
+
+
+[Install]
+WantedBy=multi-user.target

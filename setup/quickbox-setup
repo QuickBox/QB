@@ -449,6 +449,28 @@ function _depends() {
   fi
 }
 
+# build openssl from source to combat recent apt source updates
+function _openssl() {
+  cd /tmp
+  #wget https://www.openssl.org/source/openssl-1.1.0f.tar.gz 
+  #tar -xzvf openssl-1.1.0f.tar.gz
+  #cd openssl-1.1.0f
+  #./config >>"${OUTTO}" 2>&1;
+  #make >>"${OUTTO}" 2>&1;
+  #make install >>"${OUTTO}" 2>&1;
+  #cd /tmp
+  #rm -rf openssl-1.1.0f.tar.gz openssl-1.1.0f
+  git clone git://git.openssl.org/openssl.git >>"${OUTTO}" 2>&1;
+  cd openssl
+  git config core.autocrlf false
+  git config core.eol lf
+  git checkout .
+  ./config >>"${OUTTO}" 2>&1;
+  make >>"${OUTTO}" 2>&1;
+  make install >>"${OUTTO}" 2>&1;
+  cd
+}
+
 function _syscommands() {
   mkdir -p /usr/local/bin/quickbox
   cp -r ${local_packages}/. /usr/local/bin/quickbox
@@ -608,6 +630,8 @@ function _xmlrpc() {
 }
 
 # libtorent function (20)
+# apt rtorrent handles the libtorrent install
+# remember this is temporary until patched
 function _libtorrent() {
   if [[ -d /root/tmp ]]; then rm -r tmp;fi
   mkdir /root/tmp && cd /root/tmp
@@ -624,6 +648,8 @@ function _libtorrent() {
 }
 
 # rtorrent function (21)
+# commenting until patch comes for comp/build 
+# using apt install rtorrent in the meantime
 function _rtorrent() {
   if [[ -d /root/tmp ]]; then rm -r tmp;fi
   mkdir /root/tmp && cd /root/tmp
@@ -640,6 +666,10 @@ function _rtorrent() {
   cd /root/tmp
   ldconfig >>"${OUTTO}" 2>&1
   rm -rf /root/tmp/rtorrent-${RTVERSION}* >>"${OUTTO}" 2>&1
+  touch /install/.rtorrent.lock
+}
+function _rtorrent_fallback() {
+  apt-get install -y rtorrent >>"${OUTTO}" 2>&1
   touch /install/.rtorrent.lock
 }
 
@@ -754,7 +784,7 @@ function _rutorrent-plugins() {
 # function to install dashboard (23)
 function _dashboard() {
   cd && mkdir -p /srv/rutorrent/home
-  cp -r ${local_dashboard}/${dash_theme}/. /srv/rutorrent/home
+  cp -r ${local_dashboard}. /srv/rutorrent/home
   touch /srv/rutorrent/home/db/output.log
   touch /srv/rutorrent/home/db/.${dash_theme}.lock
 }
@@ -1169,7 +1199,7 @@ local_packages=/etc/QuickBox/packages/
 local_rutorrent=/etc/QuickBox/rutorrent/
 local_rplugins=/etc/QuickBox/rtplugins/
 local_themes=/etc/QuickBox/themes/
-local_dashboard=/etc/QuickBox/themes
+local_dashboard=/etc/QuickBox/dashboard/
 
 IFACE=$(ip link show|grep -i broadcast|grep -m1 UP|cut -d: -f 2|cut -d@ -f 1|sed -e 's/ //g');
 HOSTNAME1=$(hostname -s);
@@ -1223,6 +1253,7 @@ echo ""
 echo -n "Pulling QuickBox Ecosystem ... ";_repos & spinner $!;echo
 echo -n "Updating system ... ";_updates & spinner $!;echo
 echo -n "Installing all needed dependencies ... ";_depends & spinner $!;echo
+#_openssl
 echo -n "Setting up system executables ... ";_syscommands & spinner $!;echo
 echo -n "Building required user directories ... ";_skel & spinner $!;echo
 if [[ ${quota} == "yes" ]]; then
@@ -1236,6 +1267,7 @@ _apachesudo
 echo -n "Installing xmlrpc-c-${green}1.33.12${normal} ... ";_xmlrpc & spinner $!;echo
 echo -n "Installing libtorrent-${green}$LTORRENT${normal} ... ";_libtorrent & spinner $!;echo
 echo -n "Installing rtorrent-${green}$RTVERSION${normal} ... ";_rtorrent & spinner $!;echo
+#echo -n "Installing rtorrent ... ";_rtorrent_fallback & spinner $!;echo
 echo -n "Installing rutorrent into /srv ... ";_rutorrent & spinner $!;echo
 echo -n "Installing rutorrent plugins ... ";_rutorrent-plugins & spinner $!;echo
 echo -n "Installing deluge ... ";_deluge & spinner $!;echo

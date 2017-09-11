@@ -61,7 +61,7 @@
       grid: {
         borderWidth: 0,
         border: { show: false },
-        color: '#dddddd',
+        color: '#eaeaea',
         labelMargin: 5,
         backgroundColor: '#ffffff'
       },
@@ -159,7 +159,7 @@
     grid: {
       borderWidth: 0,
       border: { show: false },
-      color: '#dddddd',
+      color: '#eaeaea',
       labelMargin: 5,
       backgroundColor: '#ffffff'
     },
@@ -259,71 +259,8 @@
     setTimeout(GetData, updateInterval);
   });
   </script>
-  <script language="javascript" type="text/javascript">
-  $(document).ready(function() {
-  function uptime() {
-    $.ajax({url: "widgets/up.php", cache:true, success: function (result) {
-      $('#uptime').html(result);
-      setTimeout(function(){uptime()}, 1000);
-    }});
-  }
-  uptime();
 
-  function sload() {
-    $.ajax({url: "widgets/load.php", cache:true, success: function (result) {
-      $('#cpuload').html(result);
-      setTimeout(function(){sload()}, 1000);
-    }});
-  }
-  sload();
-
-  function bwtables() {
-    $.ajax({url: "widgets/bw_tables.php", cache:false, success: function (result) {
-      $('#bw_tables').html(result);
-      setTimeout(function(){bwtables()}, 60000);
-    }});
-  }
-  bwtables();
-
-  function diskstats() {
-    $.ajax({url: "widgets/disk_data.php", cache:false, success: function (result) {
-      $('#disk_data').html(result);
-      setTimeout(function(){diskstats()}, 15000);
-    }});
-  }
-  diskstats();
-
-  function ramstats() {
-    $.ajax({url: "widgets/ram_stats.php", cache:false, success: function (result) {
-      $('#meterram').html(result);
-      setTimeout(function(){ramstats()}, 1000);
-    }});
-  }
-  ramstats();
-
-  function activefeed() {
-    $.ajax({url: "widgets/activity_feed.php", cache:false, success: function (result) {
-      $('#activityfeed').html(result);
-      setTimeout(function(){activefeed()}, 300000);
-    }});
-  }
-  activefeed();
-
-  function msgoutput() {
-    $.ajax({url: "db/output.log", cache:false, success: function (result) {
-      $('#sshoutput').html(result);
-      setTimeout(function(){msgoutput()}, 1000);
-    }});
-    jQuery( function(){
-      var pre = jQuery("#sysPre");
-      pre.scrollTop( pre.prop("scrollHeight") );
-    });
-  }
-  msgoutput();
-
-  });
-  //success: function (result)
-</script>
+<script type="text/javascript" src="inc/panel.app_status.ajax.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){getJSONData();});
