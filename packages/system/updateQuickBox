@@ -263,6 +263,7 @@ function _updatedashboard() {
     fi
   elif [[ -f /srv/rutorrent/home/db/.defaulted.lock ]]; then
     if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
+      rm -rf /srv/rutorrent/home/db/.smoked.lock
       rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}defaulted/* ${rutorrent}home
       #rm -f /srv/rutorrent/home/lang/*.php
     else
