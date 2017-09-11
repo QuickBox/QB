@@ -251,7 +251,7 @@ function _updateznc() {
 
 # function to update dashboard
 function _updatedashboard() {
-  \cp -fR ${local_dashboard}* ${rutorrent}home
+  #\cp -fR ${local_dashboard}* ${rutorrent}home
   cd ${rutorrent}
   if [[ -f /srv/rutorrent/home/db/.smoked.lock ]]; then
     if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
