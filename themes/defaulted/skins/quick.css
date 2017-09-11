@@ -9668,7 +9668,7 @@ blockquote {
     margin: 0;
   }
 }
-#noticeDropdown.tab-pane {
+#noticeDropdown .tab-pane {
     background: #222;
     color: #fff;
 }
@@ -9735,6 +9735,7 @@ blockquote {
   color: #818da7;
 }
 .headermenu .dm-notice .list-group .list-group-item h5 {
+  color: #fff;
   margin: 0;
   font-weight: 700;
   font-size: 12px;
