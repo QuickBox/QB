@@ -28,7 +28,7 @@ mkdir /root/subsonic-tmp
 
 echo "Downloading Subsonic dependencies and installing ... " >>"${OUTTO}" 2>&1;
 apt -yf install openjdk-8-jre
-wget -O /root/subsonic-tmp/subsonic.deb https://s3-eu-west-1.amazonaws.com/subsonic-public/download/subsonic-6.0.deb
+wget -O /root/subsonic-tmp/subsonic.deb https://s3-eu-west-1.amazonaws.com/subsonic-public/download/subsonic-6.1.1.deb
 cd /root/subsonic-tmp
 dpkg -i subsonic.deb
 
