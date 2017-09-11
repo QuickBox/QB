@@ -9668,6 +9668,10 @@ blockquote {
     margin: 0;
   }
 }
+#noticeDropdown.tab-pane {
+    background: #222;
+    color: #fff;
+}
 .headermenu .dm-notice .tab-pane {
   padding: 0px 0 10px;
 }
