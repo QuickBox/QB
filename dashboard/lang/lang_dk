@@ -120,11 +120,13 @@ $L['DELUGE'] = 'Deluge en gratis letvægts cross-platform BitTorrent klient.';
 $L['EMBY'] = 'Emby Server er en klient-server softwarepakke, der lader brugerne være vært for deres personlige kopier af multimedie - musik-, video- og billedfiler. ... Emby-klientsoftwaren er en app, du skal installere på mobile enheder og visse settopbokse til fjernsyn, som f.eks. Android TV.';
 $L['HEADPHONES'] = 'Headphones is an automated music downloader for NZB and Torrent, written in Python. It supports SABnzbd, NZBget, Transmission, µTorrent, Deluge and Blackhole.';
 $L['JACKETT'] = 'API support til dine favorit private trackere.';
+$L['MEDUSA'] = 'Medusa håndterer nemt dine tv-serier, den holder automatisk øje med nye afsnit af din favorit serie.';
 $L['NEXTCLOUD'] = 'Nextcloud er en open source, selvhosted filsynkroniserings-, delings- og kommunikationsplatform. Få nem adgang til og synkoniser dine filer, kontakter, kalendre og kommuniker på tværs af alle dine enheder. Du afgør selv hvad der sker med dine data, hvor den lagres, og hvem der kan få adgang!';
+$L['NZBGET'] = 'NZBGet is a binary downloader, which downloads files from Usenet based on information given in nzb-files.  NZBGet is written in C++ and is known for its extraordinary performance and efficiency.';
 $L['NZBHYDRA'] = 'NZBHydra er meta søgning til NZB indeksere. Det giver nem adgang til en række rå og newznab-baserede indeksere. Du kan søge alle indeksere fra ét sted og bruge det som indekskilde til værktøjer som Sonarr eller CouchPotato.';
+$L['OMBI'] = 'Ombi tilbyder et smuk og let anvendeligt interface, således brugere nemt kan tilføje "Ønsker" til Plex-biblioteket. Integrerer med CouchPotato, SickRage and Sonarr.';
 $L['OVPN'] = 'SSL/TLS baseret brugerdefineret VPN. Supporterer Linux, Solaris, OpenBSD, FreeBSD, NetBSD, Mac OS X, og Windows 2000/XP+.';
 $L['PLEX'] = 'Plex lader dig streame dit indhold til enhver Plex enhed.';
-$L['PLEX_REQUESTS'] = 'Ombi tilbyder et smuk og let anvendeligt interface, således brugere nemt kan tilføje "Ønsker" til Plex-biblioteket. Integrerer med CouchPotato, SickRage and Sonarr.';
 $L['PLEXPY'] = 'En python baseret webapplikation til at monitorere, analysere og få notifikationer omkring din Plex Media Server.';
 $L['PYLOAD'] = 'pyLoad er en download manager for `Hoster` hjemmesider, videosider og HTTP / FTP links. En liste over understøttede websteder kan findes <a href="https://github.com/pyload/pyload/wiki/Supported-Hoster" target="_blank">her</a>';
 $L['QUASSEL'] = 'Quassel IRC er en moderne, cross-platform, distribueret IRC klient baseret på Qt4 framework.';
@@ -133,8 +135,8 @@ $L['RADARR'] = 'Radarr is an independent fork of Sonarr reworked for automatical
 The project was inspired by other Usenet/BitTorrent movie downloaders such as CouchPotato.';
 $L['RAPIDLEECH'] = 'Rapid Leech er et gratis server overførsels script op mod forskellige populære upload-/downloadsider som fx. uploaded.net, Rapidshare.com og mere end 120 andre.';
 $L['SABNZBD'] = 'SABnzbd er en multi-platform binær nyhedsgruppe-downloader. Programmet virker i baggrunden og forenkler downloading, verificering og udpakning af filer fra Usenet. SABnzbd bruger NZB-filer (ligner .torrent-filer, men til Usenet), i stedet for at browse Usenet direkte.';
+$L['SICKGEAR'] = 'SickGear is Sick-Beard evolved. Automate your TV enjoyment with innovation, proven stability and reliability.';
 $L['SICKRAGE'] = 'SickRage håndterer nemt dine tv-serier, den holder automatisk øje med nye afsnit af din favorit serie.';
-$L['MEDUSA'] = 'Medusa håndterer nemt dine tv-serier, den holder automatisk øje med nye afsnit af din favorit serie.';
 $L['SONARR'] = 'Sonarr håndterer dine tv-serier og virker med både torrents og usenet.';
 $L['SUBSONIC'] = 'Subsonic er en webbaseret medieserver. Det er skrevet i Java, så det kan køre på ethvert operativsystem med Java support. Subsonic understøtter streaming til flere klienter samtidigt, og understøtter alle streamable medier (inklusive MP3, AAC og Ogg).';
 $L['SYNCTHING'] = 'Open Source kontinuerlig Filsynkronisering med BitTorrent';
@@ -248,10 +250,6 @@ $L['CPU_USED'] = 'brugt';
 // idle percentage
 $L['CPU_IDLE'] = 'ledig';
 
-// cpu info
-$L['FREQUENCY'] = 'Frekvens:';
-$L['SECONDARY'] = 'Sekundær Cache:';
-
 
 ////////////////////////////////////////
 //SERVER LOAD WIDGET
@@ -319,19 +317,20 @@ $L['UNINSTALL_EMBY_TXT'] = 'Du er ved at afinstallere Emby fra dit system.<br/><
 $L['UNINSTALL_HEADPHONES_TXT'] = 'You are about to uninstall Headphones from your system.<br/><br/>This will completely remove all of your configuration and shared folder settings... this action is irreversible. <br/><br/>You may reinstall Headphones at any time, however, your storage path and linked folder settings will be reset to default.';
 $L['UNINSTALL_JACKETT_TXT'] = 'Du er ved at afinstallere Jackett fra dit system.<br/><br/>Dette vil fuldstændig fjerne din kofiguration og indstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Jackett til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
 $L['UNINSTALL_NEXTCLOUD_TXT'] = 'Du er ved at afinstallere NextCloud fra dit system.<br/><br/>Dette vil fuldstændig fjerne din kofiguration og indstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere NextCloud til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
+$L['UNINSTALL_NZBGET_TXT'] = 'You are about to uninstall NZBGet from your system.<br/><br/>This will completely remove all of your configurations and settings... this action is irreversible. <br/><br/>You may reinstall NZBGet at any time, however, your settings will be reset to default.';
 $L['UNINSTALL_NZBHYDRA_TXT'] = 'Du er ved at afinstallere  NZBHydra fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurationsindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere NZBHydra til hver en tid, men din konfiguration vil blive nulstillet til standard.';
 $L['UNINSTALL_PLEX_TXT'] = 'Du er ved at afinstallere Plex Media Server fra dit system.<br/><br/>Dette vil fuldstændig fjerne din kofiguration og biblioteksindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Plex til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
 $L['UNINSTALL_PLEXPY_TXT'] = 'Du er ved at afinstallere PlexPy fra dit system.<br/><br/>Dette vil fuldstændig fjerne din kofiguration og biblioteksindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere PlexPy til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
-$L['UNINSTALL_PLEXREQUESTS_TXT'] = 'Du er ved at afinstallere Ombi fra dit system.<br/><br/>Dette vil fuldstændig fjerne din kofiguration og biblioteksindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Ombi til hver en tid, men dine biblioteksindstillinger og anmodninger vil blive nulstillet.';
+$L['UNINSTALL_OMBI_TXT'] = 'Du er ved at afinstallere Ombi fra dit system.<br/><br/>Dette vil fuldstændig fjerne din kofiguration og biblioteksindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Ombi til hver en tid, men dine biblioteksindstillinger og anmodninger vil blive nulstillet.';
 $L['UNINSTALL_PYLOAD_TXT'] = 'Du er ved at afinstallere pyLoad fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurationsindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere pyLoad til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
 $L['UNINSTALL_QUASSEL_TXT'] = 'Du er ved at afinstallere Quassel fra dit system.<br/><br/> Dette vil fuldstændig fjerne Quassel, alle indstillinger/gemte backlogs fra dit system.';
 $L['UNINSTALL_QUOTAS_TXT'] = 'Du er ved at afinstallere Quotas fra dit system.<br/><br/> Dette vil fuldstændig fjerne bruger kvoter (user quotas) og enhver indstilling associeret med dem.';
 $L['UNINSTALL_RADARR_TXT'] = 'You are about to uninstall Radarr from your system.<br/><br/>This will completely remove all of your configuration settings... this action is irreversible. <br/><br/>You may reinstall Radarr at any time, however, your configuration settings will be reset to default.';
 $L['UNINSTALL_RAPIDLEECH_TXT'] = 'Du er ved at afinstallere Rapidleech fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurationsindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Rapidleech til hver en tid, men din konfiguration vil blive nulstillet til standard.';
 $L['UNINSTALL_SABNZBD_TXT'] = 'Du er ved at afinstallere SABnzbd fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurationsindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere SABnzbd til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
+$L['UNINSTALL_SICKGEAR_TXT'] = 'You are about to uninstall SickGear from your system.<br/><br/>This will completely remove all of your configuration settings... this action is irreversible. <br/><br/>You may reinstall SickGear at any time, however, your configuration settings will be reset to default.';
 $L['UNINSTALL_SICKRAGE_TXT'] = 'Du er ved at afinstallere SickRage fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurationsindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere SickRage til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
-$L['UNINSTALL_MEDUSA_TXT'] = 'Du er ved at afinstallere Medusa fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurationsindstillinger... denne handling kan ikke fortrydes.
- <br/><br/>Du har mulighed for at geninstallere Medusa til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
+$L['UNINSTALL_MEDUSA_TXT'] = 'Du er ved at afinstallere Medusa fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurationsindstillinger... denne handling kan ikke fortrydes.<br/><br/>Du har mulighed for at geninstallere Medusa til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
 $L['UNINSTALL_SONARR_TXT'] = 'Du er ved at afinstallere Sonarr fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurationsindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Sonarr-NzbDrone til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
 $L['UNINSTALL_SUBSONIC_TXT'] = 'Du er ved at afinstallere Subsonic fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurationsindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Subsonic til hver en tid, men dine indstillinger vil blive nulstillet til standard.';
 $L['UNINSTALL_SYNCTHING_TXT'] = 'Du er ved at afinstallere Syncthing fra dit system.<br/><br/>Dette vil fuldstændig fjerne dine kofigurationsindstillinger... denne handling kan ikke fortrydes. <br/><br/>Du har mulighed for at geninstallere Syncthing til hver en tid, men dine indstillinger vil blive nulstillet til standard.';

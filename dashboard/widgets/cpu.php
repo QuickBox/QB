@@ -25,5 +25,3 @@ $load = round($loads[0]/($core_nums + 1)*100, 2);
 ?>
 
 {"cpu":<?php echo "$load"; ?>}
-
-

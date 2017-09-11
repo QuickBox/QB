@@ -198,6 +198,24 @@
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
 </div><!-- modal -->
+<!-- OMBI UNINSTALL MODAL -->
+<div class="modal bounceIn animated" id="ombiRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="OmbiRemovalConfirm" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="OmbiRemovalConfirm"><?php echo T('UNINSTALL_TITLE'); ?> Ombi?</h4>
+      </div>
+      <div class="modal-body">
+        <?php echo T('UNINSTALL_OMBI_TXT'); ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
+        <a href="?removepackage-ombi=true" id="ombiRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
 <!-- PLEX UNINSTALL MODAL -->
 <div class="modal bounceIn animated" id="plexRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="PlexRemovalConfirm" aria-hidden="true">
   <div class="modal-dialog">
@@ -230,24 +248,6 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
         <a href="?removepackage-plexpy=true" id="plexpyRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
-      </div>
-    </div><!-- modal-content -->
-  </div><!-- modal-dialog -->
-</div><!-- modal -->
-<!-- PLEX REQUESTS UNINSTALL MODAL -->
-<div class="modal bounceIn animated" id="ombiRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="OmbiRemovalConfirm" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="OmbiRemovalConfirm"><?php echo T('UNINSTALL_TITLE'); ?> Ombi?</h4>
-      </div>
-      <div class="modal-body">
-        <?php echo T('UNINSTALL_PLEXREQUESTS_TXT'); ?>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
-        <a href="?removepackage-ombi=true" id="ombiRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
       </div>
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
