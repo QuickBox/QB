@@ -11,86 +11,124 @@
       <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
       <div class="header-right">
         <ul class="headermenu">
-          <?php if ($username == "$master") { ?>
-            <?php if (file_exists('/install/.developer.lock')) { ?>
-            <li>
-              <div class="btn-group">
-                <button type="button" class="btn btn-logged">
-                  <a href="#" class="label label-warning" style="">You are on the QuickBox Development Repo</a>
-                </button>
-              </div>
-            </li>
-            <?php } ?>
-            <li>
-              <div class="btn-group">
-                <button type="button" class="btn btn-logged" data-toggle="dropdown">
-                  <a href="#" class="title" style="color:#8fa8f6">QuickBox +</a>
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu pull-right" style="font-size: 13px">
-                  <li><a href="//quickbox.io/category/announcements/" target="_blank"><?php echo T('ANNOUNCEMENTS'); ?></a></li>
-                  <li><a href="https://quickbox.io/readme-md/" target="_blank">README.md</a></li>
-                  <li><a href="https://github.com/QuickBox/QB/compare/v2.5.1...<?php echo $version; ?>" target="_blank">CHANGELOG</a></li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <div class="btn-group">
-                <button type="button" class="btn btn-logged" data-toggle="dropdown">
-                  <a href="#" style="color: #FFFFFF">#QuickBox</a>
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu pull-right" style="font-size: 13px">
-                    <li style="border-bottom: 1px solid #444">
-                    <span class="title" style="color: #fff; font-weight: 300; font-size: 13px;"><?php echo T('JOIN_US_TXT'); ?></span>
-                    </li>
-                    <li>
-                    <span style="padding: 6px 10px; color:#fff"><strong style="color: #4CD4B0">host:</strong> chat.quickbox.io</span><br/>
-                    <span style="padding: 6px 10px; color:#fff"><strong style="color: #4CD4B0">chan:</strong> #QB-Support</span><br/>
-                    </li>
-                    <li style="border-top: 1px solid #444">
-                      <span class="chat-btn"><a href="https://chat.quickbox.io/channel/QB-Support" class="label label-success" target="_blank"><?php echo T('CHAT_CONNECT_TXT'); ?></a></span>
-                    </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <?php $language = array();
-                $language[] = array('file' => 'lang_dk', 'title' =>'Danish');
-                $language[] = array('file' => 'lang_en', 'title' =>'English');
-                $language[] = array('file' => 'lang_fr', 'title' =>'French');
-                $language[] = array('file' => 'lang_de', 'title' =>'German'); { ?>
-              <div class="btn-group">
-                <button type="button" class="btn btn-logged" data-toggle="dropdown">
-                  <?php echo T('LANG_SELECT'); ?>
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu pull-right">
-                <li><span style="margin-top:5x"></span></li>
-                <?php foreach($language as $lang) { ?>
-                <li><a href='?langSelect-<?php echo $lang['file'] ?>=true'><img class='lang-flag' src='lang/flag_<?php echo $lang['file'] ?>.png' /><?php echo $lang['title'] ?></a></li>
-                <?php } ?>
-              </ul>
-            </div>
-            <?php } ?>
-          </li>
+          <?php if (file_exists('/install/.developer.lock')) { ?>
           <li>
-            <?php $option = array();
-              $option[] = array('file' => 'defaulted', 'title' =>'Defaulted');
-              $option[] = array('file' => 'smoked', 'title' =>'Smoked'); { ?>
             <div class="btn-group">
-              <button type="button" class="btn btn-logged" data-toggle="dropdown">
-                <?php echo T('THEME_SELECT'); ?>
-                <span class="caret"></span>
+              <button type="button" class="btn btn-logged">
+                <a href="#" class="label label-warning" style="">You are on the QuickBox Development Repo</a>
               </button>
-              <ul class="dropdown-menu pull-right">
-              <li><span style="margin-top:5x"></span></li>
-              <?php foreach($option as $theme) { ?>
-              <li><a href="javascript:void()" data-toggle="modal" data-target="#themeSelect<?php echo $theme['file'] ?>Confirm"><img class='lang-flag' src='img/themes/opt_<?php echo $theme['file'] ?>.png' /><?php echo $theme['title'] ?></a></li>
-              <?php } ?>
-              </ul>
             </div>
-            <?php } ?>
+          </li>
+          <?php } ?>
+          <?php if ($username == "$master") { ?>
+          <li>
+            <div id="noticePanel" class="btn-group">
+              <button class="btn" data-toggle="dropdown">
+                <i class="fa fa-menu"></i> QuickBox Menu <span class="caret"></span>
+              </button>
+              <div id="noticeDropdown" class="dropdown-menu dm-notice pull-right">
+                <div role="tabpanel">
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs nav-justified" role="tablist">
+                    <li class="active"><a data-target="#quickplus" data-toggle="tab">QuickBox+</a></li>
+                    <li><a data-target="#chat" data-toggle="tab">Chat</a></li>
+                    <li><a data-target="#dashadjust" data-toggle="tab">Dashboard</a></li>
+                  </ul>
+
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="quickplus">
+                      <ul class="list-group">
+                        <li class="list-group-item">
+                          <div class="row">
+                            <div class="col-xs-12">
+                              <h5>QuickBox :: <span style="color: #fff;text-shadow: 0px 0px 6px #fff;"><?php echo "$version"; ?></span></h5>
+                              <small><a href="https://quickbox.io/readme-md/" target="_blank">README.md</a></small>
+                              <small><a href="https://github.com/QuickBox/QB/compare/v2.5.1...<?php echo $version; ?>" target="_blank">CHANGELOG</a></small>
+                            </div>
+                          </div>
+                        </li>
+
+                        <li class="list-group-item">
+                          <div class="row">
+                            <div class="col-xs-12">
+                              <h5>QuickBox.IO</h5>
+                            </div>
+                            <div class="col-xs-12">
+                              <div class="col-xs-12 col-md-6" style="padding: 0">
+                                <ul style="padding-left: 5px">
+                                <li><small><a href="https://plaza.quickbox.io/categories" target="_blank" alt="View all QuickBox Community Categories">Plaza</a></small></li>
+                                <li><small><a href="https://quickbox.io/faq" target="_blank" alt="QuickBox FAQs">FAQs</a></small></li>
+                                </ul>
+                              </div>
+                              <div class="col-xs-12 col-md-6" style="padding: 0">
+                                <ul style="padding-left: 5px">
+                                <li><small><a href="https://quickbox.io/wiki" target="_blank" alt="QuickBox Wiki - How-to's, Tips and Tricks">Wiki</a></small></li>
+                                <li><small><a href="https://plaza.quickbox.io/c/quickbox-support" target="_blank"><?php echo T('ISSUE_REPORT_TXT'); ?></a></small></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                      <!--a class="btn-more" href="">View More QuickBox <i class="fa fa-long-arrow-right"></i></a-->
+                    </div><!-- tab-pane -->
+
+                    <div role="tabpanel" class="tab-pane" id="chat">
+                      <ul class="list-group notice-list">
+                        <li class="list-group-item" style="padding-top: 10px;">
+                          <div class="row">
+                            <div class="col-xs-2">
+                              <i class="fa fa-comment"></i>
+                            </div>
+                            <div class="col-xs-10">
+                              <h5><?php echo T('JOIN_US_TXT'); ?></h5>
+                              <small style="color:#fff"><strong style="color: #4CD4B0">host:</strong> chat.quickbox.io</small>
+                              <small style="color:#fff"><strong style="color: #4CD4B0">chan:</strong> #QB-Support</small>
+                              <small style="margin-top:15px;"><a href="https://chat.quickbox.io/channel/QB-Support" class="label label-success" target="_blank"><?php echo T('CHAT_CONNECT_TXT'); ?></a></small>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div><!-- tab-pane -->
+
+                    <div role="tabpanel" class="tab-pane" id="dashadjust">
+                      <ul class="list-group">
+                        <li class="list-group-item">
+                          <div class="row">
+                            <div class="col-xs-12">
+                              <div class="col-xs-12 col-md-6" style="padding: 0">
+                                <?php $language = array();
+                                $language[] = array('file' => 'lang_dk', 'title' =>'Danish');
+                                $language[] = array('file' => 'lang_en', 'title' =>'English');
+                                $language[] = array('file' => 'lang_fr', 'title' =>'French');
+                                $language[] = array('file' => 'lang_de', 'title' =>'German'); { ?>
+                                <h5><?php echo T('LANG_SELECT'); ?></h5>
+                                <?php foreach($language as $lang) { ?>
+                                  <small><a href='?langSelect-<?php echo $lang['file'] ?>=true'><img class='lang-flag' src='lang/flag_<?php echo $lang['file'] ?>.png' /><?php echo $lang['title'] ?></a></small>
+                                <?php } ?>
+                                <?php } ?>
+                              </div>
+                              <div class="col-xs-12 col-md-6" style="padding: 0">
+                              <?php $option = array();
+                              $option[] = array('file' => 'defaulted', 'title' =>'Defaulted');
+                              $option[] = array('file' => 'smoked', 'title' =>'Smoked'); { ?>
+                                <h5><?php echo T('THEME_SELECT'); ?></h5>
+                                <?php foreach($option as $theme) { ?>
+                                  <small><a href="javascript:void()" data-toggle="modal" data-target="#themeSelect<?php echo $theme['file'] ?>Confirm"><img class='lang-flag' src='img/themes/opt_<?php echo $theme['file'] ?>.png' /><?php echo $theme['title'] ?></a></small>
+                                <?php } ?>
+                              <?php } ?>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </li>
           <?php } ?>
           <li>
