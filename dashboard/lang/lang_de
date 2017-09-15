@@ -47,7 +47,9 @@ $L['UPGRADEBTSYNC_TXT'] = 'Führe diesen Befehl via SSH aus, um BTSync auf die n
 $L['UPGRADEPLEX_TXT'] = 'Führe diesen Befehl via SSH aus, um Plex auf die neueste verfügbare Version zu aktualisieren.';
 $L['UPGRADEDELUGE_TXT'] = 'Führe diesen Befehl via SSH aus, um Deluge auf die neueste verfügbare Version zu aktualisieren.';
 $L['UPGRADEJACKETT_TXT'] = 'Führe diesen Befehl via SSH aus, um Jackett auf die neueste verfügbare Version zu aktualisieren.';
+$L['UPGRADEOMBI_TXT'] = 'Führe diesen Befehl via SSH aus, um Ombi auf die neueste verfügbare Version zu aktualisieren.';
 $L['UPGRADEPYLOAD_TXT'] = 'Führe diesen Befehl via SSH aus, um pyLoad auf die neueste verfügbare Version zu aktualisieren.';
+$L['UPGRADESABNZBD_TXT'] = 'Führe diesen Befehl via SSH aus, um SABnzbd auf die neueste verfügbare Version zu aktualisieren.';
 $L['SETUPPYLOAD_TXT'] = 'Führe diesen Befehl via SSH aus, um das pyLoad Setup-Script auszuführen.';
 $L['CLEAN_MEM_TXT'] = 'Führe den oben genannten Befehl als root aus, wenn du den physikalischen Cache-Speicher deines Systems löschen möchtest.';
 // essential user commands section
