@@ -47,7 +47,9 @@ $L['UPGRADEBTSYNC_TXT'] = 'Skriv denne kommando i ssh for at opgradere BTSync ti
 $L['UPGRADEPLEX_TXT'] = 'Skriv denne kommando i ssh for at opgradere Plex til nyeste version.';
 $L['UPGRADEDELUGE_TXT'] = 'Skriv denne kommando i ssh for at opgradere Deluge til nyeste version.';
 $L['UPGRADEJACKETT_TXT'] = 'Skriv denne kommando for at opgradere Jackett til nyeste version.';
-$L['UPGRADEPYLOAD_TXT'] = 'Type this command in ssh to upgrade pyLoad to newest version when available.';
+$L['UPGRADEOMBI_TXT'] = 'Skriv denne kommando for at opgradere Ombi til nyeste version.';
+$L['UPGRADEPYLOAD_TXT'] = 'Skriv denne kommando for at opgradere pyLoad til nyeste version.';
+$L['UPGRADESABNZBD_TXT'] = 'Skriv denne kommando for at opgradere SABnzbd til nyeste version.';
 $L['SETUPPYLOAD_TXT'] = 'Type this command in ssh to run the pyLoad setup script.';
 $L['CLEAN_MEM_TXT'] = 'Skriv denne kommando i ssh (root) for at nulstille systemets fysiske Hukommelsescache.';
 // essential user commands section
