@@ -33,25 +33,27 @@ $L['PLUGINS'] = 'Plugins';
 // quick help menu tab
 $L['HELP_COMMANDS'] = 'Hjælpekommandoer & Mere';
 $L['QUICK_SYSTEM_TIPS'] = 'Hurtige System Tips';
+$L['CLEAN_MEM_TXT'] = 'Skriv denne kommando i ssh (root) for at nulstille systemets fysiske Hukommelsescache.';
 $L['DISKTEST_TXT'] = 'Skriv denne kommando for at udføre en hurtig s/l test af din disk.';
 $L['FIXHOME_TXT'] = 'Skriv denne kommando for hutigt at tilrette /home rettigheder.';
-// admin commands section
-$L['ADMIN_COMMANDS'] = 'Admin Kommandoer';
-$L['SETDISK_TXT'] = 'Skriv denne kommando i ssh for at allokere den mængde diskplads du ønsker at tildele til en bruger.';
+// seedbox commands section
+$L['SEEDBOX_COMMANDS'] = 'Seedbox Kommandoer';
+$L['CHANGEUSERPASS_TXT'] = 'Skriv denne kommando i ssh for at ændre en brugers agdgangskode.';
 $L['CREATESEEDBOXUSER_TXT'] = 'Skriv denne kommando i ssh for at oprette en ny seedboxbruger på din server.';
 $L['DELETESEEDBOXUSER_TXT'] = 'Skriv denne kommando i ssh for at slette en seedboxbruger på din server. Du skal indtaste brugerens kontonavn.';
-$L['CHANGEUSERPASS_TXT'] = 'Skriv denne kommando i ssh for at ændre en brugers agdgangskode.';
-$L['QUICKVPN_TXT'] = 'Skriv denne kommando i ssh for at installere din egen VPN server på omkirng et minut samt administrere og oprette en nye brugercertifikater til brug på serveren.';
+$L['SETDISK_TXT'] = 'Skriv denne kommando i ssh for at allokere den mængde diskplads du ønsker at tildele til en bruger.';
 $L['SHOWSPACE_TXT'] = 'Skriv denne kommando i ssh (root) for at vise hver brugers nuværende diskforbrug.';
-$L['UPGRADEBTSYNC_TXT'] = 'Skriv denne kommando i ssh for at opgradere BTSync til nyeste version.';
-$L['UPGRADEPLEX_TXT'] = 'Skriv denne kommando i ssh for at opgradere Plex til nyeste version.';
 $L['UPGRADEDELUGE_TXT'] = 'Skriv denne kommando i ssh for at opgradere Deluge til nyeste version.';
+// packages commands section
+$L['PACKAGE_COMMANDS'] = 'Package Kommandoer';
+$L['QUICKVPN_TXT'] = 'Skriv denne kommando i ssh for at installere din egen VPN server på omkirng et minut samt administrere og oprette en nye brugercertifikater til brug på serveren.';
+$L['SETUPPYLOAD_TXT'] = 'Type this command in ssh to run the pyLoad setup script.';
+$L['UPGRADEBTSYNC_TXT'] = 'Skriv denne kommando i ssh for at opgradere BTSync til nyeste version.';
 $L['UPGRADEJACKETT_TXT'] = 'Skriv denne kommando for at opgradere Jackett til nyeste version.';
 $L['UPGRADEOMBI_TXT'] = 'Skriv denne kommando for at opgradere Ombi til nyeste version.';
+$L['UPGRADEPLEX_TXT'] = 'Skriv denne kommando i ssh for at opgradere Plex til nyeste version.';
 $L['UPGRADEPYLOAD_TXT'] = 'Skriv denne kommando for at opgradere pyLoad til nyeste version.';
 $L['UPGRADESABNZBD_TXT'] = 'Skriv denne kommando for at opgradere SABnzbd til nyeste version.';
-$L['SETUPPYLOAD_TXT'] = 'Type this command in ssh to run the pyLoad setup script.';
-$L['CLEAN_MEM_TXT'] = 'Skriv denne kommando i ssh (root) for at nulstille systemets fysiske Hukommelsescache.';
 // essential user commands section
 $L['ESSENTIAL_USER_COMMANDS'] = 'Vigtige Brugerkommandoer';
 $L['RELOAD_TXT'] = 'tillader en bruger at genstarte services (rtorrent and irssi)';

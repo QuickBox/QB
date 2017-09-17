@@ -261,9 +261,12 @@
 
         <!-- ######################## HELP MENU TAB ##################### -->
         <div class="tab-pane" id="help">
-          <h5 class="sidebar-title"><?php echo T('QUICK_SYSTEM_TIPS'); ?></h5>
           <?php if ($username == "$master") { ?>
+          <h5 class="sidebar-title"><?php echo T('QUICK_SYSTEM_TIPS'); ?></h5>
           <ul class="nav nav-pills nav-stacked nav-quirk nav-mail">
+            <li style="padding: 7px"><span style="font-size: 12px; color:#eee">clean_mem</span><br/>
+              <small><?php echo T('CLEAN_MEM_TXT'); ?></small>
+            </li>
             <li style="padding: 7px"><span style="font-size: 12px; color:#eee">disktest</span><br/>
               <small><?php echo T('DISKTEST_TXT'); ?></small>
             </li>
@@ -271,10 +274,10 @@
               <small><?php echo T('FIXHOME_TXT'); ?></small>
             </li>
           </ul>
-          <h5 class="sidebar-title"><?php echo T('ADMIN_COMMANDS'); ?></h5>
+          <h5 class="sidebar-title"><?php echo T('SEEDBOX_COMMANDS'); ?></h5>
           <ul class="nav nav-pills nav-stacked nav-quirk nav-mail">
-            <li style="padding: 7px"><span style="font-size: 12px; color:#eee">setdisk</span><br/>
-              <small><?php echo T('SETDISK_TXT'); ?></small>
+            <li style="padding: 7px"><span style="font-size: 12px; color:#eee">changeUserpass</span><br/>
+              <small><?php echo T('CHANGEUSERPASS_TXT'); ?></small>
             </li>
             <li style="padding: 7px"><span style="font-size: 12px; color:#eee">createSeedboxUser</span><br/>
               <small><?php echo T('CREATESEEDBOXUSER_TXT'); ?></small>
@@ -282,20 +285,24 @@
             <li style="padding: 7px"><span style="font-size: 12px; color:#eee">deleteSeedboxUser</span><br/>
               <small><?php echo T('DELETESEEDBOXUSER_TXT'); ?></small>
             </li>
-            <li style="padding: 7px"><span style="font-size: 12px; color:#eee">changeUserpass</span><br/>
-              <small><?php echo T('CHANGEUSERPASS_TXT'); ?></small>
-            </li>
-            <li style="padding: 7px"><span style="font-size: 12px; color:#eee">quickVPN</span><br/>
-              <small><?php echo T('QUICKVPN_TXT'); ?></small>
+            <li style="padding: 7px"><span style="font-size: 12px; color:#eee">setdisk</span><br/>
+              <small><?php echo T('SETDISK_TXT'); ?></small>
             </li>
             <li style="padding: 7px"><span style="font-size: 12px; color:#eee">showspace</span><br/>
               <small><?php echo T('SHOWSPACE_TXT'); ?></small>
             </li>
-            <li style="padding: 7px"><span style="font-size: 12px; color:#eee">upgradeBTSync</span><br/>
-              <small><?php echo T('UPGRADEBTSYNC_TXT'); ?></small>
-            </li>
             <li style="padding: 7px"><span style="font-size: 12px; color:#eee">upgradeDeluge</span><br/>
               <small><?php echo T('UPGRADEDELUGE_TXT'); ?></small>
+            </li>
+            <h5 class="sidebar-title"><?php echo T('PACKAGE_COMMANDS'); ?></h5>
+            <li style="padding: 7px"><span style="font-size: 12px; color:#eee">quickVPN</span><br/>
+              <small><?php echo T('QUICKVPN_TXT'); ?></small>
+            </li>
+            <li style="padding: 7px"><span style="font-size: 12px; color:#eee">setup-pyLoad</span><br/>
+              <small><?php echo T('SETUPPYLOAD_TXT'); ?></small>
+            </li>
+            <li style="padding: 7px"><span style="font-size: 12px; color:#eee">upgradeBTSync</span><br/>
+              <small><?php echo T('UPGRADEBTSYNC_TXT'); ?></small>
             </li>
             <li style="padding: 7px"><span style="font-size: 12px; color:#eee">upgradeJackett</span><br/>
               <small><?php echo T('UPGRADEJACKETT_TXT'); ?></small>
@@ -311,12 +318,6 @@
             </li>
             <li style="padding: 7px"><span style="font-size: 12px; color:#eee">upgradeSABnzbd</span><br/>
               <small><?php echo T('UPGRADESABNZBD_TXT'); ?></small>
-            </li>
-            <li style="padding: 7px"><span style="font-size: 12px; color:#eee">setup-pyLoad</span><br/>
-              <small><?php echo T('SETUPPYLOAD_TXT'); ?></small>
-            </li>
-            <li style="padding: 7px"><span style="font-size: 12px; color:#eee">clean_mem</span><br/>
-              <small><?php echo T('CLEAN_MEM_TXT'); ?></small>
             </li>
           </ul>
           <?php } ?>
