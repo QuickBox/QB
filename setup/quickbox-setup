@@ -451,12 +451,13 @@ function _depends() {
 
 # build openssl from source to combat recent apt source updates
 function _openssl() {
+  MAXCPUS=$(echo "$(nproc) / 2"|bc)
   cd /tmp
-  wget https://www.openssl.org/source/openssl-1.0.2l.tar.gz
-  tar -zxvf openssl-1.0.2l.tar.gz
+  wget -q https://www.openssl.org/source/openssl-1.0.2l.tar.gz
+  tar -zxvf openssl-1.0.2l.tar.gz >>"${OUTTO}" 2>&1
   cd openssl-1.0.2l
-  ./config -fPIC --prefix=/usr shared >>"${OUTTO}" 2>&1;
-  make >>"${OUTTO}" 2>&1;
+  ./config --prefix=/usr shared >>"${OUTTO}" 2>&1;
+  make -j${MAXCPUS} >>"${OUTTO}" 2>&1;
   make install >>"${OUTTO}" 2>&1;
   cd /tmp
   rm -rf openssl-1.0.2l.tar.gz openssl-1.0.2l
