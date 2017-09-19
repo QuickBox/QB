@@ -679,7 +679,7 @@ function _boost() {
   wget -O boost_1_65_1.tar.gz -q https://sourceforge.net/projects/boost/files/boost/1.65.1/boost_1_65_1.tar.gz/download
   tar -zxvf boost_1_65_1.tar.gz >>"${OUTTO}" 2>&1
   cd boost_1_65_1
-  ./bootstrap.sh --prefix=/usr/ --with-system --with-python --with-chrono --with-random >>"${OUTTO}" 2>&1;
+  ./bootstrap.sh --prefix=/usr/ >>"${OUTTO}" 2>&1;
   ./b2 >>"${OUTTO}" 2>&1;
   ./b2 install >>"${OUTTO}" 2>&1;
   cd /tmp
