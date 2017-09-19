@@ -47,7 +47,9 @@ $L['UPGRADEBTSYNC_TXT'] = 'Type this command in ssh to upgrade BTSync to newest 
 $L['UPGRADEPLEX_TXT'] = 'Type this command in ssh to upgrade Plex to newest version when available.';
 $L['UPGRADEDELUGE_TXT'] = 'Type this command in ssh to upgrade Deluge to newest version when available.';
 $L['UPGRADEJACKETT_TXT'] = 'Type this command in ssh to upgrade Jackett to newest version when available.';
+$L['UPGRADEOMBI_TXT'] = 'Type this command in ssh to upgrade Ombi to newest version when available.';
 $L['UPGRADEPYLOAD_TXT'] = 'Type this command in ssh to upgrade pyLoad to newest version when available.';
+$L['UPGRADESABNZBD_TXT'] = 'Type this command in ssh to upgrade SABnzbd to newest version when available.';
 $L['SETUPPYLOAD_TXT'] = 'Type this command in ssh to run the pyLoad setup script.';
 $L['CLEAN_MEM_TXT'] = 'Use the above command as root if/when you decide to clear your systems Physical Memory Cache';
 // essential user commands section
