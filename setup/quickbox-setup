@@ -419,7 +419,7 @@ function _depends() {
     yes '' | apt-get install --force-yes fail2ban bc ed sudo screen zip irssi unzip nano bwm-ng htop iotop \
                      dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
-                     apache2-utils autoconf cron curl libapache2-mod-fastcgi rtorrent libapache2-mod-geoip \
+                     apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket libapache2-mod-php7.0 \
                      php7.0-dev php7.0-geoip libgeoip-dev php7.0 php7.0-fpm php7.0-mbstring php7.0-mysql \
                      php7.0-curl php7.0-memcached memcached php7.0-gd php7.0-json php7.0-mcrypt php7.0-opcache \
@@ -434,7 +434,7 @@ function _depends() {
     apt-get -y -f --allow-unauthenticated install build-essential debian-archive-keyring fail2ban bc sudo \
                      screen zip irssi unzip nano bwm-ng htop iotop git \
                      dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
-                     pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev rtorrent libsigc++-2.0-dev \
+                     pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket \
                      libdbd-mysql-perl libdbi-perl php7.0 php7.0-fpm php7.0-mbstring php7.0-mysql \
@@ -629,7 +629,7 @@ function _xmlrpc() {
   make install >>"${OUTTO}" 2>&1
 }
 
-# libtorent function (20)
+# libtorrent function (20)
 # apt rtorrent handles the libtorrent install
 # remember this is temporary until patched
 function _libtorrent() {
