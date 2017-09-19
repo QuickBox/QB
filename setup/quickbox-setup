@@ -143,8 +143,8 @@ echo
 function _askquota() {
   echo -ne "${bold}${yellow}Do you wish to use user quotas?${normal} (Default: ${green}${bold}N${normal}) "; read input
     case $input in
-      [yY] | [yY][Ee][Ss] | "" ) quota="yes";echo "${bold}Quotas will be installed${normal}" ;;
-      [nN] | [nN][Oo] ) quota="no";echo "${cyan}Quotas will not be installed${normal}" ;;
+      [yY] | [yY][Ee][Ss]) quota="yes";echo "${bold}Quotas will be installed${normal}" ;;
+      [nN] | [nN][Oo] | "" ) quota="no";echo "${cyan}Quotas will not be installed${normal}" ;;
     *) quota="no";echo "${bold}Quotas will not be installed${normal}" ;;
     esac
 }
