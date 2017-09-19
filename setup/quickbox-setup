@@ -640,10 +640,17 @@ function _libtorrent() {
   rm -rf xmlrpc-c  >>"${OUTTO}" 2>&1
   if [[ -e /root/tmp/libtorrent-${LTORRENT}.tar.gz ]]; then rm -rf libtorrent-${LTORRENT}.tar.gz;fi
   cp ${local_setup}sources/libtorrent-${LTORRENT}.tar.gz .
+  cp ${local_setup}sources/libtorrent-0.13.4-tar.patch .
   tar -xzvf libtorrent-${LTORRENT}.tar.gz >>"${OUTTO}" 2>&1
   cd libtorrent-${LTORRENT}
   ./autogen.sh >>"${OUTTO}" 2>&1
+  if [ $LTORRENT = 0.13.4 ]; then
+  mv ../libtorrent-*-tar.patch ./
+  patch -p1 < libtorrent-*-tar.patch
+  ./configure --prefix=/usr --enable-ipv6 >>"${OUTTO}" 2>&1
+  else
   ./configure --prefix=/usr >>"${OUTTO}" 2>&1
+  fi
   make -j${MAXCPUS} >>"${OUTTO}" 2>&1
   make install >>"${OUTTO}" 2>&1
 }
@@ -658,10 +665,17 @@ function _rtorrent() {
   rm -rf libtorrent-${LTORRENT}* >>"${OUTTO}" 2>&1
   if [[ -e /root/tmp/libtorrent-${LTORRENT}.tar.gz ]]; then rm -rf libtorrent-${LTORRENT}.tar.gz;fi
   cp ${local_setup}sources/rtorrent-${RTVERSION}.tar.gz .
+  cp ${local_setup}sources/rtorrent-0.9.4-tar.patch .
   tar -xzvf rtorrent-${RTVERSION}.tar.gz >>"${OUTTO}" 2>&1
   cd rtorrent-${RTVERSION}
   ./autogen.sh >>"${OUTTO}" 2>&1
+  if [ $RTVERSION = 0.9.4 ]; then
+  mv ../rtorrent-*-tar.patch ./
+  patch -p1 < rtorrent-*-tar.patch
+  ./configure --prefix=/usr --with-xmlrpc-c --enable-ipv6 >>"${OUTTO}" 2>&1
+  else
   ./configure --prefix=/usr --with-xmlrpc-c >>"${OUTTO}" 2>&1
+  fi
   make -j${MAXCPUS} >>"${OUTTO}" 2>&1
   make install >>"${OUTTO}" 2>&1
   cd /root/tmp
