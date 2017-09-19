@@ -646,7 +646,7 @@ function _libtorrent() {
   ./autogen.sh >>"${OUTTO}" 2>&1
   if [ $LTORRENT = 0.13.4 ]; then
   mv ../libtorrent-*-tar.patch ./
-  patch -p1 < libtorrent-*-tar.patch
+  patch -p1 < libtorrent-*-tar.patch >>"${OUTTO}" 2>&1
   ./configure --prefix=/usr --enable-ipv6 >>"${OUTTO}" 2>&1
   else
   ./configure --prefix=/usr >>"${OUTTO}" 2>&1
@@ -671,7 +671,7 @@ function _rtorrent() {
   ./autogen.sh >>"${OUTTO}" 2>&1
   if [ $RTVERSION = 0.9.4 ]; then
   mv ../rtorrent-*-tar.patch ./
-  patch -p1 < rtorrent-*-tar.patch
+  patch -p1 < rtorrent-*-tar.patch >>"${OUTTO}" 2>&1
   ./configure --prefix=/usr --with-xmlrpc-c --enable-ipv6 >>"${OUTTO}" 2>&1
   else
   ./configure --prefix=/usr --with-xmlrpc-c >>"${OUTTO}" 2>&1
