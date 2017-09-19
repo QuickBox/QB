@@ -417,7 +417,7 @@ function _updates() {
 function _depends() {
   if [[ $DISTRO == Debian ]]; then
     yes '' | apt-get install --force-yes fail2ban bc ed sudo screen zip irssi unzip nano bwm-ng htop iotop \
-                     dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
+                     dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev \
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket libapache2-mod-php7.0 \
@@ -433,7 +433,7 @@ function _depends() {
   elif [[ $DISTRO == Ubuntu ]]; then
     apt-get -y -f --allow-unauthenticated install build-essential debian-archive-keyring fail2ban bc sudo \
                      screen zip irssi unzip nano bwm-ng htop iotop git \
-                     dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
+                     dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev \
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket \
@@ -452,22 +452,22 @@ function _depends() {
 # build openssl from source to combat recent apt source updates
 function _openssl() {
   cd /tmp
-  #wget https://www.openssl.org/source/openssl-1.1.0f.tar.gz 
-  #tar -xzvf openssl-1.1.0f.tar.gz
-  #cd openssl-1.1.0f
+  wget https://www.openssl.org/source/openssl-1.0.2l.tar.gz
+  tar -zxvf openssl-1.0.2l.tar.gz
+  cd openssl-1.0.2l
+  ./config -fPIC --prefix=/usr shared >>"${OUTTO}" 2>&1;
+  make >>"${OUTTO}" 2>&1;
+  make install >>"${OUTTO}" 2>&1;
+  cd /tmp
+  rm -rf openssl-1.0.2l.tar.gz openssl-1.0.2l
+  #git clone git://git.openssl.org/openssl.git >>"${OUTTO}" 2>&1;
+  #cd openssl
+  #git config core.autocrlf false
+  #git config core.eol lf
+  #git checkout .
   #./config >>"${OUTTO}" 2>&1;
   #make >>"${OUTTO}" 2>&1;
   #make install >>"${OUTTO}" 2>&1;
-  #cd /tmp
-  #rm -rf openssl-1.1.0f.tar.gz openssl-1.1.0f
-  git clone git://git.openssl.org/openssl.git >>"${OUTTO}" 2>&1;
-  cd openssl
-  git config core.autocrlf false
-  git config core.eol lf
-  git checkout .
-  ./config >>"${OUTTO}" 2>&1;
-  make >>"${OUTTO}" 2>&1;
-  make install >>"${OUTTO}" 2>&1;
   cd
 }
 
@@ -1253,6 +1253,7 @@ echo ""
 echo -n "Pulling QuickBox Ecosystem ... ";_repos & spinner $!;echo
 echo -n "Updating system ... ";_updates & spinner $!;echo
 echo -n "Installing all needed dependencies ... ";_depends & spinner $!;echo
+echo -n "Installing openssl ... ";_openssl & spinner $!;echo
 #_openssl
 echo -n "Setting up system executables ... ";_syscommands & spinner $!;echo
 echo -n "Building required user directories ... ";_skel & spinner $!;echo
