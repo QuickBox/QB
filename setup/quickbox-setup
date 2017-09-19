@@ -673,7 +673,19 @@ function _rtorrent_fallback() {
   apt-get install -y rtorrent >>"${OUTTO}" 2>&1
   touch /install/.rtorrent.lock
 }
-
+# boost function (ex)
+function _boost() {
+  cd /tmp
+  wget -O boost_1_65_1.tar.gz -q https://sourceforge.net/projects/boost/files/boost/1.65.1/boost_1_65_1.tar.gz/download
+  tar -zxvf boost_1_65_1.tar.gz >>"${OUTTO}" 2>&1
+  cd boost_1_65_1
+  ./bootstrap.sh --prefix=/usr/ >>"${OUTTO}" 2>&1;
+  ./b2 >>"${OUTTO}" 2>&1;
+  ./b2 install >>"${OUTTO}" 2>&1;
+  cd /tmp
+  rm -rf boost_1_65_1.tar.gz boost_1_65_1
+  cd
+}
 # deluge function (xx)
 function _deluge() {
   if [[ $DELUGE == REPO ]]; then
@@ -689,12 +701,13 @@ function _deluge() {
       LTRC=RC_1_1
     fi
   apt-get -qy update >/dev/null 2>&1
-  LIST='build-essential checkinstall libboost-system-dev libboost-python-dev libssl-dev libgeoip-dev libboost-chrono-dev libboost-random-dev
+  LIST='build-essential checkinstall libgeoip-dev 
   python python-twisted python-openssl python-setuptools intltool python-xdg python-chardet geoip-database python-notify python-pygame
   python-glade2 librsvg2-common xdg-utils python-mako'
   for depend in $LIST; do
     apt-get -qq -y install $depend >>"${OUTTO}" 2>&1
   done
+  _boost
   git clone -b ${LTRC} https://github.com/arvidn/libtorrent.git >>"${OUTTO}" 2>&1
   git clone -b 1.3-stable git://deluge-torrent.org/deluge.git >>"${OUTTO}" 2>&1
   cd libtorrent
