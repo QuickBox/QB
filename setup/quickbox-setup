@@ -313,9 +313,9 @@ function _adduser() {
 function _askffmpeg() {
   echo -ne "${bold}${yellow}Would you like to install ffmpeg? (Used for screenshots)${normal} [y]es or [${green}n${normal}]o: "; read responce
   case $responce in
-    [yY] | [yY][Ee][Ss]) ffmpeg=yes ;;
-    [nN] | [nN][Oo] | "" ) ffmpeg=no ;;
-    *) ffmpeg=no ;;
+    [yY] | [yY][Ee][Ss] | "" ) ffmpeg=yes ;;
+    [nN] | [nN][Oo]) ffmpeg=no ;;
+    *) ffmpeg=yes ;;
   esac
   echo
 }
