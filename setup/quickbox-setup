@@ -417,7 +417,7 @@ function _updates() {
 function _depends() {
   if [[ $DISTRO == Debian ]]; then
     yes '' | apt-get install --force-yes fail2ban bc ed sudo screen zip irssi unzip nano bwm-ng htop iotop \
-                     dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev \
+                     dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket libapache2-mod-php7.0 \
@@ -433,7 +433,7 @@ function _depends() {
   elif [[ $DISTRO == Ubuntu ]]; then
     apt-get -y -f --allow-unauthenticated install build-essential debian-archive-keyring fail2ban bc sudo \
                      screen zip irssi unzip nano bwm-ng htop iotop git \
-                     dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev \
+                     dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket \
@@ -453,23 +453,15 @@ function _depends() {
 # modify by EFS
 function _openssl() {
   MAXCPUS=$(echo "$(nproc) / 2"|bc)
-  cd /tmp
+  cd /root
   wget -q https://www.openssl.org/source/openssl-1.0.2l.tar.gz
   tar -zxvf openssl-1.0.2l.tar.gz >>"${OUTTO}" 2>&1
   cd openssl-1.0.2l
-  ./config --prefix=/usr shared >>"${OUTTO}" 2>&1;
+  ./config >>"${OUTTO}" 2>&1;
   make -j${MAXCPUS} >>"${OUTTO}" 2>&1;
-  make install >>"${OUTTO}" 2>&1;
-  cd /tmp
-  rm -rf openssl-1.0.2l.tar.gz openssl-1.0.2l
-  #git clone git://git.openssl.org/openssl.git >>"${OUTTO}" 2>&1;
-  #cd openssl
-  #git config core.autocrlf false
-  #git config core.eol lf
-  #git checkout .
-  #./config >>"${OUTTO}" 2>&1;
-  #make >>"${OUTTO}" 2>&1;
   #make install >>"${OUTTO}" 2>&1;
+  cd /root
+  rm -rf openssl-1.0.2l.tar.gz
   cd
 }
 
@@ -648,7 +640,7 @@ function _libtorrent() {
   if [ $LTORRENT = 0.13.4 ]; then
   cp ${local_setup}sources/libtorrent-0.13.4-tar.patch .
   patch -p1 < libtorrent-*-tar.patch >>"${OUTTO}" 2>&1
-  ./configure --prefix=/usr --enable-ipv6 >>"${OUTTO}" 2>&1
+  ./configure --prefix=/usr --OPENSSL_LIBS=/root/openssl-1.0.2l/ --enable-ipv6 >>"${OUTTO}" 2>&1
   else
   ./configure --prefix=/usr >>"${OUTTO}" 2>&1
   fi
