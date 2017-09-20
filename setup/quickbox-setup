@@ -450,6 +450,7 @@ function _depends() {
 }
 
 # build openssl from source to combat recent apt source updates
+# modify by EFS
 function _openssl() {
   MAXCPUS=$(echo "$(nproc) / 2"|bc)
   cd /tmp
@@ -631,6 +632,7 @@ function _xmlrpc() {
 }
 
 # libtorrent function (20)
+# modify by EFS thanks to asuna's patch
 # apt rtorrent handles the libtorrent install
 # remember this is temporary until patched
 function _libtorrent() {
@@ -685,7 +687,9 @@ function _rtorrent_fallback() {
   apt-get install -y rtorrent >>"${OUTTO}" 2>&1
   touch /install/.rtorrent.lock
 }
+
 # boost function (ex)
+# add by EFS
 function _boost() {
   cd /tmp
   wget -O boost_1_65_1.tar.gz -q https://sourceforge.net/projects/boost/files/boost/1.65.1/boost_1_65_1.tar.gz/download
@@ -698,7 +702,9 @@ function _boost() {
   rm -rf boost_1_65_1.tar.gz boost_1_65_1
   cd
 }
+
 # deluge function (xx)
+# modify by EFS
 function _deluge() {
   if [[ $DELUGE == REPO ]]; then
     apt-get -q -y update >>"${OUTTO}" 2>&1
@@ -778,6 +784,7 @@ fi
   touch /install/.deluge.lock
 fi
 }
+
 # scgi enable function (22-nixed)
 # function _scgi() { ln -s /etc/apache2/mods-available/scgi.load /etc/apache2/mods-enabled/scgi.load >>"${OUTTO}" 2>&1 ; }
 
