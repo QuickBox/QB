@@ -255,7 +255,7 @@ function _askdashtheme() {
 # ask what rtorrent version (8)
 function _askrtorrent() {
   echo -e "1) rtorrent ${green}0.9.6${normal}"
-  echo -e "2) rtorrent ${green}0.9.4${normal}"
+  echo -e "2) rtorrent ${green}0.9.4 (with ipv6 support)${normal}"
   echo -e "3) rtorrent ${green}0.9.3${normal}"
   echo -ne "${bold}${yellow}What version of rtorrent do you want?${normal} (Default ${green}2${normal}): "; read version
   case $version in
@@ -311,7 +311,7 @@ function _adduser() {
 
 # install ffmpeg question (10)
 function _askffmpeg() {
-  echo -ne "${bold}${yellow}Would you like to install ffmpeg? (Used for screenshots)${normal} [y]es or [${green}n${normal}]o: "; read responce
+  echo -ne "${bold}${yellow}Would you like to install ffmpeg? (Used for screenshots)${normal} [${green}y${normal}]es or [n]o: "; read responce
   case $responce in
     [yY] | [yY][Ee][Ss] | "" ) ffmpeg=yes ;;
     [nN] | [nN][Oo]) ffmpeg=no ;;
