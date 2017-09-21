@@ -889,8 +889,7 @@ function _apacheconf() {
 function _fix_cert() {
   if [ ! -f /etc/ssl/certs/ssl-cert-snakeoila.pem ]
   then 
-    apt install policycoreutils -y >>"${OUTTO}" 2>&1
-    restorecon -Rv /etc/pki/tls/certs/
+    openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/ssl/private/ssl-cert-snakeoil.key -out /etc/ssl/certs/ssl-cert-snakeoil.pem -subj "/C=CN/ST=BJ/L=PRC/O=IT/CN=www.example.com" >>"${OUTTO}" 2>&1
   fi
 }
 
