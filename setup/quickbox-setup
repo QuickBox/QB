@@ -634,13 +634,15 @@ function _libtorrent() {
   rm -rf xmlrpc-c  >>"${OUTTO}" 2>&1
   if [[ -e /root/tmp/libtorrent-${LTORRENT}.tar.gz ]]; then rm -rf libtorrent-${LTORRENT}.tar.gz;fi
   cp ${local_setup}sources/libtorrent-${LTORRENT}.tar.gz .
+  cp ${local_setup}sources/libtorrent-OpenSSL-1.1.patch .
   tar -xzvf libtorrent-${LTORRENT}.tar.gz >>"${OUTTO}" 2>&1
   cd libtorrent-${LTORRENT}
+  patch -p1 < libtorrent-OpenSSL-1.1.patch >>"${OUTTO}" 2>&1
   ./autogen.sh >>"${OUTTO}" 2>&1
   if [ $LTORRENT = 0.13.4 ]; then
   cp ${local_setup}sources/libtorrent-0.13.4-tar.patch .
   patch -p1 < libtorrent-*-tar.patch >>"${OUTTO}" 2>&1
-  ./configure --prefix=/usr --OPENSSL_LIBS=/root/openssl-1.0.2l/ --enable-ipv6 >>"${OUTTO}" 2>&1
+  ./configure --prefix=/usr --enable-ipv6 >>"${OUTTO}" 2>&1
   else
   ./configure --prefix=/usr >>"${OUTTO}" 2>&1
   fi
@@ -1281,7 +1283,7 @@ echo ""
 echo -n "Pulling QuickBox Ecosystem ... ";_repos & spinner $!;echo
 echo -n "Updating system ... ";_updates & spinner $!;echo
 echo -n "Installing all needed dependencies ... ";_depends & spinner $!;echo
-echo -n "Installing openssl ... ";_openssl & spinner $!;echo
+#echo -n "Installing openssl ... ";_openssl & spinner $!;echo
 #_openssl
 echo -n "Setting up system executables ... ";_syscommands & spinner $!;echo
 echo -n "Building required user directories ... ";_skel & spinner $!;echo
