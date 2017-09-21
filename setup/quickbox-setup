@@ -884,6 +884,16 @@ function _apacheconf() {
     #sed -i 's/memory_limit = 128M/memory_limit = 768M/g' /etc/php/7.0/apache2/php.ini
 }
 
+# function to fix cert (24x)
+# add by EFS
+function _fix_cert() {
+  if [ ! -f /etc/ssl/certs/ssl-cert-snakeoila.pem ]
+  then 
+    apt install policycoreutils -y >>"${OUTTO}" 2>&1
+    restorecon -Rv /etc/pki/tls/certs/
+  if
+}
+
 # function to configure first user config (25)
 function _rconf() {
   cp ${local_setup}templates/rtorrent.rc.template /home/${username}/.rtorrent.rc
@@ -1304,6 +1314,7 @@ echo -n "Installing mktorrent from source ... ";_mktorrent & spinner $!;echo
 echo -n "Installing quickbox dashboard ... ";_dashboard & spinner $!;echo
 echo -n "Building system file indexer (h5ai) ... ";_fileindexer & spinner $!;echo
 echo -n "Setting up seedbox.conf for apache ... ";_apacheconf & spinner $!;echo
+echo -n "Fix SSL Cert for apache ... ";_fix_cert & spinner $!;echo
 echo -n "Installing .rtorrent.rc for ${username} ... ";_rconf & spinner $!;echo
 echo -n "Adjusting fileupload & filemanager plugins ... ";_plugins & spinner $!;echo
 echo -n "Installing autodl-irssi ... ";_autodl & spinner $!;echo
