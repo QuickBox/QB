@@ -1,5 +1,17 @@
+## CHANGELOG efs-dev v0.1.0:
 
-##CHANGELOG v2.4.8:
+### General adjustments & additions
+* First dev version
+* change some defaults
+* fix some descriptions
+* add compile install(rtorrent libtorrent deluge)
+	+ libtorrent 0.13.4 with ipv6 patch
+	+ rtorrent 0.9.4 with ipv6 patch
+	+ deluge 1.3.15 stable version
+* new openssl
+* new libboost
+
+## CHANGELOG v2.4.8:
 _Changelog updated Monday, October 24, 2016_
 
 ---
