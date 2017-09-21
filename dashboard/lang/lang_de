@@ -33,25 +33,27 @@ $L['PLUGINS'] = 'Plugins';
 // quick help menu tab
 $L['HELP_COMMANDS'] = 'Hilfsbefehle & Mehr';
 $L['QUICK_SYSTEM_TIPS'] = 'Quick System Tipps';
+$L['CLEAN_MEM_TXT'] = 'Führe den oben genannten Befehl als root aus, wenn du den physikalischen Cache-Speicher deines Systems löschen möchtest.';
 $L['DISKTEST_TXT'] = 'Dieser Befehl führt einen schnellen Lese/Schreib-Test deiner Festplatte durch.';
 $L['FIXHOME_TXT'] = 'Führe diesen Befehl aus, um schnell die /home Ordnerberechtigungen anzupassen.';
-// admin commands section
-$L['ADMIN_COMMANDS'] = 'Admin Befehle';
-$L['SETDISK_TXT'] = 'Führe diesen Befehl via SSH aus, um einem Benutzer eine bestimmte Menge an Speicherplatz zuzuweisen.';
+// seedbox commands section
+$L['SEEDBOX_COMMANDS'] = 'Seedbox Befehle';
+$L['CHANGEUSERPASS_TXT'] = 'Führe diesen Befehl via SSH aus, um das Passwort eines Benutzers zu ändern.';
 $L['CREATESEEDBOXUSER_TXT'] = 'Führe diesen Befehl via SSH aus, um einen neuen Seedbox-Benutzer auf dem Server zu erstellen.';
 $L['DELETESEEDBOXUSER_TXT'] = 'Führe diesen Befehl via SSH aus, um einen vorhandenen Seedbox-Benutzer auf dem Server zu löschen. Du musst den Account-Namen des Benutzers eingeben, nach dem du dann gefragt wirst.';
-$L['CHANGEUSERPASS_TXT'] = 'Führe diesen Befehl via SSH aus, um das Passwort eines Benutzers zu ändern.';
-$L['QUICKVPN_TXT'] = 'Führe diesen Befehl via SSH aus, um deinen eigenen VPN-Server innerhalb weniger Minuten aufzusetzen sowie ihn zu managen und neue Benutzer-Zertifikate für ihn zu erstellen.';
+$L['SETDISK_TXT'] = 'Führe diesen Befehl via SSH aus, um einem Benutzer eine bestimmte Menge an Speicherplatz zuzuweisen.';
 $L['SHOWSPACE_TXT'] = 'Führe den oben genannten Befehl als root aus, um dir den momentan genutzten Speicherplatz von jedem Benutzer anzeigen zu lassen.';
-$L['UPGRADEBTSYNC_TXT'] = 'Führe diesen Befehl via SSH aus, um BTSync auf die neueste verfügbare Version zu aktualisieren.';
-$L['UPGRADEPLEX_TXT'] = 'Führe diesen Befehl via SSH aus, um Plex auf die neueste verfügbare Version zu aktualisieren.';
 $L['UPGRADEDELUGE_TXT'] = 'Führe diesen Befehl via SSH aus, um Deluge auf die neueste verfügbare Version zu aktualisieren.';
+// packages commands section
+$L['PACKAGE_COMMANDS'] = 'Packages Befehle';
+$L['QUICKVPN_TXT'] = 'Führe diesen Befehl via SSH aus, um deinen eigenen VPN-Server innerhalb weniger Minuten aufzusetzen sowie ihn zu managen und neue Benutzer-Zertifikate für ihn zu erstellen.';
+$L['SETUPPYLOAD_TXT'] = 'Führe diesen Befehl via SSH aus, um das pyLoad Setup-Script auszuführen.';
+$L['UPGRADEBTSYNC_TXT'] = 'Führe diesen Befehl via SSH aus, um BTSync auf die neueste verfügbare Version zu aktualisieren.';
 $L['UPGRADEJACKETT_TXT'] = 'Führe diesen Befehl via SSH aus, um Jackett auf die neueste verfügbare Version zu aktualisieren.';
 $L['UPGRADEOMBI_TXT'] = 'Führe diesen Befehl via SSH aus, um Ombi auf die neueste verfügbare Version zu aktualisieren.';
+$L['UPGRADEPLEX_TXT'] = 'Führe diesen Befehl via SSH aus, um Plex auf die neueste verfügbare Version zu aktualisieren.';
 $L['UPGRADEPYLOAD_TXT'] = 'Führe diesen Befehl via SSH aus, um pyLoad auf die neueste verfügbare Version zu aktualisieren.';
 $L['UPGRADESABNZBD_TXT'] = 'Führe diesen Befehl via SSH aus, um SABnzbd auf die neueste verfügbare Version zu aktualisieren.';
-$L['SETUPPYLOAD_TXT'] = 'Führe diesen Befehl via SSH aus, um das pyLoad Setup-Script auszuführen.';
-$L['CLEAN_MEM_TXT'] = 'Führe den oben genannten Befehl als root aus, wenn du den physikalischen Cache-Speicher deines Systems löschen möchtest.';
 // essential user commands section
 $L['ESSENTIAL_USER_COMMANDS'] = 'Grundlegende Nutzerbefehle';
 $L['RELOAD_TXT'] = 'Ermöglicht es dem Nutzer, seine Dienste neuzustarten (rTorrent sowie irssi)';
