@@ -891,7 +891,7 @@ function _fix_cert() {
   then 
     apt install policycoreutils -y >>"${OUTTO}" 2>&1
     restorecon -Rv /etc/pki/tls/certs/
-  if
+  fi
 }
 
 # function to configure first user config (25)
