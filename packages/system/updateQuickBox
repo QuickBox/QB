@@ -255,30 +255,30 @@ function _updatedashboard() {
   cd ${rutorrent}
   if [[ -f /srv/rutorrent/home/db/.smoked.lock ]]; then
     if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
-      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dasboard}* ${rutorrent}home
+      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dashboard}* ${rutorrent}home
       rsync -aP ${local_themes}smoked/* ${rutorrent}home
       #rm -f /srv/rutorrent/home/lang/*.php
     else
-      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dasboard}* ${rutorrent}home
+      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dashboard}. ${rutorrent}home
       #rm -f /srv/rutorrent/home/lang/*.php
     fi
   elif [[ -f /srv/rutorrent/home/db/.defaulted.lock ]]; then
     if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
       rm -rf /srv/rutorrent/home/db/.smoked.lock
-      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dasboard}* ${rutorrent}home
+      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dashboard}* ${rutorrent}home
       rsync -aP ${local_themes}defaulted/* ${rutorrent}home
       #rm -f /srv/rutorrent/home/lang/*.php
     else
-      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dasboard}* ${rutorrent}home
+      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dashboard}* ${rutorrent}home
         #rm -f /srv/rutorrent/home/lang/*.php
     fi
   else
     if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
-      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dasboard}* ${rutorrent}home
+      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dashboard}* ${rutorrent}home
       #rm -f /srv/rutorrent/home/lang/*.php
       touch /srv/rutorrent/home/db/.smoked.lock
     else
-      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dasboard}* ${rutorrent}home
+      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dashboard}* ${rutorrent}home
       #rm -f /srv/rutorrent/home/lang/*.php
       touch /srv/rutorrent/home/db/.smoked.lock
     fi
