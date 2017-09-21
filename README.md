@@ -168,7 +168,7 @@ After that access your box using a SSH client, like PuTTY.
 **Run the following command to grab our latest stable release ...**
 ```
 apt-get -yqq update; apt-get -yqq upgrade; apt-get -yqq install git lsb-release; \
-git clone https://github.com/QuickBox/QB /etc/QuickBox &&
+git clone https://github.com/amefs/QB /etc/QuickBox &&
 bash /etc/QuickBox/setup/quickbox-setup
 ```
 
