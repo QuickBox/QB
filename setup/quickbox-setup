@@ -353,6 +353,17 @@ function _denyhosts() {
   echo
 }
 
+# install bbr question (x)
+function _askbbr() {
+  echo -ne "${bold}${yellow}Would you like to install bbr? (Used for Congestion Control)${normal} [${green}y${normal}]es or [n]o: "; read responce
+  case $responce in
+    [yY] | [yY][Ee][Ss] | "" ) bbr=yes ;;
+    [nN] | [nN][Oo]) bbr=no ;;
+    *) bbr=yes ;;
+  esac
+  echo
+}
+
 # package and repo addition (silently add php7) _add respo sources_ (12)
 function _repos() {
   apt-get install -y software-properties-common >>"${OUTTO}" 2>&1
@@ -1133,6 +1144,13 @@ function _perms() {
   chown -R chown -R www-data:www-data /srv/rutorrent/home >/dev/null 2>&1
 }
 
+function _insbbr() {
+  cd /tmp
+  cp ${local_setup}sources/BBR/BBR.sh .
+  chmod a+x BBR.sh
+  bash BBR.sh -f v4.12.14 >>"${OUTTO}" 2>&1
+  cd
+}
 
 ################################################################################
 #   //BEGIN UNUSED FUNCTIONS//
@@ -1282,6 +1300,7 @@ _adduser
 _askffmpeg
 _askvsftpd
 _denyhosts
+_askbbr
 
 echo
 echo ""
@@ -1326,6 +1345,9 @@ _quickstats;
 _quickconsole;
 echo -n "Setting irssi/rtorrent to start on boot ... ";_boot & spinner $!;echo;
 echo -n "Setting permissions on ${username} ... ";_perms & spinner $!;echo;
+if [[ ${bbr} == "yes" ]]; then
+    echo -n "install BBR ... ";_insbbr & spinner $!;echo
+fi
 cd
 E=$(date +%s)
 DIFF=$(echo "$E" - "$S"|bc)
