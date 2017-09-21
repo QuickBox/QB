@@ -131,6 +131,7 @@ if [[ -z $input ]]; then
 else
         hostname ${input}
         echo "${input}">/etc/hostname
+        echo "127.0.0.1 ${input}">/etc/hosts
         echo "Hostname set to ${input}"
 fi
 echo
