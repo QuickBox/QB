@@ -131,6 +131,7 @@ if [[ -z $input ]]; then
 else
         hostname ${input}
         echo "${input}">/etc/hostname
+        echo "127.0.0.1 ${input}">/etc/hosts
         echo "Hostname set to ${input}"
 fi
 echo
@@ -141,11 +142,11 @@ echo
 ################################################################################
 
 function _askquota() {
-  echo -ne "${bold}${yellow}Do you wish to use user quotas?${normal} (Default: ${green}${bold}Y${normal}) "; read input
+  echo -ne "${bold}${yellow}Do you wish to use user quotas?${normal} (Default: ${green}${bold}N${normal}) "; read input
     case $input in
-      [yY] | [yY][Ee][Ss] | "" ) quota="yes";echo "${bold}Quotas will be installed${normal}" ;;
-      [nN] | [nN][Oo] ) quota="no";echo "${cyan}Quotas will not be installed${normal}" ;;
-    *) quota="yes";echo "${bold}Quotas will be installed${normal}" ;;
+      [yY] | [yY][Ee][Ss]) quota="yes";echo "${bold}Quotas will be installed${normal}" ;;
+      [nN] | [nN][Oo] | "" ) quota="no";echo "${cyan}Quotas will not be installed${normal}" ;;
+    *) quota="no";echo "${bold}Quotas will not be installed${normal}" ;;
     esac
 }
 
@@ -238,7 +239,7 @@ function _askservices() {
   echo
 }
 
-# ask what rtorrent version (8)
+# ask what theme version (8)
 function _askdashtheme() {
   echo -e "1) QuickBox - ${green}smoked${normal} :: Dark theme"
   echo -e "2) QuickBox - ${green}defaulted${normal} :: Light theme"
@@ -255,14 +256,14 @@ function _askdashtheme() {
 # ask what rtorrent version (8)
 function _askrtorrent() {
   echo -e "1) rtorrent ${green}0.9.6${normal}"
-  echo -e "2) rtorrent ${green}0.9.4${normal}"
+  echo -e "2) rtorrent ${green}0.9.4 (with ipv6 support)${normal}"
   echo -e "3) rtorrent ${green}0.9.3${normal}"
-  echo -ne "${bold}${yellow}What version of rtorrent do you want?${normal} (Default ${green}1${normal}): "; read version
+  echo -ne "${bold}${yellow}What version of rtorrent do you want?${normal} (Default ${green}2${normal}): "; read version
   case $version in
-    1 | "") RTVERSION=0.9.6;LTORRENT=0.13.6  ;;
-    2) RTVERSION=0.9.4;LTORRENT=0.13.4  ;;
+    1) RTVERSION=0.9.6;LTORRENT=0.13.6  ;;
+    2 | "") RTVERSION=0.9.4;LTORRENT=0.13.4  ;;
     3) RTVERSION=0.9.3;LTORRENT=0.13.3 ;;
-    *) RTVERSION=0.9.6;LTORRENT=0.13.6 ;;
+    *) RTVERSION=0.9.4;LTORRENT=0.13.4  ;;
   esac
   echo "We will be using rtorrent-${green}$RTVERSION${normal}/libtorrent-${green}$LTORRENT${normal}"
   echo
@@ -274,13 +275,13 @@ function _askdeluge() {
   echo -e "2) Deluge with ${green}libtorrent 1.0.11 (stable)${normal}"
   echo -e "3) Deluge with ${green}libtorrent 1.1.3 (dev)${normal}"
   echo -e "4) Do not install Deluge"
-  echo -ne "${bold}${yellow}What version of Deluge do you want?${normal} (Default ${green}1${normal}): "; read version
+  echo -ne "${bold}${yellow}What version of Deluge do you want?${normal} (Default ${green}2${normal}): "; read version
   case $version in
-    1 | "") DELUGE=REPO  ;;
-    2) DELUGE=1.0.11  ;;
+    1) DELUGE=REPO  ;;
+    2 | "") DELUGE=1.0.11  ;;
     3) DELUGE=1.1.3 ;;
     4) DELUGE=NO ;;
-    *) DELUGE=REPO ;;
+    *) DELUGE=1.0.11  ;;
   esac
   echo "We will be using Deluge with Libtorrent ${DELUGE}"
   echo
@@ -314,7 +315,7 @@ function _askffmpeg() {
   echo -ne "${bold}${yellow}Would you like to install ffmpeg? (Used for screenshots)${normal} [${green}y${normal}]es or [n]o: "; read responce
   case $responce in
     [yY] | [yY][Ee][Ss] | "" ) ffmpeg=yes ;;
-    [nN] | [nN][Oo] ) ffmpeg=no ;;
+    [nN] | [nN][Oo]) ffmpeg=no ;;
     *) ffmpeg=yes ;;
   esac
   echo
@@ -419,7 +420,7 @@ function _depends() {
     yes '' | apt-get install --force-yes fail2ban bc ed sudo screen zip irssi unzip nano bwm-ng htop iotop \
                      dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
-                     apache2-utils autoconf cron curl libapache2-mod-fastcgi rtorrent libapache2-mod-geoip \
+                     apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket libapache2-mod-php7.0 \
                      php7.0-dev php7.0-geoip libgeoip-dev php7.0 php7.0-fpm php7.0-mbstring php7.0-mysql \
                      php7.0-curl php7.0-memcached memcached php7.0-gd php7.0-json php7.0-mcrypt php7.0-opcache \
@@ -434,7 +435,7 @@ function _depends() {
     apt-get -y -f --allow-unauthenticated install build-essential debian-archive-keyring fail2ban bc sudo \
                      screen zip irssi unzip nano bwm-ng htop iotop git \
                      dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
-                     pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev rtorrent libsigc++-2.0-dev \
+                     pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket \
                      libdbd-mysql-perl libdbi-perl php7.0 php7.0-fpm php7.0-mbstring php7.0-mysql \
@@ -450,24 +451,18 @@ function _depends() {
 }
 
 # build openssl from source to combat recent apt source updates
+# modify by EFS
 function _openssl() {
-  cd /tmp
-  #wget https://www.openssl.org/source/openssl-1.1.0f.tar.gz 
-  #tar -xzvf openssl-1.1.0f.tar.gz
-  #cd openssl-1.1.0f
-  #./config >>"${OUTTO}" 2>&1;
-  #make >>"${OUTTO}" 2>&1;
+  MAXCPUS=$(echo "$(nproc) / 2"|bc)
+  cd /root
+  wget -q https://www.openssl.org/source/openssl-1.0.2l.tar.gz
+  tar -zxvf openssl-1.0.2l.tar.gz >>"${OUTTO}" 2>&1
+  cd openssl-1.0.2l
+  ./config -fPIC >>"${OUTTO}" 2>&1;
+  make -j${MAXCPUS} >>"${OUTTO}" 2>&1;
   #make install >>"${OUTTO}" 2>&1;
-  #cd /tmp
-  #rm -rf openssl-1.1.0f.tar.gz openssl-1.1.0f
-  git clone git://git.openssl.org/openssl.git >>"${OUTTO}" 2>&1;
-  cd openssl
-  git config core.autocrlf false
-  git config core.eol lf
-  git checkout .
-  ./config >>"${OUTTO}" 2>&1;
-  make >>"${OUTTO}" 2>&1;
-  make install >>"${OUTTO}" 2>&1;
+  cd /root
+  rm -rf openssl-1.0.2l.tar.gz
   cd
 }
 
@@ -629,7 +624,8 @@ function _xmlrpc() {
   make install >>"${OUTTO}" 2>&1
 }
 
-# libtorent function (20)
+# libtorrent function (20)
+# modify by EFS thanks to asuna's patch
 # apt rtorrent handles the libtorrent install
 # remember this is temporary until patched
 function _libtorrent() {
@@ -642,7 +638,13 @@ function _libtorrent() {
   tar -xzvf libtorrent-${LTORRENT}.tar.gz >>"${OUTTO}" 2>&1
   cd libtorrent-${LTORRENT}
   ./autogen.sh >>"${OUTTO}" 2>&1
-  ./configure --prefix=/usr >>"${OUTTO}" 2>&1
+  if [ $LTORRENT = 0.13.4 ]; then
+  cp ${local_setup}sources/libtorrent-0.13.4-tar.patch .
+  patch -p1 < libtorrent-*-tar.patch >>"${OUTTO}" 2>&1
+  ./configure --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" --enable-ipv6 >>"${OUTTO}" 2>&1
+  else
+  ./configure --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" >>"${OUTTO}" 2>&1
+  fi
   make -j${MAXCPUS} >>"${OUTTO}" 2>&1
   make install >>"${OUTTO}" 2>&1
 }
@@ -660,7 +662,13 @@ function _rtorrent() {
   tar -xzvf rtorrent-${RTVERSION}.tar.gz >>"${OUTTO}" 2>&1
   cd rtorrent-${RTVERSION}
   ./autogen.sh >>"${OUTTO}" 2>&1
+  if [ $RTVERSION = 0.9.4 ]; then
+  cp ${local_setup}sources/rtorrent-0.9.4-tar.patch .
+  patch -p1 < rtorrent-*-tar.patch >>"${OUTTO}" 2>&1
+  ./configure --prefix=/usr --with-xmlrpc-c --enable-ipv6 >>"${OUTTO}" 2>&1
+  else
   ./configure --prefix=/usr --with-xmlrpc-c >>"${OUTTO}" 2>&1
+  fi
   make -j${MAXCPUS} >>"${OUTTO}" 2>&1
   make install >>"${OUTTO}" 2>&1
   cd /root/tmp
@@ -673,7 +681,23 @@ function _rtorrent_fallback() {
   touch /install/.rtorrent.lock
 }
 
+# boost function (ex)
+# add by EFS
+function _boost() {
+  cd /tmp
+  wget -O boost_1_65_1.tar.gz -q https://sourceforge.net/projects/boost/files/boost/1.65.1/boost_1_65_1.tar.gz/download
+  tar -zxvf boost_1_65_1.tar.gz >>"${OUTTO}" 2>&1
+  cd boost_1_65_1
+  ./bootstrap.sh --prefix=/usr/ --with-libraries=system --with-libraries=python --with-libraries=chrono --with-libraries=random >>"${OUTTO}" 2>&1;
+  ./b2 >>"${OUTTO}" 2>&1;
+  ./b2 install >>"${OUTTO}" 2>&1;
+  cd /tmp
+  rm -rf boost_1_65_1.tar.gz boost_1_65_1
+  cd
+}
+
 # deluge function (xx)
+# modify by EFS
 function _deluge() {
   if [[ $DELUGE == REPO ]]; then
     apt-get -q -y update >>"${OUTTO}" 2>&1
@@ -688,14 +712,15 @@ function _deluge() {
       LTRC=RC_1_1
     fi
   apt-get -qy update >/dev/null 2>&1
-  LIST='build-essential checkinstall libboost-system-dev libboost-python-dev libssl-dev libgeoip-dev libboost-chrono-dev libboost-random-dev
+  LIST='build-essential checkinstall libgeoip-dev 
   python python-twisted python-openssl python-setuptools intltool python-xdg python-chardet geoip-database python-notify python-pygame
   python-glade2 librsvg2-common xdg-utils python-mako'
   for depend in $LIST; do
     apt-get -qq -y install $depend >>"${OUTTO}" 2>&1
   done
+  _boost
   git clone -b ${LTRC} https://github.com/arvidn/libtorrent.git >>"${OUTTO}" 2>&1
-  git clone -b 1.3-stable git://deluge-torrent.org/deluge.git >>"${OUTTO}" 2>&1
+  #git clone -b 1.3-stable git://deluge-torrent.org/deluge.git >>"${OUTTO}" 2>&1
   cd libtorrent
   ./autotool.sh >>"${OUTTO}" 2>&1
   ./configure --enable-python-binding --with-lib-geoip --with-libiconv >>"${OUTTO}" 2>&1 >>"${OUTTO}" 2>&1
@@ -703,12 +728,15 @@ function _deluge() {
   checkinstall -y --pkgversion=${DELUGE} >>"${OUTTO}" 2>&1
   ldconfig
   cd ..
-  cd deluge
+  wget -q http://download.deluge-torrent.org/source/deluge-1.3.15.tar.gz
+  tar -zxvf deluge-1.3.15.tar.gz >>"${OUTTO}" 2>&1
+  cd deluge-1.3.15
   python setup.py build >>"${OUTTO}" 2>&1
   python setup.py install --install-layout=deb >>"${OUTTO}" 2>&1
   python setup.py install_data >>"${OUTTO}" 2>&1
   cd ..
-  rm -r {deluge,libtorrent}
+  rm -r {deluge-1.3.15,libtorrent}
+  rm -rf deluge-1.3.15.tar.gz
 fi
   if [[ $DELUGE != NO ]]; then
   n=$RANDOM
@@ -749,6 +777,7 @@ fi
   touch /install/.deluge.lock
 fi
 }
+
 # scgi enable function (22-nixed)
 # function _scgi() { ln -s /etc/apache2/mods-available/scgi.load /etc/apache2/mods-enabled/scgi.load >>"${OUTTO}" 2>&1 ; }
 
@@ -797,7 +826,7 @@ function _fileindexer() {
   rm –rf h5ai-0.29.0.zip >>"${OUTTO}" 2>&1
   chmod 775 -R _h5ai/private/cache && chmod 775 -R _h5ai/public/cache
   apt -y install imagemagick >>"${OUTTO}" 2>&1
-  echo "#DirectoryIndex index.html index.php /_h5ai/public/index.php" >> /etc/apache2/apache2.conf
+  echo "DirectoryIndex index.html index.php /_h5ai/public/index.php" >> /etc/apache2/apache2.conf
   ln -s /home/${username}/torrents/rtorrent/ ${username}.rtorrent.downloads
   ln -s /home/${username}/torrents/deluge/ ${username}.deluge.downloads
 }
@@ -854,6 +883,15 @@ function _apacheconf() {
 
 
     #sed -i 's/memory_limit = 128M/memory_limit = 768M/g' /etc/php/7.0/apache2/php.ini
+}
+
+# function to fix cert (24x)
+# add by EFS
+function _fix_cert() {
+  if [ ! -f /etc/ssl/certs/ssl-cert-snakeoila.pem ]
+  then 
+    openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/ssl/private/ssl-cert-snakeoil.key -out /etc/ssl/certs/ssl-cert-snakeoil.pem -subj "/C=CN/ST=BJ/L=PRC/O=IT/CN=www.example.com" >>"${OUTTO}" 2>&1
+  fi
 }
 
 # function to configure first user config (25)
@@ -1253,6 +1291,7 @@ echo ""
 echo -n "Pulling QuickBox Ecosystem ... ";_repos & spinner $!;echo
 echo -n "Updating system ... ";_updates & spinner $!;echo
 echo -n "Installing all needed dependencies ... ";_depends & spinner $!;echo
+echo -n "Installing openssl ... ";_openssl & spinner $!;echo
 #_openssl
 echo -n "Setting up system executables ... ";_syscommands & spinner $!;echo
 echo -n "Building required user directories ... ";_skel & spinner $!;echo
@@ -1275,6 +1314,7 @@ echo -n "Installing mktorrent from source ... ";_mktorrent & spinner $!;echo
 echo -n "Installing quickbox dashboard ... ";_dashboard & spinner $!;echo
 echo -n "Building system file indexer (h5ai) ... ";_fileindexer & spinner $!;echo
 echo -n "Setting up seedbox.conf for apache ... ";_apacheconf & spinner $!;echo
+echo -n "Fix SSL Cert for apache ... ";_fix_cert & spinner $!;echo
 echo -n "Installing .rtorrent.rc for ${username} ... ";_rconf & spinner $!;echo
 echo -n "Adjusting fileupload & filemanager plugins ... ";_plugins & spinner $!;echo
 echo -n "Installing autodl-irssi ... ";_autodl & spinner $!;echo
