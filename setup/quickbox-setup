@@ -446,11 +446,7 @@ function _depends() {
     apt-get -y -f --allow-unauthenticated install build-essential debian-archive-keyring fail2ban bc sudo \
                      screen zip irssi unzip nano bwm-ng htop iotop git \
                      dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
-<<<<<<< HEAD
-                     pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev rtorrent libsigc++-2.0-dev \
-=======
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
->>>>>>> b06e9c4... Merge pull request #3 from amefs/master
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket \
                      libdbd-mysql-perl libdbi-perl php7.0 php7.0-fpm php7.0-mbstring php7.0-mysql \
@@ -467,25 +463,6 @@ function _depends() {
 
 # build openssl from source to combat recent apt source updates
 function _openssl() {
-<<<<<<< HEAD
-  cd /tmp
-  #wget https://www.openssl.org/source/openssl-1.1.0f.tar.gz 
-  #tar -xzvf openssl-1.1.0f.tar.gz
-  #cd openssl-1.1.0f
-  #./config >>"${OUTTO}" 2>&1;
-  #make >>"${OUTTO}" 2>&1;
-  #make install >>"${OUTTO}" 2>&1;
-  #cd /tmp
-  #rm -rf openssl-1.1.0f.tar.gz openssl-1.1.0f
-  git clone git://git.openssl.org/openssl.git >>"${OUTTO}" 2>&1;
-  cd openssl
-  git config core.autocrlf false
-  git config core.eol lf
-  git checkout .
-  ./config >>"${OUTTO}" 2>&1;
-  make >>"${OUTTO}" 2>&1;
-  make install >>"${OUTTO}" 2>&1;
-=======
   MAXCPUS=$(echo "$(nproc) / 2"|bc)
   cd /root
   wget -q https://www.openssl.org/source/openssl-1.0.2l.tar.gz
@@ -496,7 +473,6 @@ function _openssl() {
   #make install >>"${OUTTO}" 2>&1;
   cd /root
   rm -rf openssl-1.0.2l.tar.gz
->>>>>>> b06e9c4... Merge pull request #3 from amefs/master
   cd
 }
 
@@ -671,9 +647,6 @@ function _libtorrent() {
   tar -xzvf libtorrent-${LTORRENT}.tar.gz >>"${OUTTO}" 2>&1
   cd libtorrent-${LTORRENT}
   ./autogen.sh >>"${OUTTO}" 2>&1
-<<<<<<< HEAD
-  ./configure --prefix=/usr >>"${OUTTO}" 2>&1
-=======
   if [ $LTORRENT = 0.13.4 ]; then
   cp ${local_setup}sources/libtorrent-0.13.4-tar.patch .
   patch -p1 < libtorrent-*-tar.patch >>"${OUTTO}" 2>&1
@@ -681,7 +654,6 @@ function _libtorrent() {
   else
   ./configure --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" >>"${OUTTO}" 2>&1
   fi
->>>>>>> b06e9c4... Merge pull request #3 from amefs/master
   make -j${MAXCPUS} >>"${OUTTO}" 2>&1
   make install >>"${OUTTO}" 2>&1
 }
