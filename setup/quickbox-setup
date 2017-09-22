@@ -825,12 +825,12 @@ function _insTrWeb() {
   cd "$tmpFolder"
   # 找出web ui 目录
   folderIsExist=0
-  #echo "Searching Transmission Web Folder..."
+  echo "Searching Transmission Web Folder..."  >>"${OUTTO}" 2>&1
 
   # 感谢 yumin9822 提供的代码
-  rootFolder=`find / -name 'web' -type d | grep 'transmission/web' | head -n 1 | sed 's/web.*$//g'`
+  rootFolder=`find / -name 'web' -type d | grep 'transmission/web' | head -n 1 | sed 's/web.*$//g'` >>"${OUTTO}" 2>&1
 
-  #echo "Folder: ""$rootFolder""..."
+  echo "Folder: ""$rootFolder""..."  >>"${OUTTO}" 2>&1
   if [ -d "$rootFolder""web/" ]; then
 	webFolder="$rootFolder""web/"
 	folderIsExist=1
@@ -838,9 +838,9 @@ function _insTrWeb() {
 
   # 如果目录存在，则进行下载和更新动作
   if [ $folderIsExist = 1 ]; then
-	#echo "Transmission Web Control Is Downloading..."
+	echo "Transmission Web Control Is Downloading..." >>"${OUTTO}" 2>&1
 	wget -q "$donwloadurl"
-	#echo "Installing..."
+	echo "Installing..." >>"${OUTTO}" 2>&1
 	tar -xzf "$packname" >>"${OUTTO}" 2>&1
 	rm "$packname"
 	# 如果之前没有安装过，则先将原系统的文件改为
@@ -849,7 +849,7 @@ function _insTrWeb() {
 	fi
 	# 复制文件到
 	cp -r web "$rootFolder"
-	#echo "Done."
+	echo "Done." >>"${OUTTO}" 2>&1
   else
     echo "Floder not found" >>"${OUTTO}" 2>&1
 	#echo "##############################################"
