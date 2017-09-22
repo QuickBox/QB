@@ -1,0 +1,323 @@
+#!/bin/bash
+#
+# [Quick Box :: Install NZBGet package]
+#
+# GITHUB REPOS
+# GitHub _ packages  :   https://github.com/QuickBox/QB
+# LOCAL REPOS
+# Local _ packages   :   /etc/QuickBox/packages
+# Author             :   QuickBox.IO | JMSolo
+# URL                :   https://quickbox.io
+#
+# QuickBox Copyright (C) 2017 QuickBox.io
+# Licensed under GNU General Public License v3.0 GPL-3 (in short)
+#
+#   You may copy, distribute and modify the software as long as you track
+#   changes/dates in source files. Any modifications to our software
+#   including (via compiler) GPL-licensed code must also be made available
+#   under the GPL along with build & install instructions.
+################################################################################
+
+# Service is used with systemctl and is the install dir
+# Service Name is used to print the applications title
+APP_SERVICE=nzbget
+APP_SERVICE_NAME=NZBGet
+
+# If App install directory is other than /home/Username
+# 
+# Example: If an app needs to be installed in /opt do
+# APP_INSTALL_DIR=/opt/${APP_SERVICE}
+APP_INSTALL_DIR=
+
+FILE_OWNER=`whoami`
+
+# Login is used if set. QuickBox details used if found. Otherwise, no SV login
+# If login not wanted, remove detais in APP at general config/user interface
+APP_USERNAME=
+APP_PASSWORD=
+
+# Default port to connect to reach the running the Service application
+APP_SERVICE_PORT=6789
+APP_HOST=localhost
+
+# String must begin with a slash, example.. /service
+APP_WEB_ROOT=/nzbget
+
+# The repo consist of the applications download location
+APP_REPO=http://nzbget.net/info/nzbget-version-linux.json
+
+# Used in an Apache2 conf.. /etc/apache2/sites-available/${APP_SERVICE}.conf
+REVERSE_PROXY_URL=http://${APP_HOST}:${APP_SERVICE_PORT} # ${APP_WEB_ROOT} << only append the web root if needed >> 
+
+# To print to shell, set to nothing, otherwise output to LOGFILE
+USE_LOGFILE=yes
+LOGFILE=/srv/rutorrent/home/db/output.log
+
+# To get most output from commands that are run, set to nothing
+MIN_OUTPUT=  #yes
+
+# If the application requires certain dependencies, add them here
+# If the dependencies are currently installed, return OK found status
+APP_BASEDEPS_WHICH='rar'
+
+################################################################################
+#####      Should not need to change anything below this line              #####
+#####      Developers building packages, read the notes accordingly        #####
+################################################################################
+
+_print() {
+  if [[ -z "${USE_LOGFILE}" ]]; then
+    echo $1
+  else
+    echo $1 >>"${LOGFILE}" 2>&1
+  fi
+}
+
+_do() {
+  if [[ ! -z "${MIN_OUTPUT}" ]]; then
+    ($1 >/dev/null 2>&1)
+  else
+    ($1)
+  fi
+}
+_sudo() {
+  _do "sudo $1"
+}
+
+_getUserVars() {
+  # if no user/pw, then use one from QB (if set)
+  QB_FILE=/srv/rutorrent/home/db/master.txt
+  if [[ -z ${APP_USERNAME} && -f ${QB_FILE} ]]; then
+    APP_USERNAME=`cat ${QB_FILE}`
+    if [[ ! -z ${APP_USERNAME} ]]; then
+      FILE_OWNER=${APP_USERNAME}
+      QB_PW_FILE=/root/${APP_USERNAME}.info
+      if [[ -f ${QB_FILE} ]]; then
+        APP_PASSWORD=`sudo cat ${QB_PW_FILE} | cut -d ":" -f 3 | cut -d "@" -f 1`
+      fi
+    fi
+  fi
+  APP_INSTALL_DIR=/home/${APP_USERNAME}/${APP_SERVICE}/
+}
+
+_installApplicationIntro() {
+  _print "${APP_SERVICE_NAME} will now be installed to ${APP_INSTALL_DIR}"
+  _print "This process may take several minutes"
+  _print "Please wait until process is completed"
+
+  echo
+  sleep 5
+}
+
+_updateSystem() {
+  _print "0%..Updating system..."
+
+  _sudo "apt-get -yqq update"
+}
+
+_installBaseDeps() {
+  _print "15%..Installing application dependencies ..."
+
+  for i in "${APP_BASEDEPS_WHICH}"; do
+  app=${i}
+    if [[ ! -n `which ${app}` ]]; then
+      _sudo "apt-get -yqq install ${app}"
+    else
+      _print "OK, ${app} dependencies are already installed"
+    fi
+  done
+
+}
+
+_pullApplicationRepo() {
+  _print "30%..Fetching and installing ${APP_SERVICE_NAME} application ..."
+
+  if [[ -d /install ]]; then
+    sudo touch /install/.${APP_SERVICE}.lock
+  fi
+  if [[ ! -d ${APP_INSTALL_DIR} ]]; then
+    ################################################################################
+    # if it is necessary to build directories first, do so here
+    # comment/edit accordingly when requirements are needed
+    ################################################################################
+
+    #_sudo "mkdir -p ${APP_INSTALL_DIR}app"
+    #_sudo "mkdir -p ${APP_INSTALL_DIR}data"
+
+    # git clone example
+    #_sudo "git clone ${APP_REPO} ${APP_INSTALL_DIR}/"
+
+    # wget and special conditions for grabbing example
+    wget -O - ${APP_REPO} | \
+          sed -n "s/^.*stable-download.*: \"\(.*\)\".*/\1/p" | \
+          wget --no-check-certificate -i - -O nzbget-latest-bin-linux.run
+
+    sh ${APP_SERVICE}-latest-bin-linux.run --destdir ${APP_INSTALL_DIR}
+    rm ${APP_SERVICE}-latest-bin-linux.run
+
+  else
+    _print "Skipped, found files at ${APP_INSTALL_DIR}"
+  fi
+}
+
+################################################################################
+# if any additional dependencies are required then build them here
+# adjust as needed to fit the specific needs of the application
+# items in <<>> below are intended to guide changes
+################################################################################
+
+#_buildAdditionalDeps() {
+#  _print "${BUILD_PER#}%..Building additional dependencies ..."
+#
+#  if [[ <<SOME VARIABLE>> ]]; then
+#    _print "(<<ENTER A CUTE MESSAGE TO PRINT HERE>>) ..."
+#    _sudo "apt-get -y install <<SOME DEPENDENCIES>>"
+#    
+#
+#    _do "<<SOMETHING IF NEEDED, DO IT>>"
+#  else
+#    _print "Skipped, dependencies already installed"
+#  fi
+#}
+
+_setSystemd() {
+  _print "55%..Adding ${APP_SERVICE} as a systemd service ..."
+
+################################################################################
+# paste the application systemd template below
+# adjust as needed to fit the apps service needs
+################################################################################
+
+  sudo cat >/etc/systemd/system/${APP_SERVICE}.service<<-EOF
+[Unit]
+Description=NZBGet Daemon
+Documentation=http://nzbget.net/Documentation
+After=network.target
+
+[Service]
+User=${APP_USERNAME}
+Group=${APP_USERNAME}
+Type=forking
+ExecStart=${APP_INSTALL_DIR}nzbget -c ${APP_INSTALL_DIR}nzbget.conf -D
+ExecStop=${APP_INSTALL_DIR}nzbget -Q
+ExecReload=${APP_INSTALL_DIR}nzbget -O
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+}
+
+_firstRunCycle() {
+  _print "70%..Enabling ${APP_SERVICE} service on port ${APP_SERVICE_PORT} ..."
+
+  _sudo "systemctl enable ${APP_SERVICE}"
+  _sudo "systemctl start ${APP_SERVICE}"
+  sleep 5
+  _sudo "systemctl stop ${APP_SERVICE}"
+  sleep 5
+}
+
+_tweakConfig() {
+  _print "85%..Setting up ${APP_SERVICE_NAME} config ..."
+
+  APACHE_MODE=enabled
+  APACHE_PATH=/etc/apache2/sites-${APACHE_MODE}
+  if [[ -d ${APACHE_PATH} ]]; then
+    sudo cat >${APACHE_PATH}/${APP_SERVICE}.conf<<-EOF
+    <Location ${APP_WEB_ROOT}>
+    ProxyPass ${REVERSE_PROXY_URL}/${APP_SERVICE}
+    ProxyPassReverse ${REVERSE_PROXY_URL}/${APP_SERVICE}
+    AuthType Digest
+    AuthName "rutorrent"
+    AuthUserFile '/etc/htpasswd'
+    Require user ${APP_USERNAME}
+    </Location>
+EOF
+    sudo chown www-data: ${APACHE_PATH}/${APP_SERVICE}.conf
+    sudo chown ${APP_USERNAME}:${APP_USERNAME} -R ${APP_INSTALL_DIR}
+    sed -i "/DaemonUsername=/c\DaemonUsername=${APP_USERNAME}" ${APP_INSTALL_DIR}nzbget.conf
+    _do "service apache2 reload"    # only need this if mode is "enabled"
+  fi
+
+  _sudo "systemctl start ${APP_SERVICE}" # @.service" << only append port or username if necessary >> 
+}
+
+_installApplicationOutro() {
+  _print "100%..${APP_SERVICE_NAME} installation complete, connect at port ${APP_SERVICE_PORT}"
+  _print "Systemd service is named ${APP_SERVICE}. Example commands.."
+  _print "  systemctl start ${APP_SERVICE}" # @.service" << only append @${APP_USERNAME} or @${APP_SERVICE_PORT} if necessary >>
+  _print "  systemctl status ${APP_SERVICE}" # @.service -l" << only append @${APP_USERNAME} or @${APP_SERVICE_PORT} if necessary >>
+  _print "  systemctl stop ${APP_SERVICE}" # @.service" << only append @${APP_USERNAME} or @${APP_SERVICE_PORT} if necessary >>
+
+  _print
+  sleep 5
+}
+
+################################################################################
+# BEGIN REMOVE APPLICATION
+# The below function is called from ../remove/removepackage-${APP_SERVICE}
+# 
+# Example contents of app removal file
+# bash ../install/installpackage-${APP_SERVICE} remove
+################################################################################
+
+_removeApplicationIntro() {
+  _print "${APP_SERVICE_NAME} will be stopped and removed from ${APP_INSTALL_DIR}"
+  _print "You can reinstall anytime with 'box install ${APP_SERVICE}'"
+  _print "Process begins in 10 seconds (giving time to Ctrl-C abort)"
+
+  _print
+  sleep 10
+}
+
+_removeApplicationFiles() {
+
+  _sudo "systemctl stop ${APP_SERVICE}" # @.service" << only append @${APP_USERNAME} or @${APP_SERVICE_PORT} if necessary >>
+  _sudo "systemctl disable ${APP_SERVICE}" # @.service" << only append @${APP_USERNAME} or @${APP_SERVICE_PORT} if necessary >>
+  _sudo "rm -f /etc/systemd/system/${APP_SERVICE}" # @.service" << only append @${APP_USERNAME} or @${APP_SERVICE_PORT} if necessary >>
+
+  APACHE_MODE=enabled
+  APACHE_PATH=/etc/apache2/sites-${APACHE_MODE}
+  if [[ -d ${APACHE_PATH} && -f ${APACHE_PATH}/${APP_SERVICE}.conf ]]; then
+    _sudo "rm -f ${APACHE_PATH}/${APP_SERVICE}.conf"
+    _sudo "rm -f /etc/apache2/sites-available/${APP_SERVICE}.conf"
+    _do "service apache2 reload"
+  fi
+
+  _sudo "rm -rf ${APP_INSTALL_DIR}"
+
+  _sudo "rm -f /install/.${APP_SERVICE}.lock"
+}
+
+_removeApplicationOutro() {
+  _print "${APP_SERVICE_NAME} has been stopped, removed from autostart and folder ${APP_INSTALL_DIR} removed"
+  _print "Remember: You can reinstall anytime with 'box install ${APP_SERVICE}"
+
+  _print
+  sleep 5
+}
+################################################################################
+_done() {
+  _print "100%..Done. Close this box"
+  exit
+}
+
+if [[ remove == $1 ]]; then
+  _getUserVars
+  _removeApplicationIntro
+  _removeApplicationFiles
+  _removeApplicationOutro
+  _done
+else
+  _getUserVars
+  _installApplicationIntro;_updateSystem
+  _installBaseDeps;_pullApplicationRepo
+  #_applyPerms
+  #_buildAdditionalDeps # << uncomment if function is used >>
+  _setSystemd;_firstRunCycle
+  _tweakConfig
+  _installApplicationOutro
+  _done
+fi

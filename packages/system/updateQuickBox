@@ -251,32 +251,36 @@ function _updateznc() {
 
 # function to update dashboard
 function _updatedashboard() {
+  #\cp -fR ${local_dashboard}* ${rutorrent}home
   cd ${rutorrent}
   if [[ -f /srv/rutorrent/home/db/.smoked.lock ]]; then
     if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
-      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}smoked/* ${rutorrent}home
-      rm -f /srv/rutorrent/home/lang/*.php
+      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dashboard}* ${rutorrent}home
+      rsync -aP ${local_themes}smoked/* ${rutorrent}home
+      #rm -f /srv/rutorrent/home/lang/*.php
     else
-      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}smoked/* ${rutorrent}home
-      rm -f /srv/rutorrent/home/lang/*.php
+      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dashboard}. ${rutorrent}home
+      #rm -f /srv/rutorrent/home/lang/*.php
     fi
   elif [[ -f /srv/rutorrent/home/db/.defaulted.lock ]]; then
     if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
-      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}defaulted/* ${rutorrent}home
-      rm -f /srv/rutorrent/home/lang/*.php
+      rm -rf /srv/rutorrent/home/db/.smoked.lock
+      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dashboard}* ${rutorrent}home
+      rsync -aP ${local_themes}defaulted/* ${rutorrent}home
+      #rm -f /srv/rutorrent/home/lang/*.php
     else
-      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}defaulted/* ${rutorrent}home
-        rm -f /srv/rutorrent/home/lang/*.php
+      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dashboard}* ${rutorrent}home
+        #rm -f /srv/rutorrent/home/lang/*.php
     fi
   else
     if [[ -n $(find /srv/rutorrent/home/db -name "branding-*.php") ]]; then
-      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}defaulted/* ${rutorrent}home
-      rm -f /srv/rutorrent/home/lang/*.php
-      touch /srv/rutorrent/home/db/.defaulted.lock
+      rsync -aP --exclude=disk_*.php --exclude=branding-l.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dashboard}* ${rutorrent}home
+      #rm -f /srv/rutorrent/home/lang/*.php
+      touch /srv/rutorrent/home/db/.smoked.lock
     else
-      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_themes}defaulted/* ${rutorrent}home
-      rm -f /srv/rutorrent/home/lang/*.php
-      touch /srv/rutorrent/home/db/.defaulted.lock
+      rsync -aP --exclude=disk_*.php --exclude=share.php --exclude=custom.menu.php --exclude=url.override.php --exclude=custom.css ${local_dashboard}* ${rutorrent}home
+      #rm -f /srv/rutorrent/home/lang/*.php
+      touch /srv/rutorrent/home/db/.smoked.lock
     fi
   fi
 
@@ -435,12 +439,12 @@ local_setup=/etc/QuickBox/setup/
 local_packages=/etc/QuickBox/packages/
 local_rutorrent=/etc/QuickBox/rutorrent/
 local_rplugins=/etc/QuickBox/rtplugins/
-#local_dashboard=/etc/QuickBox/dashboard/
+local_dashboard=/etc/QuickBox/dashboard/
 local_themes=/etc/QuickBox/themes/
 local_rtheme=/etc/QuickBox/rttheme/
 
 IFACE=$(ip link show|grep -i broadcast|grep -m1 UP|cut -d: -f 2|cut -d@ -f 1|sed -e 's/ //g');
-A1=$(cat /srv/rutorrent/home/db/master.txt) >> /dev/null 2>&1
+A1=$(cat /etc/apache2/master.txt) >> /dev/null 2>&1
 rutorrent=/srv/rutorrent/
 usrbin=/usr/local/bin/
 

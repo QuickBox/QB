@@ -126,6 +126,24 @@
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
 </div><!-- modal -->
+<!-- MEDUSA UNINSTALL MODAL -->
+<div class="modal bounceIn animated" id="medusaRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="MedusaRemovalConfirm" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="MedusaRemovalConfirm"><?php echo T('UNINSTALL_TITLE'); ?> Medusa?</h4>
+      </div>
+      <div class="modal-body">
+        <?php echo T('UNINSTALL_MEDUSA_TXT'); ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
+        <a href="?removepackage-medusa=true" id="medusaRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
 <!-- NextCloud UNINSTALL MODAL -->
 <div class="modal bounceIn animated" id="nextcloudRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="NextCloudRemovalConfirm" aria-hidden="true">
   <div class="modal-dialog">
@@ -144,6 +162,24 @@
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
 </div><!-- modal -->
+<!-- NZBGet UNINSTALL MODAL -->
+<div class="modal bounceIn animated" id="nzbgetRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="NZBGetRemovalConfirm" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="NZBGetRemovalConfirm"><?php echo T('UNINSTALL_TITLE'); ?> NZBGet?</h4>
+      </div>
+      <div class="modal-body">
+        <?php echo T('UNINSTALL_NZBGET_TXT'); ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
+        <a href="?removepackage-nzbget=true" id="nzbgetRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
 <!-- NZBHydra UNINSTALL MODAL -->
 <div class="modal bounceIn animated" id="nzbhydraRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="NZBHydraRemovalConfirm" aria-hidden="true">
   <div class="modal-dialog">
@@ -158,6 +194,24 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
         <a href="?removepackage-nzbhydra=true" id="nzbhydraRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
+<!-- OMBI UNINSTALL MODAL -->
+<div class="modal bounceIn animated" id="ombiRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="OmbiRemovalConfirm" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="OmbiRemovalConfirm"><?php echo T('UNINSTALL_TITLE'); ?> Ombi?</h4>
+      </div>
+      <div class="modal-body">
+        <?php echo T('UNINSTALL_OMBI_TXT'); ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
+        <a href="?removepackage-ombi=true" id="ombiRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
       </div>
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
@@ -194,24 +248,6 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
         <a href="?removepackage-plexpy=true" id="plexpyRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
-      </div>
-    </div><!-- modal-content -->
-  </div><!-- modal-dialog -->
-</div><!-- modal -->
-<!-- PLEX REQUESTS UNINSTALL MODAL -->
-<div class="modal bounceIn animated" id="ombiRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="OmbiRemovalConfirm" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="OmbiRemovalConfirm"><?php echo T('UNINSTALL_TITLE'); ?> Ombi?</h4>
-      </div>
-      <div class="modal-body">
-        <?php echo T('UNINSTALL_PLEXREQUESTS_TXT'); ?>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
-        <a href="?removepackage-ombi=true" id="ombiRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
       </div>
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
@@ -324,6 +360,24 @@
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
 </div><!-- modal -->
+<!-- SICKGEAR UNINSTALL MODAL -->
+<div class="modal bounceIn animated" id="sickgearRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="SickGearRemovalConfirm" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="SickGearRemovalConfirm"><?php echo T('UNINSTALL_TITLE'); ?> SickGear?</h4>
+      </div>
+      <div class="modal-body">
+        <?php echo T('UNINSTALL_SICKGEAR_TXT'); ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
+        <a href="?removepackage-sickgear=true" id="sickgearRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
 <!-- SICKRAGE UNINSTALL MODAL -->
 <div class="modal bounceIn animated" id="sickrageRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="SickRageRemovalConfirm" aria-hidden="true">
   <div class="modal-dialog">
@@ -338,24 +392,6 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
         <a href="?removepackage-sickrage=true" id="sickrageRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
-      </div>
-    </div><!-- modal-content -->
-  </div><!-- modal-dialog -->
-</div><!-- modal -->
-<!-- MEDUSA UNINSTALL MODAL -->
-<div class="modal bounceIn animated" id="medusaRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="MedusaRemovalConfirm" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="MedusaRemovalConfirm"><?php echo T('UNINSTALL_TITLE'); ?> Medusa?</h4>
-      </div>
-      <div class="modal-body">
-        <?php echo T('UNINSTALL_MEDUSA_TXT'); ?>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
-        <a href="?removepackage-medusa=true" id="medusaRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
       </div>
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
@@ -511,7 +547,7 @@
   </div><!-- modal-dialog ->
 </div><!-- modal -->
 
-<!-- COMMIT COMPARISON MODAL -->
+<!-- COMMIT COMPARISON MODAL >
 <div class="modal bounceIn animated" id="commitComparison" tabindex="-1" role="dialog" aria-labelledby="CommitComparison" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -531,8 +567,8 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
       </div>
-    </div><!-- modal-content -->
-  </div><!-- modal-dialog -->
+    </div><!-- modal-content ->
+  </div><!-- modal-dialog ->
 </div><!-- modal -->
 
 <!--script src="js/script.js"></script-->
@@ -714,6 +750,15 @@ $(document).ready(function() {
       sticky: true
     });
   });
+  // MedusaRemove
+  $('#medusaRemove').click(function(){
+    $.gritter.add({
+      title: '<?php echo T('UNINSTALLING_TITLE'); ?> Medusa',
+      text: '<?php echo T('UNINSTALLING_TXT_1'); ?> Medusa <?php echo T('UNINSTALLING_TXT_2'); ?>',
+      class_name: 'with-icon times-circle danger',
+      sticky: true
+    });
+  });
   // NextCloudRemove
   $('#nextcloudRemove').click(function(){
     $.gritter.add({
@@ -723,11 +768,29 @@ $(document).ready(function() {
       sticky: true
     });
   });
+  // NZBGetRemove
+  $('#nzbgetRemove').click(function(){
+    $.gritter.add({
+      title: '<?php echo T('UNINSTALLING_TITLE'); ?> NZBGet',
+      text: '<?php echo T('UNINSTALLING_TXT_1'); ?> NZBGet <?php echo T('UNINSTALLING_TXT_2'); ?>',
+      class_name: 'with-icon times-circle danger',
+      sticky: true
+    });
+  });
   // NZBHydraRemove
   $('#nzbhydraRemove').click(function(){
     $.gritter.add({
       title: '<?php echo T('UNINSTALLING_TITLE'); ?> NZBHydra',
       text: '<?php echo T('UNINSTALLING_TXT_1'); ?> NZBHydra <?php echo T('UNINSTALLING_TXT_2'); ?>',
+      class_name: 'with-icon times-circle danger',
+      sticky: true
+    });
+  });
+  // OmbiRemove
+  $('#ombiRemove').click(function(){
+    $.gritter.add({
+      title: '<?php echo T('UNINSTALLING_TITLE'); ?> Ombi',
+      text: '<?php echo T('UNINSTALLING_TXT_1'); ?> Ombi <?php echo T('UNINSTALLING_TXT_2'); ?>',
       class_name: 'with-icon times-circle danger',
       sticky: true
     });
@@ -746,15 +809,6 @@ $(document).ready(function() {
     $.gritter.add({
       title: '<?php echo T('UNINSTALLING_TITLE'); ?> PlexPY',
       text: '<?php echo T('UNINSTALLING_TXT_1'); ?> PlexPY <?php echo T('UNINSTALLING_TXT_2'); ?>',
-      class_name: 'with-icon times-circle danger',
-      sticky: true
-    });
-  });
-  // OmbiRemove
-  $('#ombiRemove').click(function(){
-    $.gritter.add({
-      title: '<?php echo T('UNINSTALLING_TITLE'); ?> Ombi',
-      text: '<?php echo T('UNINSTALLING_TXT_1'); ?> Ombi <?php echo T('UNINSTALLING_TXT_2'); ?>',
       class_name: 'with-icon times-circle danger',
       sticky: true
     });
@@ -795,20 +849,20 @@ $(document).ready(function() {
       sticky: true
     });
   });
+  // SickGearRemove
+  $('#sickgearRemove').click(function(){
+    $.gritter.add({
+      title: '<?php echo T('UNINSTALLING_TITLE'); ?> SickGear',
+      text: '<?php echo T('UNINSTALLING_TXT_1'); ?> SickGear <?php echo T('UNINSTALLING_TXT_2'); ?>',
+      class_name: 'with-icon times-circle danger',
+      sticky: true
+    });
+  });
   // SickRageRemove
   $('#sickrageRemove').click(function(){
     $.gritter.add({
       title: '<?php echo T('UNINSTALLING_TITLE'); ?> SickRage',
       text: '<?php echo T('UNINSTALLING_TXT_1'); ?> SickRage <?php echo T('UNINSTALLING_TXT_2'); ?>',
-      class_name: 'with-icon times-circle danger',
-      sticky: true
-    });
-  });
-  // MedusaRemove
-  $('#medusaRemove').click(function(){
-    $.gritter.add({
-      title: '<?php echo T('UNINSTALLING_TITLE'); ?> Medusa',
-      text: '<?php echo T('UNINSTALLING_TXT_1'); ?> Medusa <?php echo T('UNINSTALLING_TXT_2'); ?>',
       class_name: 'with-icon times-circle danger',
       sticky: true
     });

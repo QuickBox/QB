@@ -1,0 +1,2 @@
+# Install script contains removal instructions
+bash /usr/local/bin/quickbox/package/install/installpackage-nzbget remove

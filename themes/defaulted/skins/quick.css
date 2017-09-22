@@ -1,6 +1,6 @@
 /*!
  * Quick Box UI
- * Last compiled on Friday, July 22nd, 2016
+ * Last compiled on Monday, September 11th, 2017
  */
 
 @import url(//fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic,300italic,300);
@@ -3054,7 +3054,7 @@ select[multiple].input-lg {
   border: 1px solid transparent;
   white-space: nowrap;
   padding: 10px 12px;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.42857143;
   border-radius: 2px;
   -webkit-user-select: none;
@@ -9505,7 +9505,7 @@ blockquote {
   margin-bottom: 0;
 }
 .headermenu > li > .btn-group > .btn-notice {
-  font-size: 21px;
+  font-size: 14px;
 }
 .headermenu > li > .btn-group > .btn-notice + .dropdown-menu {
   min-width: 350px;
@@ -9633,10 +9633,10 @@ blockquote {
   letter-spacing: .5px;
   border-radius: 0;
   border-width: 0;
-  padding-left: 0;
-  padding-right: 0;
-  border-bottom: 1px solid #dbdfe6;
-  color: #3b4354;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom: 1px solid #333;
+  color: #fff;
   cursor: pointer;
 }
 @media (max-width: 480px) {
@@ -9647,14 +9647,14 @@ blockquote {
 .headermenu .dm-notice .nav-tabs > li > a:hover,
 .headermenu .dm-notice .nav-tabs > li > a:focus {
   background-color: transparent;
-  color: #262b36;
+  color: #4daf7c;
 }
 .headermenu .dm-notice .nav-tabs > li.active > a,
 .headermenu .dm-notice .nav-tabs > li.active > a:hover,
 .headermenu .dm-notice .nav-tabs > li.active > a:focus {
-  color: #259dab;
+  color:#4daf7c;
   border: 0;
-  border-bottom: 1px solid #259dab;
+  border-bottom: 1px solid #4daf7c;
   background-color: transparent;
 }
 @media (max-width: 767px) {
@@ -9668,8 +9668,12 @@ blockquote {
     margin: 0;
   }
 }
+#noticeDropdown .tab-pane {
+    background: #222;
+    color: #fff;
+}
 .headermenu .dm-notice .tab-pane {
-  padding: 20px 0 10px;
+  padding: 0px 0 10px;
 }
 @media (max-width: 480px) {
   .headermenu .dm-notice .tab-pane {
@@ -9731,9 +9735,11 @@ blockquote {
   color: #818da7;
 }
 .headermenu .dm-notice .list-group .list-group-item h5 {
+  color: #fff;
   margin: 0;
   font-weight: 700;
   font-size: 12px;
+  line-height: 21px;
 }
 .headermenu .dm-notice .list-group .list-group-item small {
   font-size: 11px;
@@ -9750,7 +9756,7 @@ blockquote {
   margin: 0 0 20px;
 }
 .headermenu .dm-notice .notice-list .list-group-item h5 > a {
-  color: #464f63;
+  color: #4daf7c;
   font-weight: 700;
   font-size: 12px;
 }
@@ -9767,8 +9773,8 @@ blockquote {
   display: block;
 }
 .headermenu .dm-notice .notice-list .list-group-item .fa {
-  color: #818da7;
-  border: 1px solid #818da7;
+  color: #fff;
+  border: 1px solid #4daf7c;
   padding: 9px;
   vertical-align: middle;
   font-size: 14px;
@@ -9785,11 +9791,11 @@ blockquote {
   padding-bottom: 0;
 }
 .headermenu .dm-notice .notice-list .list-group-item.unread .fa {
-  color: #259dab;
-  border-color: #259dab;
+  color: #fff;
+  border-color: #4daf7c;
 }
 .headermenu .dm-notice .notice-list .list-group-item.unread h5 > a {
-  color: #259dab;
+  color: #fff;
 }
 .headermenu .dm-notice .notice-list .list-group-item.unread h5 > a:hover,
 .headermenu .dm-notice .notice-list .list-group-item.unread h5 > a:focus {
