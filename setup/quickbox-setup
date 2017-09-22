@@ -653,6 +653,8 @@ function _libtorrent() {
   cp ${local_setup}sources/libtorrent-0.13.4-tar.patch .
   patch -p1 < libtorrent-*-tar.patch >>"${OUTTO}" 2>&1
   ./configure --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" --enable-ipv6 >>"${OUTTO}" 2>&1
+  elif [ $LTORRENT = 0.13.6 ]; then
+  ./configure --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" --enable-ipv6 >>"${OUTTO}" 2>&1
   else
   ./configure --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" >>"${OUTTO}" 2>&1
   fi
@@ -676,6 +678,8 @@ function _rtorrent() {
   if [ $RTVERSION = 0.9.4 ]; then
   cp ${local_setup}sources/rtorrent-0.9.4-tar.patch .
   patch -p1 < rtorrent-*-tar.patch >>"${OUTTO}" 2>&1
+  ./configure --prefix=/usr --with-xmlrpc-c --enable-ipv6 >>"${OUTTO}" 2>&1
+  elif [ $RTVERSION = 0.9.6 ]; then
   ./configure --prefix=/usr --with-xmlrpc-c --enable-ipv6 >>"${OUTTO}" 2>&1
   else
   ./configure --prefix=/usr --with-xmlrpc-c >>"${OUTTO}" 2>&1
