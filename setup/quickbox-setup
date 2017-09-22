@@ -749,6 +749,75 @@ fi
   touch /install/.deluge.lock
 fi
 }
+
+function _insTr() {
+  apt-get -q -y update >>"${OUTTO}" 2>&1
+  apt-get -q -y install transmission-daemon >>"${OUTTO}" 2>&1
+  service transmission-daemon stop >>"${OUTTO}" 2>&1
+  mkdir -p /home/${username}/torrents/transmission
+  chmod g+w /home/${username}/torrents/transmission >/dev/null 2>&1
+#chgrp -R debian-transmission /home/${username}/torrents/transmission
+  chown -R ${username}:debian-transmission /home/${username}/torrents/transmission >/dev/null 2>&1
+  sed -i "s/\/var\/lib\/transmission-daemon\/downloads/\/home\/${username}\/torrents\/transmission/g" /etc/transmission-daemon/settings.json
+  sed -i "s/\/var\/lib\/transmission-daemon\/Downloads/\/home\/${username}\/torrents\/transmission\/incomplete/g" /etc/transmission-daemon/settings.json
+  sed -i "s/\"{.*/\"${passwd}\", /g" /etc/transmission-daemon/settings.json
+  sed -i "s/\"transmission\",/\"${username}\",/g" /etc/transmission-daemon/settings.json
+  sed -i "s/127.0.0.1/\*.\*.\*.\*/g" /etc/transmission-daemon/settings.json
+  service transmission-daemon start >>"${OUTTO}" 2>&1
+}
+
+function _insTrWeb() {
+  rootFolder=""
+  webFolder=""
+  orgindex="index.original.html"
+  index="index.html"
+  tmpFolder="/tmp/tr-web-control/"
+  packname="transmission-control-full.tar.gz"
+  host="https://github.com/ronggang/transmission-web-control/raw/master/release/"
+  donwloadurl="$host$packname"
+  if [ ! -d "$tmpFolder" ]; then
+	cd /tmp
+	mkdir tr-web-control
+  fi
+  cd "$tmpFolder"
+  # 找出web ui 目录
+  folderIsExist=0
+  echo "Searching Transmission Web Folder..."  >>"${OUTTO}" 2>&1
+
+  # 感谢 yumin9822 提供的代码
+  rootFolder=`find / -name 'web' -type d | grep 'transmission/web' | head -n 1 | sed 's/web.*$//g'` >>"${OUTTO}" 2>&1
+
+  echo "Folder: ""$rootFolder""..."  >>"${OUTTO}" 2>&1
+  if [ -d "$rootFolder""web/" ]; then
+	webFolder="$rootFolder""web/"
+	folderIsExist=1
+  fi
+
+  # 如果目录存在，则进行下载和更新动作
+  if [ $folderIsExist = 1 ]; then
+	echo "Transmission Web Control Is Downloading..." >>"${OUTTO}" 2>&1
+	wget -q "$donwloadurl"
+	echo "Installing..." >>"${OUTTO}" 2>&1
+	tar -xzf "$packname" >>"${OUTTO}" 2>&1
+	rm "$packname"
+	# 如果之前没有安装过，则先将原系统的文件改为
+	if [ ! -f "$webFolder$orgindex" -a -f "$webFolder$index" ]; then
+		mv "$webFolder$index" "$webFolder$orgindex"
+	fi
+	# 复制文件到
+	cp -r web "$rootFolder"
+	echo "Done." >>"${OUTTO}" 2>&1
+  else
+    echo "Floder not found" >>"${OUTTO}" 2>&1
+	#echo "##############################################"
+	#echo "#"
+	#echo "# ERROR : Transmisson WEB UI Folder is missing."
+	#echo "#"
+	#echo "##############################################"
+  fi
+  rm -rf "$tmpFolder"
+}
+
 # scgi enable function (22-nixed)
 # function _scgi() { ln -s /etc/apache2/mods-available/scgi.load /etc/apache2/mods-enabled/scgi.load >>"${OUTTO}" 2>&1 ; }
 
