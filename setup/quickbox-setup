@@ -131,6 +131,7 @@ if [[ -z $input ]]; then
 else
         hostname ${input}
         echo "${input}">/etc/hostname
+        echo "127.0.0.1 ${input}">/etc/hosts
         echo "Hostname set to ${input}"
 fi
 echo
@@ -352,6 +353,17 @@ function _denyhosts() {
   echo
 }
 
+# install bbr question (x)
+function _askbbr() {
+  echo -ne "${bold}${yellow}Would you like to install bbr? (Used for Congestion Control)${normal} [${green}y${normal}]es or [n]o: "; read responce
+  case $responce in
+    [yY] | [yY][Ee][Ss] | "" ) bbr=yes ;;
+    [nN] | [nN][Oo]) bbr=no ;;
+    *) bbr=yes ;;
+  esac
+  echo
+}
+
 # package and repo addition (silently add php7) _add respo sources_ (12)
 function _repos() {
   apt-get install -y software-properties-common >>"${OUTTO}" 2>&1
@@ -434,7 +446,11 @@ function _depends() {
     apt-get -y -f --allow-unauthenticated install build-essential debian-archive-keyring fail2ban bc sudo \
                      screen zip irssi unzip nano bwm-ng htop iotop git \
                      dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
+<<<<<<< HEAD
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev rtorrent libsigc++-2.0-dev \
+=======
+                     pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
+>>>>>>> b06e9c4... Merge pull request #3 from amefs/master
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket \
                      libdbd-mysql-perl libdbi-perl php7.0 php7.0-fpm php7.0-mbstring php7.0-mysql \
@@ -451,6 +467,7 @@ function _depends() {
 
 # build openssl from source to combat recent apt source updates
 function _openssl() {
+<<<<<<< HEAD
   cd /tmp
   #wget https://www.openssl.org/source/openssl-1.1.0f.tar.gz 
   #tar -xzvf openssl-1.1.0f.tar.gz
@@ -468,6 +485,18 @@ function _openssl() {
   ./config >>"${OUTTO}" 2>&1;
   make >>"${OUTTO}" 2>&1;
   make install >>"${OUTTO}" 2>&1;
+=======
+  MAXCPUS=$(echo "$(nproc) / 2"|bc)
+  cd /root
+  wget -q https://www.openssl.org/source/openssl-1.0.2l.tar.gz
+  tar -zxvf openssl-1.0.2l.tar.gz >>"${OUTTO}" 2>&1
+  cd openssl-1.0.2l
+  ./config -fPIC >>"${OUTTO}" 2>&1;
+  make -j${MAXCPUS} >>"${OUTTO}" 2>&1;
+  #make install >>"${OUTTO}" 2>&1;
+  cd /root
+  rm -rf openssl-1.0.2l.tar.gz
+>>>>>>> b06e9c4... Merge pull request #3 from amefs/master
   cd
 }
 
@@ -642,7 +671,17 @@ function _libtorrent() {
   tar -xzvf libtorrent-${LTORRENT}.tar.gz >>"${OUTTO}" 2>&1
   cd libtorrent-${LTORRENT}
   ./autogen.sh >>"${OUTTO}" 2>&1
+<<<<<<< HEAD
   ./configure --prefix=/usr >>"${OUTTO}" 2>&1
+=======
+  if [ $LTORRENT = 0.13.4 ]; then
+  cp ${local_setup}sources/libtorrent-0.13.4-tar.patch .
+  patch -p1 < libtorrent-*-tar.patch >>"${OUTTO}" 2>&1
+  ./configure --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" --enable-ipv6 >>"${OUTTO}" 2>&1
+  else
+  ./configure --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" >>"${OUTTO}" 2>&1
+  fi
+>>>>>>> b06e9c4... Merge pull request #3 from amefs/master
   make -j${MAXCPUS} >>"${OUTTO}" 2>&1
   make install >>"${OUTTO}" 2>&1
 }
@@ -925,6 +964,15 @@ function _apacheconf() {
     #sed -i 's/memory_limit = 128M/memory_limit = 768M/g' /etc/php/7.0/apache2/php.ini
 }
 
+# function to fix cert (24x)
+# add by EFS
+function _fix_cert() {
+  if [ ! -f /etc/ssl/certs/ssl-cert-snakeoila.pem ]
+  then 
+    openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/ssl/private/ssl-cert-snakeoil.key -out /etc/ssl/certs/ssl-cert-snakeoil.pem -subj "/C=CN/ST=BJ/L=PRC/O=IT/CN=www.example.com" >>"${OUTTO}" 2>&1
+  fi
+}
+
 # function to configure first user config (25)
 function _rconf() {
   cp ${local_setup}templates/rtorrent.rc.template /home/${username}/.rtorrent.rc
@@ -1164,6 +1212,13 @@ function _perms() {
   chown -R chown -R www-data:www-data /srv/rutorrent/home >/dev/null 2>&1
 }
 
+function _insbbr() {
+  cd /tmp
+  cp ${local_setup}sources/BBR/BBR.sh .
+  chmod a+x BBR.sh
+  bash BBR.sh -f v4.12.14 >>"${OUTTO}" 2>&1
+  cd
+}
 
 ################################################################################
 #   //BEGIN UNUSED FUNCTIONS//
@@ -1313,6 +1368,7 @@ _adduser
 _askffmpeg
 _askvsftpd
 _denyhosts
+_askbbr
 
 echo
 echo ""
@@ -1344,6 +1400,7 @@ echo -n "Installing mktorrent from source ... ";_mktorrent & spinner $!;echo
 echo -n "Installing quickbox dashboard ... ";_dashboard & spinner $!;echo
 echo -n "Building system file indexer (h5ai) ... ";_fileindexer & spinner $!;echo
 echo -n "Setting up seedbox.conf for apache ... ";_apacheconf & spinner $!;echo
+echo -n "Fix SSL Cert for apache ... ";_fix_cert & spinner $!;echo
 echo -n "Installing .rtorrent.rc for ${username} ... ";_rconf & spinner $!;echo
 echo -n "Adjusting fileupload & filemanager plugins ... ";_plugins & spinner $!;echo
 echo -n "Installing autodl-irssi ... ";_autodl & spinner $!;echo
@@ -1355,6 +1412,9 @@ _quickstats;
 _quickconsole;
 echo -n "Setting irssi/rtorrent to start on boot ... ";_boot & spinner $!;echo;
 echo -n "Setting permissions on ${username} ... ";_perms & spinner $!;echo;
+if [[ ${bbr} == "yes" ]]; then
+    echo -n "install BBR ... ";_insbbr & spinner $!;echo
+fi
 cd
 E=$(date +%s)
 DIFF=$(echo "$E" - "$S"|bc)
