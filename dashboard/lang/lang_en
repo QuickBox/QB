@@ -33,25 +33,27 @@ $L['PLUGINS'] = 'Plugins';
 // quick help menu tab
 $L['HELP_COMMANDS'] = 'Help Commands & More';
 $L['QUICK_SYSTEM_TIPS'] = 'Quick System Tips';
+$L['CLEAN_MEM_TXT'] = 'Use the above command as root if/when you decide to clear your systems Physical Memory Cache';
 $L['DISKTEST_TXT'] = 'Type this command to perform a quick r/w test of your disk.';
 $L['FIXHOME_TXT'] = 'Type this command to quickly adjusts /home directory permissions.';
-// admin commands section
-$L['ADMIN_COMMANDS'] = 'Admin Commands';
-$L['SETDISK_TXT'] = 'Type this command in ssh to allocate the amount of disk space you would like to give to a user.';
+// seedbox commands section
+$L['SEEDBOX_COMMANDS'] = 'Seedbox Commands';
+$L['CHANGEUSERPASS_TXT'] = 'Typing this command in ssh allows you to change a desired users password.';
 $L['CREATESEEDBOXUSER_TXT'] = 'Type this command in ssh to create a new seedbox user on your server.';
 $L['DELETESEEDBOXUSER_TXT'] = 'Type this command in ssh to delete a seedbox user on your server. You will need to enter the users account name, you will be prompted.';
-$L['CHANGEUSERPASS_TXT'] = 'Typing this command in ssh allows you to change a desired users password.';
-$L['QUICKVPN_TXT'] = 'Type this command in ssh to setup your own VPN server in no more than a minute as well manage and create new user certificates for using the VPN server.';
+$L['SETDISK_TXT'] = 'Type this command in ssh to allocate the amount of disk space you would like to give to a user.';
 $L['SHOWSPACE_TXT'] = 'Use the above command as root to show the amount of disk space currently used by each user.';
-$L['UPGRADEBTSYNC_TXT'] = 'Type this command in ssh to upgrade BTSync to newest version when available.';
-$L['UPGRADEPLEX_TXT'] = 'Type this command in ssh to upgrade Plex to newest version when available.';
 $L['UPGRADEDELUGE_TXT'] = 'Type this command in ssh to upgrade Deluge to newest version when available.';
+// packages commands section
+$L['PACKAGE_COMMANDS'] = 'Packages Commands';
+$L['QUICKVPN_TXT'] = 'Type this command in ssh to setup your own VPN server in no more than a minute as well manage and create new user certificates for using the VPN server.';
+$L['SETUPPYLOAD_TXT'] = 'Type this command in ssh to run the pyLoad setup script.';
+$L['UPGRADEBTSYNC_TXT'] = 'Type this command in ssh to upgrade BTSync to newest version when available.';
 $L['UPGRADEJACKETT_TXT'] = 'Type this command in ssh to upgrade Jackett to newest version when available.';
 $L['UPGRADEOMBI_TXT'] = 'Type this command in ssh to upgrade Ombi to newest version when available.';
+$L['UPGRADEPLEX_TXT'] = 'Type this command in ssh to upgrade Plex to newest version when available.';
 $L['UPGRADEPYLOAD_TXT'] = 'Type this command in ssh to upgrade pyLoad to newest version when available.';
 $L['UPGRADESABNZBD_TXT'] = 'Type this command in ssh to upgrade SABnzbd to newest version when available.';
-$L['SETUPPYLOAD_TXT'] = 'Type this command in ssh to run the pyLoad setup script.';
-$L['CLEAN_MEM_TXT'] = 'Use the above command as root if/when you decide to clear your systems Physical Memory Cache';
 // essential user commands section
 $L['ESSENTIAL_USER_COMMANDS'] = 'Essential User Commands';
 $L['RELOAD_TXT'] = 'allows user to reload their services (rtorrent and irssi)';
