@@ -255,7 +255,7 @@ function _askdashtheme() {
 
 # ask what rtorrent version (8)
 function _askrtorrent() {
-  echo -e "1) rtorrent ${green}0.9.6${normal}"
+  echo -e "1) rtorrent ${green}0.9.6 (with ipv6 support)${normal}"
   echo -e "2) rtorrent ${green}0.9.4 (with ipv6 support)${normal}"
   echo -e "3) rtorrent ${green}0.9.3${normal}"
   echo -ne "${bold}${yellow}What version of rtorrent do you want?${normal} (Default ${green}2${normal}): "; read version
@@ -284,6 +284,17 @@ function _askdeluge() {
     *) DELUGE=1.0.11  ;;
   esac
   echo "We will be using Deluge with Libtorrent ${DELUGE}"
+  echo
+}
+
+# install transmission question (8.5)
+function _asktr() {
+  echo -ne "${bold}${yellow}Would you like to install transmission? ${normal} [${green}y${normal}]es or [n]o: "; read responce
+  case $responce in
+    [yY] | [yY][Ee][Ss] | "" ) tr=yes ;;
+    [nN] | [nN][Oo]) tr=no ;;
+    *) tr=yes ;;
+  esac
   echo
 }
 
@@ -570,7 +581,7 @@ function _ffmpeg() {
     mkdir /root/tmp
     cd /root/tmp
     if [[ -d /root/tmp/ffmpeg ]]; then rm -rf ffmpeg;fi
-    git clone --depth 1 https://github.com/FFmpeg/FFmpeg.git ffmpeg >>"${OUTTO}" 2>&1
+    git clone --depth 1 -b release/3.2 https://github.com/FFmpeg/FFmpeg.git ffmpeg >>"${OUTTO}" 2>&1
     git clone git://github.com/yasm/yasm.git ffmpeg/yasm >>"${OUTTO}" 2>&1
     git clone https://github.com/yixia/x264.git ffmpeg/x264 >>"${OUTTO}" 2>&1
     ############################################################################
@@ -793,6 +804,82 @@ fi
 fi
 }
 
+function _insTr() {
+  apt-get -q -y update >>"${OUTTO}" 2>&1
+  apt-get -q -y install transmission-daemon >>"${OUTTO}" 2>&1
+  service transmission-daemon stop >>"${OUTTO}" 2>&1
+  mkdir -p /home/${username}/torrents/transmission
+  chmod g+w /home/${username}/torrents/transmission >/dev/null 2>&1
+#chgrp -R debian-transmission /home/${username}/torrents/transmission
+  chown -R ${username}:debian-transmission /home/${username}/torrents/transmission >/dev/null 2>&1
+  sed -i "s/\/var\/lib\/transmission-daemon\/downloads/\/home\/${username}\/torrents\/transmission/g" /etc/transmission-daemon/settings.json
+  sed -i "s/\/var\/lib\/transmission-daemon\/Downloads/\/home\/${username}\/torrents\/transmission\/incomplete/g" /etc/transmission-daemon/settings.json
+  sed -i "s/\"{.*/\"${passwd}\", /g" /etc/transmission-daemon/settings.json
+  sed -i "s/\"transmission\",/\"${username}\",/g" /etc/transmission-daemon/settings.json
+  sed -i "s/127.0.0.1/\*.\*.\*.\*/g" /etc/transmission-daemon/settings.json
+  service transmission-daemon start >>"${OUTTO}" 2>&1
+}
+
+function _insTrWeb() {
+  rootFolder=""
+  webFolder=""
+  orgindex="index.original.html"
+  index="index.html"
+  tmpFolder="/tmp/tr-web-control"
+  packname="transmission-control-full.tar.gz"
+  host="https://github.com/ronggang/transmission-web-control/raw/master/release/"
+  downloadurl="$host$packname"
+  if [ ! -d "$tmpFolder" ]; then
+	mkdir -p "$tmpFolder"
+  fi
+  # 找出web ui 目录
+  folderIsExist=0
+  echo "Searching Transmission Web Folder..." >>"${OUTTO}" 2>&1
+  rootFolder="/usr/share/transmission"
+  echo "Looking for folder: $rootFolder/web" >>"${OUTTO}" 2>&1
+  if [ -d "$rootFolder/web" ]; then
+	    webFolder="$rootFolder/web"
+	    folderIsExist=1
+      echo "Folder found. Using it." >>"${OUTTO}" 2>&1
+  else
+      echo "Folder not found. Will search the entire /. This will take a while..." >>"${OUTTO}" 2>&1
+      rootFolder=`find / -name 'web' -type d 2>/dev/null| grep 'transmission/web' | sed 's/\/web$//g'`
+      if [ -d "$rootFolder/web" ]; then
+	            webFolder="$rootFolder/web"
+	            folderIsExist=1
+      fi
+  fi
+
+# 如果目录存在，则进行下载和更新动作
+  if [ $folderIsExist = 1 ]; then
+        cd "$tmpFolder"
+      	echo "Downloading Transmission Web Control..." >>"${OUTTO}" 2>&1
+      	wget -q "$downloadurl"
+      	echo "Installing..." >>"${OUTTO}" 2>&1
+      	tar -xzvf "$packname" -C "$tmpFolder" >>"${OUTTO}" 2>&1
+      	rm "$packname"
+      	# 如果之前没有安装过，则先将原系统的文件改为
+      	if [ ! -f "$webFolder/$orgindex" -a -f "$webFolder/$index" ]; then
+      		      mv "$webFolder/$index" "$webFolder/$orgindex"
+      	fi
+      	# 复制文件到
+      	cp -r web "$rootFolder"
+        find "$rootFolder" -type d -exec chmod o+rx {} \;
+        find "$rootFolder" -type f -exec chmod o+r {} \;
+      	echo "Done." >>"${OUTTO}" 2>&1
+  else
+      	#echo "##############################################"
+      	#echo "#"
+      	echo "# ERROR : Transmisson WEB UI Folder is missing." >>"${OUTTO}" 2>&1
+      	#echo "#"
+      	#echo "##############################################"
+  fi
+  rm -rf "$tmpFolder"
+  
+  cd ${local_dashboard}/custom
+  patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
+}
+
 # scgi enable function (22-nixed)
 # function _scgi() { ln -s /etc/apache2/mods-available/scgi.load /etc/apache2/mods-enabled/scgi.load >>"${OUTTO}" 2>&1 ; }
 
@@ -844,6 +931,9 @@ function _fileindexer() {
   echo "DirectoryIndex index.html index.php /_h5ai/public/index.php" >> /etc/apache2/apache2.conf
   ln -s /home/${username}/torrents/rtorrent/ ${username}.rtorrent.downloads
   ln -s /home/${username}/torrents/deluge/ ${username}.deluge.downloads
+  if [[ ${tr} == "yes" ]]; then
+	ln -s /home/${username}/torrents/transmission/ ${username}.transmission.downloads
+  fi
 }
 
 # function to configure apache (24)
@@ -1146,6 +1236,10 @@ function _perms() {
   chmod +x /etc/cron.daily/denypublic >/dev/null 2>&1
   chmod 777 /home/${username}/.sessions >/dev/null 2>&1
   chown -R chown -R www-data:www-data /srv/rutorrent/home >/dev/null 2>&1
+  if [[ ${tr} == "yes" ]]; then
+	chown -R ${username}:debian-transmission /home/${username}/torrents/transmission >/dev/null 2>&1
+	service transmission-daemon reload >>"${OUTTO}" 2>&1
+  fi
 }
 
 function _insbbr() {
@@ -1299,12 +1393,14 @@ _askpartition
 _ask10g
 _askrtorrent
 _askdeluge
+_asktr
 _askdashtheme
 _adduser
 _askffmpeg
 _askvsftpd
 _denyhosts
 _askbbr
+clear
 
 echo
 echo ""
@@ -1333,6 +1429,10 @@ echo -n "Installing rtorrent-${green}$RTVERSION${normal} ... ";_rtorrent & spinn
 echo -n "Installing rutorrent into /srv ... ";_rutorrent & spinner $!;echo
 echo -n "Installing rutorrent plugins ... ";_rutorrent-plugins & spinner $!;echo
 echo -n "Installing deluge ... ";_deluge & spinner $!;echo
+if [[ ${tr} == "yes" ]]; then
+	echo -n "Configuring Transmisson ... ";_insTr & spinner $!;echo
+	echo -n "Installing Transmisson Web Control ... ";_insTrWeb & spinner $!;echo
+fi
 echo -n "Installing mktorrent from source ... ";_mktorrent & spinner $!;echo
 echo -n "Installing quickbox dashboard ... ";_dashboard & spinner $!;echo
 echo -n "Building system file indexer (h5ai) ... ";_fileindexer & spinner $!;echo

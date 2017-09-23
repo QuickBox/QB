@@ -98,7 +98,9 @@ cp ${local_setup}templates/sysd/$APPNAME.template /etc/systemd/system/$APPNAME.s
 sed -i "s/USER/${USERNAME}/g" /etc/systemd/system/$APPNAME.service
 systemctl enable $APPNAME >/dev/null 2>&1
 systemctl start $APPNAME >/dev/null 2>&1
+sleep 5
 systemctl stop $APPNAME >/dev/null 2>&1
+sleep 5
 #/etc/init.d/$APPNAME start >/dev/null 2>&1
 #/etc/init.d/$APPNAME stop >/dev/null 2>&1
 #sudo cp $APPPATH/init-scripts/init.ubuntu /etc/init.d/$APPNAME || { echo $RED'Creating init file failed.'$ENDCOLOR ; exit 1; }
