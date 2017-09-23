@@ -1,4 +1,35 @@
-## CHANGELOG efs-dev v0.1.1:
+## CHANGELOG efs-mod v1.0.0:
+_Changelog updated saturday, September 23, 2017_
+
+---
+
+### General additions
+* fix some descriptions
+* add compile install(rtorrent libtorrent deluge)
+	+ libtorrent 0.13.4 with ipv6 patch(openssl-1.0.2l), also fixed 0.13.6
+	+ rtorrent 0.9.4 with ipv6 patch
+	+ deluge 1.3.15 stable version
+* add BBR(thanks Vicer)
+* add transmission 2.84 (with new [transmission-web-control](https://github.com/ronggang/transmission-web-control))
+* use latest libboost
+* lock ffmpeg source version to branch release/3.2 (in order to avoid unstable changes in ffmpeg master branch)
+
+### General adjustments
+* change some defaults
+	+ Do not use quota as default
+	+ use rtorrent 0.9.4 with libtorrent 0.13.4 with ipv6 patch as default
+	+ use deluge 1.3.15 stable source as default
+* enable h5ai for Fileindex
+* fix cert lossing in vultr host
+* temporarily removed deluge dev branch Option
+* fix "sudo: unable to resolve host" problem when changed the hostname
+* require encryption in rtorrent profile as default
+
+> the latest source from QB/master has been merged(2.5.2)
+
+---
+
+## CHANGELOG efs-dev v0.1.2:
 
 ### General adjustments & additions
 * First dev version
@@ -10,8 +41,10 @@
 	+ deluge 1.3.15 stable version
 * new libboost
 * fix hostname
-* fix perm lossing in vultr host
+* fix pem lossing in vultr host
 * require encryption in rtorrent profile
+* add BBR
+* add transmission
 
 ## CHANGELOG v2.4.8:
 _Changelog updated Monday, October 24, 2016_
