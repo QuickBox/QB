@@ -1341,6 +1341,7 @@ _askffmpeg
 _askvsftpd
 _denyhosts
 _askbbr
+clear
 
 echo
 echo ""
