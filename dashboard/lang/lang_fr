@@ -31,25 +31,29 @@ $L['PLUGINS'] = 'Plugins';
 $L['DONATE'] = 'Faire un Don';
 
 // quick help menu tab
-$L['HELP_COMMANDS'] = 'Commandes d\'aide et plus';
+$L['HELP_COMMANDS'] = 'Commandes d\'aide';
 $L['QUICK_SYSTEM_TIPS'] = 'Astuces';
+$L['CLEAN_MEM_TXT'] = 'Tapez cette commande en tant que root si/quand vous décidez de nettoyer le cache de Mémoire Physique.';
 $L['DISKTEST_TXT'] = 'Tapez cette commande pour effectuer un rapide test de lecture/écriture sur votre disque.';
 $L['FIXHOME_TXT'] = 'Tapez cette commande pour ajuster rapidement les permissions du dossier /home.';
-// admin commands section
-$L['ADMIN_COMMANDS'] = 'Commandes Administrateur';
-$L['SETDISK_TXT'] = 'Tapez cette commande en SSH pour allouer la quantité d\' espace disque que vous souhaitez donner à un utilisateur.';
+// seedbox commands section
+$L['SEEDBOX_COMMANDS'] = 'Commandes Seedbox';
+$L['CHANGEUSERPASS_TXT'] = 'Tapez cette commande en SSH vous permet de changer les mot de passe des utilisateurs.';
 $L['CREATESEEDBOXUSER_TXT'] = 'Tapez cette commande en SSH pour créer un nouvel utilisateur sur votre seedbox.';
 $L['DELETESEEDBOXUSER_TXT'] = 'Tapez cette commande en SSH pour supprimer un utilisateur de votre seedbox. Vous devrez entrer son nom.';
-$L['CHANGEUSERPASS_TXT'] = 'Tapez cette commande en SSH vous permet de changer les mot de passe des utilisateurs.';
-$L['QUICKVPN_TXT'] = 'Tapez cette commande en SSH pour configurer votre propre serveur VPN et en une petite minute, crééez et gérez de nouveaux certificats d\'utilisteur pour utiliser le serveur VPN.';
+$L['SETDISK_TXT'] = 'Tapez cette commande en SSH pour allouer la quantité d\' espace disque que vous souhaitez donner à un utilisateur.';
 $L['SHOWSPACE_TXT'] = 'Utilisez cette commande en tant que root pour voir l’espace disque actuellement utilisé par chaque utilisateur.';
-$L['UPGRADEBTSYNC_TXT'] = 'Tapez cette commande en SSH pour mettre à jour BTSync vers la nouvelle version quand elle sera disponible.';
-$L['UPGRADEPLEX_TXT'] = 'Tapez cette commande en SSH pour mettre à jour Plex vers la nouvelle version quand elle sera disponible.';
 $L['UPGRADEDELUGE_TXT'] = 'Tapez cette commande en SSH pour mettre à jour Deluge vers la nouvelle version quand elle sera disponible.';
-$L['UPGRADEJACKETT_TXT'] = 'Tapez cette commande en SSH pour mettre à jour Jackett vers la nouvelle version quand elle sera disponible.';
-$L['UPGRADEPYLOAD_TXT'] = 'Tapez cette commande en SSH pour mettre à jour pyLoad vers la nouvelle version quand elle sera disponible.';
+// packages commands section
+$L['PACKAGE_COMMANDS'] = 'Commandes de gestion des paquets';
+$L['QUICKVPN_TXT'] = 'Tapez cette commande en SSH pour configurer votre propre serveur VPN et en une petite minute, crééez et gérez de nouveaux certificats d\'utilisteur pour utiliser le serveur VPN.';
 $L['SETUPPYLOAD_TXT'] = 'Tapez cette commande en SSH pour lancer le script d\'installation de pyLoad.';
-$L['CLEAN_MEM_TXT'] = 'Tapez cette commande en tant que root si/quand vous décidez de nettoyer le cache de Mémoire Physique.';
+$L['UPGRADEBTSYNC_TXT'] = 'Tapez cette commande en SSH pour mettre à jour BTSync vers la nouvelle version quand elle sera disponible.';
+$L['UPGRADEJACKETT_TXT'] = 'Tapez cette commande en SSH pour mettre à jour Jackett vers la nouvelle version quand elle sera disponible.';
+$L['UPGRADEOMBI_TXT'] = 'Tapez cette commande en SSH pour mettre à jour Ombi vers la nouvelle version quand elle sera disponible.';
+$L['UPGRADEPLEX_TXT'] = 'Tapez cette commande en SSH pour mettre à jour Plex vers la nouvelle version quand elle sera disponible.';
+$L['UPGRADEPYLOAD_TXT'] = 'Tapez cette commande en SSH pour mettre à jour pyLoad vers la nouvelle version quand elle sera disponible.';
+$L['UPGRADESABNZBD_TXT'] = 'apez cette commande en SSH pour mettre à jour SABnzbd vers la nouvelle version quand elle sera disponible.';
 // essential user commands section
 $L['ESSENTIAL_USER_COMMANDS'] = 'Commandes utilisateur essentielles';
 $L['RELOAD_TXT'] = 'Autorise l’utilisateur à recharger ses services (rTorrent et IRSSI).';

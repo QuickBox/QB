@@ -1,5 +1,24 @@
+<<<<<<< HEAD
 
 ##CHANGELOG v2.4.8:
+=======
+## CHANGELOG efs-dev v0.1.1:
+
+### General adjustments & additions
+* First dev version
+* change some defaults
+* fix some descriptions
+* add compile install(rtorrent libtorrent deluge)
+	+ libtorrent 0.13.4 with ipv6 patch(openssl-1.0.2l)
+	+ rtorrent 0.9.4 with ipv6 patch
+	+ deluge 1.3.15 stable version
+* new libboost
+* fix hostname
+* fix perm lossing in vultr host
+* require encryption in rtorrent profile
+
+## CHANGELOG v2.4.8:
+>>>>>>> b06e9c4... Merge pull request #3 from amefs/master
 _Changelog updated Monday, October 24, 2016_
 
 ---
@@ -46,7 +65,7 @@ https://github.com/Novik/ruTorrent
 
 ---
 
-##CHANGELOG v2.4.7:
+## CHANGELOG v2.4.7:
 _Changelog updated Sunday, August 28, 2016_
 
 ---
@@ -153,7 +172,7 @@ https://github.com/Novik/ruTorrent
 
 ---
 
-##CHANGELOG v2.4.6:
+## CHANGELOG v2.4.6:
 _Changelog updated Saturday, August 21, 2016_
 
 ---
