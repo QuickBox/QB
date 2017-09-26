@@ -287,6 +287,17 @@ function _askdeluge() {
   echo
 }
 
+# install transmission question (8.5)
+function _asktr() {
+  echo -ne "${bold}${yellow}Would you like to install transmission? ${normal} [${green}y${normal}]es or [n]o: "; read responce
+  case $responce in
+    [yY] | [yY][Ee][Ss] | "" ) tr=yes ;;
+    [nN] | [nN][Oo]) tr=no ;;
+    *) tr=yes ;;
+  esac
+  echo
+}
+
 # adduser function (9)
 function _adduser() {
   theshell="/bin/bash";
@@ -832,6 +843,9 @@ function _insTrWeb() {
       	#echo "##############################################"
   fi
   rm -rf "$tmpFolder"
+  
+  cd ${local_dashboard}/custom
+  patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
 }
 
 # scgi enable function (22-nixed)
@@ -885,6 +899,9 @@ function _fileindexer() {
   echo "#DirectoryIndex index.html index.php /_h5ai/public/index.php" >> /etc/apache2/apache2.conf
   ln -s /home/${username}/torrents/rtorrent/ ${username}.rtorrent.downloads
   ln -s /home/${username}/torrents/deluge/ ${username}.deluge.downloads
+  if [[ ${tr} == "yes" ]]; then
+	ln -s /home/${username}/torrents/transmission/ ${username}.transmission.downloads
+  fi
 }
 
 # function to configure apache (24)
@@ -1187,6 +1204,14 @@ function _perms() {
   chmod +x /etc/cron.daily/denypublic >/dev/null 2>&1
   chmod 777 /home/${username}/.sessions >/dev/null 2>&1
   chown -R chown -R www-data:www-data /srv/rutorrent/home >/dev/null 2>&1
+<<<<<<<
+
+=======
+  if [[ ${tr} == "yes" ]]; then
+	chown -R ${username}:debian-transmission /home/${username}/torrents/transmission >/dev/null 2>&1
+	service transmission-daemon reload >>"${OUTTO}" 2>&1
+  fi
+>>>>>>>
 }
 
 function _insbbr() {
@@ -1340,6 +1365,7 @@ _askpartition
 _ask10g
 _askrtorrent
 _askdeluge
+_asktr
 _askdashtheme
 _adduser
 _askffmpeg
@@ -1374,6 +1400,14 @@ echo -n "Installing rtorrent-${green}$RTVERSION${normal} ... ";_rtorrent & spinn
 echo -n "Installing rutorrent into /srv ... ";_rutorrent & spinner $!;echo
 echo -n "Installing rutorrent plugins ... ";_rutorrent-plugins & spinner $!;echo
 echo -n "Installing deluge ... ";_deluge & spinner $!;echo
+<<<<<<<
+
+=======
+if [[ ${tr} == "yes" ]]; then
+	echo -n "Configuring Transmisson ... ";_insTr & spinner $!;echo
+	echo -n "Installing Transmisson Web Control ... ";_insTrWeb & spinner $!;echo
+fi
+>>>>>>>
 echo -n "Installing mktorrent from source ... ";_mktorrent & spinner $!;echo
 echo -n "Installing quickbox dashboard ... ";_dashboard & spinner $!;echo
 echo -n "Building system file indexer (h5ai) ... ";_fileindexer & spinner $!;echo
