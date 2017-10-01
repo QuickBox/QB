@@ -131,6 +131,7 @@ if [[ -z $input ]]; then
 else
         hostname ${input}
         echo "${input}">/etc/hostname
+        echo "127.0.0.1 ${input}">/etc/hosts
         echo "Hostname set to ${input}"
 fi
 echo
@@ -286,6 +287,17 @@ function _askdeluge() {
   echo
 }
 
+# install transmission question (8.5)
+function _asktr() {
+  echo -ne "${bold}${yellow}Would you like to install transmission? ${normal} [${green}y${normal}]es or [n]o: "; read responce
+  case $responce in
+    [yY] | [yY][Ee][Ss] | "" ) tr=yes ;;
+    [nN] | [nN][Oo]) tr=no ;;
+    *) tr=yes ;;
+  esac
+  echo
+}
+
 # adduser function (9)
 function _adduser() {
   theshell="/bin/bash";
@@ -348,6 +360,17 @@ function _denyhosts() {
 
     [nN] | [nN][Oo] ) echo "[ ${green}+  Allowing public trackers  +${normal} ]"
     ;;
+  esac
+  echo
+}
+
+# install bbr question (x)
+function _askbbr() {
+  echo -ne "${bold}${yellow}Would you like to install bbr? (Used for Congestion Control)${normal} [${green}y${normal}]es or [n]o: "; read responce
+  case $responce in
+    [yY] | [yY][Ee][Ss] | "" ) bbr=yes ;;
+    [nN] | [nN][Oo]) bbr=no ;;
+    *) bbr=yes ;;
   esac
   echo
 }
@@ -434,7 +457,7 @@ function _depends() {
     apt-get -y -f --allow-unauthenticated install build-essential debian-archive-keyring fail2ban bc sudo \
                      screen zip irssi unzip nano bwm-ng htop iotop git \
                      dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
-                     pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev rtorrent libsigc++-2.0-dev \
+                     pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket \
                      libdbd-mysql-perl libdbi-perl php7.0 php7.0-fpm php7.0-mbstring php7.0-mysql \
@@ -451,23 +474,16 @@ function _depends() {
 
 # build openssl from source to combat recent apt source updates
 function _openssl() {
-  cd /tmp
-  #wget https://www.openssl.org/source/openssl-1.1.0f.tar.gz 
-  #tar -xzvf openssl-1.1.0f.tar.gz
-  #cd openssl-1.1.0f
-  #./config >>"${OUTTO}" 2>&1;
-  #make >>"${OUTTO}" 2>&1;
+  MAXCPUS=$(echo "$(nproc) / 2"|bc)
+  cd /root
+  wget -q https://www.openssl.org/source/openssl-1.0.2l.tar.gz
+  tar -zxvf openssl-1.0.2l.tar.gz >>"${OUTTO}" 2>&1
+  cd openssl-1.0.2l
+  ./config -fPIC >>"${OUTTO}" 2>&1;
+  make -j${MAXCPUS} >>"${OUTTO}" 2>&1;
   #make install >>"${OUTTO}" 2>&1;
-  #cd /tmp
-  #rm -rf openssl-1.1.0f.tar.gz openssl-1.1.0f
-  git clone git://git.openssl.org/openssl.git >>"${OUTTO}" 2>&1;
-  cd openssl
-  git config core.autocrlf false
-  git config core.eol lf
-  git checkout .
-  ./config >>"${OUTTO}" 2>&1;
-  make >>"${OUTTO}" 2>&1;
-  make install >>"${OUTTO}" 2>&1;
+  cd /root
+  rm -rf openssl-1.0.2l.tar.gz
   cd
 }
 
@@ -564,7 +580,7 @@ function _ffmpeg() {
     mkdir /root/tmp
     cd /root/tmp
     if [[ -d /root/tmp/ffmpeg ]]; then rm -rf ffmpeg;fi
-    git clone --depth 1 https://github.com/FFmpeg/FFmpeg.git ffmpeg >>"${OUTTO}" 2>&1
+    git clone --depth 1 -b release/3.2 https://github.com/FFmpeg/FFmpeg.git ffmpeg >>"${OUTTO}" 2>&1
     git clone git://github.com/yasm/yasm.git ffmpeg/yasm >>"${OUTTO}" 2>&1
     git clone https://github.com/yixia/x264.git ffmpeg/x264 >>"${OUTTO}" 2>&1
     ############################################################################
@@ -642,7 +658,13 @@ function _libtorrent() {
   tar -xzvf libtorrent-${LTORRENT}.tar.gz >>"${OUTTO}" 2>&1
   cd libtorrent-${LTORRENT}
   ./autogen.sh >>"${OUTTO}" 2>&1
-  ./configure --prefix=/usr >>"${OUTTO}" 2>&1
+  if [ $LTORRENT = 0.13.4 ]; then
+  cp ${local_setup}sources/libtorrent-0.13.4-tar.patch .
+  patch -p1 < libtorrent-*-tar.patch >>"${OUTTO}" 2>&1
+  ./configure --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" --enable-ipv6 >>"${OUTTO}" 2>&1
+  else
+  ./configure --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" >>"${OUTTO}" 2>&1
+  fi
   make -j${MAXCPUS} >>"${OUTTO}" 2>&1
   make install >>"${OUTTO}" 2>&1
 }
@@ -749,6 +771,83 @@ fi
   touch /install/.deluge.lock
 fi
 }
+
+function _insTr() {
+  apt-get -q -y update >>"${OUTTO}" 2>&1
+  apt-get -q -y install transmission-daemon >>"${OUTTO}" 2>&1
+  service transmission-daemon stop >>"${OUTTO}" 2>&1
+  mkdir -p /home/${username}/torrents/transmission
+  chmod g+w /home/${username}/torrents/transmission >/dev/null 2>&1
+#chgrp -R debian-transmission /home/${username}/torrents/transmission
+  chown -R ${username}:debian-transmission /home/${username}/torrents/transmission >/dev/null 2>&1
+  sed -i "s/\/var\/lib\/transmission-daemon\/downloads/\/home\/${username}\/torrents\/transmission/g" /etc/transmission-daemon/settings.json
+  sed -i "s/\/var\/lib\/transmission-daemon\/Downloads/\/home\/${username}\/torrents\/transmission\/incomplete/g" /etc/transmission-daemon/settings.json
+  sed -i "s/\"{.*/\"${passwd}\", /g" /etc/transmission-daemon/settings.json
+  sed -i "s/\"transmission\",/\"${username}\",/g" /etc/transmission-daemon/settings.json
+  sed -i "s/127.0.0.1/\*.\*.\*.\*/g" /etc/transmission-daemon/settings.json
+  service transmission-daemon start >>"${OUTTO}" 2>&1
+}
+
+function _insTrWeb() {
+  rootFolder=""
+  webFolder=""
+  orgindex="index.original.html"
+  index="index.html"
+  tmpFolder="/tmp/tr-web-control"
+  packname="transmission-control-full.tar.gz"
+  host="https://github.com/ronggang/transmission-web-control/raw/master/release/"
+  downloadurl="$host$packname"
+  if [ ! -d "$tmpFolder" ]; then
+	mkdir -p "$tmpFolder"
+  fi
+  # 找出web ui 目录
+  folderIsExist=0
+  echo "Searching Transmission Web Folder..." >>"${OUTTO}" 2>&1
+  rootFolder="/usr/share/transmission"
+  echo "Looking for folder: $rootFolder/web" >>"${OUTTO}" 2>&1
+  if [ -d "$rootFolder/web" ]; then
+	    webFolder="$rootFolder/web"
+	    folderIsExist=1
+      echo "Folder found. Using it." >>"${OUTTO}" 2>&1
+  else
+      echo "Folder not found. Will search the entire /. This will take a while..." >>"${OUTTO}" 2>&1
+      rootFolder=`find / -name 'web' -type d 2>/dev/null| grep 'transmission/web' | sed 's/\/web$//g'`
+      if [ -d "$rootFolder/web" ]; then
+	            webFolder="$rootFolder/web"
+	            folderIsExist=1
+      fi
+  fi
+
+# 如果目录存在，则进行下载和更新动作
+  if [ $folderIsExist = 1 ]; then
+        cd "$tmpFolder"
+      	echo "Downloading Transmission Web Control..." >>"${OUTTO}" 2>&1
+      	wget -q "$downloadurl"
+      	echo "Installing..." >>"${OUTTO}" 2>&1
+      	tar -xzvf "$packname" -C "$tmpFolder" >>"${OUTTO}" 2>&1
+      	rm "$packname"
+      	# 如果之前没有安装过，则先将原系统的文件改为
+      	if [ ! -f "$webFolder/$orgindex" -a -f "$webFolder/$index" ]; then
+      		      mv "$webFolder/$index" "$webFolder/$orgindex"
+      	fi
+      	# 复制文件到
+      	cp -r web "$rootFolder"
+        find "$rootFolder" -type d -exec chmod o+rx {} \;
+        find "$rootFolder" -type f -exec chmod o+r {} \;
+      	echo "Done." >>"${OUTTO}" 2>&1
+  else
+      	#echo "##############################################"
+      	#echo "#"
+      	echo "# ERROR : Transmisson WEB UI Folder is missing." >>"${OUTTO}" 2>&1
+      	#echo "#"
+      	#echo "##############################################"
+  fi
+  rm -rf "$tmpFolder"
+  
+  cd ${local_dashboard}/custom
+  patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
+}
+
 # scgi enable function (22-nixed)
 # function _scgi() { ln -s /etc/apache2/mods-available/scgi.load /etc/apache2/mods-enabled/scgi.load >>"${OUTTO}" 2>&1 ; }
 
@@ -800,6 +899,9 @@ function _fileindexer() {
   echo "#DirectoryIndex index.html index.php /_h5ai/public/index.php" >> /etc/apache2/apache2.conf
   ln -s /home/${username}/torrents/rtorrent/ ${username}.rtorrent.downloads
   ln -s /home/${username}/torrents/deluge/ ${username}.deluge.downloads
+  if [[ ${tr} == "yes" ]]; then
+	ln -s /home/${username}/torrents/transmission/ ${username}.transmission.downloads
+  fi
 }
 
 # function to configure apache (24)
@@ -854,6 +956,15 @@ function _apacheconf() {
 
 
     #sed -i 's/memory_limit = 128M/memory_limit = 768M/g' /etc/php/7.0/apache2/php.ini
+}
+
+# function to fix cert (24x)
+# add by EFS
+function _fix_cert() {
+  if [ ! -f /etc/ssl/certs/ssl-cert-snakeoila.pem ]
+  then 
+    openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/ssl/private/ssl-cert-snakeoil.key -out /etc/ssl/certs/ssl-cert-snakeoil.pem -subj "/C=CN/ST=BJ/L=PRC/O=IT/CN=www.example.com" >>"${OUTTO}" 2>&1
+  fi
 }
 
 # function to configure first user config (25)
@@ -1093,8 +1204,19 @@ function _perms() {
   chmod +x /etc/cron.daily/denypublic >/dev/null 2>&1
   chmod 777 /home/${username}/.sessions >/dev/null 2>&1
   chown -R chown -R www-data:www-data /srv/rutorrent/home >/dev/null 2>&1
+  if [[ ${tr} == "yes" ]]; then
+	chown -R ${username}:debian-transmission /home/${username}/torrents/transmission >/dev/null 2>&1
+	service transmission-daemon reload >>"${OUTTO}" 2>&1
+  fi
 }
 
+function _insbbr() {
+  cd /tmp
+  cp ${local_setup}sources/BBR/BBR.sh .
+  chmod a+x BBR.sh
+  bash BBR.sh -f v4.12.14 >>"${OUTTO}" 2>&1
+  cd
+}
 
 ################################################################################
 #   //BEGIN UNUSED FUNCTIONS//
@@ -1239,11 +1361,14 @@ _askpartition
 _ask10g
 _askrtorrent
 _askdeluge
+_asktr
 _askdashtheme
 _adduser
 _askffmpeg
 _askvsftpd
 _denyhosts
+_askbbr
+clear
 
 echo
 echo ""
@@ -1253,7 +1378,7 @@ echo ""
 echo -n "Pulling QuickBox Ecosystem ... ";_repos & spinner $!;echo
 echo -n "Updating system ... ";_updates & spinner $!;echo
 echo -n "Installing all needed dependencies ... ";_depends & spinner $!;echo
-#_openssl
+_openssl
 echo -n "Setting up system executables ... ";_syscommands & spinner $!;echo
 echo -n "Building required user directories ... ";_skel & spinner $!;echo
 if [[ ${quota} == "yes" ]]; then
@@ -1271,10 +1396,15 @@ echo -n "Installing rtorrent-${green}$RTVERSION${normal} ... ";_rtorrent & spinn
 echo -n "Installing rutorrent into /srv ... ";_rutorrent & spinner $!;echo
 echo -n "Installing rutorrent plugins ... ";_rutorrent-plugins & spinner $!;echo
 echo -n "Installing deluge ... ";_deluge & spinner $!;echo
+if [[ ${tr} == "yes" ]]; then
+	echo -n "Configuring Transmisson ... ";_insTr & spinner $!;echo
+	echo -n "Installing Transmisson Web Control ... ";_insTrWeb & spinner $!;echo
+fi
 echo -n "Installing mktorrent from source ... ";_mktorrent & spinner $!;echo
 echo -n "Installing quickbox dashboard ... ";_dashboard & spinner $!;echo
 echo -n "Building system file indexer (h5ai) ... ";_fileindexer & spinner $!;echo
 echo -n "Setting up seedbox.conf for apache ... ";_apacheconf & spinner $!;echo
+echo -n "Fix SSL Cert for apache ... ";_fix_cert & spinner $!;echo
 echo -n "Installing .rtorrent.rc for ${username} ... ";_rconf & spinner $!;echo
 echo -n "Adjusting fileupload & filemanager plugins ... ";_plugins & spinner $!;echo
 echo -n "Installing autodl-irssi ... ";_autodl & spinner $!;echo
@@ -1286,6 +1416,9 @@ _quickstats;
 _quickconsole;
 echo -n "Setting irssi/rtorrent to start on boot ... ";_boot & spinner $!;echo;
 echo -n "Setting permissions on ${username} ... ";_perms & spinner $!;echo;
+if [[ ${bbr} == "yes" ]]; then
+    echo -n "install BBR ... ";_insbbr & spinner $!;echo
+fi
 cd
 E=$(date +%s)
 DIFF=$(echo "$E" - "$S"|bc)
