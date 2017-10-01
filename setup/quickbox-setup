@@ -1204,14 +1204,10 @@ function _perms() {
   chmod +x /etc/cron.daily/denypublic >/dev/null 2>&1
   chmod 777 /home/${username}/.sessions >/dev/null 2>&1
   chown -R chown -R www-data:www-data /srv/rutorrent/home >/dev/null 2>&1
-<<<<<<<
-
-=======
   if [[ ${tr} == "yes" ]]; then
 	chown -R ${username}:debian-transmission /home/${username}/torrents/transmission >/dev/null 2>&1
 	service transmission-daemon reload >>"${OUTTO}" 2>&1
   fi
->>>>>>>
 }
 
 function _insbbr() {
@@ -1400,14 +1396,10 @@ echo -n "Installing rtorrent-${green}$RTVERSION${normal} ... ";_rtorrent & spinn
 echo -n "Installing rutorrent into /srv ... ";_rutorrent & spinner $!;echo
 echo -n "Installing rutorrent plugins ... ";_rutorrent-plugins & spinner $!;echo
 echo -n "Installing deluge ... ";_deluge & spinner $!;echo
-<<<<<<<
-
-=======
 if [[ ${tr} == "yes" ]]; then
 	echo -n "Configuring Transmisson ... ";_insTr & spinner $!;echo
 	echo -n "Installing Transmisson Web Control ... ";_insTrWeb & spinner $!;echo
 fi
->>>>>>>
 echo -n "Installing mktorrent from source ... ";_mktorrent & spinner $!;echo
 echo -n "Installing quickbox dashboard ... ";_dashboard & spinner $!;echo
 echo -n "Building system file indexer (h5ai) ... ";_fileindexer & spinner $!;echo
