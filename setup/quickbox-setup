@@ -950,6 +950,7 @@ function _apacheconf() {
 
     # ensure fastcgi module is activated
     a2enmod actions >>"${OUTTO}" 2>&1
+    a2enmod headers >>"${OUTTO}" 2>&1
     a2enmod fastcgi >>"${OUTTO}" 2>&1
     a2enmod proxy_fcgi setenvif >>"${OUTTO}" 2>&1
     a2enconf php7.0-fpm >>"${OUTTO}" 2>&1
