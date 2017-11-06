@@ -843,9 +843,9 @@ function _insTrWeb() {
       	#echo "##############################################"
   fi
   rm -rf "$tmpFolder"
-  
-  cd ${local_dashboard}/custom
-  patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
+  touch /install/.transmission.lock
+  #cd ${local_dashboard}/custom
+  #patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
 }
 
 # scgi enable function (22-nixed)

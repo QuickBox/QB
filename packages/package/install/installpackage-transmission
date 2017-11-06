@@ -96,7 +96,7 @@ function _insTrWeb() {
   rm -rf "$tmpFolder"
   
   cd ${local_dashboard}/custom
-  patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
+  #patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
   ln -s /home/${username}/torrents/transmission/ ${username}.transmission.downloads
 }
 
@@ -112,6 +112,7 @@ Require user $username
 </Location>
 EOF
 
+  touch /install/.transmission.lock
   chown www-data: /etc/apache2/sites-enabled/transmission.conf
   service apache2 reload
 }
