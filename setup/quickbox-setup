@@ -442,7 +442,7 @@ function _depends() {
     yes '' | apt-get install --force-yes fail2ban bc ed sudo screen zip irssi unzip nano bwm-ng htop iotop \
                      dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
-                     apache2-utils autoconf cron curl libapache2-mod-fastcgi rtorrent libapache2-mod-geoip \
+                     apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket libapache2-mod-php7.0 \
                      php7.0-dev php7.0-geoip libgeoip-dev php7.0 php7.0-fpm php7.0-mbstring php7.0-mysql \
                      php7.0-curl php7.0-memcached memcached php7.0-gd php7.0-json php7.0-mcrypt php7.0-opcache \
@@ -778,7 +778,7 @@ function _insTr() {
   service transmission-daemon stop >>"${OUTTO}" 2>&1
   mkdir -p /home/${username}/torrents/transmission
   chmod g+w /home/${username}/torrents/transmission >/dev/null 2>&1
-#chgrp -R debian-transmission /home/${username}/torrents/transmission
+  #chgrp -R debian-transmission /home/${username}/torrents/transmission
   chown -R ${username}:debian-transmission /home/${username}/torrents/transmission >/dev/null 2>&1
   sed -i "s/\/var\/lib\/transmission-daemon\/downloads/\/home\/${username}\/torrents\/transmission/g" /etc/transmission-daemon/settings.json
   sed -i "s/\/var\/lib\/transmission-daemon\/Downloads/\/home\/${username}\/torrents\/transmission\/incomplete/g" /etc/transmission-daemon/settings.json
