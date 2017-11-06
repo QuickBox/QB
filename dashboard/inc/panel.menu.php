@@ -161,11 +161,17 @@
           <h5 class="sidebar-title"><?php echo T('MAIN_MENU'); ?></h5>
           <ul class="nav nav-pills nav-stacked nav-quirk">
             <!--li class="active"><a href="index.php"><i class="fa fa-home"></i> <span>Dashboard</span></a></li-->
+            <!-- // RUTORRENT // -->
             <?php if (file_exists('/home/'.$username.'/.sessions/rtorrent.lock')) { ?>
               <li><a class="grayscale" href="/rutorrent" target="_blank"><img src="img/brands/rtorrent.png" class="brand-ico"> <span>ruTorrent</span></a></li>
             <?php } ?>
+            <!-- // DELUGE-WEB // -->
             <?php if (processExists("deluge-web",$username) && file_exists('/install/.deluge.lock')) { ?>
               <li><a class="grayscale" href="<?php echo "$dwURL"; ?>" target="_blank"><img src="img/brands/deluge.png" class="brand-ico"> <span>Deluge Web</span></a></li>
+            <?php } ?>
+            <!-- // TRANSMISSION // -->
+            <?php if (processExists("transmission-daemon",debian-transmission) && file_exists('/install/.transmission.lock')) { ?>
+              <li><a href="<?php echo "$transmissionURL"; ?>" class="grayscale" target="_blank"><img src="img/brands/transmission.png" class="brand-ico"> <span>Transmission Web Control</span></a></li>
             <?php } ?>
             <?php if ($username == "$master") { ?>
               <?php if (processExists("resilio-sync",rslsync) && file_exists('/install/.btsync.lock')) { ?>
@@ -244,6 +250,9 @@
                 <li><a href="/<?php echo "$username"; ?>.rtorrent.downloads" target="_blank">ruTorrent</a></a></li>
                 <?php if (file_exists('/install/.deluge.lock')) { ?>
                   <li><a href="/<?php echo "$username"; ?>.deluge.downloads" target="_blank">Deluge</a></li>
+                <?php } ?>
+                <?php if (file_exists('/install/.transmission.lock')) { ?>
+                  <li><a href="/<?php echo "$username"; ?>.transmission.downloads" target="_blank">Transmission</a></li>
                 <?php } ?>
                 <?php if (file_exists('/home/'. $username .'/public_html/'. $username .'.zip')) { ?>
                   <li><a href="/~<?php echo "$username"; ?>/<?php echo "$username"; ?>.zip" target="_blank"> <span>OpenVPN Config</span></a></li>

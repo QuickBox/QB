@@ -26,6 +26,7 @@ $packages = array(
         'sonarr',
         'subsonic',
         'syncthing',
+        'transmission',
         'x2go',
         'znc'
 );
