@@ -293,7 +293,7 @@ function _asktr() {
   case $responce in
     [yY] | [yY][Ee][Ss] | "" ) tr=yes ;;
     [nN] | [nN][Oo]) tr=no ;;
-    *) tr=yes ;;
+    *) tr=no ;;
   esac
   echo
 }
