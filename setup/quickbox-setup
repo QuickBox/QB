@@ -439,7 +439,7 @@ function _updates() {
 # package and repo addition (14) _install softwares and packages_
 function _depends() {
   if [[ $DISTRO == Debian ]]; then
-    yes '' | apt-get install --force-yes fail2ban bc ed sudo screen zip irssi unzip nano bwm-ng htop iotop \
+    yes '' | apt-get install --force-yes fail2ban bc ed sudo screen zip irssi unzip nano bwm-ng htop nethogs speedtest.cli iotop \
                      dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi rtorrent libapache2-mod-geoip \
