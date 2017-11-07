@@ -2,7 +2,7 @@
 session_destroy();
 include '/srv/rutorrent/php/util.php';
 include ($_SERVER['DOCUMENT_ROOT'].'/widgets/class.php');
-$version = "v2.5.2";
+$version = "v2.5.3";
 error_reporting(E_ERROR);
 $master = file_get_contents('/srv/rutorrent/home/db/master.txt');
 $master=preg_replace('/\s+/', '', $master);
@@ -277,6 +277,7 @@ $quassel = processExists("quassel",$username);
 $shellinabox = processExists("shellinabox",shellinabox);
 $csf = processExists("lfd",root);
 $sickgear = processExists("sickgear",8088);
+$transmission = processExists("transmission-daemon",debian-transmission);
 $nzbget = processExists("nzbget",$username);
 $znc = processExists("znc",$username);
 
@@ -318,6 +319,7 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   $sonarrURL = "https://" . $_SERVER['HTTP_HOST'] . "/sonarr";
   $subsonicURL = "https://" . $_SERVER['HTTP_HOST'] . "/subsonic";
   $syncthingURL = "https://" . $_SERVER['HTTP_HOST'] . "/syncthing/";
+  $transmissionURL = "https://" . $_SERVER['HTTP_HOST'] . "/transmission/web/";
   if ($zssl == "true") { $zncURL = "https://" . $_SERVER['HTTP_HOST'] . ":$zport"; }
   if ($zssl == "false") { $zncURL = "http://" . $_SERVER['HTTP_HOST'] . ":$zport"; }
  }
@@ -385,6 +387,8 @@ case 0:
     $cbodyss .= $subsonic;
   $syncthing = isEnabled("syncthing", $username);
     $cbodyst .= $syncthing;
+  $transmission = isEnabled("transmission-daemon", debian-transmission);
+    $cbodytr .= $transmission;
   $x2go = isEnabled("x2go", $username);
     $cbodyx .= $x2go;
   $znc = isEnabled("znc", $username);
@@ -423,6 +427,9 @@ case 66:
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
     } elseif ($process == "subsonic"){
+      shell_exec("sudo systemctl enable $process");
+      shell_exec("sudo systemctl start $process");
+    } elseif ($process == "transmission"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
     } else {
@@ -465,6 +472,9 @@ case 77:
     } elseif ($process == "subsonic"){
       shell_exec("sudo systemctl stop $process");
       shell_exec("sudo systemctl disable $process");
+    } elseif ($process == "tranmission"){
+      shell_exec("sudo systemctl stop $process");
+      shell_exec("sudo systemctl disable $process");
     } else {
       shell_exec("sudo systemctl stop $process@$username");
       shell_exec("sudo systemctl disable $process@$username");
@@ -503,6 +513,9 @@ case 88:
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
     } elseif ($process == "subsonic"){
+      shell_exec("sudo systemctl enable $process");
+      shell_exec("sudo systemctl restart $process");
+    } elseif ($process == "tranmission"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
     } else {

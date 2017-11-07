@@ -53,10 +53,10 @@ $(document).ready(function() {
   function appstat_headphones() {
     $.ajax({url: "/widgets/app_status/app_status_headphones.php", cache:true, success: function (result) {
       $('#appstat_headphones').html(result);
-      setTimeout(function(){appstat_emby()}, 1000);
+      setTimeout(function(){appstat_headphones()}, 1000);
     }});
   }
-  appstat_emby();
+  appstat_headphones();
 
   // <<-------- IRSSI -------->> //
   function appstat_irssi() {
@@ -246,6 +246,15 @@ $(document).ready(function() {
     }});
   }
   appstat_syncthing();
+
+  // <<-------- TRANSMISSION -------->> //
+  function appstat_transmission() {
+    $.ajax({url: "/widgets/app_status/app_status_transmission.php", cache:true, success: function (result) {
+      $('#appstat_transmission').html(result);
+      setTimeout(function(){appstat_transmission()}, 1000);
+    }});
+  }
+  appstat_transmission();
 
   // <<-------- WEB CONSOLE -------->> //
   function appstat_webconsole() {

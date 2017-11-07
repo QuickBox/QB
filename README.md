@@ -1,8 +1,5 @@
 [![QuickBox](https://github.com/QuickBox/quickbox_github_assets/blob/master/img/quickbox2.png "QuickBox")](https://quickbox.io)
 
-### Join us on our Chat Server at [chat.quickbox.io](https://chat.quickbox.io/) !!!
-
-
 ## To make use of the GitHub repo (all future updates posted here!)
 >This step is only required for users who are coming off of our self-hosted GitLab repositories. If you are installing from fresh, please see [How to install](#how-to-install)
 
@@ -61,7 +58,7 @@ updateQuickBox
 
 ## Script status
 
-[![Version 2.5.1-production](https://img.shields.io/badge/version-2.5.1-674172.svg?style=flat-square)](https://quickbox.io/readme-md/) [![GNU v3.0 License](https://img.shields.io/badge/license-GNU%20v3.0%20License-blue.svg?style=flat-square)](https://quickbox.io/readme-md/)
+[![Version 2.5.3-production](https://img.shields.io/badge/version-2.5.3-674172.svg?style=flat-square)](https://quickbox.io/readme-md/) [![GNU v3.0 License](https://img.shields.io/badge/license-GNU%20v3.0%20License-blue.svg?style=flat-square)](https://quickbox.io/readme-md/)
 
 #### Ubuntu Builds
  [![Ubuntu 15.10 Passing](https://img.shields.io/badge/Ubuntu%2015.10-passing-brightgreen.svg?style=flat-square)](https://quickbox.io/readme-md/) [![Ubuntu 16.04 Passing](https://img.shields.io/badge/Ubuntu%2016.04-passing-brightgreen.svg?style=flat-square)](https://quickbox.io/readme-md/) [![Ubuntu 16.10 Failing](https://img.shields.io/badge/Ubuntu%2016.10-failing-brightred.svg?style=flat-square)](https://quickbox.io/readme-md/)

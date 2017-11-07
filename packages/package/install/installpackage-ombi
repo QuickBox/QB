@@ -31,12 +31,13 @@ function _depends() {
 }
 
 function _install() {
-  cd /opt
-  curl -sL https://git.io/vKEJz | grep release | grep zip | cut -d "\"" -f 2 | sed -e 's/\/tidusjar/https:\/\/github.com\/tidusjar/g' | xargs wget --quiet -O Ombi.zip >/dev/null 2>&1
-  unzip Ombi.zip >/dev/null 2>&1
-  mv Release ombi
-  rm Ombi.zip
-  chown -R ${user}: ombi
+  mkdir -p /opt/Ombi
+  cd /opt/Ombi
+  wget https://ci.appveyor.com/api/buildjobs/34973ana21t6xyqm/artifacts/linux.tar.gz >/dev/null 2>&1
+  tar xzf linux.tar.gz >/dev/null 2>&1
+  chmod +x Ombi
+  rm -rf linux.tar.gz
+  chown -R ${user}: /opt/Ombi
 }
 
 
@@ -48,8 +49,8 @@ function _services() {
   touch /install/.ombi.lock
   cat > /etc/apache2/sites-enabled/ombi.conf <<EOF
 <Location /ombi>
-ProxyPass http://localhost:3000/ombi
-ProxyPassReverse http://localhost:3000/ombi
+ProxyPass http://localhost:5000/ombi
+ProxyPassReverse http://localhost:5000/ombi
 Require all granted
 </Location>
 EOF
@@ -76,8 +77,8 @@ OUTTO=/srv/rutorrent/home/db/output.log
 local_setup=/etc/QuickBox/setup/
 user=$(cat /srv/rutorrent/home/db/master.txt)
 
-echo "Updating dependencies (this could take a bit) ... " > ${OUTTO} 2>&1
-echo -en "\rUpdating dependencies ... ";_depends
+#echo "Updating dependencies (this could take a bit) ... " > ${OUTTO} 2>&1
+#echo -en "\rUpdating dependencies ... ";_depends
 echo "Installing Ombi ... " >> ${OUTTO} 2>&1
 echo -en "\rInstalling Ombi ... ";_install
 echo "Initializing Ombi service ... " >> ${OUTTO} 2>&1

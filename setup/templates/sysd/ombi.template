@@ -1,13 +1,16 @@
-Description=Systemd script to run Ombi as a service
+[Unit]
+Description=Ombi - PMS Requests System
 After=network-online.target
 
 [Service]
 User=USER
 Group=USER
-Type=forking
-ExecStart=/usr/bin/screen -f -a -d -m -S ombi mono /opt/ombi/Ombi.exe -p 3000 --base ombi
-ExecStop=-/bin/kill -HUP
-WorkingDirectory=/home/USER/
+WorkingDirectory=/opt/Ombi/
+ExecStart=/opt/Ombi/Ombi
+Type=simple
+TimeoutStopSec=30
+Restart=on-failure
+RestartSec=5
 
 [Install]
 WantedBy=multi-user.target
