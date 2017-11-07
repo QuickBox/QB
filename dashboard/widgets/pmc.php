@@ -258,6 +258,13 @@
                     <?php } else { ?>
                       <td style="vertical-align: middle; text-align: center"><a href="?installpackage-syncthing=true" data-toggle="modal" data-target="#sysResponse" id="syncthingInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                     <?php } ?>
+                    <td>Transmission</td>
+                    <td><?php echo T('TRANSMISSION'); ?></td>
+                    <?php if (file_exists("/install/.transmission.lock")) { ?>
+                      <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#transmissionRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
+                    <?php } else { ?>
+                      <td style="vertical-align: middle; text-align: center"><a href="?installpackage-transmission=true" data-toggle="modal" data-target="#sysResponse" id="transmissionInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
+                    <?php } ?>
                   </tr>
                     <tr>
                       <td>x2Go</td>
