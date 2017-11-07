@@ -251,6 +251,7 @@
                         <td style="vertical-align: middle; text-align: center"><a href="?installpackage-subsonic=true" data-toggle="modal" data-target="#sysResponse" id="subsonicInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
+                    <tr>
                     <td>Syncthing</td>
                     <td><?php echo T('SYNCTHING'); ?></td>
                     <?php if (file_exists("/install/.syncthing.lock")) { ?>
@@ -258,6 +259,8 @@
                     <?php } else { ?>
                       <td style="vertical-align: middle; text-align: center"><a href="?installpackage-syncthing=true" data-toggle="modal" data-target="#sysResponse" id="syncthingInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                     <?php } ?>
+                    </tr>
+                    <tr>
                     <td>Transmission</td>
                     <td><?php echo T('TRANSMISSION'); ?></td>
                     <?php if (file_exists("/install/.transmission.lock")) { ?>
@@ -265,7 +268,7 @@
                     <?php } else { ?>
                       <td style="vertical-align: middle; text-align: center"><a href="?installpackage-transmission=true" data-toggle="modal" data-target="#sysResponse" id="transmissionInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                     <?php } ?>
-                  </tr>
+                    </tr>
                     <tr>
                       <td>x2Go</td>
                       <td><?php echo T('X2GO'); ?></td>
