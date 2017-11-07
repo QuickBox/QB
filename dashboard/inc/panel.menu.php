@@ -31,7 +31,7 @@
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs nav-justified" role="tablist">
                     <li class="active"><a data-target="#quickplus" data-toggle="tab">QuickBox+</a></li>
-                    <li><a data-target="#chat" data-toggle="tab">Chat</a></li>
+                    <!--li><a data-target="#chat" data-toggle="tab">Chat</a></li-->
                     <li><a data-target="#dashadjust" data-toggle="tab">Dashboard</a></li>
                   </ul>
 
@@ -74,7 +74,7 @@
                       <!--a class="btn-more" href="">View More QuickBox <i class="fa fa-long-arrow-right"></i></a-->
                     </div><!-- tab-pane -->
 
-                    <div role="tabpanel" class="tab-pane" id="chat">
+                    <!--div role="tabpanel" class="tab-pane" id="chat">
                       <ul class="list-group notice-list">
                         <li class="list-group-item" style="padding-top: 10px;">
                           <div class="row">
