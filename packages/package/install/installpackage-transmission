@@ -96,40 +96,23 @@ function _insTrWeb() {
   rm -rf "$tmpFolder"
   
   cd ${local_dashboard}/custom
-  patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
+  #patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
   ln -s /home/${username}/torrents/transmission/ ${username}.transmission.downloads
 }
 
 function _insTrApache() {
   cat > /etc/apache2/sites-enabled/transmission.conf <<EOF
-<ifmodule mod_proxy.c>
-  #turning ProxyRequests on and allowing proxying from all may allow
-  #spammers to use your proxy to send email.
-
-  ProxyRequests Off
-  <proxy *>
-    AddDefaultCharset off
-    Order Allow,Deny
-    Allow from all
-    AuthType Digest
-    AuthName "rutorrent"
-    AuthUserFile '/etc/htpasswd'
-    Require user ${username}
-  </proxy>
-
-  ProxyPass /transmission http://localhost:9091/transmission
-  ProxyPassReverse /transmission http://localhost:9091/transmission
-  # Line below is optional
-  # Redirect permanent /transmission https://myserver.com/transmission/web/
-
-  # Enable/disable the handling of HTTP/1.1 "Via:" headers.
-  # ("Full" adds the server version; "Block" removes all outgoing Via: headers)
-  # Set to one of: Off | On | Full | Block
-
-  ProxyVia On
-</ifmodule>
+<Location /$APPNAME>
+ProxyPass http://localhost:$APPDPORT/$APPNAME
+ProxyPassReverse http://localhost:$APPDPORT/$APPNAME
+AuthType Digest
+AuthName "rutorrent"
+AuthUserFile '/etc/htpasswd'
+Require user $username
+</Location>
 EOF
 
+  touch /install/.transmission.lock
   chown www-data: /etc/apache2/sites-enabled/transmission.conf
   service apache2 reload
 }
@@ -151,6 +134,9 @@ passwd=$(cat /root/${username}.info | cut -d ":" -f 3 | cut -d "@" -f 1)
 OUTTO="/srv/rutorrent/home/db/output.log"
 local_setup=/etc/QuickBox/setup/
 local_dashboard=/etc/QuickBox/dashboard/
+
+APPNAME='transmission'
+APPDPORT='9091'
 
 echo "Configuring Transmisson ... " >> ${OUTTO} 2>&1
 echo -en "\rConfiguring Transmisson ... ";_insTr
