@@ -102,7 +102,8 @@
                                 $language[] = array('file' => 'lang_dk', 'title' =>'Danish');
                                 $language[] = array('file' => 'lang_en', 'title' =>'English');
                                 $language[] = array('file' => 'lang_fr', 'title' =>'French');
-                                $language[] = array('file' => 'lang_de', 'title' =>'German'); { ?>
+                                $language[] = array('file' => 'lang_de', 'title' =>'German');
+                                $language[] = array('file' => 'lang_es', 'title' =>'Spanish'); { ?>
                                 <h5><?php echo T('LANG_SELECT'); ?></h5>
                                 <?php foreach($language as $lang) { ?>
                                   <small><a href='?langSelect-<?php echo $lang['file'] ?>=true'><img class='lang-flag' src='lang/flag_<?php echo $lang['file'] ?>.png' /><?php echo $lang['title'] ?></a></small>
