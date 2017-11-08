@@ -19,7 +19,7 @@
 #
 
 function _depends() {
-  apt-get update -q >/dev/null 2>&1
+  apt-get update -q -y >/dev/null 2>&1
   apt-get install -q -y mono-devel mono-complete libunwind8 unzip >/dev/null 2>&1
 }
 
