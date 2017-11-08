@@ -118,7 +118,7 @@ EOF
 }
 
 function _insTrComplete() {
-  echo "BTSync Install Complete!" >>"${OUTTO}" 2>&1;
+  echo "Transmisson Install Complete!" >>"${OUTTO}" 2>&1;
   sleep 5
   echo >>"${OUTTO}" 2>&1;
   echo >>"${OUTTO}" 2>&1;
