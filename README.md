@@ -123,6 +123,7 @@ This script has the following features
 * Quotas
 * Radarr
 * Rapidleech
+* RTorrent (ruTorrent)
 * SABnzbd
 * SickGear
 * SickRage
@@ -130,6 +131,7 @@ This script has the following features
 * Sonarr
 * Subsonic
 * Syncthing
+* Transmission (single-user)
 * X2Go - Remote Desktop
 * ZNC
 * .. more to come (or how about that feature request?)
