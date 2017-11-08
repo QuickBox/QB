@@ -143,7 +143,7 @@ $L['SICKRAGE'] = 'Gestionnaire de fichiers vidéo pour Séries TV. Il surveille 
 $L['SONARR'] = 'Sonarr est un outil de gestion de Séries TV qui travaillera avec les torrents et liens Usenet.';
 $L['SUBSONIC'] = 'Subsonic est un serveur de contenu audio et vidéo en streaming écrit en JAVA avec une interface web (via HHTP ou HTTPS) et une gestion de plusieurs utilisateurs, ainsi que l\'authentification LDAP. Il suuporte un grand nombre de fichiers (MP3, AAC, OGG, FLAC, WMA, APE...).';
 $L['SYNCTHING'] = 'Syncthing est une application open source vous permettant de synchroniser vos fichiers en continu avec BitTorrent.';
-$L['TRANSMISSION'] = 'Transmission is designed for easy, powerful use. The defaults are set to Just Work and it only takes a few clicks to configure advanced features like watch directories, bad peer blocklists, and the web interface. When Ubuntu chose Transmission as its default BitTorrent client, one of the most-cited reasons was its easy learning curve.';
+$L['TRANSMISSION'] = 'Transmission est conçu pour une utilisation facile et puissante. Les valeurs par défaut sont configurées pour fonctionner et il suffit de quelques clics pour configurer les fonctions avancées comme les répertoires de surveillance, les listes de blocage des pairs et l\'interface Web. Ubuntu a choisi Transmission comme client BitTorrent par défaut, essentiellement pour sa facilité d\'apprentissage.';
 $L['X2GO'] = 'X2Go est un logiciel de bureau à distance open source pour Linux qui utilise le protocole de technologie NX.';
 $L['ZNC'] = 'ZNC est un bouncer IRC sous licence GPL. Celui-ci sera connecté en permanence à vos salons de discussions et fera office de passerelle entre votre client et vos serveurs IRC.';
 

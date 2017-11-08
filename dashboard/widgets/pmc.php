@@ -268,7 +268,7 @@
                     <?php } else { ?>
                       <td style="vertical-align: middle; text-align: center"><a href="?installpackage-transmission=true" data-toggle="modal" data-target="#sysResponse" id="transmissionInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                     <?php } ?>
-                  </tr>
+                    </tr>
                     <tr>
                       <td>x2Go</td>
                       <td><?php echo T('X2GO'); ?></td>
