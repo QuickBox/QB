@@ -11,54 +11,54 @@
 ///////////////////////////////////////
 
 // main menu tab
-$L['ANNOUNCEMENTS'] = 'Announcements';
-$L['CHAT_CONNECT_TXT'] = 'Click to connect';
-$L['DEV_REPO_TXT'] = 'You are on the QuickBox Development Repo';
-$L['DOWNLOADS'] = 'Downloads';
-$L['ISSUE_REPORT_TXT'] = 'Report an issue';
-$L['JOIN_US_TXT'] = 'Join Us On Live Chat!';
-$L['LANG_SELECT'] = 'Select Language';
-$L['MAIN_MENU'] = 'Main Menu';
-$L['MARKETPLACE'] = 'Marketplace';
-$L['THEME_SELECT'] = 'Select Theme';
-$L['WEB_CONSOLE'] = 'Web Console';
-$L['DONATE'] = 'Donate';
+$L['ANNOUNCEMENTS'] = 'Anuncios';
+$L['CHAT_CONNECT_TXT'] = 'Pincha para conectarte';
+$L['DEV_REPO_TXT'] = 'Estás en el repositorio de desarrollo de Quickbox';
+$L['DOWNLOADS'] = 'Descargas';
+$L['ISSUE_REPORT_TXT'] = 'Informa de un problema';
+$L['JOIN_US_TXT'] = '¡Únete a nuestro chat';
+$L['LANG_SELECT'] = 'Elige un idioma';
+$L['MAIN_MENU'] = 'Menú principal';
+$L['MARKETPLACE'] = 'Tienda';
+$L['THEME_SELECT'] = 'Elige un tema';
+$L['WEB_CONSOLE'] = 'Consola Web';
+$L['DONATE'] = 'Dona';
 
 // plugin menu tab
-$L['PLUGIN_MENU'] = 'Plugin Menu';
-$L['RPLUGIN_MENU'] = 'ruTorrent Plugin Menu';
-$L['PMENU_NOTICE_TXT'] = 'Easily install and uninstall ruTorrent plugins simply by clicking on the plugin name';
+$L['PLUGIN_MENU'] = 'Menú de plugins';
+$L['RPLUGIN_MENU'] = 'Menú de plugins de ruTorrent';
+$L['PMENU_NOTICE_TXT'] = 'Instala y desinstala fácilemente plugins de ruTorrent pinchando en su nombre';
 $L['PLUGINS'] = 'Plugins';
 
 // quick help menu tab
-$L['HELP_COMMANDS'] = 'Help Commands & More';
-$L['QUICK_SYSTEM_TIPS'] = 'Quick System Tips';
-$L['CLEAN_MEM_TXT'] = 'Use the above command as root if/when you decide to clear your systems Physical Memory Cache';
-$L['DISKTEST_TXT'] = 'Type this command to perform a quick r/w test of your disk.';
-$L['FIXHOME_TXT'] = 'Type this command to quickly adjusts /home directory permissions.';
+$L['HELP_COMMANDS'] = 'Comandos de ayuda y demás';
+$L['QUICK_SYSTEM_TIPS'] = 'Comandos de sistema';
+$L['CLEAN_MEM_TXT'] = 'Utiliza el comando de arriba como usuario root cuando quieras limpiar la Memoria Caché de tu sistema.';
+$L['DISKTEST_TXT'] = 'Escribe este comando para realizar un rápido test de lectura/escritura en tu disco duro.';
+$L['FIXHOME_TXT'] = 'Escribe este comando para ajustar rápidamente los permisos de tu directorio /home.';
 // seedbox commands section
-$L['SEEDBOX_COMMANDS'] = 'Seedbox Commands';
-$L['CHANGEUSERPASS_TXT'] = 'Typing this command in ssh allows you to change a desired users password.';
-$L['CREATESEEDBOXUSER_TXT'] = 'Type this command in ssh to create a new seedbox user on your server.';
-$L['DELETESEEDBOXUSER_TXT'] = 'Type this command in ssh to delete a seedbox user on your server. You will need to enter the users account name, you will be prompted.';
-$L['SETDISK_TXT'] = 'Type this command in ssh to allocate the amount of disk space you would like to give to a user.';
-$L['SHOWSPACE_TXT'] = 'Use the above command as root to show the amount of disk space currently used by each user.';
-$L['UPGRADEDELUGE_TXT'] = 'Type this command in ssh to upgrade Deluge to newest version when available.';
+$L['SEEDBOX_COMMANDS'] = 'Comandos del Seedbox';
+$L['CHANGEUSERPASS_TXT'] = 'Escribir este comando por SSH te permite cambiar la contraseña del usuario deseado.';
+$L['CREATESEEDBOXUSER_TXT'] = 'Escribe este comando por SSH para un nuevo usuario del Seedbox en tu servidor.';
+$L['DELETESEEDBOXUSER_TXT'] = 'Escribe este comando por SSH para eliminar un usuario del Seedbox en tu servidor. Deberás introducir el nombre de la cuenta de usuario.';
+$L['SETDISK_TXT'] = 'Escribe este comando por SSH para adjudicar la cantidad de espacio en el disco que te gustaría darle a un usuario.';
+$L['SHOWSPACE_TXT'] = 'Utiliza este comando como root para comprobar la cantidad de espacio utilizado actualmente por cada usuario.';
+$L['UPGRADEDELUGE_TXT'] = 'Escribe este comando por SSH para actualizar Deluge versión más reciente cuando esta esté disponible.';
 // packages commands section
-$L['PACKAGE_COMMANDS'] = 'Packages Commands';
-$L['QUICKVPN_TXT'] = 'Type this command in ssh to setup your own VPN server in no more than a minute as well manage and create new user certificates for using the VPN server.';
-$L['SETUPPYLOAD_TXT'] = 'Type this command in ssh to run the pyLoad setup script.';
-$L['UPGRADEBTSYNC_TXT'] = 'Type this command in ssh to upgrade BTSync to newest version when available.';
-$L['UPGRADEJACKETT_TXT'] = 'Type this command in ssh to upgrade Jackett to newest version when available.';
-$L['UPGRADEOMBI_TXT'] = 'Type this command in ssh to upgrade Ombi to newest version when available.';
-$L['UPGRADEPLEX_TXT'] = 'Type this command in ssh to upgrade Plex to newest version when available.';
-$L['UPGRADEPYLOAD_TXT'] = 'Type this command in ssh to upgrade pyLoad to newest version when available.';
-$L['UPGRADESABNZBD_TXT'] = 'Type this command in ssh to upgrade SABnzbd to newest version when available.';
+$L['PACKAGE_COMMANDS'] = 'Comandos de Paquetes';
+$L['QUICKVPN_TXT'] = 'Escribe este comando por SSH para instalar tu propio servidor VPN en menos de un minuto además de gestionar y crear nuevos certificados de usuario para utilizar el servidor VPN.';
+$L['SETUPPYLOAD_TXT'] = 'Escribe este comando por SSH para iniciar el script de instalación de pyLoad.';
+$L['UPGRADEBTSYNC_TXT'] = 'Escribe este comando por SSH para actualizar BTSync a la versión más reciente disponible.';
+$L['UPGRADEJACKETT_TXT'] = 'Escribe este comando por SSH para actualizar Jackett a la versión más reciente disponible.';
+$L['UPGRADEOMBI_TXT'] = 'Escribe este comando por SSH para actualizar Ombi a la versión más reciente disponible.';
+$L['UPGRADEPLEX_TXT'] = 'Escribe este comando por SSH para actualizar Plex a la versión más reciente disponible.';
+$L['UPGRADEPYLOAD_TXT'] = 'Escribe este comando por SSH para actualizar pyLoad a la versión más reciente disponible.';
+$L['UPGRADESABNZBD_TXT'] = 'Escribe este comando por SSH para actualizar SABnzbd a la versión más reciente disponible.';
 // essential user commands section
-$L['ESSENTIAL_USER_COMMANDS'] = 'Essential User Commands';
-$L['RELOAD_TXT'] = 'allows user to reload their services (rtorrent and irssi)';
-$L['SCREEN_RTORRNENT_TXT'] = 'allows user to restart/remount rtorrent from SSH';
-$L['SCREEN_IRSSI_TXT'] = 'allows user to restart/remount irssi from SSH';
+$L['ESSENTIAL_USER_COMMANDS'] = 'Comandos esenciales de usuario';
+$L['RELOAD_TXT'] = 'Permite a los usuarios reiniciar sus servicios (rtorrent and irssi)';
+$L['SCREEN_RTORRNENT_TXT'] = 'Permite a los usuarios reiniciar rtorrent desde SSH';
+$L['SCREEN_IRSSI_TXT'] = 'Permite a los usuarios reiniciar irssi desde SSH';
 
 
 ////////////////////////////////////////
