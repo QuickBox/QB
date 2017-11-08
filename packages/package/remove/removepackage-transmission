@@ -32,6 +32,7 @@ function _removepackage-tr() {
 	rm -rf /usr/share/transmission
 	rm -rf /etc/apache2/sites-enabled/transmission.conf
 	rm -rf /etc/transmission-daemon
+	rm -rf /srv/rutorrent/home/${username}.transmission.downloads
 	# Remove any package dependencies and settings
 	apt-get -y remove transmission*
 	apt-get -y purge transmission*
