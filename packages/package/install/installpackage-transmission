@@ -95,9 +95,9 @@ function _insTrWeb() {
   fi
   rm -rf "$tmpFolder"
   
-  cd ${local_dashboard}/custom
+  #cd ${local_dashboard}/custom
   #patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
-  ln -s /home/${username}/torrents/transmission/ ${username}.transmission.downloads
+  ln -s /home/${username}/torrents/transmission/ /srv/rutorrent/home/${username}.transmission.downloads
 }
 
 function _insTrApache() {
