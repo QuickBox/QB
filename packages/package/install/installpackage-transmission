@@ -105,10 +105,7 @@ function _insTrApache() {
 <Location /$APPNAME>
 ProxyPass http://localhost:$APPDPORT/$APPNAME
 ProxyPassReverse http://localhost:$APPDPORT/$APPNAME
-AuthType Digest
-AuthName "rutorrent"
-AuthUserFile '/etc/htpasswd'
-Require user $username
+Require all granted
 </Location>
 EOF
 
