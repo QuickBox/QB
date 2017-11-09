@@ -6,16 +6,14 @@ SSLRandomSeed startup file:/dev/urandom  256
 SSLRandomSeed connect builtin
 SSLCryptoDevice builtin
 <VirtualHost *:80>
+        RewriteEngine On
+        RewriteCond %{HTTPS} !=on
+        RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
         DocumentRoot "/srv/rutorrent/home"
         <Directory "/srv/rutorrent/home/">
-                Options Indexes FollowSymLinks
-                AllowOverride All AuthConfig
-                Order allow,deny
-                Allow from all
-        AuthType Digest
-        AuthName "REALM"
-        AuthUserFile 'HTPASSWD'
-        Require valid-user
+                Options None
+                AllowOverride None
+                Require all granted
         </Directory>
 SCGIMount /USERNAME 127.0.0.1:PORT
 </VirtualHost>
