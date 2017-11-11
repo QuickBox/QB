@@ -27,7 +27,7 @@ $L['DONATE'] = 'Dona';
 // plugin menu tab
 $L['PLUGIN_MENU'] = 'Menú de plugins';
 $L['RPLUGIN_MENU'] = 'Menú de plugins de ruTorrent';
-$L['PMENU_NOTICE_TXT'] = 'Instala y desinstala fácilemente plugins de ruTorrent pinchando en su nombre';
+$L['PMENU_NOTICE_TXT'] = 'Instala y desinstala fácilmente plugins de ruTorrent pinchando en su nombre';
 $L['PLUGINS'] = 'Plugins';
 
 // quick help menu tab
@@ -109,29 +109,29 @@ $L['RECENT_UPDATES_TXT'] = 'Para ver los aportes, desplázate con la rueda del r
 ///////////////////////////////////////
 
 // package management center notice
-$L['PMC_NOTICE_TXT'] = '<strong>Heads Up!</strong> Please be advised that these options are not the same as enabling and disabling a software package. These options are designed to either install or uninstall.';
+$L['PMC_NOTICE_TXT'] = '<strong>¡Atención!</strong> Por favor, ten en ucenta que estas opciones no son lo mismo que activar o desactivar un paquete de software. Estas opciones etán pensadas tanto para instalar como para desinstalar programas.';
 
 // package management center column headers
-$L['NAME'] = 'Name';
-$L['DETAILS'] = 'Details';
-$L['AVAILABILITY'] = 'Availability';
+$L['NAME'] = 'Nombre';
+$L['DETAILS'] = 'Detalles';
+$L['AVAILABILITY'] = 'Disponibilidad';
 
 // packages
-$L['BTSYNC_DETAILS'] = 'BitTorrent Sync by BitTorrent, Inc is a proprietary peer-to-peer file synchronization tool.';
-$L['COUCHPOTATO'] = 'Download movies automatically, easily and in the best quality as soon as they are released, via usenet or torrents.';
-$L['CSF'] = 'ConfigServer Firewall, also known as CSF, is a firewall configuration script created to provide better security for your server while giving you an easy to use, advanced interface for managing your firewall settings.';
-$L['DELUGE'] = 'Deluge is a lightweight, Free Software, cross-platform BitTorrent client.';
-$L['EMBY'] = 'Emby Server is a client-server software package that lets consumers host their legal personal copies of multimedia — music, video and picture files. ... The Emby client software is an app you need to install on mobile devices and certain settop boxes for televisions, like Android TV.';
-$L['HEADPHONES'] = 'Headphones is an automated music downloader for NZB and Torrent, written in Python. It supports SABnzbd, NZBget, Transmission, µTorrent, Deluge and Blackhole.';
-$L['JACKETT'] = 'API Support for your favorite private trackers.';
-$L['MEDUSA'] = 'Video File Manager for TV Shows, It watches for new episodes of your favorite shows and when they are posted it does its magic. Allows manual search and other exclusive features, check Medusa on <a href="https://github.com/pymedusa/Medusa" target="_blank">Github</a>.';
-$L['NEXTCLOUD'] = 'Nextcloud is an open source, self-hosted file sync and share and communication app platform. Access & sync your files, contacts, calendars & communicate and collaborate across your devices. You decide what happens with your data, where it is and who can access it!';
-$L['NZBGET'] = 'NZBGet is a binary downloader, which downloads files from Usenet based on information given in nzb-files.  NZBGet is written in C++ and is known for its extraordinary performance and efficiency.';
-$L['NZBHYDRA'] = 'NZBHydra is a meta search for NZB indexers. It provides easy access to a number of raw and newznab based indexers. You can search all your indexers from one place and use it as indexer source for tools like Sonarr or CouchPotato.';
-$L['OMBI'] = 'Ombi offers a beautiful and easy to use interface for items users wish to be added to the library. Integrates with CouchPotato, SickRage and Sonarr.';
-$L['OVPN'] = 'SSL/TLS based user-space VPN. Supports Linux, Solaris, OpenBSD, FreeBSD, NetBSD, Mac OS X, and Windows 2000/XP+.';
-$L['PLEX'] = 'Plex lets you stream your content to any Plex enabled device.';
-$L['PLEXPY'] = 'A python based web application for monitoring, analytics and notifications for Plex Media Server';
+$L['BTSYNC_DETAILS'] = 'BitTorrent Sync de BitTorrent Inc. Es una herramienta de software propietario para sincronización de archivos peer-to-peer.';
+$L['COUCHPOTATO'] = 'Descarga películas automáticamente, fácilmente y con la mejor calidad, tan pronto como sean publicadas en usenet o torrent.';
+$L['CSF'] = 'ConfigServer Firewall, también conocido como CSF, es un script de configuración para firewall creado para proporcionar una mejor seguridad para tu servidor, además de una interfaz avanzada para controlar fácilmente tus opciones de firewall.';
+$L['DELUGE'] = 'Deluge is un cliente torrent de software libre, ligero y multiplataforma.';
+$L['EMBY'] = 'Emby Server es un paquete de software de cliente-servidor que permite a sus usuarios hospedar sus copias multimedia legales – música, vídeo e imágenes… El cliente de Emby es una app que necesitarás instalar en tus dispositivos móviles y ciertos gadgets para televisión, como Android TV.';
+$L['HEADPHONES'] = 'Headphones es un gestor de descarga automática de música para NZB y torrent, escrito en Python. Soporta SABnzbd, NZBget, Transmission, µTorrent, Deluge y Blackhole.';
+$L['JACKETT'] = 'Soporte API para tus trackers privados favoritos.';
+$L['MEDUSA'] = 'Gestor de archivos de vídeo para Series de TV. Vigila la publicación de nuevos episodios de tus series favoritas y cuando estos son posteados hace su magia. Permite búsqueda manual y otras funciones exclusivas. Echa un ojo en <a href="https://github.com/pymedusa/Medusa" target="_blank">Github</a>.';
+$L['NEXTCLOUD'] = 'Nextcloud es una plataforma de código abierto para la sincronización y compartición de archivos y directorios en tu servidor. Accede y sincroniza tus archivos, contactos, calendarios y comunícate a través de tus distintos dispositivos. ¡Tú decides qué hacer con tus datos, dónde alojarlos y quien puede acceder a ellos!';
+$L['NZBGET'] = 'NZBGet es un gestor de descargas binario, el cual descarga archivos de Usenet a partir de la información proporcionada en archivos nzb. NZBGet está escrito en C++ y es reconocido por su extraordinario rendimiento y eficiencia.';
+$L['NZBHYDRA'] = 'NZBHydra es un meta-buscador para indexadores NZB. Proporciona fácil acceso a un gran número de buscadores raw y newznab. Te permite realizar búsquedas masivas desde una misma aplicación y utilizarlo como proveedor para otras utilidades tales como Sonarr o Couchpotato.';
+$L['OMBI'] = 'Ombi ofrece una interfaz sencilla y agradable para permitir a los usuarios solicitar aquellos archivos que desearían añadir a la biblioteca. Se integra con CouchPotato, Sickrage y Sonarr.';
+$L['OVPN'] = 'VPN personal sobre SSL/TLS. Soporta Linux, Solaris, OpenBSD, FreeBSD, NetBSD, Mac OS X y Windows 2000/XP+.';
+$L['PLEX'] = 'Plex permite transmitir tu contenido personal a cualquier dispositivo Plex autorizado.';
+$L['PLEXPY'] = 'Aplicación web basado en Python para monitorizar, gestionar y realizar notificaciones de Plex Media Server.';
 $L['PYLOAD'] = 'pyLoad is a download manager for `Hoster` websites, video sites, and HTTP/FTP links. A list of supported sites can be found <a href="https://github.com/pyload/pyload/wiki/Supported-Hoster" target="_blank">here</a>';
 $L['QUASSEL'] = 'Quassel IRC is a modern, cross-platform, distributed IRC client based on the Qt4 framework.';
 $L['QUOTAS'] = 'This feature of Linux allows the system administrator to allocate a maximum amount of disk space a user or group may use.';
