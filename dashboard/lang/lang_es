@@ -117,7 +117,7 @@ $L['DETAILS'] = 'Detalles';
 $L['AVAILABILITY'] = 'Disponibilidad';
 
 // packages
-$L['BTSYNC_DETAILS'] = 'BitTorrent Sync de BitTorrent Inc. Es una herramienta de software propietario para sincronización de archivos peer-to-peer.';
+$L['BTSYNC_DETAILS'] = 'BitTorrent Sync de BitTorrent Inc. Es una herramienta de software privativo para sincronización de archivos peer-to-peer.';
 $L['COUCHPOTATO'] = 'Descarga películas automáticamente, fácilmente y con la mejor calidad, tan pronto como sean publicadas en usenet o torrent.';
 $L['CSF'] = 'ConfigServer Firewall, también conocido como CSF, es un script de configuración para firewall creado para proporcionar una mejor seguridad para tu servidor, además de una interfaz avanzada para controlar fácilmente tus opciones de firewall.';
 $L['DELUGE'] = 'Deluge is un cliente torrent de software libre, ligero y multiplataforma.';
