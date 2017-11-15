@@ -27,13 +27,13 @@ $L['DONATE'] = 'Dona';
 // plugin menu tab
 $L['PLUGIN_MENU'] = 'Menú de plugins';
 $L['RPLUGIN_MENU'] = 'Menú de plugins de ruTorrent';
-$L['PMENU_NOTICE_TXT'] = 'Instala y desinstala fácilmente plugins de ruTorrent pinchando en su nombre';
+$L['PMENU_NOTICE_TXT'] = 'Instala y desinstala fácilmente plugins de ruTorrent pinchando sobre su nombre';
 $L['PLUGINS'] = 'Plugins';
 
 // quick help menu tab
 $L['HELP_COMMANDS'] = 'Comandos de ayuda';
 $L['QUICK_SYSTEM_TIPS'] = 'Comandos de sistema';
-$L['CLEAN_MEM_TXT'] = 'Utiliza el comando de arriba como usuario root cuando quieras limpiar la Memoria Caché de tu sistema.';
+$L['CLEAN_MEM_TXT'] = 'Utiliza el comando de arriba como usuario root cuando quieras limpiar la memoria caché de tu sistema.';
 $L['DISKTEST_TXT'] = 'Escribe este comando para realizar un rápido test de lectura/escritura en tu disco duro.';
 $L['FIXHOME_TXT'] = 'Escribe este comando para ajustar rápidamente los permisos de tu directorio /home.';
 // seedbox commands section
@@ -56,7 +56,7 @@ $L['UPGRADEPYLOAD_TXT'] = 'Escribe este comando por SSH para actualizar pyLoad a
 $L['UPGRADESABNZBD_TXT'] = 'Escribe este comando por SSH para actualizar SABnzbd a la versión más reciente disponible.';
 // essential user commands section
 $L['ESSENTIAL_USER_COMMANDS'] = 'Comandos esenciales';
-$L['RELOAD_TXT'] = 'Permite a los usuarios reiniciar sus servicios (rtorrent and irssi)';
+$L['RELOAD_TXT'] = 'Permite a los usuarios reiniciar sus servicios (rtorrent e irssi)';
 $L['SCREEN_RTORRNENT_TXT'] = 'Permite a los usuarios reiniciar rtorrent desde SSH';
 $L['SCREEN_IRSSI_TXT'] = 'Permite a los usuarios reiniciar irssi desde SSH';
 
@@ -132,12 +132,12 @@ $L['OMBI'] = 'Ombi ofrece una interfaz sencilla y agradable para permitir a los 
 $L['OVPN'] = 'VPN personal sobre SSL/TLS. Soporta Linux, Solaris, OpenBSD, FreeBSD, NetBSD, Mac OS X y Windows 2000/XP+.';
 $L['PLEX'] = 'Plex permite transmitir tu contenido personal a cualquier dispositivo Plex autorizado.';
 $L['PLEXPY'] = 'Aplicación web basado en Python para monitorizar, gestionar y realizar notificaciones de Plex Media Server.';
-$L['PYLOAD'] = 'pyLoad is a download manager for `Hoster` websites, video sites, and HTTP/FTP links. A list of supported sites can be found <a href="https://github.com/pyload/pyload/wiki/Supported-Hoster" target="_blank">here</a>';
-$L['QUASSEL'] = 'Quassel IRC is a modern, cross-platform, distributed IRC client based on the Qt4 framework.';
-$L['QUOTAS'] = 'This feature of Linux allows the system administrator to allocate a maximum amount of disk space a user or group may use.';
-$L['RADARR'] = 'Radarr is an independent fork of Sonarr reworked for automatically downloading movies via Usenet and BitTorrent.<br>
-The project was inspired by other Usenet/BitTorrent movie downloaders such as CouchPotato.';
-$L['RAPIDLEECH'] = 'Rapid Leech is a free server transfer script for use on various popular upload/download sites such as uploaded.net, Rapidshare.com and more than 120 others.';
+$L['PYLOAD'] = 'pyLoad es un gestor de descargas para servicios de alojamiento, servidores de vídeo, y enlaces HTTP/FTP. Una lista de los sitios soportados puede ser consultada en <a href="https://github.com/pyload/pyload/wiki/Supported-Hoster" target="_blank">aquí</a>';
+$L['QUASSEL'] = 'Quassel IRC es un cliente IRC moderno, multi-plataforma, basado en Qt4.';
+$L['QUOTAS'] = 'Esta característica de Linux permite al administrador del sistema adjudicar una cantidad espacio máxima en el disco duro para cada usuario o grupo.';
+$L['RADARR'] = 'Radarr es un fork independiente de Sonarr, adaptado para la descarga automatizada de películas mediante Usenet o BitTorrent.<br>
+El proyecto está inspirado en otro gesto de descargas de películas Usenet/BitTorrent como CouchPotato.';
+$L['RAPIDLEECH'] = 'Rapid Leech es un script gratuito de transferencia de archivos para utilizar en varios servicios muy populares de subida/descarga, como uploaded.net, Rapidshare.com y otros 120 sitios más.';
 $L['SABNZBD'] = 'SABnzbd is a multi-platform binary newsgroup downloader. The program works in the background and simplifies the downloading verifying and extracting of files from Usenet. SABnzbd uses NZB files (similar to .torrent files, but for Usenet), instead of browsing Usenet directly.';
 $L['SICKGEAR'] = 'SickGear is Sick-Beard evolved. Automate your TV enjoyment with innovation, proven stability and reliability.';
 $L['SICKRAGE'] = 'Video File Manager for TV Shows, It watches for new episodes of your favorite shows and when they are posted it does its magic.';
