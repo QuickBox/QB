@@ -1847,41 +1847,6 @@ function upgradePlex() {
   fi
 }
 
-
-function upgradeOmbi {
-  OK=$(echo -e "[ \e[0;32mUpgrade Complete\e[00m ]")
-  user=$(cat /srv/rutorrent/home/db/master.txt)
-  echo -e "Stopping Ombi Service..."
-  if [[ -f /etc/systemd/system/plexrequests.service ]]; then
-    systemctl stop plexrequests
-  else
-   systemctl stop ombi
-  fi
-  cd /opt
-  if [[ -f plexrequests/PlexRequests.sqlite ]]; then
-    mv plexrequests ombi
-    mv ombi/PlexRequests.sqlite ombi/Ombi.sqlite
-    sed -i "s/PlexRequests.exe/Ombi.exe/g" /etc/systemd/system/plexrequests.service
-    mv /etc/systemd/system/plexrequests.service /etc/systemd/system/ombi.service
-    systemctl daemon-reload
-  fi
-  if [[ -f Ombi.zip ]]; then rm -f Ombi.zip; fi
-  echo -e "Backing up your database..."
-  cp ombi/Ombi.sqlite .
-  echo -e "Installing newest version..."
-  rm -rf ombi
-  curl -sL https://git.io/vKEJz | grep release | grep zip | cut -d "\"" -f 2 | sed -e 's/\/tidusjar/https:\/\/github.com\/tidusjar/g' | xargs wget --quiet -O Ombi.zip >/dev/null 2>&1
-  unzip Ombi.zip >/dev/null 2>&1
-  mv Release ombi
-  mv Ombi.sqlite ombi
-  if [[ -f Ombi.zip ]]; then rm -f Ombi.zip; fi
-  chown -R ${user}: ombi
-  echo -e "Starting Ombi ... "
-  systemctl start ombi
-  echo -e "Done! ... "
-  echo ${OK}
-}
-
 function upgradeDeluge() {
   OUTTO=/dev/null
   green=$(tput setaf 2)
