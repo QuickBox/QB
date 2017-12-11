@@ -293,7 +293,7 @@ function _asktr() {
   case $responce in
     [yY] | [yY][Ee][Ss] | "" ) tr=yes ;;
     [nN] | [nN][Oo]) tr=no ;;
-    *) tr=yes ;;
+    *) tr=no ;;
   esac
   echo
 }
@@ -439,10 +439,10 @@ function _updates() {
 # package and repo addition (14) _install softwares and packages_
 function _depends() {
   if [[ $DISTRO == Debian ]]; then
-    yes '' | apt-get install --force-yes fail2ban bc ed sudo screen zip irssi unzip nano bwm-ng htop iotop \
+    yes '' | apt-get install --force-yes fail2ban bc ed sudo screen zip irssi unzip nano bwm-ng htop nethogs speedtest.cli iotop \
                      dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
-                     apache2-utils autoconf cron curl libapache2-mod-fastcgi rtorrent libapache2-mod-geoip \
+                     apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket libapache2-mod-php7.0 \
                      php7.0-dev php7.0-geoip libgeoip-dev php7.0 php7.0-fpm php7.0-mbstring php7.0-mysql \
                      php7.0-curl php7.0-memcached memcached php7.0-gd php7.0-json php7.0-mcrypt php7.0-opcache \
@@ -778,7 +778,7 @@ function _insTr() {
   service transmission-daemon stop >>"${OUTTO}" 2>&1
   mkdir -p /home/${username}/torrents/transmission
   chmod g+w /home/${username}/torrents/transmission >/dev/null 2>&1
-#chgrp -R debian-transmission /home/${username}/torrents/transmission
+  #chgrp -R debian-transmission /home/${username}/torrents/transmission
   chown -R ${username}:debian-transmission /home/${username}/torrents/transmission >/dev/null 2>&1
   sed -i "s/\/var\/lib\/transmission-daemon\/downloads/\/home\/${username}\/torrents\/transmission/g" /etc/transmission-daemon/settings.json
   sed -i "s/\/var\/lib\/transmission-daemon\/Downloads/\/home\/${username}\/torrents\/transmission\/incomplete/g" /etc/transmission-daemon/settings.json
@@ -843,9 +843,9 @@ function _insTrWeb() {
       	#echo "##############################################"
   fi
   rm -rf "$tmpFolder"
-  
-  cd ${local_dashboard}/custom
-  patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
+  touch /install/.transmission.lock
+  #cd ${local_dashboard}/custom
+  #patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
 }
 
 # scgi enable function (22-nixed)
@@ -950,6 +950,7 @@ function _apacheconf() {
 
     # ensure fastcgi module is activated
     a2enmod actions >>"${OUTTO}" 2>&1
+    a2enmod headers >>"${OUTTO}" 2>&1
     a2enmod fastcgi >>"${OUTTO}" 2>&1
     a2enmod proxy_fcgi setenvif >>"${OUTTO}" 2>&1
     a2enconf php7.0-fpm >>"${OUTTO}" 2>&1
@@ -1204,14 +1205,10 @@ function _perms() {
   chmod +x /etc/cron.daily/denypublic >/dev/null 2>&1
   chmod 777 /home/${username}/.sessions >/dev/null 2>&1
   chown -R chown -R www-data:www-data /srv/rutorrent/home >/dev/null 2>&1
-<<<<<<<
-
-=======
   if [[ ${tr} == "yes" ]]; then
 	chown -R ${username}:debian-transmission /home/${username}/torrents/transmission >/dev/null 2>&1
 	service transmission-daemon reload >>"${OUTTO}" 2>&1
   fi
->>>>>>>
 }
 
 function _insbbr() {
@@ -1382,7 +1379,7 @@ echo ""
 echo -n "Pulling QuickBox Ecosystem ... ";_repos & spinner $!;echo
 echo -n "Updating system ... ";_updates & spinner $!;echo
 echo -n "Installing all needed dependencies ... ";_depends & spinner $!;echo
-#_openssl
+_openssl
 echo -n "Setting up system executables ... ";_syscommands & spinner $!;echo
 echo -n "Building required user directories ... ";_skel & spinner $!;echo
 if [[ ${quota} == "yes" ]]; then
@@ -1400,14 +1397,10 @@ echo -n "Installing rtorrent-${green}$RTVERSION${normal} ... ";_rtorrent & spinn
 echo -n "Installing rutorrent into /srv ... ";_rutorrent & spinner $!;echo
 echo -n "Installing rutorrent plugins ... ";_rutorrent-plugins & spinner $!;echo
 echo -n "Installing deluge ... ";_deluge & spinner $!;echo
-<<<<<<<
-
-=======
 if [[ ${tr} == "yes" ]]; then
 	echo -n "Configuring Transmisson ... ";_insTr & spinner $!;echo
 	echo -n "Installing Transmisson Web Control ... ";_insTrWeb & spinner $!;echo
 fi
->>>>>>>
 echo -n "Installing mktorrent from source ... ";_mktorrent & spinner $!;echo
 echo -n "Installing quickbox dashboard ... ";_dashboard & spinner $!;echo
 echo -n "Building system file indexer (h5ai) ... ";_fileindexer & spinner $!;echo

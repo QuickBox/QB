@@ -1,0 +1,150 @@
+#!/bin/bash
+#
+# [Quick Box :: Install Transmission-Web package]
+#
+# QUICKLAB REPOS
+# QuickLab _ packages  :   https://github.com/QuickBox/QB/packages
+# LOCAL REPOS
+# Local _ packages   :   /etc/QuickBox/packages
+# Author             :   QuickBox.IO
+# URL                :   https://quickbox.io
+#
+# QuickBox Copyright (C) 2017 QuickBox.io
+# Licensed under GNU General Public License v3.0 GPL-3 (in short)
+#
+#   You may copy, distribute and modify the software as long as you track
+#   changes/dates in source files. Any modifications to our software
+#   including (via compiler) GPL-licensed code must also be made available
+#   under the GPL along with build & install instructions.
+#
+#   QuickBox.IO does not grant the end-user the right to distribute this
+#   code in a means to supply commercial monetization. If you would like
+#   to include QuickBox in your commercial project, write to echo@quickbox.io
+#   with a summary of your project as well as its intended use for moentization.
+#
+
+function _insTr() {
+  apt-get -q -y update >>"${OUTTO}" 2>&1
+  apt-get -q -y install transmission-daemon >>"${OUTTO}" 2>&1
+  service transmission-daemon stop >>"${OUTTO}" 2>&1
+  mkdir -p /home/${username}/torrents/transmission
+  chmod g+w /home/${username}/torrents/transmission >/dev/null 2>&1
+  #chgrp -R debian-transmission /home/${username}/torrents/transmission
+  chown -R ${username}:debian-transmission /home/${username}/torrents/transmission >/dev/null 2>&1
+  sed -i "s/\/var\/lib\/transmission-daemon\/downloads/\/home\/${username}\/torrents\/transmission/g" /etc/transmission-daemon/settings.json
+  sed -i "s/\/var\/lib\/transmission-daemon\/Downloads/\/home\/${username}\/torrents\/transmission\/incomplete/g" /etc/transmission-daemon/settings.json
+  sed -i "s/\"{.*/\"${passwd}\", /g" /etc/transmission-daemon/settings.json
+  sed -i "s/\"transmission\",/\"${username}\",/g" /etc/transmission-daemon/settings.json
+  sed -i "s/127.0.0.1/\*.\*.\*.\*/g" /etc/transmission-daemon/settings.json
+  service transmission-daemon start >>"${OUTTO}" 2>&1
+}
+
+function _insTrWeb() {
+  rootFolder=""
+  webFolder=""
+  orgindex="index.original.html"
+  index="index.html"
+  tmpFolder="/tmp/tr-web-control"
+  packname="transmission-control-full.tar.gz"
+  host="https://github.com/ronggang/transmission-web-control/raw/master/release/"
+  downloadurl="$host$packname"
+  if [ ! -d "$tmpFolder" ]; then
+	mkdir -p "$tmpFolder"
+  fi
+  # Find the web ui directory
+  folderIsExist=0
+  echo "Searching Transmission Web Folder..." >>"${OUTTO}" 2>&1
+  rootFolder="/usr/share/transmission"
+  echo "Looking for folder: $rootFolder/web" >>"${OUTTO}" 2>&1
+  if [ -d "$rootFolder/web" ]; then
+	    webFolder="$rootFolder/web"
+	    folderIsExist=1
+      echo "Folder found. Using it." >>"${OUTTO}" 2>&1
+  else
+      echo "Folder not found. Will search the entire /. This will take a while..." >>"${OUTTO}" 2>&1
+      rootFolder=`find / -name 'web' -type d 2>/dev/null| grep 'transmission/web' | sed 's/\/web$//g'`
+      if [ -d "$rootFolder/web" ]; then
+	            webFolder="$rootFolder/web"
+	            folderIsExist=1
+      fi
+  fi
+
+# If the directory exists, download and update
+  if [ $folderIsExist = 1 ]; then
+        cd "$tmpFolder"
+      	echo "Downloading Transmission Web Control..." >>"${OUTTO}" 2>&1
+      	wget -q "$downloadurl"
+      	echo "Installing..." >>"${OUTTO}" 2>&1
+      	tar -xzvf "$packname" -C "$tmpFolder" >>"${OUTTO}" 2>&1
+      	rm "$packname"
+      	# If you have not installed before, the first system of documents changed to
+      	if [ ! -f "$webFolder/$orgindex" -a -f "$webFolder/$index" ]; then
+      		      mv "$webFolder/$index" "$webFolder/$orgindex"
+      	fi
+      	# Copy the file to
+      	cp -r web "$rootFolder"
+        find "$rootFolder" -type d -exec chmod o+rx {} \;
+        find "$rootFolder" -type f -exec chmod o+r {} \;
+      	echo "Done." >>"${OUTTO}" 2>&1
+  else
+      	#echo "##############################################"
+      	#echo "#"
+      	echo "# ERROR : Transmisson WEB UI Folder is missing." >>"${OUTTO}" 2>&1
+      	#echo "#"
+      	#echo "##############################################"
+  fi
+  rm -rf "$tmpFolder"
+  
+  #cd ${local_dashboard}/custom
+  #patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
+  ln -s /home/${username}/torrents/transmission/ /srv/rutorrent/home/${username}.transmission.downloads
+}
+
+function _insTrApache() {
+  cat > /etc/apache2/sites-enabled/transmission.conf <<EOF
+<Location /$APPNAME>
+ProxyPass http://localhost:$APPDPORT/$APPNAME
+ProxyPassReverse http://localhost:$APPDPORT/$APPNAME
+Require all granted
+</Location>
+EOF
+
+  touch /install/.transmission.lock
+  chown www-data: /etc/apache2/sites-enabled/transmission.conf
+  service apache2 reload
+}
+
+function _insTrComplete() {
+  echo "Transmisson Install Complete!" >>"${OUTTO}" 2>&1;
+  sleep 5
+  echo >>"${OUTTO}" 2>&1;
+  echo >>"${OUTTO}" 2>&1;
+  echo "Close this dialog box to refresh your browser" >>"${OUTTO}" 2>&1;
+}
+function _insTrExit() {
+  exit
+}
+
+
+username=$(cat /srv/rutorrent/home/db/master.txt)
+passwd=$(cat /root/${username}.info | cut -d ":" -f 3 | cut -d "@" -f 1)
+OUTTO="/srv/rutorrent/home/db/output.log"
+local_setup=/etc/QuickBox/setup/
+local_dashboard=/etc/QuickBox/dashboard/
+
+APPNAME='transmission'
+APPDPORT='9091'
+
+echo "Configuring Transmisson ... " >> ${OUTTO} 2>&1
+echo -en "\rConfiguring Transmisson ... ";_insTr
+echo "Installing Transmisson Web Control ... " >> ${OUTTO} 2>&1
+echo -en "\rInstalling Transmisson Web Control ... ";_insTrWeb
+echo "Setting up Transmission Reverse Proxy and Reloading Apache2 ... " >> ${OUTTO} 2>&1
+echo -en "\rSetting up Transmission Reverse Proxy and Reloading Apache2 ... ";_insTrApache
+sleep 5
+echo >>"${OUTTO}" 2>&1;
+echo >>"${OUTTO}" 2>&1;
+_insTrComplete
+_insTrExit
+
+echo ""
