@@ -20,7 +20,7 @@
 
 function _depends() {
   apt-get update -q -y >/dev/null 2>&1
-  apt-get install -q -y mono-devel mono-complete libunwind8 unzip >/dev/null 2>&1
+  apt-get install -q -y libunwind8 unzip >/dev/null 2>&1
 }
 
 function _install() {
@@ -69,8 +69,8 @@ OUTTO=/srv/rutorrent/home/db/output.log
 local_setup=/etc/QuickBox/setup/
 user=$(cat /srv/rutorrent/home/db/master.txt)
 
-#echo "Updating dependencies (this could take a bit) ... " > ${OUTTO} 2>&1
-#echo -en "\rUpdating dependencies ... ";_depends
+echo "Updating dependencies (this could take a bit) ... " > ${OUTTO} 2>&1
+echo -en "\rUpdating dependencies (this could take a bit) ... ";_depends
 echo "Installing Ombi ... " >> ${OUTTO} 2>&1
 echo -en "\rInstalling Ombi ... ";_install
 echo "Initializing Ombi service ... " >> ${OUTTO} 2>&1
