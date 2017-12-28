@@ -1101,7 +1101,7 @@ echo -n "Username: "; read user
         if [[ -e /install/.deluge.lock ]]; then
           systemctl stop deluged@${username}
           systemctl stop deluge-web@${username}
-          DWSALT=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+          DWSALT=$(head /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
           DWP=$(python /usr/local/bin/quickbox/system/deluge.Userpass.py ${passwd} ${DWSALT})
           sed -i "s/.*$username.*/${username}:${passwd}:10/" /home/$username/.config/deluge/auth
           sed -i "s/.*pwd_salt.*/  \"pwd_salt\": \"${DWSALT}\",/" /home/$username/.config/deluge/web.conf
@@ -1281,7 +1281,7 @@ echo -n "Setting up Deluge for $username ... "
 ip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
 dport=$((RANDOM%59000+10024))
 dwport=$(shuf -i 10001-11000 -n 1)
-DWSALT=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+DWSALT=$(head /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 DWP=$(python /usr/local/bin/quickbox/system/deluge.Userpass.py ${passwd} ${DWSALT})
 DUDID=$(python /usr/local/bin/quickbox/system/deluge.addHost.py)
 mkdir -p /home/${username}/.config/deluge/plugins
