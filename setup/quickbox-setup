@@ -735,7 +735,7 @@ fi
   if [[ $DELUGE != NO ]]; then
   n=$RANDOM
   DPORT=$((n%59000+10024))
-  DWSALT=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+  DWSALT=$(head /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
   DWP=$(python ${local_packages}/system/deluge.Userpass.py ${passwd} ${DWSALT})
   DUDID=$(python ${local_packages}/system/deluge.addHost.py)
   # -- Secondary awk command -- #
