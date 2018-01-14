@@ -69,6 +69,15 @@ OUTTO=/srv/rutorrent/home/db/output.log
 local_setup=/etc/QuickBox/setup/
 user=$(cat /srv/rutorrent/home/db/master.txt)
 
+echo "Additional setup is required for Ombi."
+echo ""
+echo "After install is complete, navigate to http://localhost:5000 and complete the Setup Wizard."
+echo "Once the Setup Wizard is completed, navigate to http://localhost:5000/Settings/Ombi"
+echo "and configure the base url to /ombi ."
+echo ""
+echo "You will then be able to use the provided Ombi link on your dashboard menu."
+echo ""
+echo ""
 echo "Updating dependencies (this could take a bit) ... " > ${OUTTO} 2>&1
 echo -en "\rUpdating dependencies (this could take a bit) ... ";_depends
 echo "Installing Ombi ... " >> ${OUTTO} 2>&1
