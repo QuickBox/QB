@@ -69,22 +69,29 @@ OUTTO=/srv/rutorrent/home/db/output.log
 local_setup=/etc/QuickBox/setup/
 user=$(cat /srv/rutorrent/home/db/master.txt)
 
-echo "Additional setup is required for Ombi." > ${OUTTO} 2>&1
-echo "" > ${OUTTO} 2>&1
-echo "After install is complete, navigate to http://localhost:5000 and complete the Setup Wizard." > ${OUTTO} 2>&1
-echo "Once the Setup Wizard is completed, navigate to http://localhost:5000/Settings/Ombi" > ${OUTTO} 2>&1
-echo "and configure the base url to /ombi ." > ${OUTTO} 2>&1
-echo "" > ${OUTTO} 2>&1
-echo "You will then be able to use the provided Ombi link on your dashboard menu." > ${OUTTO} 2>&1
-echo "" > ${OUTTO} 2>&1
-echo "" > ${OUTTO} 2>&1
-echo "Updating dependencies (this could take a bit) ... " > ${OUTTO} 2>&1
+echo "////////////////////////////////////////////////////">>"${OUTTO}" 2>&1;
+echo "///  Additional setup is required for Ombi." >>"${OUTTO}" 2>&1;
+echo "///  ">>"${OUTTO}" 2>&1;
+echo "///  After install is complete, 
+///  navigate to http://localhost:5000 
+///  and complete the Setup Wizard." >>"${OUTTO}" 2>&1;
+echo "///  ">>"${OUTTO}" 2>&1;
+echo "///  Once the Setup Wizard is completed, 
+///  navigate to http://localhost:5000/Settings/Ombi" >>"${OUTTO}" 2>&1;
+echo "///  and configure the base url to /ombi ." >>"${OUTTO}" 2>&1;
+echo "///  ">>"${OUTTO}" 2>&1;
+echo "///  You will then be able to use the provided 
+///  Ombi link on your dashboard menu." >>"${OUTTO}" 2>&1;
+echo "////////////////////////////////////////////////////">>"${OUTTO}" 2>&1;
+echo >>"${OUTTO}" 2>&1;
+echo >>"${OUTTO}" 2>&1;
+echo "Updating dependencies (this could take a bit) ... " >>"${OUTTO}" 2>&1;
 echo -en "\rUpdating dependencies (this could take a bit) ... ";_depends
-echo "Installing Ombi ... " >> ${OUTTO} 2>&1
+echo "Installing Ombi ... " >>"${OUTTO}" 2>&1;
 echo -en "\rInstalling Ombi ... ";_install
-echo "Initializing Ombi service ... " >> ${OUTTO} 2>&1
+echo "Initializing Ombi service ... " >>"${OUTTO}" 2>&1;
 echo -en "\rInitializing Ombi service ... ";_services
-echo "Ombi Installation Complete!" >> ${OUTTO} 2>&1
+echo "Ombi Installation Complete!" >>"${OUTTO}" 2>&1;
 echo -en "\rOmbi Installation Complete!"
   sleep 5
 echo >>"${OUTTO}" 2>&1;
