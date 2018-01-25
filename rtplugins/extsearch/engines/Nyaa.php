@@ -2,51 +2,56 @@
 
 class NyaaEngine extends commonEngine
 {
-	public $defaults = array( "public"=>true, "page_size"=>30 );
+	public $defaults = array( "public"=>true, "page_size"=>75 );
+
 	public $categories = array(
 		'All categories'=>'0_0',
 		'> Anime'=>'1_0',
-		'-- Anime Music Video'=>'1_32',
-		'-- English-translated Anime'=>'1_37',
-		'-- Non-English-translated Anime'=>'1_38',
-		'-- Raw Anime'=>'1_11',
-		'> Audio'=>'3_0',
-		'-- Lossless Audio'=>'3_14',
-		'-- Lossy Audio'=>'3_15',
-		'> Literature'=>'2_0',
-		'-- English-translated Literature'=>'2_12',
-		'-- Non-English-translated Literature'=>'2_39',
-		'-- Raw Literature'=>'2_13',
-		'> Live Action'=>'5_0',
-		'-- English-translated Live Action'=>'5_19',
-		'-- Live Action Promotional Video'=>'5_22',
-		'-- Non-English-translated Live Action'=>'5_21',
-		'-- Raw Live Action'=>'5_20',
-		'> Pictures'=>'4_0',
-		'-- Graphics'=>'4_18',
-		'-- Photos'=>'4_17',
+		'--A-- Anine Music Video'=>'1_1',
+		'--A-- English-translated'=>'1_2',
+		'--A-- Non-English-translated'=>'1_3',
+		'--A-- Raw'=>'1_4',
+		'> Audio'=>'2_0',
+		'-- Lossless'=>'2_1',
+		'-- Lossy'=>'2_2',
+		'> Literature'=>'3_0',
+		'--L-- English-translated'=>'3_1',
+		'--L-- Non-English-translated'=>'3_2',
+		'--L-- Raw'=>'3_3',
+		'> Live Action'=>'4_0',
+		'--LA-- English-translated'=>'4_1',
+		'--LA-- Idol/Promotional Video'=>'4_2',
+		'--LA-- Non-English-translated'=>'4_3',
+		'--LA-- Raw'=>'4_4',
+		'> Pictures'=>'5_0',
+		'-- Graphics'=>'5_1',
+		'-- Photos'=>'5_2',
 		'> Software'=>'6_0',
-		'-- Applications'=>'6_23',
-		'-- Games'=>'6_24',
-		 );
+		'-- Applications'=>'6_1',
+		'-- Games'=>'6_2'
+		);
 
 	public function makeClient($url)
 	{
 		$client = parent::makeClient($url);
 		return($client);
 	}
+
 	public function action($what,$cat,&$ret,$limit,$useGlobalCats)
 	{
 		$added = 0;
-		$url = 'http://www.nyaa.se';
+		$url = 'https://nyaa.si';
 
 		if($useGlobalCats)
 			$categories = array(
 			'all' => '0_0',
-			'movies' => '1_0',
-			'music' => '3_0',
-			'software' => '6_0',
-			'books' => '2_0'
+			'anime' => '1_0',
+			'music' => '2_0',
+			'books' => '3_0',
+			'live action' => '4_0',
+			'pictures' => '5_0',
+			'software' => '6_1',
+			'games' => '6_2'
 			);
 		else
 			$categories = &$this->categories;
@@ -55,63 +60,39 @@ class NyaaEngine extends commonEngine
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
-		
 
 		$maxPage = 10;
 
 		for($pg = 1; $pg<=$maxPage; $pg++)
 		{
-			#Example of research "Fairy Tail" in all categories page 2:
-			#http://www.nyaa.se/?page=search&cats=0_0&term=fairy+tail&offset=2
-			$search = $url . '/?page=search&cats=' . $cat . '&term=' . $what . '&offset=' . $pg;
+			$search = $url . '/?c=' . $cat . '&q=' . $what . '&s=seeders&o=desc&p=' . $pg;
 			$cli = $this->fetch($search);
 
-			if (($cli == false) || (strpos($cli->results, "No torrents found") !== false))
+			if (($cli == false) || (strpos($cli->results, ">No results found<") !== false))
 				break;
 
-			#During the first loop only, one retrieve the number of pages. We look a the "go to last page" button.
-			#If it exists, one retrieve the number of pages, otherwise it means there's only one page.
-			if ( $pg == 1 )
-			{
-				preg_match('`<a class="page pagelink" href=".*offset=(?P<totalPage>\d*).*">((&gt;&gt;)|(&#62;&#62;)|(>>))</a>`',$cli->results,$matches);
-				$maxPage = ( empty($matches["totalPage"]) ? 1 : $matches["totalPage"] );
-			}
-
-			$res = preg_match_all('`<tr.*>'.
-				'<td.*><a.*title="(?P<cat>.*)">.*' . 
-				'<td.*><a href="(?P<desc>.*)">(?P<name>.*)</a>.*' .
-				'<td.*><a.*href="(?P<link>.*)".*>.*' .
-				'<td.*>(?P<size>.*)</td>[^<]*' .
-				'((<td[^>]*>(?P<noseedspeersinfo>Status unknown)</td>)'.
-				'|'.
-				'(<td.*>(?P<seeds>.*)</td>.*' .
-				'<td.*>(?P<peers>.*)</td>)).*' .
-				'</tr>`U',$cli->results,$matches);
+			$res = preg_match_all('`<tr class.*>.*'.
+				'<td.*>.*<a.*title="(?P<cat>.*)">.*'.
+				'<td.*>.*<a href="/view/(?P<id>\d+)".*>(?P<name>.*)</a>.*'.
+				'<td.*>.*<a href="(?P<link>magnet.*)">.*'.
+				'<td.*>(?P<size>.*)</td>.*'.
+				'<td.*>(?P<date>.*)</td>.*'.
+				'<td.*>(?P<seeds>.*)</td>.*'.
+				'<td.*>(?P<peers>.*)</td>'.
+				'`siU',$cli->results,$matches);
 
 			if ($res) {
 				for ($i = 0; $i < $res; $i++) {
 					$link = self::removeTags($matches['link'][$i]);
-					if (strpos($link, '//') === 0)
-						$link = 'http:' . $link;
 					if (!array_key_exists($link, $ret)) {
 						$item = $this->getNewEntry();
-						$desc = self::removeTags($matches["desc"][$i]);
-						if (strpos($desc, '//') === 0)
-							$desc = 'http:' . $desc;
-						$item["desc"] = $desc;
+						$item["desc"] = $url."/view/".$matches["id"][$i];
+						$item["time"] = strtotime(self::removeTags($matches["date"][$i]).' '."UTC");
 						$item["name"] = self::toUTF(self::removeTags($matches["name"][$i]),"utf-8");
 						$item["size"] = self::formatSize($matches["size"][$i]);
 						$item["cat"] = self::removeTags($matches["cat"][$i]);
-
-						#Sometimes, number of peers/seeds are not given and the message "Status unknown" is showed instead.
-						#We already handle it in the regexp above and also here.
-						if ( empty($matches['noseedspeersinfo'][$i]) ) {
-							$item["seeds"] = intval(self::removeTags($matches["seeds"][$i]));
-							$item["peers"] = intval(self::removeTags($matches["peers"][$i]));
-						}
-						else
-							$item["seeds"] = $itme["peers"] = -1;
-						
+						$item["seeds"] = intval(self::removeTags($matches["seeds"][$i]));
+						$item["peers"] = intval(self::removeTags($matches["peers"][$i]));
 						$ret[$link] = $item;
 						$added++;
 						if ($added >= $limit)
@@ -123,4 +104,3 @@ class NyaaEngine extends commonEngine
 		}
 	}
 }
-
