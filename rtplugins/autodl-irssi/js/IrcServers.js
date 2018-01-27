@@ -34,11 +34,13 @@ function(multiSelectDlgBox, okHandler)
 			'<div id="autodl-ircsrvs-left">' +
 				'<div id="autodl-ircsrvs-list" />' +
 				'<div id="autodl-ircsrvs-list-buttons" align="center">' +
-					'<input type="button" class="Button" id="autodl-ircsrvs-new-button" value="' + theUILang.autodlNew + '" />' +
-					'<input type="button" class="Button" id="autodl-ircsrvs-remove-button" value="' + theUILang.autodlRemove + '" />' +
-				'</div>' +
-				'<div align="center">' +
-					'<input type="button" class="Button" id="autodl-ircsrvs-announce-channels-button" value="' + theUILang.autodlServers2 + '" />' +
+					'<div>' +
+						'<input type="button" class="Button" id="autodl-ircsrvs-new-button" value="' + theUILang.autodlNew + '" />' +
+						'<input type="button" class="Button" id="autodl-ircsrvs-remove-button" value="' + theUILang.autodlRemove + '" />' +
+					'</div>' +
+					'<div>' +
+						'<input type="button" class="Button" id="autodl-ircsrvs-announce-channels-button" value="' + theUILang.autodlServers2 + '" />' +
+					'</div>' +
 				'</div>' +
 			'</div>' +
 			'<div id="autodl-ircsrvs-right">' +
