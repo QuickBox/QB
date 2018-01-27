@@ -1,0 +1,11 @@
+#!/bin/bash
+
+username=$(whoami)
+
+cd "/home/${username}/.irssi/scripts/"
+# Grab the most recent version of AutoDL
+curl -sL http://git.io/vlcND | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs wget --quiet -O autodl-irssi.zip
+unzip -o autodl-irssi.zip >>"${OUTTO}" 2>&1
+#cd "/home/${username}/.irssi/scripts/"
+rm -rf autodl-irssi.zip
+chown -R "${username}.${username}" "/home/${username}/.irssi/"
