@@ -167,7 +167,6 @@ function processArgs()
         esac
     done
     [[ -z $username ]] && _error "Username cannot be empty." && exit 1
-    [[ $username ]] || username=$username
 }
 
 function upgradeUserIRSSI()
@@ -176,7 +175,7 @@ function upgradeUserIRSSI()
 cd "/home/${username}/.irssi/scripts/"
 # Grab the most recent version of AutoDL
 curl -sL http://git.io/vlcND | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs wget --quiet -O autodl-irssi.zip
-unzip -o autodl-irssi.zip >>"${OUTTO}" 2>&1
+unzip -o autodl-irssi.zip >/dev/null 2>&1
 #cd "/home/${username}/.irssi/scripts/"
 rm -rf autodl-irssi.zip
 chown -R "${username}.${username}" "/home/${username}/.irssi/"
@@ -213,7 +212,7 @@ function main()
     processArgs "$@"
     _success "Done!"
 
-    _success "Creating QuickBox db and user..."
+    _success "Updating QuickBox users .irssi..."
     upgradeUserIRSSI
     _success "Done!"
 
