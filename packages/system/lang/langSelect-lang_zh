@@ -18,12 +18,12 @@
 #   under the GPL along with build & install instructions.
 #
 
-locale='ZH.UTF-8'
+locale='zh.UTF-8'
 language='lang_zh'
 
 cat >/srv/rutorrent/home/inc/localize.php<<LCL
 <?php
-    \$locale = 'ZH.UTF-8';
+    \$locale = 'zh.UTF-8';
     \$language = 'lang_zh';
     setlocale(LC_ALL, $locale);
     require (\$_SERVER['DOCUMENT_ROOT']."/lang/$language");
