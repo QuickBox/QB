@@ -43,7 +43,8 @@ class rTorrent
 			}
 			if(!is_null($filename) && (rTorrentSettings::get()->iVersion>=0x805))
 				$cmd->addParameter(getCmd("d.set_custom")."=x-filename,".rawurlencode(getFileName($filename)));
-			$req = new rXMLRPCRequest();				
+			$req = new rXMLRPCRequest();
+			$directory = self::parseDirectory($directory, $isAddPath);
 			if($directory && (strlen($directory)>0))
 			{
 				if(!rTorrentSettings::get()->correctDirectory($directory))
@@ -78,6 +79,7 @@ class rTorrent
 		}
 		return($hash);
 	}
+
 	static public function sendMagnet($magnet, $isStart, $isAddPath, $directory, $label, $addition = null)
 	{
 	        $hpos = stripos($magnet,'xt=urn:btih:');
@@ -95,6 +97,7 @@ class rTorrent
 				$req = new rXMLRPCRequest();
 				$cmd = new rXMLRPCCommand( $isStart ? 'load_start' : 'load' );
 				$cmd->addParameter($magnet);
+				$directory = self::parseDirectory($directory, $isAddPath);
 				if($directory && (strlen($directory)>0))
 				{
 					if(!rTorrentSettings::get()->correctDirectory($directory))
@@ -118,6 +121,7 @@ class rTorrent
 		}
 		return(false);
 	}
+
 	static public function getSource($hash)
 	{
 		$req = new rXMLRPCRequest( array(		
@@ -157,10 +161,8 @@ class rTorrent
 		$base = trim($base);
 	        if($base=='')
 	        {
-	        	$req = new rXMLRPCRequest( new rXMLRPCCommand('get_directory') );
-	        	if($req->success())
-	        		$base=$req->val[0];
-	        }
+	        	$base = rTorrentSettings::get()->directory;
+		}
 	        if($psize && rTorrentSettings::get()->correctDirectory($base))
 	        {
 		        $base = addslash($base);
@@ -195,5 +197,14 @@ class rTorrent
 			return($torrent);
 		}
 		return(false);
+	}
+
+	static protected function parseDirectory($directory, $isAddPath)
+	{
+		if(!$isAddPath && (!$directory || (strlen($directory)==0)))
+		{
+			$directory = rTorrentSettings::get()->directory;
+		}
+		return($directory);
 	}
 }

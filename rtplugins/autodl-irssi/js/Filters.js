@@ -32,7 +32,8 @@ var tvResolutions =
 	["720p"],
 	["810p"],
 	["1080i"],
-	["1080p"]
+	["1080p"],
+	["2160p", "4k"]
 ];
 
 var tvSources =
@@ -71,10 +72,16 @@ var tvEncoders =
 	["x264"],
 	["x264-Hi10p", "Hi10p", "10-bit"],
 	["h.264", "h264"],
+	["x265"],
+	["h.265", "h265"],
 	["mpeg2", "mpeg-2"],
 	["VC-1", "VC1"],
 	["WMV", "WMV-HD"],
-	["Remux", "h.264 Remux", "h264 Remux", "VC-1 Remux", "VC1 Remux"]
+	["h.264 Remux", "h264 Remux"],
+	["VC-1 Remux", "VC1 Remux"],
+	["MPEG2 Remux"],
+	["h.265 Remux", "h265 Remux"],
+	["Remux"]
 ];
 
 var musicFormats =
@@ -338,8 +345,11 @@ function(multiSelectDlgBox, okHandler)
 			'<div id="autodl-filters-left">' +
 				'<div id="autodl-filters-list" />' +
 				'<div id="autodl-filters-list-buttons" align="center">' +
-					'<input type="button" class="Button" id="autodl-filters-new-button" value="' + theUILang.autodlNew + '" />' +
-					'<input type="button" class="Button" id="autodl-filters-remove-button" value="' + theUILang.autodlRemove + '" />' +
+					'<div>' +
+						'<input type="button" class="Button autodl-filters-button" id="autodl-filters-new-button" value="' + theUILang.autodlNew + '" />' +
+						'<input type="button" class="Button autodl-filters-button" id="autodl-filters-remove-button" value="' + theUILang.autodlRemove + '" />' +
+						'<input type="button" class="Button autodl-filters-button" id="autodl-filters-copy-button" value="' + theUILang.autodlCopy + '" />' +
+					'</div>' +
 				'</div>' +
 			'</div>' +
 			'<div id="autodl-filters-right">' +
@@ -703,6 +713,10 @@ function(multiSelectDlgBox, okHandler)
 	{
 		this_._onClickRemove();
 	});
+	$("#autodl-filters-copy-button").click(function(e)
+	{
+		this_._onClickCopy();
+	});
 	$("#autodl-filters-name").keyup(function(e)
 	{
 		this_._onFilterNameModified();
@@ -943,6 +957,21 @@ function()
 		this.filterObjs.splice(selectedIndex, 1);
 		this.filterListBox.removeSelected();
 	}
+}
+
+Filters.prototype._onClickCopy =
+function()
+{
+	var oldObj = this.filterListBox.getSelectedData();
+	if (!oldObj)
+		return;
+
+	this._saveFilterObj(oldObj);
+
+	var newObj = this._addFilterSection(oldObj.section.copy());
+	this.filterListBox.selectData(newObj);
+	this.tabs.selectByIndex(0);
+	$("#autodl-filters-name").focus();
 }
 
 Filters.prototype._onFilterNameModified =
