@@ -31,7 +31,7 @@ local_setup=/etc/QuickBox/setup/
 
 function _installautodl() {
   rutorrent="/srv/rutorrent/";
-  PLUGINVAULT="/etc/QuickBox/rtplugins"; cd "${rutorrent}plugins"
+  PLUGINVAULT="/etc/QuickBox/rtplugins/"; cd "${rutorrent}plugins"
   PLUGIN="autodl-irssi"
   #users=($(cat /etc/htpasswd | cut -d ":" -f 1))
     for i in $PLUGIN; do
