@@ -26,7 +26,7 @@ function _depends() {
 function _install() {
   mkdir -p /opt/Ombi
   cd /opt/Ombi
-  wget https://ci.appveyor.com/api/buildjobs/34973ana21t6xyqm/artifacts/linux.tar.gz >/dev/null 2>&1
+  wget https://ci.appveyor.com/api/buildjobs/jqegwte5rpdg49ed/artifacts/linux.tar.gz >/dev/null 2>&1
   tar xzf linux.tar.gz >/dev/null 2>&1
   chmod +x Ombi
   rm -rf linux.tar.gz
@@ -72,15 +72,15 @@ user=$(cat /srv/rutorrent/home/db/master.txt)
 echo "////////////////////////////////////////////////////">>"${OUTTO}" 2>&1;
 echo "///  Additional setup is required for Ombi." >>"${OUTTO}" 2>&1;
 echo "///  ">>"${OUTTO}" 2>&1;
-echo "///  After install is complete, 
-///  navigate to http://localhost:5000 
+echo "///  After install is complete,
+///  navigate to http://localhost:5000
 ///  and complete the Setup Wizard." >>"${OUTTO}" 2>&1;
 echo "///  ">>"${OUTTO}" 2>&1;
-echo "///  Once the Setup Wizard is completed, 
+echo "///  Once the Setup Wizard is completed,
 ///  navigate to http://localhost:5000/Settings/Ombi" >>"${OUTTO}" 2>&1;
 echo "///  and configure the base url to /ombi ." >>"${OUTTO}" 2>&1;
 echo "///  ">>"${OUTTO}" 2>&1;
-echo "///  You will then be able to use the provided 
+echo "///  You will then be able to use the provided
 ///  Ombi link on your dashboard menu." >>"${OUTTO}" 2>&1;
 echo "////////////////////////////////////////////////////">>"${OUTTO}" 2>&1;
 echo >>"${OUTTO}" 2>&1;
