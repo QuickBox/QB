@@ -26,7 +26,9 @@ function _depends() {
 function _install() {
   mkdir -p /opt/Ombi
   cd /opt/Ombi
-  wget https://ci.appveyor.com/api/buildjobs/jqegwte5rpdg49ed/artifacts/linux.tar.gz >/dev/null 2>&1
+  wget https://ci.appveyor.com/api/buildjobs/34973ana21t6xyqm/artifacts/linux.tar.gz >/dev/null 2>&1
+  # Newest Version (seems massively broken)
+  # wget https://ci.appveyor.com/api/buildjobs/jqegwte5rpdg49ed/artifacts/linux.tar.gz >/dev/null 2>&1
   tar xzf linux.tar.gz >/dev/null 2>&1
   chmod +x Ombi
   rm -rf linux.tar.gz
