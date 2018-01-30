@@ -78,7 +78,7 @@ $L['RESTART_SERVICES'] = '重启服务';
 $L['ENABLE_DISABLE_SERVICES'] = '启用/禁用';
 
 // package management center widget
-$L['PACKAGE_MANAGEMENT_CENTER'] = '组件管理中心;
+$L['PACKAGE_MANAGEMENT_CENTER'] = '组件管理中心';
 
 // bandwidth data widget
 $L['BANDWIDTH_DATA'] = '带宽数据';
