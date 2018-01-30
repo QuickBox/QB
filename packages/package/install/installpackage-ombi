@@ -27,8 +27,17 @@ function _install() {
   mkdir -p /opt/Ombi
   cd /opt/Ombi
   wget https://ci.appveyor.com/api/buildjobs/34973ana21t6xyqm/artifacts/linux.tar.gz >/dev/null 2>&1
+  
   # Newest Version (seems massively broken)
   # wget https://ci.appveyor.com/api/buildjobs/jqegwte5rpdg49ed/artifacts/linux.tar.gz >/dev/null 2>&1
+
+  # json=$(curl -sL https://ombiservice.azurewebsites.net/api/update/DotNetCore)
+  # latestversion=$(grep -Po '(?<="updateVersionString":")([^"]+)' <<<  "$json")
+  # json=$(curl -sL https://ci.appveyor.com/api/projects/tidusjar/requestplex/build/$latestversion)
+  # jobId=$(grep -Po '(?<="jobId":")([^"]+)' <<<  "$json")
+  # version=$(grep -Po '(?<="version":")([^"]+)' <<<  "$json")
+  # curl -sL https://ci.appveyor.com/api/buildjobs/$jobId/artifacts | grep -Po '(?<="linux.tar.gz","type":"File","size":)(\d+)'
+
   tar xzf linux.tar.gz >/dev/null 2>&1
   chmod +x Ombi
   rm -rf linux.tar.gz
