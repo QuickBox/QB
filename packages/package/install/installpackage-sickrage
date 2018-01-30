@@ -34,10 +34,12 @@ function _installSickRage3() {
   cp ${local_setup}templates/sysd/sickrage.template /etc/systemd/system/sickrage@.service
   systemctl enable sickrage@${MASTER} > /dev/null 2>&1
   systemctl start sickrage@${MASTER} > /dev/null 2>&1
+  sleep 10
   systemctl stop sickrage@${MASTER} > /dev/null 2>&1
+  sleep 10
 
   sed -i "s/web_root.*/web_root = \"sickrage\"/g" /home/"${MASTER}"/.sickrage/config.ini
-  sed -i "s/web_host.*/web_host = localhost/g" /home/"${MASTER}"/.sickrage/config.ini
+  sed -i "s/web_host.*/web_host = 0.0.0.0/g" /home/"${MASTER}"/.sickrage/config.ini
   cat > /etc/apache2/sites-enabled/sickrage.conf <<EOF
 <Location /sickrage>
   ProxyPass http://localhost:8081/sickrage
