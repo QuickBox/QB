@@ -37,10 +37,10 @@ cat > /etc/apache2/sites-enabled/plexpy.conf <<EOF
 <Location /plexpy>
 ProxyPass http://localhost:8181/plexpy
 ProxyPassReverse http://localhost:8181/plexpy
-AuthType Digest
-AuthName "rutorrent"
-AuthUserFile '/etc/htpasswd'
-Require user ${MASTER}
+#AuthType Digest
+#AuthName "rutorrent"
+#AuthUserFile '/etc/htpasswd'
+#Require user ${MASTER}
 </Location>
 EOF
 chown www-data: /etc/apache2/sites-enabled/plexpy.conf
