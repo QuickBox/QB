@@ -50,9 +50,9 @@ echo "Enabling PlexPy Systemd configuration"
 cp ${local_setup}templates/sysd/plexpy.template /etc/systemd/system/plexpy.service
 systemctl enable plexpy > /dev/null 2>&1
 systemctl start plexpy
+sleep 10
 systemctl stop plexpy
-systemctl start plexpy
-systemctl stop plexpy
+sleep 10
 sed -i "s/http_root.*/http_root = \"plexpy\"/g" /opt/plexpy/config.ini
 sed -i "s/http_host.*/http_host = localhost/g" /opt/plexpy/config.ini
 systemctl start plexpy
