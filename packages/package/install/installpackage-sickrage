@@ -27,8 +27,8 @@ function _installSickRage1() {
 function _installSickRage2() {
   touch /install/.sickrage.lock
   chown "${MASTER}":"${MASTER}" -R /home/"${MASTER}"/.sickrage
-
-
+  cd /home/"${MASTER}"/.sickrage
+  pip install -r requirements.txt > /dev/null 2>&1
 }
 function _installSickRage3() {
   cp ${local_setup}templates/sysd/sickrage.template /etc/systemd/system/sickrage@.service
