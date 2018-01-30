@@ -1,0 +1,363 @@
+<?php
+
+/*******************************************************************************
+*                                                                              *
+*                               Chinese	                                       *
+*                                                                              *
+*******************************************************************************/
+
+////////////////////////////////////////
+//DASHBOARD MENU
+///////////////////////////////////////
+
+// main menu tab
+$L['ANNOUNCEMENTS'] = '公告';
+$L['CHAT_CONNECT_TXT'] = '点击连接';
+$L['DEV_REPO_TXT'] = '你正向QuickBox开发部门报告';
+$L['DOWNLOADS'] = '下载';
+$L['ISSUE_REPORT_TXT'] = '报告问题';
+$L['JOIN_US_TXT'] = '与我们在线交流!';
+$L['LANG_SELECT'] = '选择语言';
+$L['MAIN_MENU'] = '主菜单';
+$L['MARKETPLACE'] = '市场';
+$L['THEME_SELECT'] = '选择主题';
+$L['WEB_CONSOLE'] = 'Web控制台';
+$L['DONATE'] = '捐助';
+
+// plugin menu tab
+$L['PLUGIN_MENU'] = '插件菜单';
+$L['RPLUGIN_MENU'] = 'ruTorrent插件菜单';
+$L['PMENU_NOTICE_TXT'] = '只需点击插件名称即可简单安装和删除ruTorrent插件';
+$L['PLUGINS'] = '插件';
+
+// quick help menu tab
+$L['HELP_COMMANDS'] = '帮助命令 & 更多';
+$L['QUICK_SYSTEM_TIPS'] = '快速系统提示';
+$L['CLEAN_MEM_TXT'] = '如果你决定清除系统的缓存，请以root身份使用上述命令';
+$L['DISKTEST_TXT'] = '输入此命令来对磁盘进行一个快速的读写测试。';
+$L['FIXHOME_TXT'] = '输入此命令来快速调整主目录权限。';
+// seedbox commands section
+$L['SEEDBOX_COMMANDS'] = 'Seedbox命令';
+$L['CHANGEUSERPASS_TXT'] = '在SSH中输入此命令来更改所需的用户密码。';
+$L['CREATESEEDBOXUSER_TXT'] = '在SSH中输入此命令来在服务器上创建一个新的seedbox用户。';
+$L['DELETESEEDBOXUSER_TXT'] = '在SSH中输入此命令来删除服务器上的seedbox用户。你将被提示，需要输入该用户的账户名称。';
+$L['SETDISK_TXT'] = '在SSH中输入此命令来分配你想给用户的磁盘容量。';
+$L['SHOWSPACE_TXT'] = '以root身份使用此命令来显示每个用户当前使用的磁盘容量。';
+$L['UPGRADEDELUGE_TXT'] = '在SSH中输入此命令可以将Deluge升级到最新版本。';
+// packages commands section
+$L['PACKAGE_COMMANDS'] = '组件命令';
+$L['QUICKVPN_TXT'] = '在SSH中输入此命令来创建VPN服务，管理和创建新的用户。';
+$L['SETUPPYLOAD_TXT'] = '在SSH中输入此命令来运行pyLoad安装脚本。';
+$L['UPGRADEBTSYNC_TXT'] = '在SSH中输入此命令可以将BTSync升级到最新版本。';
+$L['UPGRADEJACKETT_TXT'] = '在SSH中输入此命令可以将Jackett升级到最新版本。';
+$L['UPGRADEOMBI_TXT'] = '在SSH中输入此命令可以将Ombi升级到最新版本。';
+$L['UPGRADEPLEX_TXT'] = '在SSH中输入此命令可以将Plex升级到最新版本。';
+$L['UPGRADEPYLOAD_TXT'] = '在SSH中输入此命令可以将升级pyLoad到最新版本。';
+$L['UPGRADESABNZBD_TXT'] = '在SSH中输入此命令可以将SABnzbd升级到最新版本。';
+// essential user commands section
+$L['ESSENTIAL_USER_COMMANDS'] = '基本用户命令';
+$L['RELOAD_TXT'] = '允许用户重新加载(rtorrent和irssi)的服务';
+$L['SCREEN_RTORRNENT_TXT'] = '允许用户从SSH重新启动/重新挂载rtorrent';
+$L['SCREEN_IRSSI_TXT'] = '允许用户从SSH重新启动/重新挂载irssi';
+
+
+////////////////////////////////////////
+//DASHBOARD WIDGET TITLES
+///////////////////////////////////////
+
+// services status widget
+$L['SERVICE_CONTROL_CENTER'] = '服务控制中心';
+
+// services status widget
+$L['SERVICE_STATUS'] = '系统状态';
+
+// restart services widget
+$L['RESTART_SERVICES'] = '重启服务';
+
+// service controller widget
+$L['ENABLE_DISABLE_SERVICES'] = '启用/禁用';
+
+// package management center widget
+$L['PACKAGE_MANAGEMENT_CENTER'] = '组件管理中心;
+
+// bandwidth data widget
+$L['BANDWIDTH_DATA'] = '带宽数据';
+
+// disk status widget
+$L['YOUR_DISK_STATUS'] = '你的磁盘状态';
+
+// memory status widget
+$L['SYSTEM_RAM_STATUS'] = '系统内存状态';
+
+// cpu status widget
+$L['CPU_STATUS'] = 'CPU状态';
+
+// server load widget
+$L['SERVER_LOAD'] = '服务器负载';
+
+// recent updates widget
+$L['COMPARE_COMMITS'] = '将当前状态与最新的提交进行比较。';
+$L['CURRENT_COMMIT'] = '查看你当前的提交状态';
+$L['CURRENT_VERSIONS_CHANGELOG'] = '查看你当前的版本更新日志。';
+$L['LATEST_COMMIT'] = '最新。';
+$L['QUICKBOX_COMMIT'] = '你在QuickBox的提交 -';
+$L['RECENT_UPDATES'] = '近期活动';
+$L['RECENT_UPDATES_TXT'] = '要查看反馈，请使用鼠标滚轮进行滚动。';
+
+////////////////////////////////////////
+//PACKAGE MANAGEMENT CENTER
+///////////////////////////////////////
+
+// package management center notice
+$L['PMC_NOTICE_TXT'] = '<strong>注意!</strong> 这些选项与启用和禁用软件组件不同。 这些选项被设计用来安装或卸载。';
+
+// package management center column headers
+$L['NAME'] = '名称';
+$L['DETAILS'] = '详情';
+$L['AVAILABILITY'] = '状态';
+
+// packages
+$L['BTSYNC_DETAILS'] = 'BitTorrent公司的BitTorrent Sync是一个专有的对等文件同步工具。';
+$L['COUCHPOTATO'] = '通过Usenet或torrents自动下载电影，轻松和最好的质量。';
+$L['CSF'] = 'ConfigServer防火墙（也称为CSF）是一种防火墙配置脚本，为你的服务器提供更好的安全性，同时为你提供易于使用的高级界面来管理防火墙设置。';
+$L['DELUGE'] = 'Deluge是一款轻量级的免费软件，跨平台的BitTorrent客户端。';
+$L['EMBY'] = 'Emby Server是一个服务器软件包，可以让消费者托管他们合法的多媒体 - 音乐，视频和图片文件。... Emby客户端软件是一个应用程序，你需要安装在移动设备和某些电视的机顶盒，如Android电视。';
+$L['HEADPHONES'] = 'Headphones是用Python编写的NZB和Torrent的自动音乐下载器。 它支持SABnzbd，NZBget，Transmission，μTorrent，Deluge和Blackhole。';
+$L['JACKETT'] = 'API支持你最喜爱的private trackers。';
+$L['MEDUSA'] = '电视节目的视频文件管理器，用来观看你最喜爱的节目的新剧集。 允许手动搜索和其他专有功能，请检查<a href="https://github.com/pymedusa/Medusa" target="_blank"> Github </a>上的Medusa。';
+$L['NEXTCLOUD'] = 'Nextcloud是一个开源，自主托管的文件同步和共享通信应用平台。 访问和同步你的文件，联系人，日历和沟通和协作你的设备。 你可以决定你的数据发生了什么，它在哪里以及谁可以访问它！';
+$L['NZBGET'] = 'NZBGet是一个二进制下载器，它根据nzb-files中给出的信息从Usenet下载文件。 NZBGet是用C ++编写的，以其非凡的性能和效率而闻名。';
+$L['NZBHYDRA'] = 'NZBHydra是NZB索引器的元搜索。 它提供了对一些基于raw和newznab的索引器的简单访问。 你可以从一个地方搜索所有索引，并将其用作Sonarr或CouchPotato等工具的索引。';
+$L['OMBI'] = 'Ombi为希望添加到library的用户提供了一个美观且易于使用的界面。';
+$L['OVPN'] = '基于SSL/TLS的VPN。 支持Linux，Solaris，OpenBSD，FreeBSD，NetBSD，Mac OS X和Windows 2000/XP +。';
+$L['PLEX'] = 'Plex可让你将内容传输到任何支持Plex的设备。';
+$L['PLEXPY'] = '基于python的Web应用程序，用于Plex Media Server的监视，分析和通知。';
+$L['PYLOAD'] = 'pyLoad是用于“Hoster”网站、视频网站和HTTP/FTP链接的下载管理器。 你可以在<a href="https://github.com/pyload/pyload/wiki/Supported-Hoster" target="_blank">此处</a>找到支持的网站列表';
+$L['QUASSEL'] = 'Quassel IRC是一个基于Qt4框架的现代化，跨平台，分布式的IRC客户端。';
+$L['QUOTAS'] = 'Linux的这一特性允许系统管理员分配用户或组可以使用的最大磁盘空间量。';
+$L['RADARR'] = 'Radarr是Sonarr的一个独立分支，通过Usenet和BitTorrent自动下载电影。';
+$L['RAPIDLEECH'] = 'Rapid Leech是一个免费的服务器转移脚本，可用于各种流行的上传/下载站点，例如uploaded.net，Rapidshare.com和120多个其他站点。';
+$L['SABNZBD'] = 'SABnzbd是一个多平台的二进制新闻组下载器。 该程序在后台工作，并简化了从Usenet下载文件的验证和提取。 SABnzbd使用NZB文件（类似于.torrent文件，但用于Usenet），而不是直接浏览Usenet。';
+$L['SICKGEAR'] = 'SickGear是Sick-Beard的进化版。 凭借创新，久经考验的稳定性和可靠性实现电视的自动享受。';
+$L['SICKRAGE'] = '电视节目的视频文件管理器，它可以观看你最喜爱的节目的新剧集。';
+$L['SONARR'] = 'Sonarr是一个电视连续剧管理工具，可以同时使用torrents和usenet。';
+$L['SUBSONIC'] = 'Subsonic是一个基于网络的媒体服务器。 它是用Java编写的，所以它可以在任何支持Java的操作系统上运行。 Subsonic支持同时向多个客户端传输流媒体，并支持任何流媒体（包括MP3，AAC和Ogg）。';
+$L['SYNCTHING'] = '开源的BitTorrent文件同步软件';
+$L['TRANSMISSION'] = 'Transmission设计简单，功能强大。 默认设置为Just Work，只需点击几下鼠标即可配置高级功能，如监视目录，不良对等拦截列表和Web界面。当Ubuntu的选择Transmission作为其默认的BitTorrent客户端中，引用最多的原因之一是它简单易学。';
+$L['X2GO'] = 'X2Go是一款使用NX技术协议的Linux开源远程桌面软件。';
+$L['ZNC'] = 'ZNC是一个IRC网络辅助软件。它可以将客户端从实际的IRC服务器以及选定的通道中分离出来。';
+
+// package management center buttons
+$L['CLI'] = '仅限Web控制台';
+$L['INSTALL'] = '安装';
+$L['INSTALLED'] = '已安装';
+$L['OVPN_TOOLTIP_I'] = '从Web控制台输入: quickVPN访问此功能';
+$L['OVPN_TOOLTIP_U'] = '从Web控制台输入: quickVPN访问此功能';
+$L['BOX'] = '仅限BOX';
+$L['BOX_TOOLTIP_CSF'] = '从Web控制台输入: box install csf访问此功能';
+$L['BOX_TOOLTIP_NEXTCLOUD'] = '从Web控制台输入: box install nextcloud访问此功能';
+$L['BOX_TOOLTIP_ZNC'] = '从Web控制台输入: box install znc访问此功能';
+
+////////////////////////////////////////
+//BANDWIDTH & DATA TABLES
+///////////////////////////////////////
+
+// column headers and dropdown toggle button
+$L['NETWORK'] = '网络';
+$L['UPLOAD'] = '上传';
+$L['DOWNLOAD'] = '下载';
+$L['VIEW_ADDITIONAL_BANDWIDTH_DETAILS'] = '查看额外的带宽详情';
+
+// main table headers
+$L['Summary'] = '概要';
+$L['Top 10 days'] = '前10天';
+$L['Last 24 hours'] = '过去24小时';
+$L['Last 30 days'] = '过去30天';
+$L['Last 12 months'] = '过去12个月';
+
+// traffic table columns
+$L['In'] = 'In';
+$L['Out'] = 'Out';
+$L['Total'] = '合计';
+
+// summary rows
+$L['This hour'] = '这个小时';
+$L['This day'] = '这天';
+$L['This month'] = '这个月';
+$L['All time'] = '所有的时间';
+
+// date formats
+$L['datefmt_days'] = '%d %B';
+$L['datefmt_days_img'] = '%d';
+$L['datefmt_months'] = '%B %Y';
+$L['datefmt_months_img'] = '%b';
+$L['datefmt_hours'] = '%l%p';
+$L['datefmt_hours_img'] = '%l';
+$L['datefmt_top'] = '%d %B %Y';
+
+
+////////////////////////////////////////
+//DISK STATUS WIDGET
+///////////////////////////////////////
+
+$L['FREE'] = '空余';
+$L['USED'] = '使用';
+$L['SIZE'] = '大小';
+$L['DISK_SPACE'] = '磁盘空间';
+$L['PERCENTAGE_TXT_1'] = '已使用';
+$L['PERCENTAGE_TXT_2'] = '的磁盘空间';
+$L['RTORRENTS_TITLE'] = '在rtorrent的种子';
+$L['DTORRENTS_TITLE'] = '在deluge的种子';
+$L['TORRENTS_LOADED_1'] = '这里一共';
+$L['TORRENTS_LOADED_2'] = '种子加载';
+
+
+////////////////////////////////////////
+//SYSTEM RAM STATUS WIDGET
+///////////////////////////////////////
+
+// physical memory
+$L['PHYSICAL_MEMORY_TITLE'] = '物理内存使用情况';
+$L['PHYSICAL_MEMORY_USED_TXT'] = '已使用';
+$L['PHYSICAL_MEMORY_IDLE_TXT'] = '空闲';
+
+//cached memory
+$L['CACHED_MEMORY_TITLE'] = '高速缓存使用情况';
+$L['CACHED_MEMORY_USAGE_TXT'] = '高速缓存已使用';
+$L['CACHED_MEMORY_BUFFERS_TXT'] = '缓冲区';
+
+// real memory
+$L['REAL_MEMORY_TITLE'] = '实际内存使用情况';
+$L['REAL_MEMORY_USAGE_TXT'] = '实际内存已使用';
+$L['REAL_MEMORY_FREE_TXT'] = '实际内存空闲';
+
+// swap usage
+$L['SWAP_TITLE'] = 'Swap使用情况';
+$L['SWAP_TOTAL_TXT'] = 'SWAP区域';
+$L['SWAP_USED_TXT'] = '已使用';
+$L['SWAP_IDLE_TXT'] = '空闲';
+
+// total ram
+$L['TOTAL_RAM'] = '系统内存总计';
+
+// clean mem button
+$L['CLEAR_CACHE'] = '清除缓存';
+
+
+////////////////////////////////////////
+//CPU STATUS WIDGET
+///////////////////////////////////////
+
+// used percentage
+$L['CPU_USED'] = '已使用';
+
+// idle percentage
+$L['CPU_IDLE'] = '空闲';
+
+
+////////////////////////////////////////
+//SERVER LOAD WIDGET
+///////////////////////////////////////
+
+$L['SL_TXT'] = '这是你服务器当前的平均负载';
+$L['UPTIME'] = '正常运行时间';
+
+
+////////////////////////////////////////
+//SERVICE TOGGLES
+///////////////////////////////////////
+
+$L['ENABLED'] = '已启用';
+$L['DISABLED'] = '禁用';
+
+$L['INSTALLED'] = '已安装';
+$L['UNINSTALLED'] = '已卸载';
+$L['INSTALLING'] = '安装中';
+$L['UNINSTALLING'] = '卸载中';
+
+
+////////////////////////////////////////
+//STATUS BUTTONS
+///////////////////////////////////////
+
+$L['REFRESH'] = '刷新';
+$L['UPDATE'] = '运行更新程序';
+
+$L['CANCEL'] = '取消';
+$L['AGREE'] = '我明白，继续！';
+
+$L['CLOSE_REFRESH'] = '关闭&刷新';
+
+////////////////////////////////////////
+//ADDITIONAL DICTIONARY
+///////////////////////////////////////
+
+$L['IDLE'] = '空闲';
+$L['TOTAL'] = '总计';
+$L['USED'] = '已使用';
+
+$L['DAYS_L'] = '天';
+$L['HOURS_L'] = '小时';
+$L['MINUTES_L'] = '分';
+$L['SECONDS_L'] = '秒';
+$L['IDLE_L'] = '空闲';
+$L['TOTAL_L'] = '总计';
+$L['USED_L'] = '已使用';
+
+
+////////////////////////////////////////
+//MODALS & POPUP NOTICES
+///////////////////////////////////////
+
+//MODAL TITLES
+$L['UNINSTALL_TITLE'] = '卸载';
+
+//MODAL TEXT
+$L['UNINSTALL_BTSYNC_TXT'] = '即将从系统中卸载BitTorrent Sync。<br/> <br/>这将完全删除你的所有配置和共享文件夹设置...这个动作是不可逆的。 <br/> <br/>你可以随时重新安装BitTorrent Sync，但是，你的存储路径和链接的文件夹设置将被重置为默认值。';
+$L['UNINSTALL_CSF_TXT'] = '即将从系统中卸载配置服务器防火墙（CSF）。<br/> <br/>这将完全删除你的所有配置设置...此操作是不可逆转的。 <br/> <br/>你可以随时重新安装配置服务器防火墙（CSF），但是，配置设置（如果有更改）将被重置为默认值。';
+$L['UNINSTALL_COUCHPOTATO_TXT'] = '即将从系统中卸载CouchPotato。<br/> <br/>这将完全删除你的所有配置和设置...这个操作是不可逆转的。 <br/> <br/>你可以随时重新安装CouchPotato，但是你的设置将被重置为默认值。';
+$L['UNINSTALL_DELUGE_TXT'] = '即将从系统中卸载Deluge。<br/> <br/>这将彻底删除<strong>所有用户</ strong>的所有配置和共享文件夹设置...此操作是不可逆转的。 <br/> <br/>你可以随时重新安装Deluge，但是，你的存储路径和链接文件夹设置将被重置为默认值。';
+$L['UNINSTALL_EMBY_TXT'] = '即将从系统中卸载Emby。<br/> <br/>这将完全删除你的所有配置和共享文件夹设置...此操作是不可逆转的。 <br/> <br/>你可以随时重新安装Emby，但是你的存储路径和链接的文件夹设置将被重置为默认值。';
+$L['UNINSTALL_HEADPHONES_TXT'] = '即将从系统中卸载Headphones。<br/> <br/>这将完全删除你的所有配置和共享文件夹设置...这个动作是不可逆转的。 <br/> <br/>你可以随时重新安装Headphones，但是，存储路径和链接的文件夹设置将被重置为默认值。';
+$L['UNINSTALL_JACKETT_TXT'] = '即将从系统中卸载Jackett。<br/> <br/>这将完全删除所有的配置和设置...这个操作是不可逆的。 <br/> <br/>你可以随时重新安装Jackett，但是你的设置将被重置为默认值。';
+$L['UNINSTALL_NEXTCLOUD_TXT'] = '即将从系统中卸载NextCloud。<br/> <br/>这将完全删除你的所有配置和设置...这个操作是不可逆的。 <br/> <br/>你可以随时重新安装NextCloud，但是，你的设置将被重置为默认设置。';
+$L['UNINSTALL_NZBGET_TXT'] = '即将从系统中卸载NZBGet。<br/> <br/>这将完全删除你的所有配置和设置...这个动作是不可逆转的。 <br/> <br/>你可以随时重新安装NZBGet，但是你的设置将被重置为默认值。';
+$L['UNINSTALL_NZBHYDRA_TXT'] = '即将从系统中卸载NZBHydra。<br/> <br/>这将完全移除你的所有配置和设置...这个操作是不可逆的。 <br/> <br/>你可以随时重新安装NZBHydra，但是你的设置将被重置为默认值。';
+$L['UNINSTALL_PLEX_TXT'] = '即将从系统中卸载Plex Media Server。<br/> <br/>这将完全删除你的所有配置和库设置...这个操作是不可逆的。 <br/> <br/>你可以随时重新安装Plex，但是，你的磁带库设置将被重置为默认值。';
+$L['UNINSTALL_PLEXPY_TXT'] = '即将从系统中卸载PlexPy。<br/> <br/>这将完全删除你的所有配置和库设置...这个操作是不可逆的。 <br/> <br/>你可以随时重新安装PlexPy，但是，你的设置将被重置为默认设置。';
+$L['UNINSTALL_OMBI_TXT'] = '即将从系统中卸载Ombi。<br/> <br/>这将完全删除你所有的配置和库设置...这个动作是不可逆的。 <br/> <br/>你可以随时重新安装Ombi，但你的设置和请求将被重置。';
+$L['UNINSTALL_PYLOAD_TXT'] = '即将从系统中卸载pyLoad。<br/> <br/>这将完全删除所有的配置设置...这个操作是不可逆的。 <br/> <br/>你可以随时重新安装pyLoad，但是你的配置设置将被重置为默认值。';
+$L['UNINSTALL_QUASSEL_TXT'] = '即将从系统中卸载Quassel。<br/> <br/>这将从你的系统中彻底移除Quassel和所有设置/存储的日志。';
+$L['UNINSTALL_QUOTAS_TXT'] = '即将从系统中卸载quotas。<br/> <br/>这将完全删除用户的配额和与之相关的任何设置。';
+$L['UNINSTALL_RADARR_TXT'] = '即将从系统中卸载Radarr。<br/> <br/>这将完全删除你的所有配置设置...这个动作是不可逆转的。 <br/> <br/>你可以随时重新安装Radarr，但是你的配置设置将被重置为默认值。';
+$L['UNINSTALL_RAPIDLEECH_TXT'] = '即将从系统中卸载Rapidleech。<br/> <br/>这将完全删除所有的配置设置...这个操作是不可逆的。 <br/> <br/>你可以随时重新安装Rapidleech，但是你的配置设置将被重置为默认值。';
+$L['UNINSTALL_SABNZBD_TXT'] = '即将从系统中卸载SABnzbd。<br/> <br/>这将完全删除你的所有配置设置...这个操作是不可逆的。 <br/> <br/>你可以随时重新安装SABnzbd，但是你的配置设置将被重置为默认值。';
+$L['UNINSTALL_SICKGEAR_TXT'] = '即将从系统中卸载SickGear。<br/> <br/>这将完全移除你的所有配置设置...这个操作是不可逆的。 <br/> <br/>你可以随时重新安装SickGear，但是你的配置设置将被重置为默认值。';
+$L['UNINSTALL_SICKRAGE_TXT'] = '即将从系统中卸载SickRage。<br/> <br/>这将完全删除你的所有配置设置...这个动作是不可逆转的。 <br/> <br/>你可以随时重新安装SickRage，但是你的配置设置将被重置为默认值。';
+$L['UNINSTALL_MEDUSA_TXT'] = '即将从系统中卸载Medusa<br/> <br/>这将彻底删除所有的配置设置...这个动作是不可逆的<br/> <br/>你可以随时重新安装Medusa，但是你的配置设置将重置为默认值。';
+$L['UNINSTALL_SONARR_TXT'] = '即将从系统中卸载Sonarr。<br/> <br/>这将完全删除你的所有配置设置...这个动作是不可逆的。 <br/> <br/>你可以随时重新安装Sonarr-NzbDrone，但是，你的配置设置将被重置为默认值。';
+$L['UNINSTALL_SUBSONIC_TXT'] = '即将从系统中卸载Subsonic。<br/> <br/>这将完全删除你的所有配置设置...这个操作是不可逆的。 <br/> <br/>你可以随时重新安装Subsonic，但是你的配置设置将被重置为默认值。';
+$L['UNINSTALL_SYNCTHING_TXT'] = '即将从系统中卸载Syncthing。<br/> <br/>这将完全删除你的所有配置设置...这个操作是不可逆的。 <br/> <br/>你可以随时重新安装Syncthing，但是你的配置设置将被重置为默认值。';
+$L['UNINSTALL_TRANSMISSION_TXT'] = '即将从系统中卸载Transmission。<br/> <br/>这将完全删除你的所有配置设置...这个动作是不可逆的。 <br/> <br/>你可以随时重新安装Transmission，但是你的配置设置将被重置为默认值。';
+$L['UNINSTALL_X2GO_TXT'] = '即将从系统中卸载x2go。<br/> <br/>这将彻底清除系统中的x2goserver和xfce4桌面环境。';
+$L['UNINSTALL_ZNC_TXT'] = '即将从系统中卸载ZNC。<br/> <br/>这将完全删除你的所有配置和设置...这个动作是不可逆的。 <br/> <br/>你可以随时重新安装ZNC，但是你的设置将被重置为默认值。';
+$L['THEME_CHANGE_TXT'] = '即将改变主题。 如果主题在刷新后没有正确显示，则可能需要清除浏览器缓存并重试。';
+
+//SYSTEM RESPONSE MODAL
+$L['SYSTEM_RESPONSE_TITLE'] = '系统响应';
+
+//GRITTER POPUPS
+$L['UNINSTALLING_TITLE'] = '卸载中';
+
+//GRITTER TEXT
+$L['UNINSTALLING_TXT_1'] = '请稍候';
+$L['UNINSTALLING_TXT_2'] = '正在从你的系统中卸载。';
+
+
+////////////////////////////////////////////////////////////////////////////
+// SAMPLE
+// $L['SAMPLE'] = 'Sample';
+////////////////////////////////////////////////////////////////////////////
+
+
+?>
