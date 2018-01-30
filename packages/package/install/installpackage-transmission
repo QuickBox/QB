@@ -94,7 +94,7 @@ function _insTrWeb() {
       	#echo "##############################################"
   fi
   rm -rf "$tmpFolder"
-  
+
   #cd ${local_dashboard}/custom
   #patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
   ln -s /home/${username}/torrents/transmission/ /srv/rutorrent/home/${username}.transmission.downloads
@@ -111,6 +111,9 @@ EOF
 
   touch /install/.transmission.lock
   chown www-data: /etc/apache2/sites-enabled/transmission.conf
+  cat > /usr/share/transmission/web/.htaccess <<EOF
+allow from all
+EOF
   service apache2 reload
 }
 
