@@ -84,7 +84,7 @@ $L['PACKAGE_MANAGEMENT_CENTER'] = '组件管理中心';
 $L['BANDWIDTH_DATA'] = '带宽数据';
 
 // disk status widget
-$L['YOUR_DISK_STATUS'] = '你的磁盘状态';
+$L['YOUR_DISK_STATUS'] = '磁盘状态';
 
 // memory status widget
 $L['SYSTEM_RAM_STATUS'] = '系统内存状态';
@@ -99,9 +99,9 @@ $L['SERVER_LOAD'] = '服务器负载';
 $L['COMPARE_COMMITS'] = '将当前状态与最新的提交进行比较。';
 $L['CURRENT_COMMIT'] = '查看你当前的提交状态';
 $L['CURRENT_VERSIONS_CHANGELOG'] = '查看你当前的版本更新日志。';
-$L['LATEST_COMMIT'] = '最新。';
-$L['QUICKBOX_COMMIT'] = '你在QuickBox的提交 -';
-$L['RECENT_UPDATES'] = '近期活动';
+$L['LATEST_COMMIT'] = '最新';
+$L['QUICKBOX_COMMIT'] = '在QuickBox的提交 -';
+$L['RECENT_UPDATES'] = '近期更新';
 $L['RECENT_UPDATES_TXT'] = '要查看反馈，请使用鼠标滚轮进行滚动。';
 
 ////////////////////////////////////////
@@ -181,10 +181,10 @@ $L['Out'] = 'Out';
 $L['Total'] = '合计';
 
 // summary rows
-$L['This hour'] = '这个小时';
-$L['This day'] = '这天';
-$L['This month'] = '这个月';
-$L['All time'] = '所有的时间';
+$L['This hour'] = 'This hour';
+$L['This day'] = 'This day';
+$L['This month'] = 'This month';
+$L['All time'] = 'All time';
 
 // date formats
 $L['datefmt_days'] = '%d %B';
@@ -259,7 +259,7 @@ $L['CPU_IDLE'] = '空闲';
 //SERVER LOAD WIDGET
 ///////////////////////////////////////
 
-$L['SL_TXT'] = '这是你服务器当前的平均负载';
+$L['SL_TXT'] = '服务器当前的平均负载';
 $L['UPTIME'] = '正常运行时间';
 
 
