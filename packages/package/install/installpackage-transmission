@@ -3,13 +3,13 @@
 # [Quick Box :: Install Transmission-Web package]
 #
 # QUICKLAB REPOS
-# QuickLab _ packages  :   https://github.com/QuickBox/QB/packages
+# QuickLab _ packages  :   https://github.com/QuickBox/QB/tree/master/packages
 # LOCAL REPOS
 # Local _ packages   :   /etc/QuickBox/packages
 # Author             :   QuickBox.IO
 # URL                :   https://quickbox.io
 #
-# QuickBox Copyright (C) 2017 QuickBox.io
+# QuickBox Copyright (C) 2018 QuickBox.io
 # Licensed under GNU General Public License v3.0 GPL-3 (in short)
 #
 #   You may copy, distribute and modify the software as long as you track
