@@ -3,13 +3,13 @@
 # [Quick Box :: Install Transmission-Web package]
 #
 # QUICKLAB REPOS
-# QuickLab _ packages  :   https://github.com/QuickBox/QB/packages
+# QuickLab _ packages  :   https://github.com/QuickBox/QB/tree/master/packages
 # LOCAL REPOS
 # Local _ packages   :   /etc/QuickBox/packages
 # Author             :   QuickBox.IO
 # URL                :   https://quickbox.io
 #
-# QuickBox Copyright (C) 2017 QuickBox.io
+# QuickBox Copyright (C) 2018 QuickBox.io
 # Licensed under GNU General Public License v3.0 GPL-3 (in short)
 #
 #   You may copy, distribute and modify the software as long as you track
@@ -94,7 +94,7 @@ function _insTrWeb() {
       	#echo "##############################################"
   fi
   rm -rf "$tmpFolder"
-  
+
   #cd ${local_dashboard}/custom
   #patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
   ln -s /home/${username}/torrents/transmission/ /srv/rutorrent/home/${username}.transmission.downloads
@@ -111,6 +111,9 @@ EOF
 
   touch /install/.transmission.lock
   chown www-data: /etc/apache2/sites-enabled/transmission.conf
+  cat > /usr/share/transmission/web/.htaccess <<EOF
+allow from all
+EOF
   service apache2 reload
 }
 
