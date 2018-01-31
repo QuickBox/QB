@@ -22,6 +22,8 @@
 #   to include QuickBox in your commercial project, write to echo@quickbox.io
 #   with a summary of your project as well as its intended use for moentization.
 #
+function _string() { perl -le 'print map {(a..z,A..Z,0..9)[rand 62] } 0..pop' 15 ; }
+
 MASTER=$(cat /srv/rutorrent/home/db/master.txt)
 IRSSIIP=$(curl -s http://ipecho.net/plain || curl -s http://ifconfig.me/ip ; echo)
 
