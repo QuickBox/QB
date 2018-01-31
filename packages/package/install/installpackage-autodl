@@ -22,6 +22,8 @@
 #   to include QuickBox in your commercial project, write to echo@quickbox.io
 #   with a summary of your project as well as its intended use for moentization.
 #
+function _string() { perl -le 'print map {(a..z,A..Z,0..9)[rand 62] } 0..pop' 15 ; }
+
 MASTER=$(cat /srv/rutorrent/home/db/master.txt)
 IRSSIIP=$(curl -s http://ipecho.net/plain || curl -s http://ifconfig.me/ip ; echo)
 
@@ -33,12 +35,11 @@ function _installautodl() {
   rutorrent="/srv/rutorrent/";
   PLUGINVAULT="/etc/QuickBox/rtplugins/"; cd "${rutorrent}plugins"
   PLUGIN="autodl-irssi"
-  #users=($(cat /etc/htpasswd | cut -d ":" -f 1))
     for i in $PLUGIN; do
       cp -R "${PLUGINVAULT}$i" .
       chown -R www-data: ${rutorrent}plugins/$PLUGIN
     done
-    for u in "${users[@]}"; do
+    for u in "$(cat /etc/htpasswd | cut -d ':' -f 1 | uniq)"; do
       IRSSI_PASS=$(_string)
       IRSSI_PORT=$(shuf -i 20000-61000 -n 1)
       mkdir -p "/home/${u}/.irssi/scripts/autorun/" >>"${OUTTO}" 2>&1
@@ -55,6 +56,14 @@ gui-server-port = ${IRSSI_PORT}
 gui-server-password = ${IRSSI_PASS}
 ADC
 
+CONFPATH="/srv/rutorrent/conf/users/${u}/plugins/autodl-irssi/"
+mkdir -p CONFPATH
+cat >"/srv/rutorrent/conf/users/${u}/plugins/autodl-irssi/conf.php"<<<ADC
+<?php
+$autodlPort = ${IRSSI_PORT};
+$autodlPassword = ${IRSSI_PASS};
+?>
+ADC
       chown -R "${u}.${u}" "/home/${u}/.irssi/"
       chown -R "${u}.${u}" "/home/${u}"
     done
