@@ -27,38 +27,38 @@ $L['DONATE'] = 'Dona';
 // plugin menu tab
 $L['PLUGIN_MENU'] = 'Menú de plugins';
 $L['RPLUGIN_MENU'] = 'Menú de plugins de ruTorrent';
-$L['PMENU_NOTICE_TXT'] = 'Instala y desinstala fácilmente plugins de ruTorrent pinchando sobre su nombre';
+$L['PMENU_NOTICE_TXT'] = 'Instala y desinstala plugins de ruTorrent pinchando sobre su nombre';
 $L['PLUGINS'] = 'Plugins';
 
 // quick help menu tab
 $L['HELP_COMMANDS'] = 'Comandos de ayuda';
 $L['QUICK_SYSTEM_TIPS'] = 'Comandos de sistema';
-$L['CLEAN_MEM_TXT'] = 'Utiliza el comando de arriba como usuario root cuando quieras limpiar la memoria caché de tu sistema.';
-$L['DISKTEST_TXT'] = 'Escribe este comando para realizar un rápido test de lectura/escritura en tu disco duro.';
-$L['FIXHOME_TXT'] = 'Escribe este comando para ajustar rápidamente los permisos de tu directorio /home.';
+$L['CLEAN_MEM_TXT'] = 'Utiliza este comando como usuario root cuando quieras limpiar la memoria caché de tu sistema.';
+$L['DISKTEST_TXT'] = 'Escribe este comando para realizar un test de lectura/escritura en tu disco duro.';
+$L['FIXHOME_TXT'] = 'Escribe este comando para reconfigurar rápidamente los permisos de tu directorio /home.';
 // seedbox commands section
 $L['SEEDBOX_COMMANDS'] = 'Comandos de Seedbox';
-$L['CHANGEUSERPASS_TXT'] = 'Escribir este comando por SSH te permite cambiar la contraseña del usuario deseado.';
-$L['CREATESEEDBOXUSER_TXT'] = 'Escribe este comando por SSH para un nuevo usuario del Seedbox en tu servidor.';
-$L['DELETESEEDBOXUSER_TXT'] = 'Escribe este comando por SSH para eliminar un usuario del Seedbox en tu servidor. Deberás introducir el nombre de la cuenta de usuario.';
-$L['SETDISK_TXT'] = 'Escribe este comando por SSH para adjudicar la cantidad de espacio en el disco que te gustaría darle a un usuario.';
-$L['SHOWSPACE_TXT'] = 'Utiliza este comando como root para comprobar la cantidad de espacio utilizado actualmente por cada usuario.';
-$L['UPGRADEDELUGE_TXT'] = 'Escribe este comando por SSH para actualizar Deluge versión más reciente cuando esta esté disponible.';
+$L['CHANGEUSERPASS_TXT'] = 'Escribe este comando por SSH para cambiar la contraseña del usuario deseado.';
+$L['CREATESEEDBOXUSER_TXT'] = 'Escribe este comando por SSH para crear un nuevo usuario de tu Seedbox.';
+$L['DELETESEEDBOXUSER_TXT'] = 'Escribe este comando por SSH para eliminar un usuario de tu Seedbox. Deberás introducir el nombre de la cuenta de usuario.';
+$L['SETDISK_TXT'] = 'Escribe este comando por SSH para establecer la cantidad de espacio en el disco duro que te gustaría asignarle a un usuario.';
+$L['SHOWSPACE_TXT'] = 'Utiliza este comando como root para comprobar la cantidad de espacio utilizado por cada usuario.';
+$L['UPGRADEDELUGE_TXT'] = 'Escribe este comando por SSH para actualizar Deluge a su versión más reciente.';
 // packages commands section
 $L['PACKAGE_COMMANDS'] = 'Comandos de Paquetes';
-$L['QUICKVPN_TXT'] = 'Escribe este comando por SSH para instalar tu propio servidor VPN en menos de un minuto además de gestionar y crear nuevos certificados de usuario para utilizar el servidor VPN.';
+$L['QUICKVPN_TXT'] = 'Escribe este comando por SSH para instalar tu propio servidor VPN rápidamente, además de gestionar y crear nuevos certificados de usuario para utilizarlo.';
 $L['SETUPPYLOAD_TXT'] = 'Escribe este comando por SSH para iniciar el script de instalación de pyLoad.';
-$L['UPGRADEBTSYNC_TXT'] = 'Escribe este comando por SSH para actualizar BTSync a la versión más reciente disponible.';
-$L['UPGRADEJACKETT_TXT'] = 'Escribe este comando por SSH para actualizar Jackett a la versión más reciente disponible.';
-$L['UPGRADEOMBI_TXT'] = 'Escribe este comando por SSH para actualizar Ombi a la versión más reciente disponible.';
-$L['UPGRADEPLEX_TXT'] = 'Escribe este comando por SSH para actualizar Plex a la versión más reciente disponible.';
-$L['UPGRADEPYLOAD_TXT'] = 'Escribe este comando por SSH para actualizar pyLoad a la versión más reciente disponible.';
-$L['UPGRADESABNZBD_TXT'] = 'Escribe este comando por SSH para actualizar SABnzbd a la versión más reciente disponible.';
+$L['UPGRADEBTSYNC_TXT'] = 'Escribe este comando por SSH para actualizar BTSync a su versión más reciente.';
+$L['UPGRADEJACKETT_TXT'] = 'Escribe este comando por SSH para actualizar Jackett a su versión más reciente.';
+$L['UPGRADEOMBI_TXT'] = 'Escribe este comando por SSH para actualizar Ombi a su versión más reciente.';
+$L['UPGRADEPLEX_TXT'] = 'Escribe este comando por SSH para actualizar Plex a su versión más reciente.';
+$L['UPGRADEPYLOAD_TXT'] = 'Escribe este comando por SSH para actualizar pyLoad a su versión más reciente.';
+$L['UPGRADESABNZBD_TXT'] = 'Escribe este comando por SSH para actualizar SABnzbd a su versión más reciente.';
 // essential user commands section
 $L['ESSENTIAL_USER_COMMANDS'] = 'Comandos esenciales';
-$L['RELOAD_TXT'] = 'Permite a los usuarios reiniciar sus servicios (rtorrent e irssi)';
-$L['SCREEN_RTORRNENT_TXT'] = 'Permite a los usuarios reiniciar rtorrent desde SSH';
-$L['SCREEN_IRSSI_TXT'] = 'Permite a los usuarios reiniciar irssi desde SSH';
+$L['RELOAD_TXT'] = 'Permite reiniciar sus servicios (rtorrent e irssi)';
+$L['SCREEN_RTORRNENT_TXT'] = 'Permite reiniciar rtorrent desde SSH';
+$L['SCREEN_IRSSI_TXT'] = 'Permite reiniciar irssi desde SSH';
 
 
 ////////////////////////////////////////
@@ -69,10 +69,10 @@ $L['SCREEN_IRSSI_TXT'] = 'Permite a los usuarios reiniciar irssi desde SSH';
 $L['SERVICE_CONTROL_CENTER'] = 'Control de Servicios';
 
 // services status widget
-$L['SERVICE_STATUS'] = 'Estado del Servicio';
+$L['SERVICE_STATUS'] = 'Estado';
 
 // restart services widget
-$L['RESTART_SERVICES'] = 'Reiniciar Servicio';
+$L['RESTART_SERVICES'] = 'Reiniciar';
 
 // service controller widget
 $L['ENABLE_DISABLE_SERVICES'] = 'Activar/Desactivar';
@@ -84,10 +84,10 @@ $L['PACKAGE_MANAGEMENT_CENTER'] = 'Gestión de Paquetes';
 $L['BANDWIDTH_DATA'] = 'Uso de la red';
 
 // disk status widget
-$L['YOUR_DISK_STATUS'] = 'Estado del Disco Duro';
+$L['YOUR_DISK_STATUS'] = 'Disco Duro';
 
 // memory status widget
-$L['SYSTEM_RAM_STATUS'] = 'Estado de la Memoria RAM';
+$L['SYSTEM_RAM_STATUS'] = 'Memoria RAM';
 
 // cpu status widget
 $L['CPU_STATUS'] = 'Estado del Procesador';
@@ -96,7 +96,7 @@ $L['CPU_STATUS'] = 'Estado del Procesador';
 $L['SERVER_LOAD'] = 'Carga del Servidor';
 
 // recent updates widget
-$L['COMPARE_COMMITS'] = 'Compara el estado actual de tu servidor con los últimos commits del código.';
+$L['COMPARE_COMMITS'] = 'Compara el estado actual de tu servidor con los últimos commits.';
 $L['CURRENT_COMMIT'] = 'Ver el estado del commit actual.';
 $L['CURRENT_VERSIONS_CHANGELOG'] = 'Comprueba el registro de cambios de tu versión actual.';
 $L['LATEST_COMMIT'] = 'último.';
@@ -109,7 +109,7 @@ $L['RECENT_UPDATES_TXT'] = 'Para ver los nuevos aportes, desplázate con la rued
 ///////////////////////////////////////
 
 // package management center notice
-$L['PMC_NOTICE_TXT'] = '<strong>¡Atención!</strong> Por favor, ten en ucenta que estas opciones no son lo mismo que activar o desactivar un paquete de software. Estas opciones etán pensadas tanto para instalar como para desinstalar programas.';
+$L['PMC_NOTICE_TXT'] = '<strong>¡Atención!</strong> Por favor, ten en cuenta que estas opciones no consisten en activar o desactivar paquetes de software. Estas opciones sirven para instalar y desinstalar programas.';
 
 // package management center column headers
 $L['NAME'] = 'Nombre';
@@ -120,7 +120,7 @@ $L['AVAILABILITY'] = 'Disponibilidad';
 $L['BTSYNC_DETAILS'] = 'BitTorrent Sync de BitTorrent Inc. Es una herramienta de software privativo para sincronización de archivos peer-to-peer.';
 $L['COUCHPOTATO'] = 'Descarga películas automáticamente, fácilmente y con la mejor calidad, tan pronto como sean publicadas en usenet o torrent.';
 $L['CSF'] = 'ConfigServer Firewall, también conocido como CSF, es un script de configuración para firewall creado para proporcionar una mejor seguridad para tu servidor, además de una interfaz avanzada para controlar fácilmente tus opciones de firewall.';
-$L['DELUGE'] = 'Deluge is un cliente torrent de software libre, ligero y multiplataforma.';
+$L['DELUGE'] = 'Deluge es un cliente torrent de software libre, ligero y multiplataforma.';
 $L['EMBY'] = 'Emby Server es un paquete de software de cliente-servidor que permite a sus usuarios hospedar sus copias multimedia legales – música, vídeo e imágenes… El cliente de Emby es una app que necesitarás instalar en tus dispositivos móviles y ciertos gadgets para televisión, como Android TV.';
 $L['HEADPHONES'] = 'Headphones es un gestor de descarga automática de música para NZB y torrent, escrito en Python. Soporta SABnzbd, NZBget, Transmission, µTorrent, Deluge y Blackhole.';
 $L['JACKETT'] = 'Soporte API para tus trackers privados favoritos.';
@@ -167,25 +167,25 @@ $L['BOX_TOOLTIP_ZNC'] = 'Accede a esta característica desde SSH escribiendo: bo
 $L['NETWORK'] = 'Red';
 $L['UPLOAD'] = 'Subida ';
 $L['DOWNLOAD'] = 'Descarga';
-$L['VIEW_ADDITIONAL_BANDWIDTH_DETAILS'] = 'Mostrar detalles adicionales del ancho de banda';
+$L['VIEW_ADDITIONAL_BANDWIDTH_DETAILS'] = 'Detalles adicionales de la red';
 
 // main table headers
 $L['Summary'] = 'Resumen';
-$L['Top 10 days'] = 'Mejores 10 das';
+$L['Top 10 days'] = 'Mejores 10 días';
 $L['Last 24 hours'] = 'Últimas 24 horas';
 $L['Last 30 days'] = 'Últimos 30 días';
 $L['Last 12 months'] = 'Últimos 12 meses';
 
 // traffic table columns
-$L['In'] = 'Entrada';
-$L['Out'] = 'Salida';
+$L['In'] = 'Bajada';
+$L['Out'] = 'Subida';
 $L['Total'] = 'Total';
 
 // summary rows
 $L['This hour'] = 'Última hora';
 $L['This day'] = 'Hoy';
 $L['This month'] = 'Este mes';
-$L['All time'] = 'Todos los tiempos';
+$L['All time'] = 'Siempre';
 
 // date formats
 $L['datefmt_days'] = '%d %B';
@@ -202,9 +202,9 @@ $L['datefmt_top'] = '%d %B %Y';
 ///////////////////////////////////////
 
 $L['FREE'] = 'Libre';
-$L['USED'] = 'Utilizado';
+$L['USED'] = 'En uso';
 $L['SIZE'] = 'Tamaño';
-$L['DISK_SPACE'] = 'Espacio de Disco';
+$L['DISK_SPACE'] = 'Espacio';
 $L['PERCENTAGE_TXT_1'] = 'Tienes ocupado el';
 $L['PERCENTAGE_TXT_2'] = 'del espacio total de tu disco duro';
 $L['RTORRENTS_TITLE'] = 'Torrents en rtorrent';
@@ -260,8 +260,8 @@ $L['CPU_IDLE'] = 'inactivo';
 //SERVER LOAD WIDGET
 ///////////////////////////////////////
 
-$L['SL_TXT'] = 'Esta es la carga media de tu servidor';
-$L['UPTIME'] = 'Tiempo total de funcionamiento';
+$L['SL_TXT'] = 'Carga media de tu servidor';
+$L['UPTIME'] = 'Tiempo encendido';
 
 
 ////////////////////////////////////////
