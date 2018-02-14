@@ -57,13 +57,16 @@ gui-server-password = ${IRSSI_PASS}
 ADC
 
 CONFPATH="/srv/rutorrent/conf/users/${u}/plugins/autodl-irssi/"
-mkdir -p CONFPATH
-cat >"/srv/rutorrent/conf/users/${u}/plugins/autodl-irssi/conf.php"<<ADC
+mkdir -p $CONFPATH
+cat >"/srv/rutorrent/conf/users/${u}/plugins/autodl-irssi/conf.php"<<"ADI"
 <?php
-$autodlPort = ${IRSSI_PORT};
-$autodlPassword = ${IRSSI_PASS};
+$autodlPort = IRSSI_PORT;
+$autodlPassword = IRSSI_PASS;
 ?>
-ADC
+ADI
+sed -i "s/IRSSI_PORT/${IRSSI_PORT}/g" /srv/rutorrent/conf/users/${u}/plugins/autodl-irssi/conf.php
+sed -i "s/IRSSI_PASS/${IRSSI_PASS}/g" /srv/rutorrent/conf/users/${u}/plugins/autodl-irssi/conf.php
+
       chown -R "${u}.${u}" "/home/${u}/.irssi/"
       chown -R "${u}.${u}" "/home/${u}"
     done
