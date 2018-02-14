@@ -58,11 +58,14 @@ ADC
 
 CONFPATH="/srv/rutorrent/conf/users/${u}/plugins/autodl-irssi/"
 mkdir -p $CONFPATH
-printf "<?php\n$autodlPort = ${IRSSI_PORT};\n$autodlPassword = ${IRSSI_PASS};\n?>" >> "/srv/rutorrent/conf/users/${u}/plugins/autodl-irssi/conf.php"
-#<?php
-#$autodlPort = ${IRSSI_PORT};
-#$autodlPassword = ${IRSSI_PASS};
-#?>
+cat >"/srv/rutorrent/conf/users/${u}/plugins/autodl-irssi/conf.php"<<"ADI"
+<?php
+$autodlPort = IRSSI_PORT;
+$autodlPassword = IRSSI_PASS;
+?>
+ADI
+sed -i "s/IRSSI_PORT/${IRSSI_PORT}/g" /srv/rutorrent/conf/users/${u}/plugins/autodl-irssi/conf.php
+sed -i "s/IRSSI_PASS/${IRSSI_PASS}/g" /srv/rutorrent/conf/users/${u}/plugins/autodl-irssi/conf.php
 
       chown -R "${u}.${u}" "/home/${u}/.irssi/"
       chown -R "${u}.${u}" "/home/${u}"
