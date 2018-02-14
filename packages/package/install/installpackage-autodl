@@ -58,7 +58,7 @@ ADC
 
 CONFPATH="/srv/rutorrent/conf/users/${u}/plugins/autodl-irssi/"
 mkdir -p CONFPATH
-cat >"/srv/rutorrent/conf/users/${u}/plugins/autodl-irssi/conf.php"<<<ADC
+cat >"/srv/rutorrent/conf/users/${u}/plugins/autodl-irssi/conf.php"<<ADC
 <?php
 $autodlPort = ${IRSSI_PORT};
 $autodlPassword = ${IRSSI_PASS};
