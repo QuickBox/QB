@@ -58,8 +58,8 @@ sed -i "s/\"BasePathOverride.*/\"BasePathOverride\": \"\/jackett\"/g" /home/${us
 sed -i "s/\"UpdateDisabled.*/\"UpdateDisabled\": true,/g" /home/${username}/.config/Jackett/ServerConfig.json
 
 cat > /etc/apache2/sites-enabled/jackett.conf <<EOF
-ProxyPreserveHost On
-RequestHeader set X-Forwarded-Proto "https"
+#ProxyPreserveHost On
+#RequestHeader set X-Forwarded-Proto "https"
 <Location /jackett>
 ProxyPass http://localhost:9117/jackett
 ProxyPassReverse http://localhost:9117/jackett
