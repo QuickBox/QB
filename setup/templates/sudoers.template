@@ -30,7 +30,6 @@ www-data     ALL = (ALL) NOPASSWD: CLEANMEM, SYSCMNDS, PLUGINCMNDS, PACKAGECMNDS
 %admin ALL=(ALL) ALL
 
 # Allow members of group sudo to execute any command
-%www-data     ALL = (ALL) NOPASSWD: CLEANMEM, SYSCMNDS, PLUGINCMNDS, PACKAGECMNDS, GENERALCMNDS
 %sudo	ALL=(ALL:ALL) ALL
 
 # See sudoers(5) for more information on "#include" directives:
