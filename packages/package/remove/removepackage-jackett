@@ -9,6 +9,13 @@ systemctl disable jackett@${username}
 rm /etc/systemd/system/jackett@.service
 rm -f /etc/apache2/sites-enabled/jackett.conf
 rm -f /etc/apt/sources.list.d/mono-xamarin.list
+rm -f /etc/apt/sources.list.d/mono-snapshot-5.8.0.127.list
+if [[ -f /install/.radarr.lock ]]; then
+echo "deb http://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+fi
+if [[ -f /install/.sonarr.lock ]]; then
+echo "deb http://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+fi
 apt-get -y autoremove && apt-get -y autoclean
 service apache2 reload
 if [[ -f /etc/init.d/jackett ]]; then

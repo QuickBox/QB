@@ -4,5 +4,15 @@ systemctl disable radarr
 rm -rf /etc/systemd/system/radarr.service
 rm -rf /opt/Radarr
 rm -rf /etc/apache2/sites-enabled/radarr.conf
+rm -f /etc/apt/sources.list.d/mono-xamarin.list
+rm -f /etc/apt/sources.list.d/mono-snapshot-5.8.0.127.list
+if [[ -f /install/.jackett.lock ]]; then
+echo "deb http://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+fi
+if [[ -f /install/.sonarr.lock ]]; then
+echo "deb http://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+fi
 rm -rf /install/.radarr.lock
+apt-get -y autoremove && apt-get -y autoclean
+service apache2 reload
 echo "Radarr uninstalled!"

@@ -28,6 +28,13 @@ function _removeSonarr() {
   rm -f /etc/apt/sources.list.d/sonarr.list
   rm -f /etc/apt/sources.list.d/mono-xamarin.list
   rm -f /etc/apache2/sites-enabled/sonarr.conf
+  rm -f /etc/apt/sources.list.d/mono-snapshot-5.8.0.127.list
+if [[ -f /install/.jackett.lock ]]; then
+echo "deb http://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+fi
+if [[ -f /install/.radarr.lock ]]; then
+echo "deb http://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+fi
   apt-get -y autoremove && apt-get -y autoclean
   if [[ -f /etc/init.d/sonarr ]]; then
     sudo update-rc.d -f sonarr remove >/dev/null 2>&1
@@ -35,6 +42,7 @@ function _removeSonarr() {
     sudo rm /etc/init.d/sonarr
   fi
     sudo rm /install/.sonarr.lock
+    apt-get -y autoremove && apt-get -y autoclean
     service apache2 reload
 }
 
