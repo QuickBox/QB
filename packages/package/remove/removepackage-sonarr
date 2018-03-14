@@ -26,14 +26,36 @@ function _removeSonarr() {
   sudo apt-get remove -y nzbdrone >/dev/null 2>&1
   sudo apt-get -y autoremove >/dev/null 2>&1
   rm -f /etc/apt/sources.list.d/sonarr.list
-  rm -f /etc/apt/sources.list.d/mono-xamarin.list
   rm -f /etc/apache2/sites-enabled/sonarr.conf
-  rm -f /etc/apt/sources.list.d/mono-snapshot-5.8.0.127.list
 if [[ -f /install/.jackett.lock ]]; then
-echo "deb http://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+if ls mono-* >/dev/null 2>&1; then
+    echo "mono sources list was found"
+    ls mono-*
+fi
+for list in /etc/apt/sources.list.d/mono-*; do
+    if [[ -f $list ]]; then
+        echo "removing and replacing with stable mono"
+        rm -rf /etc/apt/sources.list.d/mono-*
+        sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+        echo "deb http://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+        break
+    fi
+done
 fi
 if [[ -f /install/.radarr.lock ]]; then
-echo "deb http://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+if ls mono-* >/dev/null 2>&1; then
+    echo "mono sources list was found"
+    ls mono-*
+fi
+for list in /etc/apt/sources.list.d/mono-*; do
+    if [[ -f $list ]]; then
+        echo "removing and replacing with stable mono"
+        rm -rf /etc/apt/sources.list.d/mono-*
+        sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+        echo "deb http://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+        break
+    fi
+done
 fi
   apt-get -y autoremove && apt-get -y autoclean
   if [[ -f /etc/init.d/sonarr ]]; then
