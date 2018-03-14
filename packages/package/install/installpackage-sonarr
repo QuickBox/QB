@@ -34,10 +34,19 @@ function _installSonarrintro() {
 }
 
 function _installSonarr1() {
-  if [[ ! -f /etc/apt/sources.list.d/mono-snapshot-5.8.0.127.list ]]; then
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-    echo "deb http://download.mono-project.com/repo/ubuntu xenial/snapshots/5.8.0.127 main" | sudo tee /etc/apt/sources.list.d/mono-snapshot-5.8.0.127.list
-  fi
+if ls mono-* >/dev/null 2>&1; then
+    echo "mono sources list was found"
+    ls mono-*
+fi
+for list in /etc/apt/sources.list.d/mono-*; do
+    if [[ -f $list ]]; then
+        echo "removing and replacing with stable mono"
+        rm -rf /etc/apt/sources.list.d/mono-*
+        sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+        echo "deb http://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+        break
+    fi
+done
 }
 
 function _installSonarr2() {
@@ -47,7 +56,7 @@ function _installSonarr2() {
 }
 
 function _installSonarr3() {
-  sudo apt-get -y update >/dev/null 2>&1
+  sudo apt-get -y update && apt-get -y upgrade >/dev/null 2>&1
   if [[ $distribution == Debian ]]; then
     sudo apt-get install -y mono-devel >/dev/null 2>&1
   fi
