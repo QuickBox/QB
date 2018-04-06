@@ -39,6 +39,7 @@ function UploadMethod(idDlg, idParent, isPrefs)
 		'<label for="' + this.id("method") + '">' + theUILang.autodlChooseUploadMethod + '</label>' +
 		'<select id="' + this.id("method") + '">' +
 			'<option id="' + this.id("method-nothing") + '">' + text[0] + '</option>' +
+			'<option id="' + this.id("method-test") + '">' + theUILang.autodlTestFilter + '</option>' +
 			'<option id="' + this.id("method-rtorrent") + '">' + theUILang.autodlRtorrent + '</option>' +
 			'<option id="' + this.id("method-watchdir") + '">' + theUILang.autodlSaveToWatchFolder + '</option>' +
 			'<option id="' + this.id("method-webui") + '">' + theUILang.autodlUtorrentWebui + '</option>' +
@@ -48,6 +49,9 @@ function UploadMethod(idDlg, idParent, isPrefs)
 		'</select>' +
 		'<div id="' + this.id("nothing") + '">' +
 			'<p>' + text[1] + '</p>' +
+		'</div>' +
+		'<div id="' + this.id("test") + '">' +
+			'<p>Test a filter without taking action.</p>' +
 		'</div>' +
 		'<div id="' + this.id("rtorrent") + '">' +
 			'<table>' +
@@ -206,6 +210,7 @@ function UploadMethod(idDlg, idParent, isPrefs)
 
 	this.dropdown = new DropDownTabs(this.id("method"));
 	this.dropdown.add(this.id("method-nothing"), this.id("nothing"), "");
+	this.dropdown.add(this.id("method-test"), this.id("test"), "test");
 	this.dropdown.add(this.id("method-rtorrent"), this.id("rtorrent"), "rtorrent");
 	this.dropdown.add(this.id("method-watchdir"), this.id("watchdir"), "watchdir");
 	this.dropdown.add(this.id("method-webui"), this.id("webui"), "webui");

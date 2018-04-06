@@ -41,7 +41,7 @@ class recentTrackers
 	static public function getTrackerDomain($announce)
 	{
 		$domain = parse_url($announce,PHP_URL_HOST);
-		if(preg_match("/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/",$domain)!=1)
+		if($domain && (preg_match("/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/",$domain)!=1))
 		{
 			$parts = explode('.',$domain);
 			$cnt = count($parts);
@@ -55,7 +55,7 @@ class recentTrackers
 				$domain = implode('.',$parts);
 			}
 		}
-		return($domain);
+		return(empty($domain) ? 'invalid domain' : $domain);
 	}
 }
 
@@ -125,6 +125,7 @@ if(isset($_REQUEST['cmd']))
 						'path_edit'=>$_REQUEST['path_edit'],
 						'trackers'=>$_REQUEST['trackers'],
 						'comment'=>$_REQUEST['comment'],
+						'source'=>$_REQUEST['source'],
 						'start_seeding'=>$_REQUEST['start_seeding'],
 						'piece_size'=>$_REQUEST['piece_size'],
 						'private'=>$_REQUEST['private']

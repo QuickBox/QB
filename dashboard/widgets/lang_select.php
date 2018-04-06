@@ -4,7 +4,9 @@ $language = array(
         'lang_de',
         'lang_dk',
         'lang_en',
-        'lang_fr'
+        'lang_fr',
+        'lang_es',
+        'lang_zh',
 );
 
 foreach ($language as $lang) {

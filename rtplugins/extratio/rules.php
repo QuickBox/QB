@@ -182,7 +182,13 @@ class rRatioRulesList
 		{
 			$req->addCommand( new rXMLRPCCommand( "d.get_custom1", $hash ) ); 
 			$req->addCommand( new rXMLRPCCommand( "d.get_state", $hash ) );
-			$req->addCommand( new rXMLRPCCommand( "d.views", $hash ) );
+			$req->addCommand( new rXMLRPCCommand("branch", array
+			(
+				$hash,
+				'',
+				getCmd("cat").'=$'.getCmd("d.views="),
+				getCmd("cat").'=$'.getCmd("d.views="),
+			)));
 			$req->addCommand( new rXMLRPCCommand( "d.get_throttle_name", $hash ) );
 		}
 		if($req->getCommandsCount() && $req->success())

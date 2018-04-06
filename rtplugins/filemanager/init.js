@@ -40,7 +40,7 @@ theWebUI.fManager = {
 	homedir: '',
 
 	action: {
-			
+
 			requrl: 'plugins/filemanager/flm.php',
 
 			request: function (data2send, onComplete, onTimeout, onError) {
@@ -68,26 +68,26 @@ theWebUI.fManager = {
 												log(theUILang.fManager+': '+diag[1]+' - '+theUILang.fErrMsg[11]);
 											}
 
-										} else 
+										} else
 										if(($type(onError) == "function")) {
 			        							var status = "Status unavailable";
 			        							var response = "Responce unavailable";
-											try { 
-												status = XMLHttpRequest.status; 
-												response = XMLHttpRequest.responseText; 
+											try {
+												status = XMLHttpRequest.status;
+												response = XMLHttpRequest.responseText;
 											} catch(e) {};
 
 											onError(status+" "+textStatus+" "+errorThrown,response);
-										} else { 
-											log(theUILang.fManager+' ERROR: '+diag[1]+' - '+XMLHttpRequest.status+" "+XMLHttpRequest.responseText+" "+errorThrown); 
+										} else {
+											log(theUILang.fManager+' ERROR: '+diag[1]+' - '+XMLHttpRequest.status+" "+XMLHttpRequest.responseText+" "+errorThrown);
 										}
 										theWebUI.fManager.cleanactions();
 								},
 
 								success: function(data, textStatus) {
-									
+
 	            								if($type(onComplete) == 'function') {onComplete(data, status); } else
-										if(!theWebUI.fManager.isErr(data.errcode, theWebUI.fManager.activediag) && $type(data.tmpdir)) { 
+										if(!theWebUI.fManager.isErr(data.errcode, theWebUI.fManager.activediag) && $type(data.tmpdir)) {
 											theWebUI.fManager.actiontoken = data.tmpdir;
 											theWebUI.fManager.actiontimeout = setTimeout(theWebUI.fManager.action.stats, 1000);
 										} else { theWebUI.fManager.cleanactions();}
@@ -96,15 +96,15 @@ theWebUI.fManager = {
 			},
 
 			getlisting: function (dir) {
-			
+
 					$('#fManager_data table').addClass('disabled_table');
 					theWebUI.fManager.inaction = true;
 
-					this.request('action=list&dir='+encodeURIComponent(dir), 
+					this.request('action=list&dir='+encodeURIComponent(dir),
 								function (data) {
 											theWebUI.fManager.inaction = false;
 											theWebUI.fManager.parseReply(data, dir);
-											
+
 								},
 								function () {log(theUILang.fErrMsg[9]);},
 								function () {log(theUILang.fErrMsg[10]+' - '+dir);}
@@ -115,15 +115,15 @@ theWebUI.fManager = {
 
 			stats: function (diag) {
 
-					theWebUI.fManager.action.request('action=getlog&target='+encodeURIComponent(theWebUI.fManager.actiontoken)+'&to='+theWebUI.fManager.actionlp, 
-								function (data) { 
+					theWebUI.fManager.action.request('action=getlog&target='+encodeURIComponent(theWebUI.fManager.actiontoken)+'&to='+theWebUI.fManager.actionlp,
+								function (data) {
 									theWebUI.fManager.actionstats = data.status;
 									theWebUI.fManager.actionlp = data.lp;
 									theWebUI.fManager.cmdlog(data.lines);
 
 									if(!theWebUI.fManager.isErr(data.errcode) && (data.status < 1)) {
 										theWebUI.fManager.actiontimeout = setTimeout(theWebUI.fManager.action.stats, 1000);
-									} else { 
+									} else {
 										theWebUI.fManager.cleanactions();
 										if (theWebUI.fManager.curpath == theWebUI.fManager.workpath) { theWebUI.fManager.Refresh(); }
 									}
@@ -146,13 +146,13 @@ theWebUI.fManager = {
 		var i = (arguments.length > 1) ? 1 : 0;
 
   		for (i = i; i < arguments.length; i++) {
-			
+
 			var rg;
 
-			switch($type(arguments[i])) { 
+			switch($type(arguments[i])) {
 				case 'string':
 					rg = '"'+this.addslashes(arguments[i])+'"';
-			
+
 
 					break;
 				default:
@@ -164,7 +164,7 @@ theWebUI.fManager = {
 		}
 
 			return 'theWebUI.fManager.'+this.dialogs[diag].funct+'('+args+')';
-		
+
 
 	},
 
@@ -213,7 +213,7 @@ theWebUI.fManager = {
 
 			var type = $('#fMan_archtype').empty();
 
-			$.each(this.archives.types, function(index, value) { 
+			$.each(this.archives.types, function(index, value) {
 
 				var opt = '<option value="'+index+'">'+value.toUpperCase()+'</option>';
 				type.append((index == ext) ? $(opt).attr('selected', 'selected').get(0) : opt);
@@ -227,7 +227,7 @@ theWebUI.fManager = {
 
 
 	basename: function(str) {
-			
+
 			var isdir = this.isDir(str);
 			var path = this.trimslashes(str);
 
@@ -240,7 +240,7 @@ theWebUI.fManager = {
 
 			var checks = $('#'+diag+' .checklist input:checked');
 			if (checks.size() == 0) {alert("Nothing is not a option"); return false;}
-			
+
 			checks.each(function(index, val) {
 				theWebUI.fManager.actionlist[index] = theWebUI.fManager.addslashes(decodeURIComponent(val.value));
 
@@ -256,7 +256,7 @@ theWebUI.fManager = {
 			forcedir = $type(forcedir) ? true : false;
 
 			var path = $.trim($('#fMan_'+diag+'bpath').val());
-				
+
 			if(!path) {theDialogManager.hide('fMan_'+diag); return false;}
 			if(path.length < this.homedir.length) {alert(theUILang.fDiagNoPath); return false}
 
@@ -266,7 +266,7 @@ theWebUI.fManager = {
 			if ((path == this.trimslashes(this.curpath)) && !forcedir) { alert(theUILang.fDiagNoPath); return false;}
 
 			var funky = this.trimslashes(this.curpath) ? this.trimslashes(path.split(this.trimslashes(this.curpath)+'/')[1]).split('/').shift() : path.split('/').shift();
-			if (	this.isChecked('fMan_'+diag, this.basename(path)) || 
+			if (	this.isChecked('fMan_'+diag, this.basename(path)) ||
 				this.fileExists(funky)) {alert(theUILang.fDiagNoPath); return false;}
 
 			return '/'+path;
@@ -303,7 +303,7 @@ theWebUI.fManager = {
 
 
 	changedir: function (target) {
-	
+
 		var dir;
 
 		if(target == this.getLastPath(this.curpath)) {
@@ -312,7 +312,7 @@ theWebUI.fManager = {
 			dir = this.curpath+target;
 		}
 
-		this.action.getlisting(dir);			
+		this.action.getlisting(dir);
 	},
 
 
@@ -335,7 +335,7 @@ theWebUI.fManager = {
 
 				$('#fMan_Screenshotslist').html(theWebUI.fManager.curpath+'<strong>'+target+'</strong>');
 				$('#fMan_Screenshotsbpath').val(this.homedir+this.curpath+'screens_'+this.recname(target)+'.png');
-				$('#fMan_Screenshots .fMan_Start').attr('disabled',false); 
+				$('#fMan_Screenshots .fMan_Start').attr('disabled',false);
 		}
 
 		this.makeVisbile('fMan_Screenshots');
@@ -363,21 +363,21 @@ theWebUI.fManager = {
 			],
 			container:	"fManager_data",
 			format:		theWebUI.fManager.format,
-			onselect:	function(e,id) { 
-								if (theWebUI.fManager.inaction) {return false;} 
+			onselect:	function(e,id) {
+								if (theWebUI.fManager.inaction) {return false;}
 								theWebUI.fManager.flmSelect(e,id); },
-			ondblclick:	function(obj) 
-			{ 
-				if (theWebUI.fManager.inaction) {return false;} 
+			ondblclick:	function(obj)
+			{
+				if (theWebUI.fManager.inaction) {return false;}
 				var target = obj.id.slice(5,obj.id.length);
 
-				if(theWebUI.fManager.isDir(target)) {theWebUI.fManager.changedir(target);} 
+				if(theWebUI.fManager.isDir(target)) {theWebUI.fManager.changedir(target);}
 				else {theWebUI.fManager.getFile(target);}
 
 				return(false);
 			}
-		};	
-		
+		};
+
 	},
 
 
@@ -389,7 +389,7 @@ theWebUI.fManager = {
 
 		if(!(theWebUI.fManager.actiontoken.length > 1)) {
 			this.generateSelection($('#'+diag+'list'), forcedirs);
-			$('#'+diag+' .fMan_Start').attr('disabled',false); 
+			$('#'+diag+' .fMan_Start').attr('disabled',false);
 		}
 
 		this.makeVisbile(diag);
@@ -414,9 +414,9 @@ theWebUI.fManager = {
 		var options = {	format: self.settings.arcnscheme,
 					type: type,
 					compression: compression,
-					vsize: vsize, 
+					vsize: vsize,
 					password: password};
-	
+
 		$(button).attr('disabled',true);
 		this.actStart(diag);
 
@@ -457,7 +457,7 @@ theWebUI.fManager = {
 			var file = this.checkInputs(diag);
 			if(file === false) {return false;}
 			if(this.fileExists(this.basename(file+'/'))) {alert(theUILang.fDiagSFVempty); return false;}
-			
+
 			if(!this.buildList('fMan_'+diag)) {return false;}
 
 			$(button).attr('disabled',true);
@@ -497,7 +497,7 @@ theWebUI.fManager = {
 
 
 	doCopy: function(button, diag) {
-				
+
 			var path = this.checkInputs(diag);
 
 			if(path === false) {return false;}
@@ -512,7 +512,7 @@ theWebUI.fManager = {
 
 	doNewDir: function() {
 
-			var ndn = $.trim($('#fMan-ndirname').val()); 
+			var ndn = $.trim($('#fMan-ndirname').val());
 
 			if(!ndn.length) {theDialogManager.hide('fMan_mkdir'); return false;}
 			if(!this.validname(ndn)) {alert(theUILang.fDiagInvalidname); return false;}
@@ -525,11 +525,11 @@ theWebUI.fManager = {
 			theWebUI.fManager.workpath = $('#fMan-NewDirPath').text();
 
 			this.action.request('action=mkd&target='+encodeURIComponent(ndn),
-								function (data) { 
+								function (data) {
 									if((theWebUI.fManager.curpath == theWebUI.fManager.workpath) && !theWebUI.fManager.isErr(data.errcode, ndn)) {
 										theWebUI.fManager.Refresh();
 									}
-									theDialogManager.hide('fMan_mkdir');	
+									theDialogManager.hide('fMan_mkdir');
 								},
 								function () {log(theUILang.fErrMsg[9]);},
 								function () {log(theUILang.fErrMsg[4]+' - '+ndn);}
@@ -550,12 +550,12 @@ theWebUI.fManager = {
 			if(theWebUI.fManager.fileExists(nn) || theWebUI.fManager.fileExists(nn+'/')) {alert(theUILang.fDiagAexist); return false;}
 
 
-			this.action.request('action=rename&target='+encodeURIComponent(on)+'&to='+encodeURIComponent(nn), 
-								function (data) { 
+			this.action.request('action=rename&target='+encodeURIComponent(on)+'&to='+encodeURIComponent(nn),
+								function (data) {
 									if((theWebUI.fManager.curpath == theWebUI.fManager.workpath) && !theWebUI.fManager.isErr(data.errcode, on)) {
 										theWebUI.fManager.Refresh();
 									}
-									theDialogManager.hide('fMan_Rename');	
+									theDialogManager.hide('fMan_Rename');
 								},
 								function () {log(theUILang.fErrMsg[11]);},
 								function () {log(theUILang.fErrMsg[12]+' - Rename: '+on);}
@@ -589,7 +589,7 @@ theWebUI.fManager = {
 		if(!(theWebUI.fManager.actiontoken.length > 1)) {
 				$('#fMang_Archfile').html(theWebUI.fManager.curpath+'<strong>'+what+'</strong>');
 				$('#fMan_Extractbpath').val(this.homedir+this.curpath+(here ? '' : this.recname(what)));
-				$('#fMan_Extract .fMan_Start').attr('disabled',false); 
+				$('#fMan_Extract .fMan_Start').attr('disabled',false);
 		}
 
 		this.makeVisbile('fMan_Extract');
@@ -604,7 +604,7 @@ theWebUI.fManager = {
 
 				try {if(table.getValueById('_flm_'+what, 'name')) {
 					throw true;
-					} else { 
+					} else {
 					throw false; }
  				 }
 				catch(dx) {
@@ -644,7 +644,7 @@ theWebUI.fManager = {
 
 			var pmap = ['-', '-xx', '-w-', '-wx', 'r--', 'r-x', 'rw-', 'rwx'];
 			var arr = octal.split('');
-			
+
 			var out = '';
 
 			for(i = 0; i < arr.length; i++) {
@@ -653,7 +653,7 @@ theWebUI.fManager = {
 			return out;
 
 	},
- 
+
 
 	format: function(table,arr){
 		for(var i in arr)
@@ -665,11 +665,11 @@ theWebUI.fManager = {
 				case 'name':
 					if(theWebUI.fManager.settings.stripdirs && theWebUI.fManager.isDir(arr[i])) {arr[i] = theWebUI.fManager.trimslashes(arr[i]);}
 					break;
-      				case 'size' : 
+      				case 'size' :
       					if(arr[i] != '') {arr[i] = theConverter.bytes(arr[i], 2);}
       					break;
-      				case 'type' : 
-      					if(theWebUI.fManager.isDir(arr[i])) { arr[i] = '';} 
+      				case 'type' :
+      					if(theWebUI.fManager.isDir(arr[i])) { arr[i] = '';}
 					else {arr[i] = theWebUI.fManager.getExt(arr[i]);}
       					break;
 				case 'time' :
@@ -696,7 +696,7 @@ theWebUI.fManager = {
 		});
 
 		for (var i = 0; i < this.paths.length; i++) {
-			if(this.paths[i] == this.curpath) {return false;}	
+			if(this.paths[i] == this.curpath) {return false;}
 		}
 
 
@@ -710,8 +710,8 @@ theWebUI.fManager = {
 			cpath.append('<option>'+this.paths[i]+'</option>');
 			if((this.paths[i] != '/') && (i == (this.paths.length - 1))) {cpath.append('<option value="/">/</option>');}
 		}
-		
-		
+
+
 	},
 
 	generateSelection: function(holder, forcefiles) {
@@ -720,7 +720,7 @@ theWebUI.fManager = {
 
 		var container = holder.children('ul');
 		container.empty();
-	
+
 		var sr = theWebUI.getTable("flm").rowSel;
 		var topdir = this.getLastPath(this.curpath);
 
@@ -738,7 +738,7 @@ theWebUI.fManager = {
 	getExt: function(element) {
 
 		if(!$type(element)) {return '';}
-		var fname = element.split('.');		
+		var fname = element.split('.');
 		return (((element.charAt(1) == '.') && (fname.length == 2)) || (fname.pop() == element)) ? 'none' : element.split('.').pop();
 	},
 
@@ -754,7 +754,7 @@ theWebUI.fManager = {
     			last += ar.join('/');
 			if(ar.length > 0) {last += '/';}
 		}
-			
+
 		return(last);
 	},
 
@@ -770,7 +770,7 @@ theWebUI.fManager = {
 
 	getICO: function (element) {
 
-			if(this.isDir(element)) { return('Icon_Dir'); } 
+			if(this.isDir(element)) { return('Icon_Dir'); }
 
 			var iko;
 
@@ -779,8 +779,8 @@ theWebUI.fManager = {
 			if(element.match(/^r[0-9]+$/)) { return('Icon_partRar'); }
 
 			switch(element){
-      			
-      				case 'mp3' : 
+
+      				case 'mp3' :
  					iko = 'Icon_Mp3';
       					break;
 				case 'avi':
@@ -820,8 +820,8 @@ theWebUI.fManager = {
 				case 'torrent':
       					iko = 'Icon_Torrent';
       					break;
-				default: 
-					iko = 'Icon_File';			
+				default:
+					iko = 'Icon_File';
 	      		}
 
 			return(iko);
@@ -840,14 +840,14 @@ theWebUI.fManager = {
 	},
 
 	isDir: function(element) {return	 (element.charAt(element.length-1) == '/') },
-	
+
 	isErr: function(errcode, extra) {
 
 
 		if(!$type(extra)) {extra = '';}
 
 		if(errcode > 0) {
-			log('FILE MANAGER: '+theUILang.fErrMsg[errcode]+" : "+extra); 
+			log('FILE MANAGER: '+theUILang.fErrMsg[errcode]+" : "+extra);
 			return true;
 		}
 
@@ -900,7 +900,7 @@ theWebUI.fManager = {
 
 	},
 
-	
+
 	mediainfo: function(what) {
 
 
@@ -919,7 +919,7 @@ theWebUI.fManager = {
 			$(".fMan_Stop").attr('disabled',true);
 
 
-			this.action.request('action=minfo&target='+encodeURIComponent(what), 
+			this.action.request('action=minfo&target='+encodeURIComponent(what),
 								function (data) { if(theWebUI.fManager.isErr(data.errcode, what)) {
 											self.cmdlog('Failed fetching data');
 											return false;
@@ -936,14 +936,14 @@ theWebUI.fManager = {
 
 	optSet: function () {
 
-		if(theWebUI.configured) {	
+		if(theWebUI.configured) {
 			var needsave = false;
 
-			for (var set in theWebUI.fManager.settings) { 
-				if($type(theWebUI.settings["webui.fManager."+set])) { 
+			for (var set in theWebUI.fManager.settings) {
+				if($type(theWebUI.settings["webui.fManager."+set])) {
 					theWebUI.fManager.settings[set] = theWebUI.settings["webui.fManager."+set]
 				} else {
-					theWebUI.settings["webui.fManager."+set] = theWebUI.fManager.settings[set]; 
+					theWebUI.settings["webui.fManager."+set] = theWebUI.fManager.settings[set];
 					needsave = true;
 				}
 			}
@@ -964,7 +964,7 @@ theWebUI.fManager = {
 		this.fPath();
 
 		this.TableData(reply.listing);
-		
+
 	},
 
 
@@ -993,8 +993,6 @@ theWebUI.fManager = {
 					table.renameColumnById('time',theUILang.fTime);
 					table.renameColumnById('type',theUILang.fType);
 					table.renameColumnById('perm',theUILang.fPerm);
-
-					log('FILE MANAGER ignited');
 
 				} else { setTimeout(arguments.callee,500);}
 
@@ -1048,7 +1046,7 @@ theWebUI.fManager = {
 
 		if(!(theWebUI.fManager.actiontoken.length > 1)) {
 			$('#fMang_ChSFVfile').html(theWebUI.fManager.curpath+'<strong>'+what+'</strong>');
-			$('#fMan_CheckSFV .fMan_Start').attr('disabled',false); 
+			$('#fMan_CheckSFV .fMan_Start').attr('disabled',false);
 		}
 
 		this.makeVisbile('fMan_CheckSFV');
@@ -1070,7 +1068,7 @@ theWebUI.fManager = {
 	},
 
 
-	TableData: function(data) { 
+	TableData: function(data) {
 
 		var table = theWebUI.getTable("flm");
 		table.clearRows();
@@ -1083,7 +1081,7 @@ theWebUI.fManager = {
 		$.each(data, function(ndx,file) {
 
 				if(theWebUI.fManager.isDir(file.name)) { var ftype = 0;} else {var ftype = 1;}
-   			 
+
 				table.addRowById({
 					name: file.name,
 					size: file.size,
@@ -1093,11 +1091,11 @@ theWebUI.fManager = {
 				}, "_flm_"+file.name, theWebUI.fManager.getICO(file.name));
 				if(!theWebUI.fManager.settings.showhidden && (file.name.charAt(0) == '.')) {table.hideRow("_flm_"+file.name);}
 		});
-		
+
 		table.refreshRows();
 	},
 
-	TableRegenerate: function() { 
+	TableRegenerate: function() {
 			var td = theWebUI.getTable("flm").rowdata;
 			var old = {};
 
@@ -1124,19 +1122,19 @@ theWebUI.fManager = {
 			var cont = $('#nfo_content pre');
 			cont.empty();
 			cont.text('			Loading...');
-			
+
 			$("#fMan_nfofile").val(what);
 
 
-			this.action.request('action=nfo&mode='+mode+'&target='+encodeURIComponent(what), 
-								function (data) { 
-									
+			this.action.request('action=nfo&mode='+mode+'&target='+encodeURIComponent(what),
+								function (data) {
+
 									if(theWebUI.fManager.isErr(data.errcode, what)) {
 										cont.text('Failed fetching .nfo data');
 										return false;
 									}
 
-									if(browser.isIE) {document.getElementById("nfo_content").innerHTML = "<pre>"+data.nfo+"</pre>";} 
+									if(browser.isIE) {document.getElementById("nfo_content").innerHTML = "<pre>"+data.nfo+"</pre>";}
 									else {cont.html(data.nfo);}
 
 								}
@@ -1149,7 +1147,7 @@ theWebUI.fManager = {
 
 
 };
-	
+
 
 
 theWebUI.fManager.flmSelect = function(e, id) {
@@ -1163,7 +1161,7 @@ theWebUI.fManager.flmSelect = function(e, id) {
 
 			var target = id.split('_flm_')[1];
 			var targetIsDir = flm.isDir(target);
-		
+
 			theContextMenu.add([theUILang.fOpen, (table.selCount > 1) ? null : (targetIsDir ? function () {flm.changedir(target);} : function () {flm.getFile(target);})]);
 
 			if(target != flm.getLastPath(flm.curpath)) {
@@ -1174,9 +1172,9 @@ theWebUI.fManager.flmSelect = function(e, id) {
 
 				if(fext == 'nfo') {
 					theContextMenu.add([CMENU_SEP]);
-					theContextMenu.add([theUILang.fView, function() {flm.viewNFO(target, 1);}]); 
+					theContextMenu.add([theUILang.fView, function() {flm.viewNFO(target, 1);}]);
 					theContextMenu.add([CMENU_SEP]);
-				} 
+				}
 
 				theContextMenu.add([theUILang.fCopy, flm.actionCheck('Copy')]);
 				theContextMenu.add([theUILang.fMove, flm.actionCheck('Move')]);
@@ -1326,7 +1324,7 @@ theWebUI.fManager.dialogs = {
 		title: 'fDiagCArchive',
 		modal: true,
 		funct: "Archive",
-		content: 
+		content:
 			'<fieldset><legend>'+theUILang.fDiagCArchiveSel+'</legend>'+
 				'<div id="fMan_CArchivelist" class="checklist"><ul></ul></div>'+
 			'</fieldset><fieldset><legend>Options:</legend>'+
@@ -1354,7 +1352,7 @@ theWebUI.fManager.dialogs = {
 		title: 'fDiagSFVCheck',
 		modal: false,
 		funct: 'sfvCheck',
-		content: 
+		content:
 			'<fieldset><legend>'+theUILang.fDiagSFVCheckf+'</legend>'+
 				'<div id="fMang_ChSFVfile" style="width:440px;"></div>'+
 			'</fieldset>'
@@ -1364,7 +1362,7 @@ theWebUI.fManager.dialogs = {
 	Console: {
 		title: 'fDiagConsole',
 		modal: false,
-		content: 
+		content:
 			'<fieldset><legend>Command log:</legend>'+
 				'<div id="fMan_ConsoleLog" style="width:500px; height:310px;"><pre></pre></div>'+
 			'</fieldset>'
@@ -1399,7 +1397,7 @@ theWebUI.fManager.dialogs = {
 		title: 'fDiagExtract',
 		modal: true,
 		funct: "extract",
-		content: 
+		content:
 			'<fieldset><legend>'+theUILang.fDiagArchive+'</legend>'+
 				'<div id="fMang_Archfile" style="width:460px;"></div>'+
 			'</fieldset>'
@@ -1409,11 +1407,11 @@ theWebUI.fManager.dialogs = {
 	mkdir: {
 		title: 'fDiagmkdir',
 		modal: false,
-		content: 	
+		content:
 			'<div><strong>Path of creation: </strong></div>'+
 			'<div id="fMan-NewDirPath" style="padding-top:3px; padding-bottom:4px; width:200px;"></div>'+
 			'<fieldset><legend>'+theUILang.fDiagndirname+'</legend>'+
-				'<input type="text" name="fMan-ndirname" id="fMan-ndirname" style="width:200px;" />'+						
+				'<input type="text" name="fMan-ndirname" id="fMan-ndirname" style="width:200px;" />'+
 			'</fieldset>'
 	},
 
@@ -1428,7 +1426,7 @@ theWebUI.fManager.dialogs = {
 	Nfo: {
 		title: 'fDiagNFO',
 		modal: false,
-		content: 
+		content:
 			'<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td width="8%"><strong>Format:</strong></td>'+
 				'<td width="92%"><select id="fMan_nfoformat" name="fMan_nfoformat">'+
 						'<option value="1" selected="selected">DOS</option>'+
@@ -1442,7 +1440,7 @@ theWebUI.fManager.dialogs = {
 		title: 'fDiagRename',
 		modal: false,
 		funct: 'rename',
-		content: 
+		content:
 			'<div id="fMan-RenameType"><strong></strong></div>'+
 			'<div id="fMan-RenameWhat" style="padding-top:3px; padding-bottom:4px; width:200px;"></div>'+
 			'<fieldset><legend>'+theUILang.fDiagRenameTo+'</legend>'+
@@ -1454,7 +1452,7 @@ theWebUI.fManager.dialogs = {
 		title: 'fcScreens',
 		modal: true,
 		funct: 'createScreenshots',
-		content: '<fieldset><legend>Video file:</legend>'+	
+		content: '<fieldset><legend>Video file:</legend>'+
 			'</fieldset>'
 	}
 }
@@ -1477,26 +1475,26 @@ theWebUI.fManager.dialogs = {
 
 		var browsediags = {
 			CreateSFV: theUILang.fDiagSFVHashfile,
-			Move: theUILang.fDiagMoveTo, 
+			Move: theUILang.fDiagMoveTo,
 			Copy: theUILang.fDiagCopyTo,
 			Extract: theUILang.fDiagTo,
 			Screenshots: 'Screens image:'
 		}
-		
+
 		var pathbrowse;
-		
+
 		for (i in this.dialogs) {
 
 			var dcontent = this.dialogs[i].content;
 
-			if($type(browsediags[i])) { 
+			if($type(browsediags[i])) {
 
 				if ((i != 'Extract') || (i != 'Screenshots')) {dcontent = $(this.dialogs[i].content).append('<div id="fMan_'+i+'list" class="checklist"><ul></ul></div>');}
 
 				pathbrowse = $('<fieldset>').html($('<legend>').text(browsediags[i])).
 						append($('<input type="text" style="width:350px;" autocomplete="off" />').attr('id', 'fMan_'+i+'bpath').addClass('TextboxLarge')).
 						append($('<input type="button" value="..." style="float: right;" />').attr('id', 'fMan_'+i+'bbut').addClass('Button aright'));
-			} else 
+			} else
 			if ( i == 'Delete') {dcontent = $(this.dialogs[i].content).append('<div id="fMan_'+i+'list" class="checklist"><ul></ul></div>'); pathbrowse = ''}
 			else {pathbrowse = '';}
 
@@ -1505,7 +1503,7 @@ theWebUI.fManager.dialogs = {
 			theDialogManager.make('fMan_'+i, theUILang[this.dialogs[i].title], fcontent, this.dialogs[i].modal);
 		}
 
-/* 	
+/*
 Dialogs button binds bellow:
 */
 
@@ -1536,16 +1534,16 @@ Dialogs button binds bellow:
 					break;
 				case 'mkdir':
 					theWebUI.fManager.doNewDir();
-					break;	
+					break;
 				case 'Move':
 					theWebUI.fManager.doMove(this, diagid[1]);
-					break;	
+					break;
 				case 'Rename':
 					theWebUI.fManager.doRename();
-					break;	
+					break;
 				case 'Screenshots':
 					theWebUI.fManager.doScreenshots(this, diagid[1]);
-					break;	
+					break;
 			}
 
 
@@ -1554,7 +1552,7 @@ Dialogs button binds bellow:
 		$('.fMan_Stop').click(function() {
 
 			theWebUI.fManager.cmdlog(theUILang.fStops[theWebUI.fManager.activediag]+"\n");
-			theWebUI.fManager.actStop();   
+			theWebUI.fManager.actStop();
 
 		});
 
@@ -1663,10 +1661,10 @@ theWebUI.setSettings = function() {
 			if(plugin.enabled) {
 				var needsave = false;
 
-				$('#fMan_optPan').find('input,select').each(function(index, ele) { 
+				$('#fMan_optPan').find('input,select').each(function(index, ele) {
 					var inid = $(ele).attr('id').split('fMan_Opt');
 					var inval;
-		
+
 					if($(ele).attr('type') == 'checkbox') {inval = $(ele).is(':checked') ? true : false; }
 					else { inval = $(ele).val(); }
 
@@ -1690,19 +1688,19 @@ plugin.addAndShowSettings = theWebUI.addAndShowSettings;
 theWebUI.addAndShowSettings = function(arg) {
 		if(plugin.enabled) {
 
-			$('#fMan_optPan').find('input, select').each(function(index, ele) { 
+			$('#fMan_optPan').find('input, select').each(function(index, ele) {
 				var inid = ele.id.split('fMan_Opt');
 
-				if($(ele).attr('type') == 'checkbox') { 
+				if($(ele).attr('type') == 'checkbox') {
 					if(theWebUI.settings["webui.fManager."+inid[1]]) {$(ele).attr('checked', 'checked'); }
-				} else if ($(ele).is("select")) { 
-					$(ele).children('option[value="'+theWebUI.settings["webui.fManager."+inid[1]]+'"]').attr('selected', 'selected'); 
+				} else if ($(ele).is("select")) {
+					$(ele).children('option[value="'+theWebUI.settings["webui.fManager."+inid[1]]+'"]').attr('selected', 'selected');
 				} else {
 					$(ele).val(theWebUI.settings["webui.fManager."+inid[1]]);
 				}
 			});
 		}
-		
+
 		plugin.addAndShowSettings.call(theWebUI,arg);
 }
 
@@ -1720,9 +1718,9 @@ theWebUI.config = function(data) {
 
 		var table = this.getTable("flm");
 		table.oldFilesSortAlphaNumeric = table.sortAlphaNumeric;
-		table.sortAlphaNumeric = function(x, y) 
+		table.sortAlphaNumeric = function(x, y)
 		{
-	
+
 			if(x.key.split('_flm_')[1] == theWebUI.fManager.getLastPath(theWebUI.fManager.curpath)) {return(this.reverse ? 1 : -1);}
 			return(this.oldFilesSortAlphaNumeric(x,y));
 		}
@@ -1731,7 +1729,7 @@ theWebUI.config = function(data) {
 		{
 			if(x.key.split('_flm_')[1] == theWebUI.fManager.getLastPath(theWebUI.fManager.curpath)) {return(this.reverse ? 1 : -1);}
 			return(this.oldFilesSortNumeric(x,y));
-		}	
+		}
 
 		plugin.config.call(this,data);
 }
@@ -1764,7 +1762,9 @@ plugin.onLangLoaded = function() {
 	$('#tab_lcont').append('<input type="button" id="fMan_showconsole" class="Button" value="Console" style="display: none;">');
 	$('#fMan_showconsole').click(function() {theWebUI.fManager.makeVisbile('fMan_Console');});
 
-	injectScript('plugins/filemanager/settings.js.php');
+	$.get('plugins/filemanager/settings.js.php', function(data) {
+		eval(data);
+	});
 
 	theWebUI.fManager.createDialogs();
 	theWebUI.fManager.Refresh();

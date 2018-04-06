@@ -104,9 +104,9 @@ function _updated() {
 
 function _updatesyscommands() {
   cd ${usrbin}
-  cp -r ${local_packages}. ${usrbin}quickbox
+  yes | cp -rf ${local_packages}. ${usrbin}quickbox
   if [[ -f ${usrbin}quickbox/system/changeUserpass ]]; then
-    rm ${usrbin}quickbox/system/changeUserpass
+    rm -rf ${usrbin}quickbox/system/changeUserpass
   fi
 }
 
@@ -200,7 +200,7 @@ function _updaterutorrent-plugins() {
   for i in "${plugins[@]}"; do
     if [[ -d /srv/rutorrent/plugins/$i ]]; then
       if [[ -d /srv/rutorrent/plugins/$i ]]; then rm -rf /srv/rutorrent/plugins/${i}/${i}; fi
-      rsync -aP ${local_rplugins}${i} /srv/rutorrent/plugins/
+      rsync -aP --exclude=autotools/conf.php ${local_rplugins}${i} /srv/rutorrent/plugins/
     fi
   done
   cp /srv/rutorrent/home/fileshare/.htaccess /srv/rutorrent/plugins/fileshare/

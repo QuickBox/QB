@@ -47,6 +47,7 @@ $plugins = array(
         'seedingtime',
         'show_peers_like_wtorrent',
         'source',
+        'spectrogram',
         'stream',
         'theme',
         'throttle',
