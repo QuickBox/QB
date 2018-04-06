@@ -859,7 +859,7 @@ function _insTrWeb() {
 	# 查找Web目录
 	findWebFolder() {
 	  # 找出web ui 目录
-	  echo "Searching Transmission Web Folder..."
+	  echo "Searching Transmission Web Folder..."  >>"${OUTTO}" 2>&1
 	  # 指定一次当前系统的默认目录
 	  # 用户如知道自己的 Transmission Web 所在的目录，直接修改这个值，以避免搜索所有目录
 	  ROOT_FOLDER="/usr/local/transmission/share/transmission"
@@ -965,8 +965,8 @@ function _insTrWeb() {
 
   rm -rf "$tmpFolder"
   touch /install/.transmission.lock
-  cd ${local_dashboard}/custom
-  patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
+  #cd ${local_dashboard}/custom
+  #patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
 }
 
 # scgi enable function (22-nixed)
@@ -1500,7 +1500,7 @@ echo ""
 echo -n "Pulling QuickBox Ecosystem ... ";_repos & spinner $!;echo
 echo -n "Updating system ... ";_updates & spinner $!;echo
 echo -n "Installing all needed dependencies ... ";_depends & spinner $!;echo
-_openssl
+echo -n "Installing openssl ... ";_openssl & spinner $!;echo
 echo -n "Setting up system executables ... ";_syscommands & spinner $!;echo
 echo -n "Building required user directories ... ";_skel & spinner $!;echo
 if [[ ${quota} == "yes" ]]; then
