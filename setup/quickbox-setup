@@ -1336,7 +1336,7 @@ function _insbbr() {
   cd /tmp
   cp ${local_setup}sources/BBR/BBR.sh .
   chmod a+x BBR.sh
-  bash BBR.sh -f v4.12.14 >>"${OUTTO}" 2>&1
+  bash BBR.sh -f v4.16 >>"${OUTTO}" 2>&1
   cd
 }
 
