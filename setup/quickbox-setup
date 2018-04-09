@@ -807,6 +807,7 @@ function _insTr() {
   service transmission-daemon stop >>"${OUTTO}" 2>&1
   mkdir -p /home/${username}/torrents/transmission
   chmod g+w /home/${username}/torrents/transmission >/dev/null 2>&1
+  usermod -a -G debian-transmission ${username} >/dev/null 2>&1
   #chgrp -R debian-transmission /home/${username}/torrents/transmission
   chown -R ${username}:debian-transmission /home/${username}/torrents/transmission >/dev/null 2>&1
   sed -i "s/\/var\/lib\/transmission-daemon\/downloads/\/home\/${username}\/torrents\/transmission/g" /etc/transmission-daemon/settings.json
