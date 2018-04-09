@@ -1,3 +1,19 @@
+## CHANGELOG efs-mod v1.1.0:
+_Changelog updated monday, April 9, 2018_
+
+---
+
+### General additions
+* add YaRSS2 for deluge
+* update transmission-web-control install script
+* update links of transmission in dashboard
+
+### General adjustments
+* fix some descriptions
+* update kernel for bbr
+
+> the latest source from QB/master has been merged(2.5.3)
+
 ## CHANGELOG efs-mod v1.0.0:
 _Changelog updated saturday, September 23, 2017_
 
