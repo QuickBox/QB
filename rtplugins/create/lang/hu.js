@@ -25,5 +25,6 @@
  theUILang.torrentKill			= "Megállít";
  theUILang.torrentKilled		= "Folyamat leállt.";
  theUILang.recentTrackers		= "Recent trackers";
+ theUILang.source			= "Source";
 
 thePlugins.get("create").langLoaded();

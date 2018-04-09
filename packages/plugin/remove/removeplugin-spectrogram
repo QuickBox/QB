@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# [Quick Box :: Install autodl-irssi plugin]
+# [Quick Box :: Remove spectrogram plugin]
 #
 # GITHUB REPOS
 # GitHub _ packages  :   https://github.com/QuickBox/quickbox_packages
@@ -8,10 +8,10 @@
 # LOCAL REPOS
 # Local _ packages   :   /etc/QuickBox/packages
 # Local _ plugins    :   /etc/QuickBox/rtplugins
-# Author:   QuickBox.IO | JMSolo
-# URL:      https://plaza.quickbox.io
+# Author             :   QuickBox.IO | JMSolo
+# URL                :   https://quickbox.io
 #
-# QuickBox Copyright (C) 2016 Swizards.net
+# QuickBox Copyright (C) 2017 QuickBox.io
 # Licensed under GNU General Public License v3.0 GPL-3 (in short)
 #
 #   You may copy, distribute and modify the software as long as you track
@@ -19,26 +19,20 @@
 #   including (via compiler) GPL-licensed code must also be made available
 #   under the GPL along with build & install instructions.
 #
-OUTTO=/srv/rutorrent/home/db/output.log
+OUTTO=/srv/quickbox/db/output.log
 
-function _installplugin-autodlirssi() {
+function _removeplugin-spectrogram() {
   username=$(whoami);
   rutorrent="/srv/rutorrent/";
-  echo "Accessing autodl_irssi in the plugin vault ... " >>"${OUTTO}" 2>&1;
-  PLUGINVAULT="/etc/QuickBox/rtplugins/"; cd "${rutorrent}plugins"
-  sleep 5
-
-  echo "Installing autodl_irssi plugin ... " >>"${OUTTO}" 2>&1;
-  PLUGIN="autodl_irssi"
+  echo "Uninstalling the spectrogram plugin ... " >>"${OUTTO}" 2>&1;
+  PLUGIN="spectrogram"
     for i in $PLUGIN; do
-      cp -R "${PLUGINVAULT}$i" .
+      rm -rf "${rutorrent}plugins/$i"
     done
   sleep 5
 
-  echo "Adjusting permissions ... " >>"${OUTTO}" 2>&1;
-  chown -R www-data: ${rutorrent}plugins/$PLUGIN
-  echo "Autodl_irssi Plugin Install Complete!" >>"${OUTTO}" 2>&1;
-  
+  echo "Spectrogram Plugin Uninstall Complete!" >>"${OUTTO}" 2>&1;
+
   sleep 5
   echo >>"${OUTTO}" 2>&1;
   echo >>"${OUTTO}" 2>&1;
@@ -47,4 +41,4 @@ function _installplugin-autodlirssi() {
     exit
 }
 
-_installplugin-autodlirssi
+_removeplugin-spectrogram

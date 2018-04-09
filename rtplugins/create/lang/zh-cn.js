@@ -25,5 +25,6 @@
  theUILang.torrentKill			= "停止";
  theUILang.torrentKilled		= "进程已停止.";
  theUILang.recentTrackers		= "最近的 trackers";
+ theUILang.source			= "Source";
 
 thePlugins.get("create").langLoaded();

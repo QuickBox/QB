@@ -163,6 +163,18 @@ function()
 	return clone;
 }
 
+ConfigSection.prototype.copy =
+function()
+{
+	var copy = new ConfigSection(null, this.type, "");
+	for (var key in this.lines)
+	{
+		var line = this.lines[key];
+		copy.lines[key] = line.clone();
+	}
+	return copy;
+}
+
 ConfigSection.prototype.addOption =
 function(name, value)
 {

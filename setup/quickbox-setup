@@ -239,7 +239,7 @@ function _askservices() {
   echo
 }
 
-# ask what theme version (8)
+# ask what rtorrent version (8)
 function _askdashtheme() {
   echo -e "1) QuickBox - ${green}smoked${normal} :: Dark theme"
   echo -e "2) QuickBox - ${green}defaulted${normal} :: Light theme"
@@ -273,15 +273,15 @@ function _askrtorrent() {
 function _askdeluge() {
   echo -e "1) Deluge ${green}repo${normal} (fastest)"
   echo -e "2) Deluge with ${green}libtorrent 1.0.11 (stable)${normal}"
-#  echo -e "3) Deluge with ${green}libtorrent 1.1.3 (dev)${normal}"
-  echo -e "3) Do not install Deluge"
-  echo -ne "${bold}${yellow}What version of Deluge do you want?${normal} (Default ${green}2${normal}): "; read version
+  echo -e "3) Deluge with ${green}libtorrent 1.1.3 (dev)${normal}"
+  echo -e "4) Do not install Deluge"
+  echo -ne "${bold}${yellow}What version of Deluge do you want?${normal} (Default ${green}1${normal}): "; read version
   case $version in
-    1) DELUGE=REPO  ;;
-    2 | "") DELUGE=1.0.11  ;;
-#    3) DELUGE=1.1.3 ;;
-    3) DELUGE=NO ;;
-    *) DELUGE=1.0.11  ;;
+    1 | "") DELUGE=REPO  ;;
+    2) DELUGE=1.0.11  ;;
+    3) DELUGE=1.1.3 ;;
+    4) DELUGE=NO ;;
+    *) DELUGE=REPO ;;
   esac
   echo "We will be using Deluge with Libtorrent ${DELUGE}"
   echo
@@ -293,7 +293,7 @@ function _asktr() {
   case $responce in
     [yY] | [yY][Ee][Ss] | "" ) tr=yes ;;
     [nN] | [nN][Oo]) tr=no ;;
-    *) tr=yes ;;
+    *) tr=no ;;
   esac
   echo
 }
@@ -326,7 +326,7 @@ function _askffmpeg() {
   echo -ne "${bold}${yellow}Would you like to install ffmpeg? (Used for screenshots)${normal} [${green}y${normal}]es or [n]o: "; read responce
   case $responce in
     [yY] | [yY][Ee][Ss] | "" ) ffmpeg=yes ;;
-    [nN] | [nN][Oo]) ffmpeg=no ;;
+    [nN] | [nN][Oo] ) ffmpeg=no ;;
     *) ffmpeg=yes ;;
   esac
   echo
@@ -439,7 +439,7 @@ function _updates() {
 # package and repo addition (14) _install softwares and packages_
 function _depends() {
   if [[ $DISTRO == Debian ]]; then
-    yes '' | apt-get install --force-yes fail2ban bc ed sudo screen zip irssi unzip nano bwm-ng htop iotop \
+    yes '' | apt-get install --force-yes fail2ban bc ed sudo screen zip irssi unzip nano bwm-ng htop nethogs speedtest.cli iotop \
                      dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
@@ -473,7 +473,6 @@ function _depends() {
 }
 
 # build openssl from source to combat recent apt source updates
-# modify by EFS
 function _openssl() {
   MAXCPUS=$(echo "$(nproc) / 2"|bc)
   cd /root
@@ -707,8 +706,6 @@ function _rtorrent_fallback() {
   touch /install/.rtorrent.lock
 }
 
-# boost function (ex)
-# add by EFS
 function _boost() {
   cd /tmp
   wget -O boost_1_65_1.tar.gz -q https://sourceforge.net/projects/boost/files/boost/1.65.1/boost_1_65_1.tar.gz/download
@@ -723,7 +720,6 @@ function _boost() {
 }
 
 # deluge function (xx)
-# modify by EFS
 function _deluge() {
   if [[ $DELUGE == REPO ]]; then
     apt-get -q -y update >>"${OUTTO}" 2>&1
@@ -767,7 +763,7 @@ fi
   if [[ $DELUGE != NO ]]; then
   n=$RANDOM
   DPORT=$((n%59000+10024))
-  DWSALT=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+  DWSALT=$(head /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
   DWP=$(python ${local_packages}/system/deluge.Userpass.py ${passwd} ${DWSALT})
   DUDID=$(python ${local_packages}/system/deluge.addHost.py)
   # -- Secondary awk command -- #
@@ -777,6 +773,7 @@ fi
   if [[ ! -f /home/${username}/.config/deluge/plugins/ltConfig-0.2.5.0-py2.7.egg ]]; then
     cd /home/${username}/.config/deluge/plugins/
     wget -q https://github.com/ratanakvlun/deluge-ltconfig/releases/download/v0.2.5.0/ltConfig-0.2.5.0-py2.7.egg
+    wget -q https://bitbucket.org/bendikro/deluge-yarss-plugin/downloads/YaRSS2-1.4.3-py2.7.egg
   fi
   chmod 755 /home/${username}/.config
   chmod 755 /home/${username}/.config/deluge
@@ -810,7 +807,7 @@ function _insTr() {
   service transmission-daemon stop >>"${OUTTO}" 2>&1
   mkdir -p /home/${username}/torrents/transmission
   chmod g+w /home/${username}/torrents/transmission >/dev/null 2>&1
-#chgrp -R debian-transmission /home/${username}/torrents/transmission
+  #chgrp -R debian-transmission /home/${username}/torrents/transmission
   chown -R ${username}:debian-transmission /home/${username}/torrents/transmission >/dev/null 2>&1
   sed -i "s/\/var\/lib\/transmission-daemon\/downloads/\/home\/${username}\/torrents\/transmission/g" /etc/transmission-daemon/settings.json
   sed -i "s/\/var\/lib\/transmission-daemon\/Downloads/\/home\/${username}\/torrents\/transmission\/incomplete/g" /etc/transmission-daemon/settings.json
@@ -821,63 +818,156 @@ function _insTr() {
 }
 
 function _insTrWeb() {
-  rootFolder=""
-  webFolder=""
-  orgindex="index.original.html"
-  index="index.html"
-  tmpFolder="/tmp/tr-web-control"
-  packname="transmission-control-full.tar.gz"
-  host="https://github.com/ronggang/transmission-web-control/raw/master/release/"
-  downloadurl="$host$packname"
-  if [ ! -d "$tmpFolder" ]; then
-	mkdir -p "$tmpFolder"
-  fi
-  # 找出web ui 目录
-  folderIsExist=0
-  echo "Searching Transmission Web Folder..." >>"${OUTTO}" 2>&1
-  rootFolder="/usr/share/transmission"
-  echo "Looking for folder: $rootFolder/web" >>"${OUTTO}" 2>&1
-  if [ -d "$rootFolder/web" ]; then
-	    webFolder="$rootFolder/web"
-	    folderIsExist=1
-      echo "Folder found. Using it." >>"${OUTTO}" 2>&1
-  else
-      echo "Folder not found. Will search the entire /. This will take a while..." >>"${OUTTO}" 2>&1
-      rootFolder=`find / -name 'web' -type d 2>/dev/null| grep 'transmission/web' | sed 's/\/web$//g'`
-      if [ -d "$rootFolder/web" ]; then
-	            webFolder="$rootFolder/web"
-	            folderIsExist=1
-      fi
-  fi
+  #!/bin/sh
+  # 获取第一个参数做为目录
+  ROOT_FOLDER="$1"
+  WEB_FOLDER=""
+  ORG_INDEX_FILE="index.original.html"
+  INDEX_FILE="index.html"
+  TMP_FOLDER="/tmp/tr-web-control"
+  PACK_NAME="src.tar.gz"
+	WEB_HOST="https://github.com/ronggang/twc-release/raw/master/"
+	DOWNLOAD_URL="$WEB_HOST$PACK_NAME"
+	# 安装类型
+	# 1 安装至当前 Transmission Web 所在目录
+	# 2 安装至 TRANSMISSION_WEB_HOME 环境变量指定的目录，参考：https://github.com/transmission/transmission/wiki/Environment-Variables#transmission-specific-variables
+	# 使用环境变量时，如果 transmission 不是当前用户运行的，则需要将 TRANSMISSION_WEB_HOME 添加至 /etc/profile 文件，以达到“永久”的目的
+	# 3 用户指定参数做为目录，如 sh install-tr-control.sh /usr/local/transmission/share/transmission
+	INSTALL_TYPE=-1
 
-# 如果目录存在，则进行下载和更新动作
-  if [ $folderIsExist = 1 ]; then
-        cd "$tmpFolder"
-      	echo "Downloading Transmission Web Control..." >>"${OUTTO}" 2>&1
-      	wget -q "$downloadurl"
-      	echo "Installing..." >>"${OUTTO}" 2>&1
-      	tar -xzvf "$packname" -C "$tmpFolder" >>"${OUTTO}" 2>&1
-      	rm "$packname"
-      	# 如果之前没有安装过，则先将原系统的文件改为
-      	if [ ! -f "$webFolder/$orgindex" -a -f "$webFolder/$index" ]; then
-      		      mv "$webFolder/$index" "$webFolder/$orgindex"
-      	fi
-      	# 复制文件到
-      	cp -r web "$rootFolder"
-        find "$rootFolder" -type d -exec chmod o+rx {} \;
-        find "$rootFolder" -type f -exec chmod o+r {} \;
-      	echo "Done." >>"${OUTTO}" 2>&1
-  else
-      	#echo "##############################################"
-      	#echo "#"
-      	echo "# ERROR : Transmisson WEB UI Folder is missing." >>"${OUTTO}" 2>&1
-      	#echo "#"
-      	#echo "##############################################"
-  fi
+	# 开始
+	main() {
+	  # 判断临时目录是否存在，不存在则创建
+	  if [ ! -d "$TMP_FOLDER" ]; then
+		mkdir -p "$TMP_FOLDER"
+	  fi
+
+	  # 判断 ROOT_FOLDER 是否为一个有效的目录，如果是则表明传递了一个有效路径
+	  if [ -d "$ROOT_FOLDER" ]; then
+		echo "use arg: $ROOT_FOLDER" >>"${OUTTO}" 2>&1
+		INSTALL_TYPE=3
+		WEB_FOLDER="$ROOT_FOLDER/web"
+	  else
+		# 查找目录
+		findWebFolder
+	  fi
+	  # 安装
+	  install
+	  # 清理
+	  clear
+	}
+
+	# 查找Web目录
+	findWebFolder() {
+	  # 找出web ui 目录
+	  echo "Searching Transmission Web Folder..."  >>"${OUTTO}" 2>&1
+	  # 指定一次当前系统的默认目录
+	  # 用户如知道自己的 Transmission Web 所在的目录，直接修改这个值，以避免搜索所有目录
+	  ROOT_FOLDER="/usr/local/transmission/share/transmission"
+	  # Fedora 或 Debian 发行版的默认 ROOT_FOLDER 目录
+	  if [ -f /etc/fedora-release ] || [ -f "/etc/debian_version" ]; then
+		ROOT_FOLDER="/usr/share/transmission"
+	  fi
+		
+	  # 判断 TRANSMISSION_WEB_HOME 环境变量是否被定义，如果是，直接用这个变量的值
+	  if [ $TRANSMISSION_WEB_HOME ]; then
+		echo "use TRANSMISSION_WEB_HOME: $TRANSMISSION_WEB_HOME" >>"${OUTTO}" 2>&1
+		# 判断目录是否存在，如果不存在则创建 https://github.com/ronggang/transmission-web-control/issues/167
+		if [ ! -d "$TRANSMISSION_WEB_HOME" ]; then
+			 mkdir -p "$TRANSMISSION_WEB_HOME"
+		  fi
+		INSTALL_TYPE=2
+	  else
+		echo "Looking for folder: $ROOT_FOLDER/web" >>"${OUTTO}" 2>&1
+		if [ -d "$ROOT_FOLDER/web" ]; then
+		  WEB_FOLDER="$ROOT_FOLDER/web"
+		  INSTALL_TYPE=1
+		  echo "Folder found. Using it." >>"${OUTTO}" 2>&1
+		else
+		  echo "Folder not found. Will search the entire /. This will take a while..." >>"${OUTTO}" 2>&1
+		  ROOT_FOLDER=`find / -name 'web' -type d 2>/dev/null| grep 'transmission/web' | sed 's/\/web$//g'`
+
+		  if [ -d "$ROOT_FOLDER/web" ]; then
+			WEB_FOLDER="$ROOT_FOLDER/web"
+			INSTALL_TYPE=1
+		  fi
+		fi
+	  fi
+	}
+
+	# 安装
+	install() {
+	  # 如果目录存在，则进行下载和更新动作
+	  if [ $INSTALL_TYPE = 1 -o $INSTALL_TYPE = 3 ]; then
+		# 下载最新的安装包
+		download
+		echo "Installing..." >>"${OUTTO}" 2>&1
+		# 创建web文件夹，从 20171014 之后，打包文件不包含web目录，直接打包为src下所有文件
+		mkdir web
+		# 解压缩包
+		tar -xzf "$PACK_NAME" -C "web" >>"${OUTTO}" 2>&1
+		# 如果之前没有安装过，则先将原系统的文件改为
+		if [ ! -f "$WEB_FOLDER/$ORG_INDEX_FILE" -a -f "$WEB_FOLDER/$INDEX_FILE" ]; then
+		  mv "$WEB_FOLDER/$INDEX_FILE" "$WEB_FOLDER/$ORG_INDEX_FILE"
+		fi
+		# 复制文件到
+		cp -r web "$ROOT_FOLDER"
+
+		# 设置权限
+		find "$ROOT_FOLDER" -type d -exec chmod o+rx {} \;
+		find "$ROOT_FOLDER" -type f -exec chmod o+r {} \;
+
+		# 安装完成
+		installed
+	  elif [ $INSTALL_TYPE = 2 ]; then
+		# 下载最新的安装包
+		download
+		echo "Installing..." >>"${OUTTO}" 2>&1
+		# 解压缩包
+		tar -xzf "$PACK_NAME" -C "$TRANSMISSION_WEB_HOME"
+
+		# 设置权限
+		find "$TRANSMISSION_WEB_HOME" -type d -exec chmod o+rx {} \;
+		find "$TRANSMISSION_WEB_HOME" -type f -exec chmod o+r {} \;
+
+		# 安装完成
+		installed
+	  else
+			#echo "##############################################"
+			#echo "#"
+			echo "# ERROR : Transmisson WEB UI Folder is missing." >>"${OUTTO}" 2>&1
+			#echo "#"
+			#echo "##############################################"
+	  fi
+	}
+
+	# 下载最新的安装包
+	download() {
+	  cd "$TMP_FOLDER"
+	  echo "Downloading Transmission Web Control..." >>"${OUTTO}" 2>&1
+	  wget -q "$DOWNLOAD_URL" --no-check-certificate
+	}
+
+	# 安装完成
+	installed() {
+	  echo "Transmission Web Control Installation completed!" >>"${OUTTO}" 2>&1
+	}
+
+	# 清除工作
+	clear() {
+	  # 删除安装包
+	  rm "$PACK_NAME"
+	  # 删除临时目录
+	  rm -rf "$TMP_FOLDER"
+	}
+
+	# 执行
+	main
+
   rm -rf "$tmpFolder"
-  
-  cd ${local_dashboard}/custom
-  patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
+  touch /install/.transmission.lock
+  #cd ${local_dashboard}/custom
+  #patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
 }
 
 # scgi enable function (22-nixed)
@@ -982,6 +1072,7 @@ function _apacheconf() {
 
     # ensure fastcgi module is activated
     a2enmod actions >>"${OUTTO}" 2>&1
+    a2enmod headers >>"${OUTTO}" 2>&1
     a2enmod fastcgi >>"${OUTTO}" 2>&1
     a2enmod proxy_fcgi setenvif >>"${OUTTO}" 2>&1
     a2enconf php7.0-fpm >>"${OUTTO}" 2>&1
@@ -1067,16 +1158,9 @@ function _autodl() {
   mkdir -p "/home/${username}/.irssi/scripts/autorun/" >>"${OUTTO}" 2>&1
   cd "/home/${username}/.irssi/scripts/"
   # Grab the most recent version of AutoDL-trackers
-  #curl -sL https://api.github.com/repos/autodl-community/autodl-trackers/releases/latest | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs wget --quiet -O autodl-trackers.zip
-  #cd AutodlIrssi
-  #rm -rf trackers
-  #unzip /home/${username}/.irssi/scripts/autodl-trackers.zip -d /home/${username}/.irssi/scripts/AutodlIrssi/trackers
-  # Grab the most recent version of AutoDL
   curl -sL http://git.io/vlcND | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs wget --quiet -O autodl-irssi.zip
   unzip -o autodl-irssi.zip >>"${OUTTO}" 2>&1
-  #cd "/home/${username}/.irssi/scripts/"
   rm autodl-irssi.zip
-  #&& rm autodl-trackers.zip
   cp autodl-irssi.pl autorun/
   mkdir -p "/home/${username}/.autodl" >>"${OUTTO}" 2>&1
   touch "/home/${username}/.autodl/autodl.cfg"
@@ -1097,7 +1181,7 @@ ADC
 function _makedirs() {
   #mkdir /home/"${username}"/{torrents,.sessions,watch} >>"${OUTTO}" 2>&1
   cp -r /etc/skel/. /home/"${username}"
-  chown -r "${username}".www-data /home/"${username}" >>"${OUTTO}" 2>&1 #/{torrents,.sessions,watch,.rtorrent.rc} >>"${OUTTO}" 2>&1
+  chown -R "${username}".www-data /home/"${username}" >>"${OUTTO}" 2>&1 #/{torrents,.sessions,watch,.rtorrent.rc} >>"${OUTTO}" 2>&1
   usermod -a -G www-data "${username}" >>"${OUTTO}" 2>&1
   usermod -a -G "${username}" www-data >>"${OUTTO}" 2>&1
 }
@@ -1246,7 +1330,7 @@ function _insbbr() {
   cd /tmp
   cp ${local_setup}sources/BBR/BBR.sh .
   chmod a+x BBR.sh
-  bash BBR.sh -f v4.12.14 >>"${OUTTO}" 2>&1
+  bash BBR.sh -f v4.16 >>"${OUTTO}" 2>&1
   cd
 }
 
@@ -1411,7 +1495,6 @@ echo -n "Pulling QuickBox Ecosystem ... ";_repos & spinner $!;echo
 echo -n "Updating system ... ";_updates & spinner $!;echo
 echo -n "Installing all needed dependencies ... ";_depends & spinner $!;echo
 echo -n "Installing openssl ... ";_openssl & spinner $!;echo
-#_openssl
 echo -n "Setting up system executables ... ";_syscommands & spinner $!;echo
 echo -n "Building required user directories ... ";_skel & spinner $!;echo
 if [[ ${quota} == "yes" ]]; then

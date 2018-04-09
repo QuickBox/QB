@@ -24,7 +24,59 @@
  * ***** END LICENSE BLOCK ***** */
 
 require_once '../../php/util.php';
-eval(getPluginConf('autodl-irssi'));
+require_once '../../php/settings.php';
+
+try {
+	$config = attemptZeroConfig();
+	$autodlPort = $config['gui-server-port'];
+	$autodlPassword = $config['gui-server-password'];
+} catch (Exception $e) {
+	eval(getPluginConf('autodl-irssi'));
+}
+
+function attemptZeroConfig() {
+	if (!isLocalMode()) {
+		throw new Exception('Zeroconfig is not available for remote connections');
+	}
+
+	if (!function_exists('posix_getpwuid')) {
+		throw new Exception('Zeroconfig requires PHP to be compiled with posix support');
+	}
+
+	$theSettings = rTorrentSettings::get();
+	$userInfo = posix_getpwuid($theSettings->uid);
+
+	// We mimic the logic found in reloadAutodlConfigFile in autodl-irssi
+	// so we can accept all of the valid configurations it does
+
+	$options = array();
+
+	if (file_exists($userInfo['dir'].'/.autodl/autodl.cfg') && is_readable($userInfo['dir'].'/.autodl/autodl.cfg')) {
+		$config = parse_ini_file($userInfo['dir'].'/.autodl/autodl.cfg', true, INI_SCANNER_RAW);
+		if ($config !== false && isset($config['options'])) {
+			$options = $config['options'];
+		}
+	}
+
+	if (file_exists($userInfo['dir'].'/.autodl/autodl2.cfg') && is_readable($userInfo['dir'].'/.autodl/autodl2.cfg')) {
+		$config2 = parse_ini_file($userInfo['dir'].'/.autodl/autodl2.cfg', true, INI_SCANNER_RAW);
+		if ($config2 !== false) {
+			if (isset($config2['options']['gui-server-port']) && $config2['options']['gui-server-port'] !== 0) {
+				$options['gui-server-port'] = $config2['options']['gui-server-port'];
+			}
+
+			if (isset($config2['options']['gui-server-password']) && $config2['options']['gui-server-password'] !== '') {
+				$options['gui-server-password'] = $config2['options']['gui-server-password'];
+			}
+		}
+	}
+
+	if (empty($options['gui-server-port']) || empty($options['gui-server-password'])) {
+		throw new Exception("Zeroconfig is unable to determine a port and password");
+	}
+
+	return $options;
+}
 
 // Checks if there are missing PHP modules, and if so returns JSON data with an
 // error message saying exactly which PHP modules are missing.
@@ -85,7 +137,7 @@ function sendAutodlCommand($data) {
 	global $autodlPort, $autodlPassword;
 	try {
 		if ($autodlPort <= 0 || $autodlPort > 65535)
-			throw new Exception("Invalid port ($autodlPort)! Initialize port in conf.php");
+			throw new Exception("Invalid port ($autodlPort)! Initialize port in autodl.cfg");
 
 		$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 		if ($socket === false)
@@ -111,5 +163,3 @@ function sendAutodlCommand($data) {
 		return $obj;
 	}
 }
-
-?>
