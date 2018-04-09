@@ -7,7 +7,7 @@
   "max_download_speed": -1.0,
   "send_info": false,
   "natpmp": true,
-  "move_completed_path": "/home/USERNAME/Downloads",
+  "move_completed_path": "/home/USERNAME/torrents/deluge",
   "peer_tos": "0x08",
   "enc_in_policy": 1,
   "queue_new_to_top": false,
@@ -30,7 +30,7 @@
     "ltConfig"
   ],
   "max_half_open_connections": 50,
-  "download_location": "/home/USERNAME/torrents/deluge",
+  "download_location": "/home/USERNAME/Downloads",
   "compact_allocation": true,
   "max_upload_speed": -1.0,
   "plugins_location": "/home/USERNAME/.config/deluge/plugins",
