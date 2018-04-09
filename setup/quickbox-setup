@@ -773,6 +773,7 @@ fi
   if [[ ! -f /home/${username}/.config/deluge/plugins/ltConfig-0.2.5.0-py2.7.egg ]]; then
     cd /home/${username}/.config/deluge/plugins/
     wget -q https://github.com/ratanakvlun/deluge-ltconfig/releases/download/v0.2.5.0/ltConfig-0.2.5.0-py2.7.egg
+    wget -q https://bitbucket.org/bendikro/deluge-yarss-plugin/downloads/YaRSS2-1.4.3-py2.7.egg
   fi
   chmod 755 /home/${username}/.config
   chmod 755 /home/${username}/.config/deluge
@@ -1157,16 +1158,9 @@ function _autodl() {
   mkdir -p "/home/${username}/.irssi/scripts/autorun/" >>"${OUTTO}" 2>&1
   cd "/home/${username}/.irssi/scripts/"
   # Grab the most recent version of AutoDL-trackers
-  #curl -sL https://api.github.com/repos/autodl-community/autodl-trackers/releases/latest | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs wget --quiet -O autodl-trackers.zip
-  #cd AutodlIrssi
-  #rm -rf trackers
-  #unzip /home/${username}/.irssi/scripts/autodl-trackers.zip -d /home/${username}/.irssi/scripts/AutodlIrssi/trackers
-  # Grab the most recent version of AutoDL
   curl -sL http://git.io/vlcND | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs wget --quiet -O autodl-irssi.zip
   unzip -o autodl-irssi.zip >>"${OUTTO}" 2>&1
-  #cd "/home/${username}/.irssi/scripts/"
   rm autodl-irssi.zip
-  #&& rm autodl-trackers.zip
   cp autodl-irssi.pl autorun/
   mkdir -p "/home/${username}/.autodl" >>"${OUTTO}" 2>&1
   touch "/home/${username}/.autodl/autodl.cfg"
@@ -1187,7 +1181,7 @@ ADC
 function _makedirs() {
   #mkdir /home/"${username}"/{torrents,.sessions,watch} >>"${OUTTO}" 2>&1
   cp -r /etc/skel/. /home/"${username}"
-  chown -r "${username}".www-data /home/"${username}" >>"${OUTTO}" 2>&1 #/{torrents,.sessions,watch,.rtorrent.rc} >>"${OUTTO}" 2>&1
+  chown -R "${username}".www-data /home/"${username}" >>"${OUTTO}" 2>&1 #/{torrents,.sessions,watch,.rtorrent.rc} >>"${OUTTO}" 2>&1
   usermod -a -G www-data "${username}" >>"${OUTTO}" 2>&1
   usermod -a -G "${username}" www-data >>"${OUTTO}" 2>&1
 }
