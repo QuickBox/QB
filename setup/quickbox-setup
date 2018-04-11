@@ -1335,6 +1335,13 @@ function _insbbr() {
   cd
 }
 
+function _insbcm() {
+  mkdir -p ${local_setup}/bcm
+  cd ${local_setup}/bcm
+  git clone git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git >>"${OUTTO}" 2>&1
+  mkdir -p /lib/firmware/bnx2/
+  cp -rf ${local_setup}/bcm/linux-firmware/bnx2/ /lib/firmware
+}
 ################################################################################
 #   //BEGIN UNUSED FUNCTIONS//
 ################################################################################
@@ -1535,6 +1542,9 @@ echo -n "Setting irssi/rtorrent to start on boot ... ";_boot & spinner $!;echo;
 echo -n "Setting permissions on ${username} ... ";_perms & spinner $!;echo;
 if [[ ${bbr} == "yes" ]]; then
     echo -n "install BBR ... ";_insbbr & spinner $!;echo
+fi
+if lspci | grep -i bcm > /dev/null; then
+    echo -n "Installing firmware for BCM NIC ... ";_insbcm & spinner $!;echo
 fi
 cd
 E=$(date +%s)
