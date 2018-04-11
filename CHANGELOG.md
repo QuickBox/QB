@@ -1,5 +1,5 @@
 ## CHANGELOG efs-mod v1.1.0:
-_Changelog updated monday, April 9, 2018_
+_Changelog updated monday, April 11, 2018_
 
 ---
 
@@ -7,10 +7,12 @@ _Changelog updated monday, April 9, 2018_
 * add YaRSS2 for deluge
 * update transmission-web-control install script
 * update links of transmission in dashboard
+* enable installing in Debian 8
 
 ### General adjustments
 * fix some descriptions
 * update kernel for bbr
+* add firmware for dedicated server who use BCM NIC
 
 > the latest source from QB/master has been merged(2.5.3)
 
