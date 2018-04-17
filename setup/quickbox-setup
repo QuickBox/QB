@@ -300,7 +300,7 @@ function _asktr() {
 }
 # install qbittorrent question (8.8)
 function _askqb() {
-  echo -ne "${bold}${yellow}Would you like to install qBittorrent? ${normal} [y$]es or [${green}n{normal}]o: "; read responce
+  echo -ne "${bold}${yellow}Would you like to install qBittorrent? ${normal} [y]es or [${green}n${normal}]o: "; read responce
   case $responce in
     [yY] | [yY][Ee][Ss] | "" ) qb=yes ;;
     [nN] | [nN][Oo]) qb=no ;;
@@ -1606,7 +1606,7 @@ if [[ ${tr} == "yes" ]]; then
 	echo -n "Installing Transmisson Web Control ... ";_insTrWeb & spinner $!;echo
 fi
 if [[ ${qb} == "yes" ]]; then
-	echo -n "Installing qBittorrent ... ";_qBittorrent & spinner $!;echo
+	echo -n "Installing qBittorrent ... ";_qbittorrent & spinner $!;echo
 fi
 echo -n "Installing mktorrent from source ... ";_mktorrent & spinner $!;echo
 echo -n "Installing quickbox dashboard ... ";_dashboard & spinner $!;echo
