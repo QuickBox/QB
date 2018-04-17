@@ -742,8 +742,8 @@ function _deluge() {
     apt-get -qq -y install $depend >>"${OUTTO}" 2>&1
   done
   _boost
+  cd ${local_packages}
   git clone -b ${LTRC} https://github.com/arvidn/libtorrent.git >>"${OUTTO}" 2>&1
-  #git clone -b 1.3-stable git://deluge-torrent.org/deluge.git >>"${OUTTO}" 2>&1
   cd libtorrent
   ./autotool.sh >>"${OUTTO}" 2>&1
   ./configure --enable-python-binding --with-lib-geoip --with-libiconv --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1 >>"${OUTTO}" 2>&1
@@ -970,6 +970,75 @@ function _insTrWeb() {
   touch /install/.transmission.lock
   #cd ${local_dashboard}/custom
   #patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
+}
+function _qt() {
+  cd /tmp
+  apt-get -qy update >>"${OUTTO}" 2>&1;
+  LIST='build-essential libgl1-mesa-dev libjpeg-dev'
+  for depend in $LIST; do
+    apt-get -qq -y install $depend >>"${OUTTO}" 2>&1;
+  done
+  wget -O qt-everywhere-opensource-src-5.9.5.tar.xz -q https://download.qt.io/archive/qt/5.9/5.9.5/single/qt-everywhere-opensource-src-5.9.5.tar.xz
+  tar -xvJf qt-everywhere-opensource-src-5.9.5.tar.xz >>"${OUTTO}" 2>&1;
+  cd qt-everywhere-opensource-src-5.9.5
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu/
+  ./configure -release -opensource -confirm-license -strip -shared -ltcg -make libs -make tools -dbus -nomake examples -no-compile-examples -no-qml-debug -no-icu -no-gtk -no-opengles3 -no-angle -no-sql-sqlite -no-sql-odbc -no-sqlite -skip qt3d -skip qtactiveqt -skip qtandroidextras -skip qtcanvas3d -skip qtcharts -skip qtconnectivity -skip qtdatavis3d -skip qtdoc -skip qtgamepad -skip qtgraphicaleffects -skip qtimageformats -skip qtlocation -skip qtmacextras -skip qtmultimedia -skip qtnetworkauth -skip qtpurchasing -skip qtquickcontrols -skip qtquickcontrols2 -skip qtremoteobjects -skip qtscript -skip qtscxml -skip qtsensors -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtvirtualkeyboard -skip qtwayland -skip qtwebchannel -skip qtwebengine -skip qtwebsockets -skip qtwebview -skip qtx11extras -skip qtxmlpatterns >>"${OUTTO}" 2>&1;
+  make -j$(nproc) >>"${OUTTO}" 2>&1;
+  make install >>"${OUTTO}" 2>&1;
+  export PKG_CONFIG_PATH='/usr/local/Qt-5.9.5/lib/pkgconfig/'
+  cd /tmp
+  rm -rf qt-everywhere-opensource-src-5.9.5.tar.xz qt-everywhere-opensource-src-5.9.5
+  cd
+}
+function _qbittorrent() {
+  apt-get -qy update >>"${OUTTO}" 2>&1;
+  LIST='build-essential checkinstall pkg-config python-pip python-dev automake screen libtool libssl-dev libgeoip-dev git'
+  for depend in $LIST; do
+    apt-get -qq -y install $depend >>"${OUTTO}" 2>&1;
+  done
+  if [ ! -e /usr/lib/libboost_system.so ]; then
+    _boost
+  fi
+  cd ${local_packages}
+  if [ ! -e /usr/local/lib/libtorrent-rasterbar.so ]; then
+    LTRC=RC_1_0
+    git clone -b ${LTRC} https://github.com/arvidn/libtorrent.git >>"${OUTTO}" 2>&1;
+    cd libtorrent
+    ./autotool.sh >>"${OUTTO}" 2>&1;
+    ./configure --disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS=-std=c++11 --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1;
+    make -j$(nproc) >>"${OUTTO}" 2>&1;
+    checkinstall -y --pkgversion=1.0.11 >>"${OUTTO}" 2>&1;
+  fi
+  ldconfig >>"${OUTTO}" 2>&1;
+  if [[ $DISTRO == Debian ]]; then
+    _qt
+  elif [[ $DISTRO == Ubuntu ]]; then
+    apt-get -qy update >>"${OUTTO}" 2>&1;
+    LIST='qtbase5-dev qttools5-dev-tools libqt5svg5-dev'
+    for depend in $LIST; do
+      apt-get -qq -y install $depend >>"${OUTTO}" 2>&1;
+    done
+  fi
+  cd ${local_packages}
+  git clone -b v4_0_x https://github.com/qbittorrent/qBittorrent >>"${OUTTO}" 2>&1;
+  cd qBittorrent
+  ./configure --disable-gui --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1;
+  make -j$(nproc) >>"${OUTTO}" 2>&1;
+  checkinstall -y --pkgversion=4.0.4 >>"${OUTTO}" 2>&1;
+  export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
+  cp ${local_setup}templates/sysd/qbittorrent.template  /etc/systemd/system/qbittorrent@.service >/dev/null 2>&1
+  systemctl enable qbittorrent@${username} >/dev/null 2>&1
+  systemctl start qbittorrent@${username} >/dev/null 2>&1
+  sleep 10
+  systemctl stop {qbittorrent}@${username} >/dev/null 2>&1
+  cp -f ${local_setup}templates/sysd/qBittorrent.conf.template /home/${username}/.config/qBittorrent/qBittorrent.conf
+  sed -i "s/admin/${username}/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
+  sed -i "s/5ebe2294ecd0e0f08eab7690d2a6ee69/${ha1pass}/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
+  sed -i "s/mySavePath/\/home\/${username}\/torrents\/qbittorrent/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
+  chmod -R 755 /home/${username}/.config/
+  chown -R ${username}.${username} /home/${username}/.config/
+  mkdir -p /home/${username}/torrents/qbittorrent
+  chown ${username}: /home/${username}/torrents/qbittorrent
 }
 
 # scgi enable function (22-nixed)
@@ -1524,6 +1593,9 @@ echo -n "Installing deluge ... ";_deluge & spinner $!;echo
 if [[ ${tr} == "yes" ]]; then
 	echo -n "Configuring Transmisson ... ";_insTr & spinner $!;echo
 	echo -n "Installing Transmisson Web Control ... ";_insTrWeb & spinner $!;echo
+fi
+if [[ ${qb} == "yes" ]]; then
+	echo -n "Installing qBittorrent ... ";_qBittorrent & spinner $!;echo
 fi
 echo -n "Installing mktorrent from source ... ";_mktorrent & spinner $!;echo
 echo -n "Installing quickbox dashboard ... ";_dashboard & spinner $!;echo
