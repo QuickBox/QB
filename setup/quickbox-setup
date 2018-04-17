@@ -294,7 +294,17 @@ function _asktr() {
   case $responce in
     [yY] | [yY][Ee][Ss] | "" ) tr=yes ;;
     [nN] | [nN][Oo]) tr=no ;;
-    *) tr=no ;;
+    *) tr=yes ;;
+  esac
+  echo
+}
+# install qbittorrent question (8.8)
+function _askqb() {
+  echo -ne "${bold}${yellow}Would you like to install qBittorrent? ${normal} [y$]es or [${green}n{normal}]o: "; read responce
+  case $responce in
+    [yY] | [yY][Ee][Ss] | "" ) qb=yes ;;
+    [nN] | [nN][Oo]) qb=no ;;
+    *) qb=no ;;
   esac
   echo
 }
@@ -1556,6 +1566,7 @@ _ask10g
 _askrtorrent
 _askdeluge
 _asktr
+_askqb
 _askdashtheme
 _adduser
 _askffmpeg
