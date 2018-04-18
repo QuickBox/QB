@@ -757,7 +757,7 @@ function _deluge() {
   git clone -b ${LTRC} https://github.com/arvidn/libtorrent.git >>"${OUTTO}" 2>&1
   cd libtorrent
   ./autotool.sh >>"${OUTTO}" 2>&1
-  ./configure --enable-python-binding --disable-debug --enable-encryption --with-libgeoip=system --with-libiconv CXXFLAGS=-std=c++11 --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1 >>"${OUTTO}" 2>&1
+  ./configure --enable-python-binding --with-lib-geoip --with-libiconv --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1 >>"${OUTTO}" 2>&1
   make -j$(nproc) >>"${OUTTO}" 2>&1
   checkinstall -y --pkgversion=${DELUGE} >>"${OUTTO}" 2>&1
   ldconfig
@@ -1011,15 +1011,13 @@ function _qbittorrent() {
     _boost
   fi
   cd ${local_packages}
-  if [ ! -e /usr/local/lib/libtorrent-rasterbar.so ]; then
-    LTRC=RC_1_0
-    git clone -b ${LTRC} https://github.com/arvidn/libtorrent.git >>"${OUTTO}" 2>&1;
-    cd libtorrent
-    ./autotool.sh >>"${OUTTO}" 2>&1;
-    ./configure --enable-python-binding --disable-debug --enable-encryption --with-libgeoip=system --with-libiconv CXXFLAGS=-std=c++11 --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1;
-    make -j$(nproc) >>"${OUTTO}" 2>&1;
-    checkinstall -y --pkgversion=1.0.11 >>"${OUTTO}" 2>&1;
-  fi
+  LTRC=RC_1_0
+  git clone -b ${LTRC} https://github.com/arvidn/libtorrent.git >>"${OUTTO}" 2>&1;
+  cd libtorrent
+  ./autotool.sh >>"${OUTTO}" 2>&1;
+  ./configure --disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS=-std=c++11 --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1;
+  make -j$(nproc) >>"${OUTTO}" 2>&1;
+  checkinstall -y --pkgversion=1.0.11_qb >>"${OUTTO}" 2>&1;
   ldconfig >>"${OUTTO}" 2>&1;
   if [[ $DISTRO == Debian ]]; then
     _qt
