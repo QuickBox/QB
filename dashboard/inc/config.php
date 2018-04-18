@@ -433,12 +433,12 @@ case 66:
     } elseif ($process == "subsonic"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
-    } elseif ($process == "transmission"){
+    } elseif ($process == "transmission-daemon"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
     } elseif ($process == "qbittorrent"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl start $process");
+      shell_exec("sudo systemctl enable $process@$username");
+      shell_exec("sudo systemctl start $process@$username");
     } else {
       shell_exec("sudo systemctl enable $process@$username");
       shell_exec("sudo systemctl start $process@$username");
@@ -479,10 +479,13 @@ case 77:
     } elseif ($process == "subsonic"){
       shell_exec("sudo systemctl stop $process");
       shell_exec("sudo systemctl disable $process");
-    } elseif ($process == "tranmission"){
+    } elseif ($process == "transmission-daemon"){
       shell_exec("sudo systemctl stop $process");
       shell_exec("sudo systemctl disable $process");
-    } else {
+    } elseif ($process == "qbittorrent"){
+      shell_exec("sudo systemctl stop $process@$username");
+      shell_exec("sudo systemctl disable $process@$username");
+    }  else {
       shell_exec("sudo systemctl stop $process@$username");
       shell_exec("sudo systemctl disable $process@$username");
     }
@@ -522,9 +525,12 @@ case 88:
     } elseif ($process == "subsonic"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
-    } elseif ($process == "tranmission"){
+    } elseif ($process == "transmission-daemon"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
+    } elseif ($process == "qbittorrent"){
+      shell_exec("sudo systemctl enable $process@$username");
+      shell_exec("sudo systemctl restart $process@$username");
     } else {
       shell_exec("sudo systemctl restart $process@$username");
     }
