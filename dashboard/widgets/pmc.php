@@ -270,6 +270,15 @@
                     <?php } ?>
                     </tr>
                     <tr>
+                    <td>qBittorrent</td>
+                    <td><?php echo T('QBITTORRENT'); ?></td>
+                    <?php if (file_exists("/install/.qbittorrent.lock")) { ?>
+                      <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#qbittorrentRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
+                    <?php } else { ?>
+                      <td style="vertical-align: middle; text-align: center"><a href="?installpackage-qbittorrent=true" data-toggle="modal" data-target="#sysResponse" id="qbittorrentInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
+                    <?php } ?>
+                    </tr>
+                    <tr>
                       <td>x2Go</td>
                       <td><?php echo T('X2GO'); ?></td>
                       <?php if (file_exists("/install/.x2go.lock")) { ?>

@@ -1,0 +1,48 @@
+#!/bin/bash
+#
+# [Quick Box :: Remove Transmission-Web package]
+#
+# QUICKLAB REPOS
+# QuickLab _ packages  :   https://github.com/QuickBox/QB/packages
+# LOCAL REPOS
+# Local _ packages   :   /etc/QuickBox/packages
+# Author             :   QuickBox.IO
+# URL                :   https://quickbox.io
+#
+# QuickBox Copyright (C) 2017 QuickBox.io
+# Licensed under GNU General Public License v3.0 GPL-3 (in short)
+#
+#   You may copy, distribute and modify the software as long as you track
+#   changes/dates in source files. Any modifications to our software
+#   including (via compiler) GPL-licensed code must also be made available
+#   under the GPL along with build & install instructions.
+#
+#   QuickBox.IO does not grant the end-user the right to distribute this
+#   code in a means to supply commercial monetization. If you would like
+#   to include QuickBox in your commercial project, write to echo@quickbox.io
+#   with a summary of your project as well as its intended use for moentization.
+#
+
+function _removepackage-tr() {
+	# Disable and Stop Transmission services
+	systemctl disable transmission-daemon > /dev/null 2>&1
+  	systemctl stop transmission-daemon > /dev/null 2>&1
+  	# Remove Transmission user and settings directories
+	rm -rf /home/${username}/torrents/transmission/
+	rm -rf /usr/share/transmission
+	rm -rf /etc/apache2/sites-enabled/transmission.conf
+	rm -rf /etc/transmission-daemon
+	rm -rf /srv/rutorrent/home/${username}.transmission.downloads
+	# Remove any package dependencies and settings
+	apt-get -y remove transmission*
+	apt-get -y purge transmission*
+	# Remove lock file
+	rm /install/.transmission.lock
+	# Reload apache2
+	service apache2 reload
+}
+
+username=$(cat /srv/rutorrent/home/db/master.txt)
+OUTTO="/srv/rutorrent/home/db/output.log"
+
+_removepackage-tr

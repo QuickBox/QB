@@ -468,6 +468,24 @@
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
 </div><!-- modal -->
+<!-- QBITTORRENT UNINSTALL MODAL -->
+<div class="modal bounceIn animated" id="qbittorrentRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="qbittorrentRemovalConfirm" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="qbittorrentRemovalConfirm"><?php echo T('UNINSTALL_TITLE'); ?> qBittorrent?</h4>
+      </div>
+      <div class="modal-body">
+        <?php echo T('UNINSTALL_QBITTORRENT_TXT'); ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
+        <a href="?removepackage-qbittorrent=true" id="qbittorrentRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
 <!-- X2GO UNINSTALL MODAL -->
 <div class="modal bounceIn animated" id="x2goRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="x2goRemovalConfirm" aria-hidden="true">
   <div class="modal-dialog">
@@ -917,6 +935,15 @@ $(document).ready(function() {
     $.gritter.add({
       title: '<?php echo T('UNINSTALLING_TITLE'); ?> Transmission',
       text: '<?php echo T('UNINSTALLING_TXT_1'); ?> Transmission <?php echo T('UNINSTALLING_TXT_2'); ?>',
+      class_name: 'with-icon times-circle danger',
+      sticky: true
+    });
+  });
+  // qBittorrentRemove
+  $('#qbittorrentRemove').click(function(){
+    $.gritter.add({
+      title: '<?php echo T('UNINSTALLING_TITLE'); ?> qBittorrent',
+      text: '<?php echo T('UNINSTALLING_TXT_1'); ?> qBittorrent <?php echo T('UNINSTALLING_TXT_2'); ?>',
       class_name: 'with-icon times-circle danger',
       sticky: true
     });

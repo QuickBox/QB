@@ -1054,6 +1054,7 @@ function _qbittorrent() {
   chown -R ${username}.${username} /home/${username}/.config/
   mkdir -p /home/${username}/torrents/qbittorrent
   chown ${username}: /home/${username}/torrents/qbittorrent
+  touch /install/.qbittorrent.lock
 }
 
 # scgi enable function (22-nixed)
@@ -1109,6 +1110,9 @@ function _fileindexer() {
   ln -s /home/${username}/torrents/deluge/ ${username}.deluge.downloads
   if [[ ${tr} == "yes" ]]; then
 	ln -s /home/${username}/torrents/transmission/ ${username}.transmission.downloads
+  fi
+  if [[ ${qb} == "yes" ]]; then
+	ln -s /home/${username}/torrents/qbittorrent/ ${username}.qbittorrent.downloads
   fi
 }
 

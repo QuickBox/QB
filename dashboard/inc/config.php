@@ -278,6 +278,7 @@ $shellinabox = processExists("shellinabox",shellinabox);
 $csf = processExists("lfd",root);
 $sickgear = processExists("sickgear",8088);
 $transmission = processExists("transmission-daemon",debian-transmission);
+$qbittorrent = processExists("qbittorrent-nox",$username);
 $nzbget = processExists("nzbget",$username);
 $znc = processExists("znc",$username);
 
@@ -320,6 +321,7 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   $subsonicURL = "https://" . $_SERVER['HTTP_HOST'] . "/subsonic";
   $syncthingURL = "https://" . $_SERVER['HTTP_HOST'] . "/syncthing/";
   $transmissionURL = "http://" . $_SERVER['HTTP_HOST'] . ":9091/transmission/web/";
+  $qbittorrentURL = "http://" . $_SERVER['HTTP_HOST'] . ":8086";
   if ($zssl == "true") { $zncURL = "https://" . $_SERVER['HTTP_HOST'] . ":$zport"; }
   if ($zssl == "false") { $zncURL = "http://" . $_SERVER['HTTP_HOST'] . ":$zport"; }
  }
@@ -389,6 +391,8 @@ case 0:
     $cbodyst .= $syncthing;
   $transmission = isEnabled("transmission-daemon", debian-transmission);
     $cbodytr .= $transmission;
+  $qbittorrent = isEnabled("qbittorrent", $username);
+    $cbodyqb .= $qbittorrent;
   $x2go = isEnabled("x2go", $username);
     $cbodyx .= $x2go;
   $znc = isEnabled("znc", $username);
@@ -430,6 +434,9 @@ case 66:
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
     } elseif ($process == "transmission"){
+      shell_exec("sudo systemctl enable $process");
+      shell_exec("sudo systemctl start $process");
+    } elseif ($process == "qbittorrent"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
     } else {
