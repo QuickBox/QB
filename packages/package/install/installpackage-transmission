@@ -40,63 +40,105 @@ function _insTr() {
 }
 
 function _insTrWeb() {
-  rootFolder=""
-  webFolder=""
-  orgindex="index.original.html"
-  index="index.html"
-  tmpFolder="/tmp/tr-web-control"
-  packname="transmission-control-full.tar.gz"
-  host="https://github.com/ronggang/transmission-web-control/raw/master/release/"
-  downloadurl="$host$packname"
-  if [ ! -d "$tmpFolder" ]; then
-	mkdir -p "$tmpFolder"
-  fi
-  # Find the web ui directory
-  folderIsExist=0
-  echo "Searching Transmission Web Folder..." >>"${OUTTO}" 2>&1
-  rootFolder="/usr/share/transmission"
-  echo "Looking for folder: $rootFolder/web" >>"${OUTTO}" 2>&1
-  if [ -d "$rootFolder/web" ]; then
-	    webFolder="$rootFolder/web"
-	    folderIsExist=1
-      echo "Folder found. Using it." >>"${OUTTO}" 2>&1
-  else
-      echo "Folder not found. Will search the entire /. This will take a while..." >>"${OUTTO}" 2>&1
-      rootFolder=`find / -name 'web' -type d 2>/dev/null| grep 'transmission/web' | sed 's/\/web$//g'`
-      if [ -d "$rootFolder/web" ]; then
-	            webFolder="$rootFolder/web"
-	            folderIsExist=1
-      fi
-  fi
+  ROOT_FOLDER="$1"
+  WEB_FOLDER=""
+  ORG_INDEX_FILE="index.original.html"
+  INDEX_FILE="index.html"
+  TMP_FOLDER="/tmp/tr-web-control"
+  PACK_NAME="src.tar.gz"
+	WEB_HOST="https://github.com/ronggang/twc-release/raw/master/"
+	DOWNLOAD_URL="$WEB_HOST$PACK_NAME"
+	INSTALL_TYPE=-1
+	main() {
+	  if [ ! -d "$TMP_FOLDER" ]; then
+		mkdir -p "$TMP_FOLDER"
+	  fi
+	  if [ -d "$ROOT_FOLDER" ]; then
+		echo "use arg: $ROOT_FOLDER" >>"${OUTTO}" 2>&1
+		INSTALL_TYPE=3
+		WEB_FOLDER="$ROOT_FOLDER/web"
+	  else
+		findWebFolder
+	  fi
+	  install
+	  clear
+	}
 
-# If the directory exists, download and update
-  if [ $folderIsExist = 1 ]; then
-        cd "$tmpFolder"
-      	echo "Downloading Transmission Web Control..." >>"${OUTTO}" 2>&1
-      	wget -q "$downloadurl"
-      	echo "Installing..." >>"${OUTTO}" 2>&1
-      	tar -xzvf "$packname" -C "$tmpFolder" >>"${OUTTO}" 2>&1
-      	rm "$packname"
-      	# If you have not installed before, the first system of documents changed to
-      	if [ ! -f "$webFolder/$orgindex" -a -f "$webFolder/$index" ]; then
-      		      mv "$webFolder/$index" "$webFolder/$orgindex"
-      	fi
-      	# Copy the file to
-      	cp -r web "$rootFolder"
-        find "$rootFolder" -type d -exec chmod o+rx {} \;
-        find "$rootFolder" -type f -exec chmod o+r {} \;
-      	echo "Done." >>"${OUTTO}" 2>&1
-  else
-      	#echo "##############################################"
-      	#echo "#"
-      	echo "# ERROR : Transmisson WEB UI Folder is missing." >>"${OUTTO}" 2>&1
-      	#echo "#"
-      	#echo "##############################################"
-  fi
+
+	findWebFolder() {
+	  echo "Searching Transmission Web Folder..."  >>"${OUTTO}" 2>&1
+	  ROOT_FOLDER="/usr/local/transmission/share/transmission"
+	  if [ -f /etc/fedora-release ] || [ -f "/etc/debian_version" ]; then
+		ROOT_FOLDER="/usr/share/transmission"
+	  fi
+	  if [ $TRANSMISSION_WEB_HOME ]; then
+		echo "use TRANSMISSION_WEB_HOME: $TRANSMISSION_WEB_HOME" >>"${OUTTO}" 2>&1
+		if [ ! -d "$TRANSMISSION_WEB_HOME" ]; then
+			 mkdir -p "$TRANSMISSION_WEB_HOME"
+		  fi
+		INSTALL_TYPE=2
+	  else
+		echo "Looking for folder: $ROOT_FOLDER/web" >>"${OUTTO}" 2>&1
+		if [ -d "$ROOT_FOLDER/web" ]; then
+		  WEB_FOLDER="$ROOT_FOLDER/web"
+		  INSTALL_TYPE=1
+		  echo "Folder found. Using it." >>"${OUTTO}" 2>&1
+		else
+		  echo "Folder not found. Will search the entire /. This will take a while..." >>"${OUTTO}" 2>&1
+		  ROOT_FOLDER=`find / -name 'web' -type d 2>/dev/null| grep 'transmission/web' | sed 's/\/web$//g'`
+
+		  if [ -d "$ROOT_FOLDER/web" ]; then
+			WEB_FOLDER="$ROOT_FOLDER/web"
+			INSTALL_TYPE=1
+		  fi
+		fi
+	  fi
+	}
+
+
+	install() {
+	  if [ $INSTALL_TYPE = 1 -o $INSTALL_TYPE = 3 ]; then
+		download
+		echo "Installing..." >>"${OUTTO}" 2>&1
+		mkdir web
+		tar -xzf "$PACK_NAME" -C "web" >>"${OUTTO}" 2>&1
+		if [ ! -f "$WEB_FOLDER/$ORG_INDEX_FILE" -a -f "$WEB_FOLDER/$INDEX_FILE" ]; then
+		  mv "$WEB_FOLDER/$INDEX_FILE" "$WEB_FOLDER/$ORG_INDEX_FILE"
+		fi
+		cp -r web "$ROOT_FOLDER"
+		find "$ROOT_FOLDER" -type d -exec chmod o+rx {} \;
+		find "$ROOT_FOLDER" -type f -exec chmod o+r {} \;
+		installed
+	  elif [ $INSTALL_TYPE = 2 ]; then
+		download
+		echo "Installing..." >>"${OUTTO}" 2>&1
+		tar -xzf "$PACK_NAME" -C "$TRANSMISSION_WEB_HOME"
+		find "$TRANSMISSION_WEB_HOME" -type d -exec chmod o+rx {} \;
+		find "$TRANSMISSION_WEB_HOME" -type f -exec chmod o+r {} \;
+		installed
+	  else
+			#echo "##############################################"
+			#echo "#"
+			echo "# ERROR : Transmisson WEB UI Folder is missing." >>"${OUTTO}" 2>&1
+			#echo "#"
+			#echo "##############################################"
+	  fi
+	}
+	download() {
+	  cd "$TMP_FOLDER"
+	  echo "Downloading Transmission Web Control..." >>"${OUTTO}" 2>&1
+	  wget -q "$DOWNLOAD_URL" --no-check-certificate
+	}
+	installed() {
+	  echo "Transmission Web Control Installation completed!" >>"${OUTTO}" 2>&1
+	}
+	clear() {
+	  rm "$PACK_NAME"
+	  rm -rf "$TMP_FOLDER"
+	}
+	main
+
   rm -rf "$tmpFolder"
-
-  #cd ${local_dashboard}/custom
-  #patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
   ln -s /home/${username}/torrents/transmission/ /srv/rutorrent/home/${username}.transmission.downloads
 }
 

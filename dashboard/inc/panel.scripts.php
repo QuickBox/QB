@@ -469,12 +469,12 @@
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 <!-- QBITTORRENT UNINSTALL MODAL -->
-<div class="modal bounceIn animated" id="qbittorrentRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="qbittorrentRemovalConfirm" aria-hidden="true">
+<div class="modal bounceIn animated" id="qbittorrentRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="qBittorrentRemovalConfirm" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="qbittorrentRemovalConfirm"><?php echo T('UNINSTALL_TITLE'); ?> qBittorrent?</h4>
+        <h4 class="modal-title" id="qBittorrentRemovalConfirm"><?php echo T('UNINSTALL_TITLE'); ?> qBittorrent?</h4>
       </div>
       <div class="modal-body">
         <?php echo T('UNINSTALL_QBITTORRENT_TXT'); ?>
@@ -939,7 +939,7 @@ $(document).ready(function() {
       sticky: true
     });
   });
-  // qBittorrentRemove
+  // qbittorrentRemove
   $('#qbittorrentRemove').click(function(){
     $.gritter.add({
       title: '<?php echo T('UNINSTALLING_TITLE'); ?> qBittorrent',

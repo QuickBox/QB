@@ -1073,6 +1073,8 @@ function _qbittorrent() {
   chown -R ${username}.${username} /home/${username}/.config/
   mkdir -p /home/${username}/torrents/qbittorrent
   chown ${username}: /home/${username}/torrents/qbittorrent
+  cd ${local_packages}
+  rm -r qBittorrent
 }
 
 function _insqBApache() {
