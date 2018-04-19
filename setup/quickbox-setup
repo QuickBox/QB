@@ -1073,7 +1073,24 @@ function _qbittorrent() {
   chown -R ${username}.${username} /home/${username}/.config/
   mkdir -p /home/${username}/torrents/qbittorrent
   chown ${username}: /home/${username}/torrents/qbittorrent
+}
+
+function _insqBApache() {
+APPNAME='qbittorrent'
+APPDPORT='8060'
+  cat > /etc/apache2/sites-enabled/qbittorrent.conf <<EOF
+<Location /$APPNAME>
+ProxyPass http://localhost:$APPDPORT
+ProxyPassReverse http://localhost:$APPDPORT
+Require all granted
+</Location>
+EOF
+
   touch /install/.qbittorrent.lock
+  chown www-data: /etc/apache2/sites-enabled/qbittorrent.conf
+  cat > /usr/share/qbittorrent/web/.htaccess <<EOF
+allow from all
+EOF
 }
 
 # scgi enable function (22-nixed)
@@ -1632,10 +1649,11 @@ echo -n "Installing deluge ... ";_deluge & spinner $!;echo
 if [[ ${tr} == "yes" ]]; then
 	echo -n "Configuring Transmisson ... ";_insTr & spinner $!;echo
 	echo -n "Installing Transmisson Web Control ... ";_insTrWeb & spinner $!;echo
-	echo -n "Installing Transmisson Web Control ... ";_insTrApache & spinner $!;echo
+	echo -n "Setting up Transmission Reverse Proxy ... ";_insTrApache & spinner $!;echo
 fi
 if [[ ${qb} == "yes" ]]; then
 	echo -n "Installing qBittorrent ... ";_qbittorrent & spinner $!;echo
+	echo -n "Setting up qBittorrent Reverse Proxy ... ";_insqBApache & spinner $!;echo
 fi
 echo -n "Installing mktorrent from source ... ";_mktorrent & spinner $!;echo
 echo -n "Installing quickbox dashboard ... ";_dashboard & spinner $!;echo
