@@ -986,6 +986,8 @@ function _insTrWeb() {
 }
 
 function _insTrApache() {
+APPNAME='transmission'
+APPDPORT='9091'
   cat > /etc/apache2/sites-enabled/transmission.conf <<EOF
 <Location /$APPNAME>
 ProxyPass http://localhost:$APPDPORT/$APPNAME
@@ -999,7 +1001,6 @@ EOF
   cat > /usr/share/transmission/web/.htaccess <<EOF
 allow from all
 EOF
-  service apache2 reload
 }
 
 function _qt() {
