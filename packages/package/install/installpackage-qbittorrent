@@ -1,130 +1,113 @@
-#!/bin/bash
-#
-# [Quick Box :: Install Transmission-Web package]
-#
-# QUICKLAB REPOS
-# QuickLab _ packages  :   https://github.com/QuickBox/QB/tree/master/packages
-# LOCAL REPOS
-# Local _ packages   :   /etc/QuickBox/packages
-# Author             :   QuickBox.IO
-# URL                :   https://quickbox.io
-#
-# QuickBox Copyright (C) 2018 QuickBox.io
-# Licensed under GNU General Public License v3.0 GPL-3 (in short)
-#
-#   You may copy, distribute and modify the software as long as you track
-#   changes/dates in source files. Any modifications to our software
-#   including (via compiler) GPL-licensed code must also be made available
-#   under the GPL along with build & install instructions.
-#
-#   QuickBox.IO does not grant the end-user the right to distribute this
-#   code in a means to supply commercial monetization. If you would like
-#   to include QuickBox in your commercial project, write to echo@quickbox.io
-#   with a summary of your project as well as its intended use for moentization.
-#
-
-function _insTr() {
-  apt-get -q -y update >>"${OUTTO}" 2>&1
-  apt-get -q -y install transmission-daemon >>"${OUTTO}" 2>&1
-  service transmission-daemon stop >>"${OUTTO}" 2>&1
-  mkdir -p /home/${username}/torrents/transmission
-  chmod g+w /home/${username}/torrents/transmission >/dev/null 2>&1
-  #chgrp -R debian-transmission /home/${username}/torrents/transmission
-  chown -R ${username}:debian-transmission /home/${username}/torrents/transmission >/dev/null 2>&1
-  sed -i "s/\/var\/lib\/transmission-daemon\/downloads/\/home\/${username}\/torrents\/transmission/g" /etc/transmission-daemon/settings.json
-  sed -i "s/\/var\/lib\/transmission-daemon\/Downloads/\/home\/${username}\/torrents\/transmission\/incomplete/g" /etc/transmission-daemon/settings.json
-  sed -i "s/\"{.*/\"${passwd}\", /g" /etc/transmission-daemon/settings.json
-  sed -i "s/\"transmission\",/\"${username}\",/g" /etc/transmission-daemon/settings.json
-  sed -i "s/127.0.0.1/\*.\*.\*.\*/g" /etc/transmission-daemon/settings.json
-  service transmission-daemon start >>"${OUTTO}" 2>&1
+function _boost() {
+  cd /tmp
+  wget -O boost_1_65_1.tar.gz -q https://sourceforge.net/projects/boost/files/boost/1.65.1/boost_1_65_1.tar.gz/download
+  tar -zxvf boost_1_65_1.tar.gz >>"${OUTTO}" 2>&1
+  cd boost_1_65_1
+  ./bootstrap.sh --prefix=/usr/ --with-libraries=system --with-libraries=python --with-libraries=chrono --with-libraries=random >>"${OUTTO}" 2>&1;
+  ./b2 >>"${OUTTO}" 2>&1;
+  ./b2 install >>"${OUTTO}" 2>&1;
+  cd /tmp
+  rm -rf boost_1_65_1.tar.gz boost_1_65_1
+  cd
 }
 
-function _insTrWeb() {
-  rootFolder=""
-  webFolder=""
-  orgindex="index.original.html"
-  index="index.html"
-  tmpFolder="/tmp/tr-web-control"
-  packname="transmission-control-full.tar.gz"
-  host="https://github.com/ronggang/transmission-web-control/raw/master/release/"
-  downloadurl="$host$packname"
-  if [ ! -d "$tmpFolder" ]; then
-	mkdir -p "$tmpFolder"
-  fi
-  # Find the web ui directory
-  folderIsExist=0
-  echo "Searching Transmission Web Folder..." >>"${OUTTO}" 2>&1
-  rootFolder="/usr/share/transmission"
-  echo "Looking for folder: $rootFolder/web" >>"${OUTTO}" 2>&1
-  if [ -d "$rootFolder/web" ]; then
-	    webFolder="$rootFolder/web"
-	    folderIsExist=1
-      echo "Folder found. Using it." >>"${OUTTO}" 2>&1
-  else
-      echo "Folder not found. Will search the entire /. This will take a while..." >>"${OUTTO}" 2>&1
-      rootFolder=`find / -name 'web' -type d 2>/dev/null| grep 'transmission/web' | sed 's/\/web$//g'`
-      if [ -d "$rootFolder/web" ]; then
-	            webFolder="$rootFolder/web"
-	            folderIsExist=1
-      fi
-  fi
-
-# If the directory exists, download and update
-  if [ $folderIsExist = 1 ]; then
-        cd "$tmpFolder"
-      	echo "Downloading Transmission Web Control..." >>"${OUTTO}" 2>&1
-      	wget -q "$downloadurl"
-      	echo "Installing..." >>"${OUTTO}" 2>&1
-      	tar -xzvf "$packname" -C "$tmpFolder" >>"${OUTTO}" 2>&1
-      	rm "$packname"
-      	# If you have not installed before, the first system of documents changed to
-      	if [ ! -f "$webFolder/$orgindex" -a -f "$webFolder/$index" ]; then
-      		      mv "$webFolder/$index" "$webFolder/$orgindex"
-      	fi
-      	# Copy the file to
-      	cp -r web "$rootFolder"
-        find "$rootFolder" -type d -exec chmod o+rx {} \;
-        find "$rootFolder" -type f -exec chmod o+r {} \;
-      	echo "Done." >>"${OUTTO}" 2>&1
-  else
-      	#echo "##############################################"
-      	#echo "#"
-      	echo "# ERROR : Transmisson WEB UI Folder is missing." >>"${OUTTO}" 2>&1
-      	#echo "#"
-      	#echo "##############################################"
-  fi
-  rm -rf "$tmpFolder"
-
-  #cd ${local_dashboard}/custom
-  #patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
-  ln -s /home/${username}/torrents/transmission/ /srv/rutorrent/home/${username}.transmission.downloads
+function _qt() {
+  cd /tmp
+  apt-get -qy update >>"${OUTTO}" 2>&1;
+  LIST='build-essential libgl1-mesa-dev libjpeg-dev'
+  for depend in $LIST; do
+    apt-get -qq -y install $depend >>"${OUTTO}" 2>&1;
+  done
+  wget -O qt-everywhere-opensource-src-5.9.5.tar.xz -q https://download.qt.io/archive/qt/5.9/5.9.5/single/qt-everywhere-opensource-src-5.9.5.tar.xz
+  tar -xvJf qt-everywhere-opensource-src-5.9.5.tar.xz >>"${OUTTO}" 2>&1;
+  cd qt-everywhere-opensource-src-5.9.5
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu/
+  ./configure -release -opensource -confirm-license -strip -shared -ltcg -make libs -make tools -dbus -nomake examples -no-compile-examples -no-qml-debug -no-icu -no-gtk -no-opengles3 -no-angle -no-sql-sqlite -no-sql-odbc -no-sqlite -skip qt3d -skip qtactiveqt -skip qtandroidextras -skip qtcanvas3d -skip qtcharts -skip qtconnectivity -skip qtdatavis3d -skip qtdoc -skip qtgamepad -skip qtgraphicaleffects -skip qtimageformats -skip qtlocation -skip qtmacextras -skip qtmultimedia -skip qtnetworkauth -skip qtpurchasing -skip qtquickcontrols -skip qtquickcontrols2 -skip qtremoteobjects -skip qtscript -skip qtscxml -skip qtsensors -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtvirtualkeyboard -skip qtwayland -skip qtwebchannel -skip qtwebengine -skip qtwebsockets -skip qtwebview -skip qtx11extras -skip qtxmlpatterns >>"${OUTTO}" 2>&1;
+  make -j$(nproc) >>"${OUTTO}" 2>&1;
+  make install >>"${OUTTO}" 2>&1;
+  export PKG_CONFIG_PATH='/usr/local/Qt-5.9.5/lib/pkgconfig/'
+  cd /tmp
+  rm -rf qt-everywhere-opensource-src-5.9.5.tar.xz qt-everywhere-opensource-src-5.9.5
+  cd
 }
 
-function _insTrApache() {
-  cat > /etc/apache2/sites-enabled/transmission.conf <<EOF
+function _qbittorrent() {
+  apt-get -qy update >>"${OUTTO}" 2>&1;
+  LIST='build-essential checkinstall pkg-config python-pip python-dev automake screen libtool libssl-dev libgeoip-dev git'
+  for depend in $LIST; do
+    apt-get -qq -y install $depend >>"${OUTTO}" 2>&1;
+  done
+  if [ ! -e /usr/lib/libboost_system.so ]; then
+    _boost
+  fi
+  cd ${local_packages}
+  if [ ! -e /usr/local/lib/libtorrent-rasterbar.so ]; then
+    LTRC=RC_1_0
+    git clone -b ${LTRC} https://github.com/arvidn/libtorrent.git >>"${OUTTO}" 2>&1;
+    cd libtorrent
+	cp ${local_setup}sources/libtorrent-rasterbar-${LTRC} .
+    patch -p1 < libtorrent-rasterbar-${LTRC} >>"${OUTTO}" 2>&1
+    ./autotool.sh >>"${OUTTO}" 2>&1;
+    ./configure --disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS=-std=c++11 --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1;
+    make -j$(nproc) >>"${OUTTO}" 2>&1;
+    checkinstall -y --pkgversion=1.0.11 >>"${OUTTO}" 2>&1;
+  fi
+  ldconfig >>"${OUTTO}" 2>&1;
+  if [[ $DISTRO == Debian ]]; then
+    _qt
+  elif [[ $DISTRO == Ubuntu ]]; then
+    apt-get -qy update >>"${OUTTO}" 2>&1;
+    LIST='qtbase5-dev qttools5-dev-tools libqt5svg5-dev'
+    for depend in $LIST; do
+      apt-get -qq -y install $depend >>"${OUTTO}" 2>&1;
+    done
+  fi
+  cd ${local_packages}
+  git clone -b v4_0_x https://github.com/qbittorrent/qBittorrent >>"${OUTTO}" 2>&1;
+  cd qBittorrent
+  ./configure --disable-gui --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1;
+  make -j$(nproc) >>"${OUTTO}" 2>&1;
+  checkinstall -y --pkgversion=4.0.4 >>"${OUTTO}" 2>&1;
+  export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
+  cp ${local_setup}templates/sysd/qbittorrent.template  /etc/systemd/system/qbittorrent@.service >/dev/null 2>&1
+  systemctl enable qbittorrent@${username} >/dev/null 2>&1
+  systemctl start qbittorrent@${username} >/dev/null 2>&1
+  sleep 10
+  systemctl stop {qbittorrent}@${username} >/dev/null 2>&1
+  cp -f ${local_setup}templates/qBittorrent.conf.template /home/${username}/.config/qBittorrent/qBittorrent.conf
+  sed -i "s/admin/${username}/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
+  sed -i "s/5ebe2294ecd0e0f08eab7690d2a6ee69/${ha1pass}/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
+  sed -i "s/mySavePath/\/home\/${username}\/torrents\/qbittorrent/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
+  chmod -R 755 /home/${username}/.config/
+  chown -R ${username}.${username} /home/${username}/.config/
+  mkdir -p /home/${username}/torrents/qbittorrent
+  chown ${username}: /home/${username}/torrents/qbittorrent
+}
+
+function _insqBApache() {
+APPNAME='qbittorrent'
+APPDPORT='8086'
+  cat > /etc/apache2/sites-enabled/qbittorrent.conf <<EOF
 <Location /$APPNAME>
-ProxyPass http://localhost:$APPDPORT/$APPNAME
-ProxyPassReverse http://localhost:$APPDPORT/$APPNAME
+ProxyPass http://localhost:$APPDPORT
+ProxyPassReverse http://localhost:$APPDPORT
 Require all granted
 </Location>
 EOF
 
-  touch /install/.transmission.lock
-  chown www-data: /etc/apache2/sites-enabled/transmission.conf
-  cat > /usr/share/transmission/web/.htaccess <<EOF
-allow from all
-EOF
+  touch /install/.qbittorrent.lock
+  chown www-data: /etc/apache2/sites-enabled/qbittorrent.conf
   service apache2 reload
 }
 
-function _insTrComplete() {
-  echo "Transmisson Install Complete!" >>"${OUTTO}" 2>&1;
+function _insqBComplete() {
+  echo "qBittorrent Install Complete!" >>"${OUTTO}" 2>&1;
   sleep 5
   echo >>"${OUTTO}" 2>&1;
   echo >>"${OUTTO}" 2>&1;
   echo "Close this dialog box to refresh your browser" >>"${OUTTO}" 2>&1;
 }
-function _insTrExit() {
+function _insqBExit() {
   exit
 }
 
@@ -135,19 +118,14 @@ OUTTO="/srv/rutorrent/home/db/output.log"
 local_setup=/etc/QuickBox/setup/
 local_dashboard=/etc/QuickBox/dashboard/
 
-APPNAME='transmission'
-APPDPORT='9091'
-
-echo "Configuring Transmisson ... " >> ${OUTTO} 2>&1
-echo -en "\rConfiguring Transmisson ... ";_insTr
-echo "Installing Transmisson Web Control ... " >> ${OUTTO} 2>&1
-echo -en "\rInstalling Transmisson Web Control ... ";_insTrWeb
-echo "Setting up Transmission Reverse Proxy and Reloading Apache2 ... " >> ${OUTTO} 2>&1
-echo -en "\rSetting up Transmission Reverse Proxy and Reloading Apache2 ... ";_insTrApache
+echo "Configuring qBittorrent ... " >> ${OUTTO} 2>&1
+echo -en "\rConfiguring qBittorrent ... ";_qbittorrent
+echo "Setting up qBittorrent Reverse Proxy and Reloading Apache2 ... " >> ${OUTTO} 2>&1
+echo -en "\rSetting up qBittorrent Reverse Proxy and Reloading Apache2 ... ";_insqBApache
 sleep 5
 echo >>"${OUTTO}" 2>&1;
 echo >>"${OUTTO}" 2>&1;
-_insTrComplete
-_insTrExit
+_insqBComplete
+_insqBExit
 
 echo ""
