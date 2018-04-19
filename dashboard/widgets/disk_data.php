@@ -40,6 +40,8 @@ $base = 1024;
 $si_prefix = array( 'b', 'k', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB' );
 $torrents = shell_exec("ls /home/".$username."/.sessions/*.torrent|wc -l");
 $dtorrents = shell_exec("ls /home/".$username."/.config/deluge/state/*.torrent|wc -l");
+$trtorrents = shell_exec("sudo ls /var/lib/transmission-daemon/.config/transmission-daemon/torrents/*.torrent|wc -l");
+$qtorrents = shell_exec("ls /home/".$username."/.local/share/data/qBittorrent/BT_backup/*.torrent|wc -l");
 $php_self = $_SERVER['PHP_SELF'];
 $web_path = substr($php_self, 0, strrpos($php_self, '/')+1);
 $time = microtime(); $time = explode(" ", $time);
@@ -119,6 +121,14 @@ if (file_exists('/home/'.$username.'/.sessions/rtorrent.lock')) {
                   <?php if (processExists("deluged",$username || "deluge-web", $username) && file_exists('/install/.deluge.lock')) { ?>
                   <h4><?php echo T('DTORRENTS_TITLE'); ?></h4>
                   <p class="nomargin"><?php echo T('TORRENTS_LOADED_1'); ?> <b><?php echo "$dtorrents"; ?></b> <?php echo T('TORRENTS_LOADED_2'); ?></p>
+                  <?php } ?>
+                  <?php if (processExists("transmission",debian-transmission) && file_exists('/install/.transmission.lock')) { ?>
+                  <h4><?php echo T('TTORRENTS_TITLE'); ?></h4>
+                  <p class="nomargin"><?php echo T('TORRENTS_LOADED_1'); ?> <b><?php echo "$trtorrents"; ?></b> <?php echo T('TORRENTS_LOADED_2'); ?></p>
+                  <?php } ?>
+                  <?php if (processExists("qbittorrent-nox",$username) && file_exists('/install/.qbittorrent.lock')) { ?>
+                  <h4><?php echo T('QTORRENTS_TITLE'); ?></h4>
+                  <p class="nomargin"><?php echo T('TORRENTS_LOADED_1'); ?> <b><?php echo "$qtorrents"; ?></b> <?php echo T('TORRENTS_LOADED_2'); ?></p>
                   <?php } ?>
 
 
