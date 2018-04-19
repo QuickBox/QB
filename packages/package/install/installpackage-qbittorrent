@@ -83,6 +83,7 @@ function _qbittorrent() {
   chown -R ${username}.${username} /home/${username}/.config/
   mkdir -p /home/${username}/torrents/qbittorrent
   chown ${username}: /home/${username}/torrents/qbittorrent
+  cd /srv/rutorrent/home
   ln -s /home/${username}/torrents/qbittorrent/ ${username}.qbittorrent.downloads
   cd ${local_packages}
   rm -r qBittorrent
