@@ -122,10 +122,6 @@ if (file_exists('/home/'.$username.'/.sessions/rtorrent.lock')) {
                   <h4><?php echo T('DTORRENTS_TITLE'); ?></h4>
                   <p class="nomargin"><?php echo T('TORRENTS_LOADED_1'); ?> <b><?php echo "$dtorrents"; ?></b> <?php echo T('TORRENTS_LOADED_2'); ?></p>
                   <?php } ?>
-                  <?php if (processExists("transmission",debian-transmission) && file_exists('/install/.transmission.lock')) { ?>
-                  <h4><?php echo T('TTORRENTS_TITLE'); ?></h4>
-                  <p class="nomargin"><?php echo T('TORRENTS_LOADED_1'); ?> <b><?php echo "$trtorrents"; ?></b> <?php echo T('TORRENTS_LOADED_2'); ?></p>
-                  <?php } ?>
                   <?php if (processExists("qbittorrent-nox",$username) && file_exists('/install/.qbittorrent.lock')) { ?>
                   <h4><?php echo T('QTORRENTS_TITLE'); ?></h4>
                   <p class="nomargin"><?php echo T('TORRENTS_LOADED_1'); ?> <b><?php echo "$qtorrents"; ?></b> <?php echo T('TORRENTS_LOADED_2'); ?></p>
