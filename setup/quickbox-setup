@@ -1077,7 +1077,7 @@ function _qbittorrent() {
 
 function _insqBApache() {
 APPNAME='qbittorrent'
-APPDPORT='8060'
+APPDPORT='8086'
   cat > /etc/apache2/sites-enabled/qbittorrent.conf <<EOF
 <Location /$APPNAME>
 ProxyPass http://localhost:$APPDPORT
@@ -1088,9 +1088,6 @@ EOF
 
   touch /install/.qbittorrent.lock
   chown www-data: /etc/apache2/sites-enabled/qbittorrent.conf
-  cat > /usr/share/qbittorrent/web/.htaccess <<EOF
-allow from all
-EOF
 }
 
 # scgi enable function (22-nixed)
