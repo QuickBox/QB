@@ -980,10 +980,28 @@ function _insTrWeb() {
 	main
 
   rm -rf "$tmpFolder"
-  touch /install/.transmission.lock
+  #touch /install/.transmission.lock
   #cd ${local_dashboard}/custom
   #patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
 }
+
+function _insTrApache() {
+  cat > /etc/apache2/sites-enabled/transmission.conf <<EOF
+<Location /$APPNAME>
+ProxyPass http://localhost:$APPDPORT/$APPNAME
+ProxyPassReverse http://localhost:$APPDPORT/$APPNAME
+Require all granted
+</Location>
+EOF
+
+  touch /install/.transmission.lock
+  chown www-data: /etc/apache2/sites-enabled/transmission.conf
+  cat > /usr/share/transmission/web/.htaccess <<EOF
+allow from all
+EOF
+  service apache2 reload
+}
+
 function _qt() {
   cd /tmp
   apt-get -qy update >>"${OUTTO}" 2>&1;
@@ -1613,6 +1631,7 @@ echo -n "Installing deluge ... ";_deluge & spinner $!;echo
 if [[ ${tr} == "yes" ]]; then
 	echo -n "Configuring Transmisson ... ";_insTr & spinner $!;echo
 	echo -n "Installing Transmisson Web Control ... ";_insTrWeb & spinner $!;echo
+	echo -n "Installing Transmisson Web Control ... ";_insTrApache & spinner $!;echo
 fi
 if [[ ${qb} == "yes" ]]; then
 	echo -n "Installing qBittorrent ... ";_qbittorrent & spinner $!;echo
