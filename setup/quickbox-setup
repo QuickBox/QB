@@ -1056,9 +1056,10 @@ function _qbittorrent() {
   cd ${local_packages}
   git clone -b v4_0_x https://github.com/qbittorrent/qBittorrent >>"${OUTTO}" 2>&1;
   cd qBittorrent
+  qbversion=`cat configure | grep -Eo "PACKAGE_VERSION=.*" | grep -Eo "[0-9.]+"`
   ./configure --disable-gui --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1;
   make -j$(nproc) >>"${OUTTO}" 2>&1;
-  checkinstall -y --pkgversion=4.0.4 >>"${OUTTO}" 2>&1;
+  checkinstall -y --pkgversion=${qbversion} >>"${OUTTO}" 2>&1;
   export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
   cp ${local_setup}templates/sysd/qbittorrent.template  /etc/systemd/system/qbittorrent@.service >/dev/null 2>&1
   systemctl enable qbittorrent@${username} >/dev/null 2>&1
