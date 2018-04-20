@@ -1110,6 +1110,19 @@ echo -n "Username: "; read user
           systemctl start deluged@${username}
           systemctl start deluge-web@${username}
         fi
+        if [[ -e /install/.transmission.lock ]]; then
+          systemctl stop transmission-daemon
+		  sleep 5
+		  sed -i "s/.*rpc-password.*/    \"rpc-password\": \"${passwd}\",/" /etc/transmission-daemon/settings.json
+          systemctl start transmission-daemon
+        fi
+        if [[ -e /install/.qbittorrent.lock ]]; then
+          systemctl stop qbittorrent@${username}
+		  sleep 5
+		  ha1pass=`echo -n "${passwd}"|md5sum |cut -f1 -d' '`
+          sed -i "s/.*Password_ha1.*/WebUI\\\Password_ha1=@ByteArray(${ha1pass})/" /home/${username}/.config/qBittorrent/qBittorrent.conf
+          systemctl start qbittorrent@${username}
+        fi
 }
 
 function createSeedboxUser() {

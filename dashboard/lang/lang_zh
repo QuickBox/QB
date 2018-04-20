@@ -208,6 +208,8 @@ $L['PERCENTAGE_TXT_1'] = '已使用';
 $L['PERCENTAGE_TXT_2'] = '的磁盘空间';
 $L['RTORRENTS_TITLE'] = 'rtorrent的种子';
 $L['DTORRENTS_TITLE'] = 'deluge的种子';
+$L['TTORRENTS_TITLE'] = 'Transmission的种子';
+$L['QTORRENTS_TITLE'] = 'qBittorrent的种子';
 $L['TORRENTS_LOADED_1'] = '总计加载了';
 $L['TORRENTS_LOADED_2'] = '个种子';
 

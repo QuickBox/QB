@@ -43,11 +43,11 @@ function _intro() {
   SETNAME=$(lsb_release -rc)
   echo
   echo
-  echo "[${repo_title}QuickBox${normal}] ${title} QuickBox Seedbox Installation ${normal}  "
+  echo "[${repo_title}QuickBox${normal}] ${title} QuickBox Seedbox Installation ${normal} "
   echo
-  echo "   ${title}              Heads Up!              ${normal} "
+  echo "   ${title}              Heads Up!              	    ${normal} "
   echo "   ${message_title}  QuickBox works with the following  ${normal} "
-  echo "   ${message_title}  Ubuntu 15.10 | 16.04       ${normal} "
+  echo "   ${message_title}  Ubuntu 15.10 | 16.04               ${normal} "
   echo "   ${message_title}  Debian 8                           ${normal} "
   echo
   echo
@@ -259,12 +259,12 @@ function _askrtorrent() {
   echo -e "1) rtorrent ${green}0.9.6 (with ipv6 support)${normal}"
   echo -e "2) rtorrent ${green}0.9.4 (with ipv6 support)${normal}"
   echo -e "3) rtorrent ${green}0.9.3${normal}"
-  echo -ne "${bold}${yellow}What version of rtorrent do you want?${normal} (Default ${green}2${normal}): "; read version
+  echo -ne "${bold}${yellow}What version of rtorrent do you want?${normal} (Default ${green}1${normal}): "; read version
   case $version in
-    1) RTVERSION=0.9.6;LTORRENT=0.13.6  ;;
-    2 | "") RTVERSION=0.9.4;LTORRENT=0.13.4  ;;
+    1 | "") RTVERSION=0.9.6;LTORRENT=0.13.6  ;;
+    2) RTVERSION=0.9.4;LTORRENT=0.13.4  ;;
     3) RTVERSION=0.9.3;LTORRENT=0.13.3 ;;
-    *) RTVERSION=0.9.4;LTORRENT=0.13.4  ;;
+    *) RTVERSION=0.9.6;LTORRENT=0.13.6  ;;
   esac
   echo "We will be using rtorrent-${green}$RTVERSION${normal}/libtorrent-${green}$LTORRENT${normal}"
   echo
@@ -290,11 +290,21 @@ function _askdeluge() {
 
 # install transmission question (8.5)
 function _asktr() {
-  echo -ne "${bold}${yellow}Would you like to install transmission? ${normal} [${green}y${normal}]es or [n]o: "; read responce
+  echo -ne "${bold}${yellow}Would you like to install transmission? ${normal} [y]es or [${green}n${normal}]o: "; read responce
   case $responce in
-    [yY] | [yY][Ee][Ss] | "" ) tr=yes ;;
-    [nN] | [nN][Oo]) tr=no ;;
+    [yY] | [yY][Ee][Ss]) tr=yes ;;
+    [nN] | [nN][Oo] | "" ) tr=no ;;
     *) tr=no ;;
+  esac
+  echo
+}
+# install qbittorrent question (8.8)
+function _askqb() {
+  echo -ne "${bold}${yellow}Would you like to install qBittorrent? ${normal} [y]es or [${green}n${normal}]o: "; read responce
+  case $responce in
+    [yY] | [yY][Ee][Ss] | "" ) qb=yes ;;
+    [nN] | [nN][Oo]) qb=no ;;
+    *) qb=no ;;
   esac
   echo
 }
@@ -320,6 +330,7 @@ function _adduser() {
   fi
   printf "${username}:${passwd}" > /root/"$username".info.db
   echo
+  ha1pass=`echo -n "${passwd}"|md5sum |cut -f1 -d' '`
 }
 
 # install ffmpeg question (10)
@@ -348,9 +359,9 @@ function _askvsftpd() {
 
 # ban public trackers [iptables option] (11)
 function _denyhosts() {
-  echo -ne "${bold}${yellow}Block Public Trackers?${normal}: [${green}y${normal}]es or [n]o: "; read responce
+  echo -ne "${bold}${yellow}Block Public Trackers?${normal}: [y]es or [${green}n${normal}]o: "; read responce
   case $responce in
-    [yY] | [yY][Ee][Ss] | "")
+    [yY] | [yY][Ee][Ss])
 
   echo "[ ${red}-  Blocking public trackers  -${normal} ]"
   cp ${local_setup}templates/trackers.template /etc/trackers
@@ -359,7 +370,7 @@ function _denyhosts() {
   cat ${local_setup}templates/hostsTrackers.template >> /etc/hosts
     ;;
 
-    [nN] | [nN][Oo] ) echo "[ ${green}+  Allowing public trackers  +${normal} ]"
+    [nN] | [nN][Oo] | "") echo "[ ${green}+  Allowing public trackers  +${normal} ]"
     ;;
   esac
   echo
@@ -742,11 +753,13 @@ function _deluge() {
     apt-get -qq -y install $depend >>"${OUTTO}" 2>&1
   done
   _boost
+  cd ${local_packages}
   git clone -b ${LTRC} https://github.com/arvidn/libtorrent.git >>"${OUTTO}" 2>&1
-  #git clone -b 1.3-stable git://deluge-torrent.org/deluge.git >>"${OUTTO}" 2>&1
   cd libtorrent
+  cp ${local_setup}sources/libtorrent-rasterbar-${LTRC}.patch .
+  patch -p1 < libtorrent-rasterbar-${LTRC}.patch >>"${OUTTO}" 2>&1
   ./autotool.sh >>"${OUTTO}" 2>&1
-  ./configure --enable-python-binding --with-lib-geoip --with-libiconv --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1 >>"${OUTTO}" 2>&1
+  ./configure --enable-python-binding --disable-debug --enable-encryption --with-libgeoip=system --with-libiconv CXXFLAGS=-std=c++11 --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1
   make -j$(nproc) >>"${OUTTO}" 2>&1
   checkinstall -y --pkgversion=${DELUGE} >>"${OUTTO}" 2>&1
   ldconfig
@@ -967,9 +980,116 @@ function _insTrWeb() {
 	main
 
   rm -rf "$tmpFolder"
-  touch /install/.transmission.lock
+  #touch /install/.transmission.lock
   #cd ${local_dashboard}/custom
   #patch -p1 < ${local_setup}templates/tr-php.patch >>"${OUTTO}" 2>&1
+}
+
+function _insTrApache() {
+APPNAME='transmission'
+APPDPORT='9091'
+  cat > /etc/apache2/sites-enabled/transmission.conf <<EOF
+<Location /$APPNAME>
+ProxyPass http://localhost:$APPDPORT/$APPNAME
+ProxyPassReverse http://localhost:$APPDPORT/$APPNAME
+Require all granted
+</Location>
+EOF
+
+  touch /install/.transmission.lock
+  chown www-data: /etc/apache2/sites-enabled/transmission.conf
+  cat > /usr/share/transmission/web/.htaccess <<EOF
+allow from all
+EOF
+}
+
+function _qt() {
+  cd /tmp
+  apt-get -qy update >>"${OUTTO}" 2>&1;
+  LIST='build-essential libgl1-mesa-dev libjpeg-dev'
+  for depend in $LIST; do
+    apt-get -qq -y install $depend >>"${OUTTO}" 2>&1;
+  done
+  wget -O qt-everywhere-opensource-src-5.9.5.tar.xz -q https://download.qt.io/archive/qt/5.9/5.9.5/single/qt-everywhere-opensource-src-5.9.5.tar.xz
+  tar -xvJf qt-everywhere-opensource-src-5.9.5.tar.xz >>"${OUTTO}" 2>&1;
+  cd qt-everywhere-opensource-src-5.9.5
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu/
+  ./configure -release -opensource -confirm-license -strip -shared -ltcg -make libs -make tools -dbus -nomake examples -no-compile-examples -no-qml-debug -no-icu -no-gtk -no-opengles3 -no-angle -no-sql-sqlite -no-sql-odbc -no-sqlite -skip qt3d -skip qtactiveqt -skip qtandroidextras -skip qtcanvas3d -skip qtcharts -skip qtconnectivity -skip qtdatavis3d -skip qtdoc -skip qtgamepad -skip qtgraphicaleffects -skip qtimageformats -skip qtlocation -skip qtmacextras -skip qtmultimedia -skip qtnetworkauth -skip qtpurchasing -skip qtquickcontrols -skip qtquickcontrols2 -skip qtremoteobjects -skip qtscript -skip qtscxml -skip qtsensors -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtvirtualkeyboard -skip qtwayland -skip qtwebchannel -skip qtwebengine -skip qtwebsockets -skip qtwebview -skip qtx11extras -skip qtxmlpatterns >>"${OUTTO}" 2>&1;
+  make -j$(nproc) >>"${OUTTO}" 2>&1;
+  make install >>"${OUTTO}" 2>&1;
+  export PKG_CONFIG_PATH='/usr/local/Qt-5.9.5/lib/pkgconfig/'
+  cd /tmp
+  rm -rf qt-everywhere-opensource-src-5.9.5.tar.xz qt-everywhere-opensource-src-5.9.5
+  cd
+}
+function _qbittorrent() {
+  apt-get -qy update >>"${OUTTO}" 2>&1;
+  LIST='build-essential checkinstall pkg-config python-pip python-dev automake screen libtool libssl-dev libgeoip-dev git'
+  for depend in $LIST; do
+    apt-get -qq -y install $depend >>"${OUTTO}" 2>&1;
+  done
+  if [ ! -e /usr/lib/libboost_system.so ]; then
+    _boost
+  fi
+  cd ${local_packages}
+  if [ ! -e /usr/local/lib/libtorrent-rasterbar.so ]; then
+    LTRC=RC_1_0
+    git clone -b ${LTRC} https://github.com/arvidn/libtorrent.git >>"${OUTTO}" 2>&1;
+    cd libtorrent
+	cp ${local_setup}sources/libtorrent-rasterbar-${LTRC}.patch .
+    patch -p1 < libtorrent-rasterbar-${LTRC}.patch >>"${OUTTO}" 2>&1
+    ./autotool.sh >>"${OUTTO}" 2>&1;
+    ./configure --enable-python-binding --disable-debug --enable-encryption --with-libgeoip=system --with-libiconv CXXFLAGS=-std=c++11 --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1;
+    make -j$(nproc) >>"${OUTTO}" 2>&1;
+    checkinstall -y --pkgversion=1.0.11 >>"${OUTTO}" 2>&1;
+  fi
+  ldconfig >>"${OUTTO}" 2>&1;
+  if [[ $DISTRO == Debian ]]; then
+    _qt
+  elif [[ $DISTRO == Ubuntu ]]; then
+    apt-get -qy update >>"${OUTTO}" 2>&1;
+    LIST='qtbase5-dev qttools5-dev-tools libqt5svg5-dev'
+    for depend in $LIST; do
+      apt-get -qq -y install $depend >>"${OUTTO}" 2>&1;
+    done
+  fi
+  cd ${local_packages}
+  git clone -b v4_0_x https://github.com/qbittorrent/qBittorrent >>"${OUTTO}" 2>&1;
+  cd qBittorrent
+  ./configure --disable-gui --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1;
+  make -j$(nproc) >>"${OUTTO}" 2>&1;
+  checkinstall -y --pkgversion=4.0.4 >>"${OUTTO}" 2>&1;
+  export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
+  cp ${local_setup}templates/sysd/qbittorrent.template  /etc/systemd/system/qbittorrent@.service >/dev/null 2>&1
+  systemctl enable qbittorrent@${username} >/dev/null 2>&1
+  systemctl start qbittorrent@${username} >/dev/null 2>&1
+  sleep 10
+  systemctl stop {qbittorrent}@${username} >/dev/null 2>&1
+  cp -f ${local_setup}templates/qBittorrent.conf.template /home/${username}/.config/qBittorrent/qBittorrent.conf
+  sed -i "s/admin/${username}/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
+  sed -i "s/5ebe2294ecd0e0f08eab7690d2a6ee69/${ha1pass}/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
+  sed -i "s/mySavePath/\/home\/${username}\/torrents\/qbittorrent/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
+  chmod -R 755 /home/${username}/.config/
+  chown -R ${username}.${username} /home/${username}/.config/
+  mkdir -p /home/${username}/torrents/qbittorrent
+  chown ${username}: /home/${username}/torrents/qbittorrent
+  cd ${local_packages}
+  rm -r qBittorrent
+}
+
+function _insqBApache() {
+APPNAME='qbittorrent'
+APPDPORT='8086'
+  cat > /etc/apache2/sites-enabled/qbittorrent.conf <<EOF
+<Location /$APPNAME>
+ProxyPass http://localhost:$APPDPORT
+ProxyPassReverse http://localhost:$APPDPORT
+Require all granted
+</Location>
+EOF
+
+  touch /install/.qbittorrent.lock
+  chown www-data: /etc/apache2/sites-enabled/qbittorrent.conf
 }
 
 # scgi enable function (22-nixed)
@@ -1025,6 +1145,9 @@ function _fileindexer() {
   ln -s /home/${username}/torrents/deluge/ ${username}.deluge.downloads
   if [[ ${tr} == "yes" ]]; then
 	ln -s /home/${username}/torrents/transmission/ ${username}.transmission.downloads
+  fi
+  if [[ ${qb} == "yes" ]]; then
+	ln -s /home/${username}/torrents/qbittorrent/ ${username}.qbittorrent.downloads
   fi
 }
 
@@ -1487,6 +1610,7 @@ _ask10g
 _askrtorrent
 _askdeluge
 _asktr
+_askqb
 _askdashtheme
 _adduser
 _askffmpeg
@@ -1524,6 +1648,11 @@ echo -n "Installing deluge ... ";_deluge & spinner $!;echo
 if [[ ${tr} == "yes" ]]; then
 	echo -n "Configuring Transmisson ... ";_insTr & spinner $!;echo
 	echo -n "Installing Transmisson Web Control ... ";_insTrWeb & spinner $!;echo
+	echo -n "Setting up Transmission Reverse Proxy ... ";_insTrApache & spinner $!;echo
+fi
+if [[ ${qb} == "yes" ]]; then
+	echo -n "Installing qBittorrent ... ";_qbittorrent & spinner $!;echo
+	echo -n "Setting up qBittorrent Reverse Proxy ... ";_insqBApache & spinner $!;echo
 fi
 echo -n "Installing mktorrent from source ... ";_mktorrent & spinner $!;echo
 echo -n "Installing quickbox dashboard ... ";_dashboard & spinner $!;echo

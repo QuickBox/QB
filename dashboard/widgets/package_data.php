@@ -27,6 +27,7 @@ $packages = array(
         'subsonic',
         'syncthing',
         'transmission',
+		'qbittorrent',
         'x2go',
         'znc'
 );

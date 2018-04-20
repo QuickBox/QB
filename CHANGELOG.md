@@ -1,3 +1,20 @@
+## CHANGELOG efs-mod v1.1.1:
+_Changelog updated monday, April 19, 2018_
+
+---
+
+### General additions
+* update transmission-web-control uninstall/install script
+* update links of transmission in dashboard
+* add qbittorrent both(need reboot after installing)
+
+### General adjustments
+* fix conflict compiling qbittorrent and deluge
+* using apache proxy for transmission and qbittorrent Web-UI
+* install test passed in Debian 8 and ubuntu16.04
+
+> the latest source from QB/master has been merged(2.5.3)
+
 ## CHANGELOG efs-mod v1.1.0:
 _Changelog updated monday, April 11, 2018_
 
