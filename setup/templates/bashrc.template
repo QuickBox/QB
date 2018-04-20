@@ -1113,7 +1113,7 @@ echo -n "Username: "; read user
         if [[ -e /install/.transmission.lock ]]; then
           systemctl stop transmission-daemon
 		  sleep 5
-		  sed -i "s/.*rpc-password.*/    \"rpc-password\": \"{${passwd}\",/" /etc/transmission-daemon/settings.json
+		  sed -i "s/.*rpc-password.*/    \"rpc-password\": \"${passwd}\",/" /etc/transmission-daemon/settings.json
           systemctl start transmission-daemon
         fi
         if [[ -e /install/.qbittorrent.lock ]]; then
