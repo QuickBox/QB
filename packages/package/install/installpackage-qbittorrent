@@ -46,10 +46,10 @@ function _qbittorrent() {
     LTRC=RC_1_0
     git clone -b ${LTRC} https://github.com/arvidn/libtorrent.git >>"${OUTTO}" 2>&1;
     cd libtorrent
-	cp ${local_setup}sources/libtorrent-rasterbar-${LTRC} .
-    patch -p1 < libtorrent-rasterbar-${LTRC} >>"${OUTTO}" 2>&1
+	cp ${local_setup}sources/libtorrent-rasterbar-${LTRC}.patch .
+    patch -p1 < libtorrent-rasterbar-${LTRC}.patch >>"${OUTTO}" 2>&1
     ./autotool.sh >>"${OUTTO}" 2>&1;
-    ./configure --disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS=-std=c++11 --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1;
+    ./configure --enable-python-binding --disable-debug --enable-encryption --with-libgeoip=system --with-libiconv CXXFLAGS=-std=c++11 --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1;
     make -j$(nproc) >>"${OUTTO}" 2>&1;
     checkinstall -y --pkgversion=1.0.11 >>"${OUTTO}" 2>&1;
   fi
