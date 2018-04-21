@@ -91,7 +91,7 @@ function _installDeluge4() {
 
 function _insdwApache() {
 APPNAME='deluge'
-APPDPORT=$DWPORT
+APPDPORT=${DWPORT}
   cat > /etc/apache2/sites-enabled/deluge.conf <<EOF
 ProxyPass /$APPNAME http://localhost:$APPDPORT/
 

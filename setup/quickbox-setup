@@ -816,7 +816,7 @@ fi
 
 function _insdwApache() {
 APPNAME='deluge'
-APPDPORT=$DWPORT
+APPDPORT=`cat /home/${username}/.config/deluge/web.conf | grep -E ".*port.*" | grep -Eo [0-9]+`
   cat > /etc/apache2/sites-enabled/deluge.conf <<EOF
 ProxyPass /$APPNAME http://localhost:$APPDPORT/
 
