@@ -145,7 +145,7 @@ $L['SONARR'] = 'Sonarr is a tv series management tool which will work with both 
 $L['SUBSONIC'] = 'Subsonic is a web-based media server. It is written in Java, so it can run on any operating system with Java support. Subsonic supports streaming to multiple clients simultaneously, and supports any streamable media (including MP3, AAC, and Ogg).';
 $L['SYNCTHING'] = 'Open Source Continuous File Synchronization with BitTorrent';
 $L['TRANSMISSION'] = 'Transmission is designed for easy, powerful use. The defaults are set to Just Work and it only takes a few clicks to configure advanced features like watch directories, bad peer blocklists, and the web interface. When Ubuntu chose Transmission as its default BitTorrent client, one of the most-cited reasons was its easy learning curve.';
-$L['QBITTORRENT'] = 'qBittorrent is a simple P2P client use libtorrent and QT5';
+$L['QBITTORRENT'] = 'qBittorrent is a free and reliable P2P BitTorrent client. An advanced and multi-platform BitTorrent client with a nice Qt user interface as well as a Web UI for remote control and an integrated search engine.';
 $L['X2GO'] = 'X2Go is an open source remote desktop software for Linux that uses the NX technology protocol.';
 $L['ZNC'] = 'ZNC is an IRC network bouncer or BNC. It can detach the client from the actual IRC server, and also from selected channels.';
 
