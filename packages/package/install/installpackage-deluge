@@ -89,6 +89,25 @@ function _installDeluge4() {
 
 }
 
+function _insdwApache() {
+APPNAME='deluge'
+APPDPORT=$DWPORT
+  cat > /etc/apache2/sites-enabled/deluge.conf <<EOF
+ProxyPass /$APPNAME http://localhost:$APPDPORT/
+
+<Location /$APPNAME>
+    ProxyPassReverse /
+    ProxyPassReverseCookiePath / /$APPNAME              
+    RequestHeader set X-Deluge-Base "/$APPNAME/"          
+    Order allow,deny
+    Allow from all
+</Location>
+EOF
+
+  chown www-data: /etc/apache2/sites-enabled/deluge.conf
+  service apache2 reload
+}
+
 function _installDeluge5() {
   echo "Deluge Install Complete!" >>"${OUTTO}" 2>&1;
   sleep 5
@@ -106,5 +125,6 @@ echo "Installing deluge ... " >>"${OUTTO}" 2>&1;_installDeluge1
 echo "Setting up deluge configurations ... " >>"${OUTTO}" 2>&1;_installDeluge2
 echo "Setting up deluge permissions ... " >>"${OUTTO}" 2>&1;_installDeluge3
 echo "Setting up services and starting deluge ... " >>"${OUTTO}" 2>&1;_installDeluge4
+_insdwApache
 _installDeluge5
 _installDeluge6

@@ -811,8 +811,26 @@ fi
   chown ${username}: /home/${username}/dwatch
   mkdir -p /home/${username}/torrents/deluge
   chown ${username}: /home/${username}/torrents/deluge
-  touch /install/.deluge.lock
 fi
+}
+
+function _insdwApache() {
+APPNAME='deluge'
+APPDPORT=$DWPORT
+  cat > /etc/apache2/sites-enabled/deluge.conf <<EOF
+ProxyPass /$APPNAME http://localhost:$APPDPORT/
+
+<Location /$APPNAME>
+    ProxyPassReverse /
+    ProxyPassReverseCookiePath / /$APPNAME              
+    RequestHeader set X-Deluge-Base "/$APPNAME/"          
+    Order allow,deny
+    Allow from all
+</Location>
+EOF
+
+  touch /install/.deluge.lock
+  chown www-data: /etc/apache2/sites-enabled/deluge.conf
 }
 
 function _insTr() {
@@ -1056,10 +1074,9 @@ function _qbittorrent() {
   cd ${local_packages}
   git clone -b v4_0_x https://github.com/qbittorrent/qBittorrent >>"${OUTTO}" 2>&1;
   cd qBittorrent
-  qbversion=`cat configure | grep -Eo "PACKAGE_VERSION=.*" | grep -Eo "[0-9.]+"`
   ./configure --disable-gui --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1;
   make -j$(nproc) >>"${OUTTO}" 2>&1;
-  checkinstall -y --pkgversion=${qbversion} >>"${OUTTO}" 2>&1;
+  checkinstall -y --pkgversion=4.0.4 >>"${OUTTO}" 2>&1;
   export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
   cp ${local_setup}templates/sysd/qbittorrent.template  /etc/systemd/system/qbittorrent@.service >/dev/null 2>&1
   systemctl enable qbittorrent@${username} >/dev/null 2>&1
@@ -1646,6 +1663,7 @@ echo -n "Installing rtorrent-${green}$RTVERSION${normal} ... ";_rtorrent & spinn
 echo -n "Installing rutorrent into /srv ... ";_rutorrent & spinner $!;echo
 echo -n "Installing rutorrent plugins ... ";_rutorrent-plugins & spinner $!;echo
 echo -n "Installing deluge ... ";_deluge & spinner $!;echo
+echo -n "Setting up deluge Web Reverse Proxy ... ";_insdwApache & spinner $!;echo
 if [[ ${tr} == "yes" ]]; then
 	echo -n "Configuring Transmisson ... ";_insTr & spinner $!;echo
 	echo -n "Installing Transmisson Web Control ... ";_insTrWeb & spinner $!;echo

@@ -299,8 +299,9 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   $btsyncURL = "http://" . $_SERVER['HTTP_HOST'] . ":8888/gui/";
   $cpURL = "https://" . $_SERVER['HTTP_HOST'] . "/couchpotato";
   $csfURL = "https://" . $_SERVER['HTTP_HOST'] . ":3443";
-  if ($dwssl == "true") { $dwURL = "https://" . $_SERVER['HTTP_HOST'] . ":$dwport"; }
-  if ($dwssl == "false") { $dwURL = "http://" . $_SERVER['HTTP_HOST'] . ":$dwport"; }
+  //if ($dwssl == "true") { $dwURL = "https://" . $_SERVER['HTTP_HOST'] . ":$dwport"; }
+  //if ($dwssl == "false") { $dwURL = "http://" . $_SERVER['HTTP_HOST'] . ":$dwport"; }
+  $dwURL = "https://" . $_SERVER['HTTP_HOST'] . "/deluge/";
   $embyURL = "https://" . $_SERVER['HTTP_HOST'] . "/emby";
   $headphonesURL = "https://" . $_SERVER['HTTP_HOST'] . "/headphones/home";
   $jackettURL = "https://" . $_SERVER['HTTP_HOST'] . "/jackett/UI/Dashboard";
