@@ -1,5 +1,7 @@
 #!/bin/bash
 
+user=$(cat /srv/rutorrent/home/db/master.txt)
+
 ####################################
 ##   update_ombi systemd script   ##
 ## GitHub: Unimatrix0/update_ombi ##
@@ -36,8 +38,8 @@ ombiservicefile="/etc/systemd/system/$ombiservicename.service"
 defaultinstalldir="/opt/Ombi"
 
 ##   User and Group Ombi runs as  ##
-defaultuser="ombi"
-defaultgroup="nogroup"
+defaultuser="${user}"
+defaultgroup="${user}"
 defaultip="127.0.0.1"
 defaultport="5000"
 
