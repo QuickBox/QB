@@ -1,5 +1,5 @@
 ## CHANGELOG efs-mod v1.1.1:
-_Changelog updated monday, April 19, 2018_
+_Changelog updated wednesday, April 21, 2018_
 
 ---
 
@@ -10,8 +10,10 @@ _Changelog updated monday, April 19, 2018_
 
 ### General adjustments
 * fix conflict compiling qbittorrent and deluge
-* using apache proxy for transmission and qbittorrent Web-UI
+* using apache proxy for transmission, deluge and qbittorrent Web-UI
 * install test passed in Debian 8 and ubuntu16.04
+* update updateQuickBox script
+* update changeuserpasswd script
 
 > the latest source from QB/master has been merged(2.5.3)
 
