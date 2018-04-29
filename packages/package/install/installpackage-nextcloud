@@ -51,8 +51,8 @@ fi
 apt-get install -y -q php7.0-mysql libxml2-dev php7.0-common php7.0-gd php7.0-json php7.0-curl  php7.0-zip php7.0-xml php7.0-mbstring > /dev/null 2>&1
 a2enmod rewrite > /dev/null 2>&1
 cd /root
-wget -q https://download.nextcloud.com/server/releases/nextcloud-12.0.0.zip > /dev/null 2>&1
-unzip nextcloud-12.0.0.zip > /dev/null 2>&1
+wget -q https://download.nextcloud.com/server/releases/nextcloud-13.0.2.zip > /dev/null 2>&1
+unzip nextcloud-13.0.2.zip > /dev/null 2>&1
 mv nextcloud /srv
 
 #Set permissions as per nextcloud
