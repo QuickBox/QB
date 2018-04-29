@@ -1,6 +1,7 @@
 [Unit]
 Description=Plex Media Server for Linux
-After=network.target
+After=network-online.target
+BindsTo=network-online.target
 
 [Service]
 Environment="PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR=/var/lib/plexmediaserver/Library/Application Support"

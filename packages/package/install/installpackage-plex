@@ -57,7 +57,7 @@ echo "Updating system ... "
     fi
     cp ${local_setup}templates/sysd/plexmediaserver.template /lib/systemd/system/plexmediaserver.service
     systemctl daemon-reload >/dev/null 2>&1
-    systemlctl restart plexmediaserver >/dev/null 2>&1
+    systemctl restart plexmediaserver >/dev/null 2>&1
     touch /install/.plex.lock
     echo
 
