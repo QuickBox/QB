@@ -358,7 +358,7 @@ case 0:
   $jackett = isEnabled("jackett", $username);
     $cbodyj .= $jackett;
   $lidarr = isEnabled("lidarr", $username);
-    $cbodyrad .= $lidarr;
+    $cbodylid .= $lidarr;
   $nzbget = isEnabled("nzbget", $username);
     $cbodynzg .= $nzbget;
   $nzbhydra = isEnabled("nzbhydra", $username);
