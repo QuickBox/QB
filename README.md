@@ -113,6 +113,7 @@ This script has the following features
 * __Deluge (Web-client and thin-client)__
 * Emby
 * Jackett
+* Lidarr
 * NextCloud
 * OpenVPN
 * Plex

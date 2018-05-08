@@ -8,6 +8,7 @@ $packages = array(
         'emby',
         'headphones',
         'jackett',
+		'lidarr',
         'medusa',
         'nextcloud',
         'nzbget',
