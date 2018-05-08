@@ -58,7 +58,7 @@ updateQuickBox
 
 ## Script status
 
-[![Version 2.5.4-production](https://img.shields.io/badge/version-2.5.4-674172.svg?style=flat-square)](https://quickbox.io/readme-md/) [![GNU v3.0 License](https://img.shields.io/badge/license-GNU%20v3.0%20License-blue.svg?style=flat-square)](https://quickbox.io/readme-md/)
+[![Version 2.5.5-production](https://img.shields.io/badge/version-2.5.5-674172.svg?style=flat-square)](https://quickbox.io/readme-md/) [![GNU v3.0 License](https://img.shields.io/badge/license-GNU%20v3.0%20License-blue.svg?style=flat-square)](https://quickbox.io/readme-md/)
 
 #### Ubuntu Builds
  [![Ubuntu 15.10 Passing](https://img.shields.io/badge/Ubuntu%2015.10-passing-brightgreen.svg?style=flat-square)](https://quickbox.io/readme-md/) [![Ubuntu 16.04 Passing](https://img.shields.io/badge/Ubuntu%2016.04-passing-brightgreen.svg?style=flat-square)](https://quickbox.io/readme-md/) [![Ubuntu 16.10 Failing](https://img.shields.io/badge/Ubuntu%2016.10-failing-brightred.svg?style=flat-square)](https://quickbox.io/readme-md/)
@@ -115,10 +115,11 @@ This script has the following features
 * Jackett
 * Lidarr
 * NextCloud
+* Medusa
+* Ombi
 * OpenVPN
 * Plex
 * PlexPy
-* Plex Requests (.NET)
 * pyLoad
 * Quassel
 * Quotas
@@ -128,7 +129,6 @@ This script has the following features
 * SABnzbd
 * SickGear
 * SickRage
-* Medusa
 * Sonarr
 * Subsonic
 * Syncthing
