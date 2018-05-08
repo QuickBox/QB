@@ -194,7 +194,10 @@
               <?php if (file_exists('/install/.jackett.lock')) { ?>
                 <li><a class="grayscale" href="<?php echo "$jackettURL"; ?>" target="_blank"><img src="img/brands/jackett.png" class="brand-ico"> <span>Jackett</span></a></li>
               <?php } ?>
-              <?php if (file_exists('/install/.medusa.lock')) { ?>
+              <?php if (file_exists('/install/.lidarr.lock')) { ?>
+                <li><a class="grayscale" href="<?php echo "$lidarrURL"; ?>" target="_blank"><img src="img/brands/lidarr.png" class="brand-ico"> <span>Lidarr</span></a></li>
+              <?php } ?>
+			  <?php if (file_exists('/install/.medusa.lock')) { ?>
                 <li><a class="grayscale" href="<?php echo "$medusaURL"; ?>" target="_blank"><img src="img/brands/medusa.png" class="brand-ico"> <span>Medusa</span></a></li>
               <?php } ?>
               <?php if (file_exists('/install/.nextcloud.lock')) { ?>

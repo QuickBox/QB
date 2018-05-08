@@ -1,0 +1,12 @@
+<Config>
+  <Port>8686</Port>
+  <UrlBase>lidarr</UrlBase>
+  <BindAddress>127.0.0.1</BindAddress>
+  <SslPort>9898</SslPort>
+  <EnableSsl>False</EnableSsl>
+  <LogLevel>Info</LogLevel>
+  <Branch>develop</Branch>
+  <LaunchBrowser>False</LaunchBrowser>
+  <UpdateMechanism>BuiltIn</UpdateMechanism>
+  <AnalyticsEnabled>False</AnalyticsEnabled>
+</Config>
