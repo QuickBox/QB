@@ -126,6 +126,24 @@
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
 </div><!-- modal -->
+<!-- LIDARR UNINSTALL MODAL -->
+<div class="modal bounceIn animated" id="lidarrRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="LidarrRemovalConfirm" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="LidarrRemovalConfirm"><?php echo T('UNINSTALL_TITLE'); ?> Lidarr?</h4>
+      </div>
+      <div class="modal-body">
+        <?php echo T('UNINSTALL_LIDARR_TXT'); ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
+        <a href="?removepackage-lidarr=true" id="lidarrRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
 <!-- MEDUSA UNINSTALL MODAL -->
 <div class="modal bounceIn animated" id="medusaRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="MedusaRemovalConfirm" aria-hidden="true">
   <div class="modal-dialog">
@@ -782,6 +800,15 @@ $(document).ready(function() {
     $.gritter.add({
       title: '<?php echo T('UNINSTALLING_TITLE'); ?> Jackett',
       text: '<?php echo T('UNINSTALLING_TXT_1'); ?> Jackett <?php echo T('UNINSTALLING_TXT_2'); ?>',
+      class_name: 'with-icon times-circle danger',
+      sticky: true
+    });
+  });
+  // LidarrRemove
+  $('#lidarrRemove').click(function(){
+    $.gritter.add({
+      title: '<?php echo T('UNINSTALLING_TITLE'); ?> Lidarr',
+      text: '<?php echo T('UNINSTALLING_TXT_1'); ?> Lidarr <?php echo T('UNINSTALLING_TXT_2'); ?>',
       class_name: 'with-icon times-circle danger',
       sticky: true
     });

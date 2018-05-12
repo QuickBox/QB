@@ -257,6 +257,7 @@ $delugedweb = processExists("deluge-web",$username);
 $emby = processExists("emby-server",$username);
 $headphones = processExists("headphones",$username);
 $irssi = processExists("irssi",$username);
+$lidarr = processExists("lidarr",$username);
 $nzbget = processExists("nzbget",$username);
 $nzbhydra = processExists("nzbhydra",$username);
 $ombi = processExists("ombi",$username);
@@ -305,6 +306,7 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   $embyURL = "https://" . $_SERVER['HTTP_HOST'] . "/emby";
   $headphonesURL = "https://" . $_SERVER['HTTP_HOST'] . "/headphones/home";
   $jackettURL = "https://" . $_SERVER['HTTP_HOST'] . "/jackett/UI/Dashboard";
+  $lidarrURL = "https://" . $_SERVER['HTTP_HOST'] . "/lidarr";
   $nextcloudURL = "https://" . $_SERVER['HTTP_HOST'] . "/nextcloud";
   $nzbgetURL = "https://" . $_SERVER['HTTP_HOST'] . "/nzbget";
   $nzbhydraURL = "https://" . $_SERVER['HTTP_HOST'] . "/nzbhydra";
@@ -358,6 +360,8 @@ case 0:
     $cbodyhp .= $headphones;
   $jackett = isEnabled("jackett", $username);
     $cbodyj .= $jackett;
+  $lidarr = isEnabled("lidarr", $username);
+    $cbodylid .= $lidarr;
   $nzbget = isEnabled("nzbget", $username);
     $cbodynzg .= $nzbget;
   $nzbhydra = isEnabled("nzbhydra", $username);
@@ -416,7 +420,10 @@ case 66:
     } elseif ($process == "headphones"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
-    } elseif ($process == "nzbget"){
+	} elseif ($process == "lidarr"){
+      shell_exec("sudo systemctl enable $process");
+      shell_exec("sudo systemctl start $process");
+	} elseif ($process == "nzbget"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
     } elseif ($process == "plexmediaserver"){
@@ -460,6 +467,9 @@ case 77:
       shell_exec("sudo systemctl stop $process");
       shell_exec("sudo systemctl disable $process");
     } elseif ($process == "headphones"){
+      shell_exec("sudo systemctl stop $process");
+      shell_exec("sudo systemctl disable $process");
+    } elseif ($process == "lidarr"){
       shell_exec("sudo systemctl stop $process");
       shell_exec("sudo systemctl disable $process");
     } elseif ($process == "nzbget"){
@@ -508,6 +518,9 @@ case 88:
     } elseif ($process == "headphones"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
+    } elseif ($process == "lidarr"){
+      shell_exec("sudo systemctl stop $process");
+      shell_exec("sudo systemctl disable $process");
     } elseif ($process == "nzbget"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
