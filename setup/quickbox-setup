@@ -1035,7 +1035,7 @@ function _qt() {
   ./configure -release -opensource -confirm-license -strip -shared -ltcg -make libs -make tools -dbus -nomake examples -no-compile-examples -no-qml-debug -no-icu -no-gtk -no-opengles3 -no-angle -no-sql-sqlite -no-sql-odbc -no-sqlite -skip qt3d -skip qtactiveqt -skip qtandroidextras -skip qtcanvas3d -skip qtcharts -skip qtconnectivity -skip qtdatavis3d -skip qtdoc -skip qtgamepad -skip qtgraphicaleffects -skip qtimageformats -skip qtlocation -skip qtmacextras -skip qtmultimedia -skip qtnetworkauth -skip qtpurchasing -skip qtquickcontrols -skip qtquickcontrols2 -skip qtremoteobjects -skip qtscript -skip qtscxml -skip qtsensors -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtvirtualkeyboard -skip qtwayland -skip qtwebchannel -skip qtwebengine -skip qtwebsockets -skip qtwebview -skip qtx11extras -skip qtxmlpatterns >>"${OUTTO}" 2>&1;
   make -j$(nproc) >>"${OUTTO}" 2>&1;
   make install >>"${OUTTO}" 2>&1;
-  export PKG_CONFIG_PATH='/usr/local/Qt-5.9.5/lib/pkgconfig/'
+  export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:'/usr/local/Qt-5.9.5/lib/pkgconfig/'
   cd /tmp
   rm -rf qt-everywhere-opensource-src-5.9.5.tar.xz qt-everywhere-opensource-src-5.9.5
   cd
