@@ -309,7 +309,7 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   $nzbgetURL = "https://" . $_SERVER['HTTP_HOST'] . "/nzbget";
   $nzbhydraURL = "https://" . $_SERVER['HTTP_HOST'] . "/nzbhydra";
   $plexURL = "http://" . $_SERVER['HTTP_HOST'] . ":31400/web/";
-  $TautulliURL = "https://" . $_SERVER['HTTP_HOST'] . "/Tautulli";
+  $TautulliURL = "https://" . $_SERVER['HTTP_HOST'] . "/tautulli";
   $ombiURL = "https://" . $_SERVER['HTTP_HOST'] . "/ombi";
   $pyloadURL = "https://" . $_SERVER['HTTP_HOST'] . "/pyload/login";
   $radarrURL = "https://" . $_SERVER['HTTP_HOST'] . "/radarr";
