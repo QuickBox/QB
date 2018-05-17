@@ -119,7 +119,7 @@ This script has the following features
 * Ombi
 * OpenVPN
 * Plex
-* PlexPy
+* Tautulli
 * pyLoad
 * Quassel
 * Quotas
@@ -191,8 +191,6 @@ mkdir /install/ && touch /install/.developer.lock \
 sudo box upgrade
 ```
 
-
----
 
 
 ## Commands
