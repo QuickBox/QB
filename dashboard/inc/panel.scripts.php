@@ -849,11 +849,11 @@ $(document).ready(function() {
       sticky: true
     });
   });
-  // PlexPYRemove
-  $('#plexpyRemove').click(function(){
+  // TautulliRemove
+  $('#TautulliRemove').click(function(){
     $.gritter.add({
-      title: '<?php echo T('UNINSTALLING_TITLE'); ?> PlexPY',
-      text: '<?php echo T('UNINSTALLING_TXT_1'); ?> PlexPY <?php echo T('UNINSTALLING_TXT_2'); ?>',
+      title: '<?php echo T('UNINSTALLING_TITLE'); ?> Tautulli',
+      text: '<?php echo T('UNINSTALLING_TXT_1'); ?> Tautulli <?php echo T('UNINSTALLING_TXT_2'); ?>',
       class_name: 'with-icon times-circle danger',
       sticky: true
     });
