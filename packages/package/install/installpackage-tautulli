@@ -24,7 +24,7 @@ MASTER=$(cat /srv/rutorrent/home/db/master.txt)
 
 cd /opt
 echo "Cloning Tautulli repository" >>"${OUTTO}" 2>&1;
-git clone https://github.com/drzoidberg33/Tautulli.git > /dev/null 2>&1
+git clone https://github.com/Tautulli/Tautulli.git > /dev/null 2>&1
 
 echo "Adding user and setting up tautulli" >>"${OUTTO}" 2>&1;
 adduser --system --no-create-home tautulli
