@@ -72,25 +72,25 @@ EOF
   fi
 }
 
-function _plexpy() {
-  if [[ ! -f /etc/apache2/sites-enabled/plexpy.conf ]]; then
-  service plexpy stop
-  sed -i "s/http_root.*/http_root = \"plexpy\"/g" /opt/plexpy/config.ini
-  sed -i "s/http_host.*/http_host = localhost/g" /opt/plexpy/config.ini
+function _Tautulli() {
+  if [[ ! -f /etc/apache2/sites-enabled/Tautulli.conf ]]; then
+  service Tautulli stop
+  sed -i "s/http_root.*/http_root = \"plexpy\"/g" /opt/Tautulli/config.ini
+  sed -i "s/http_host.*/http_host = localhost/g" /opt/Tautulli/config.ini
 
   cat > /etc/apache2/sites-enabled/plexpy.conf <<EOF
-  <Location /plexpy>
-  ProxyPass http://localhost:8181/plexpy
-  ProxyPassReverse http://localhost:8181/plexpy
+  <Location /Tautulli>
+  ProxyPass http://localhost:8181/Tautulli
+  ProxyPassReverse http://localhost:8181/Tautulli
   AuthType Digest
   AuthName "rutorrent"
   AuthUserFile '/etc/htpasswd'
   Require user ${MASTER}
   </Location>
 EOF
-  chown www-data: /etc/apache2/sites-enabled/plexpy.conf
+  chown www-data: /etc/apache2/sites-enabled/Tautulli.conf
   service apache2 reload
-  service plexpy restart
+  service Tautulli restart
   fi
 }
 
