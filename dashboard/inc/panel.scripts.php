@@ -252,20 +252,20 @@
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
 </div><!-- modal -->
-<!-- PLEXPY UNINSTALL MODAL -->
-<div class="modal bounceIn animated" id="plexpyRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="PlexPyRemovalConfirm" aria-hidden="true">
+<!-- Tautulli UNINSTALL MODAL -->
+<div class="modal bounceIn animated" id="TautulliRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="TautulliRemovalConfirm" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="PlexPyRemovalConfirm"><?php echo T('UNINSTALL_TITLE'); ?> PlexPy?</h4>
+        <h4 class="modal-title" id="TautulliRemovalConfirm"><?php echo T('UNINSTALL_TITLE'); ?> Tautulli?</h4>
       </div>
       <div class="modal-body">
-        <?php echo T('UNINSTALL_PLEXPY_TXT'); ?>
+        <?php echo T('UNINSTALL_Tautulli_TXT'); ?>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
-        <a href="?removepackage-plexpy=true" id="plexpyRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
+        <a href="?removepackage-Tautulliy=true" id="TautulliRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
       </div>
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
