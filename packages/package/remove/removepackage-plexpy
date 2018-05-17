@@ -1,8 +1,8 @@
 #!/bin/bash
-systemctl stop plexpy
-systemctl disable plexpy
-rm -rf /opt/plexpy
-rm /install/.plexpy.lock
-rm -f /etc/apache2/sites-enabled/plexpy.conf
+systemctl stop Tautulli
+systemctl disable Tautulli
+rm -rf /opt/Tautulli
+rm /install/.Tautulli.lock
+rm -f /etc/apache2/sites-enabled/Tautulli.conf
 service apache2 reload
-rm /etc/systemd/system/plexpy.service
+rm /etc/systemd/system/Tautulli.service
