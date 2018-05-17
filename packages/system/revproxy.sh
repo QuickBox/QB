@@ -80,8 +80,8 @@ function _Tautulli() {
 
   cat > /etc/apache2/sites-enabled/Tautulli.conf <<EOF
   <Location /Tautulli>
-  ProxyPass http://localhost:8181/Tautulli
-  ProxyPassReverse http://localhost:8181/Tautulli
+  ProxyPass http://localhost:8181/tautulli
+  ProxyPassReverse http://localhost:8181/autulli
   AuthType Digest
   AuthName "rutorrent"
   AuthUserFile '/etc/htpasswd'
