@@ -30,32 +30,32 @@ echo "Adding user and setting up tautulli" >>"${OUTTO}" 2>&1;
 adduser --system --no-create-home tautulli
 
 echo "Adjusting permissions" >>"${OUTTO}" 2>&1;
-chown tautulli:nogroup -R /opt/tautulli
+chown tautulli:nogroup -R /opt/Tautulli
 
 
-cat > /etc/apache2/sites-enabled/tautulli.conf <<EOF
+cat > /etc/apache2/sites-enabled/Tautulli.conf <<EOF
 <Location /tautulli>
-ProxyPass http://localhost:8181/tautulli
-ProxyPassReverse http://localhost:8181/tautulli
+ProxyPass http://localhost:8181/Tautulli
+ProxyPassReverse http://localhost:8181/Tautulli
 #AuthType Digest
 #AuthName "rutorrent"
 #AuthUserFile '/etc/htpasswd'
 #Require user ${MASTER}
 </Location>
 EOF
-chown www-data: /etc/apache2/sites-enabled/tautulli.conf
+chown www-data: /etc/apache2/sites-enabled/Tautulli.conf
 service apache2 reload
 
-echo "Enabling tautulli Systemd configuration"
-cp ${local_setup}templates/sysd/tautulli.template /etc/systemd/system/tautulli.service
-systemctl enable tautulli > /dev/null 2>&1
-systemctl start tautulli
+echo "Enabling Tautulli Systemd configuration"
+cp ${local_setup}templates/sysd/Tautulli.template /etc/systemd/system/Tautulli.service
+systemctl enable Tautulli > /dev/null 2>&1
+systemctl start Tautulli
 sleep 10
-systemctl stop tautulli
+systemctl stop Tautulli
 sleep 10
-sed -i "s/http_root.*/http_root = \"tautulli\"/g" /opt/tautulli/config.ini
-sed -i "s/http_host.*/http_host = localhost/g" /opt/tautulli/config.ini
-systemctl start tautulli
+sed -i "s/http_root.*/http_root = \"tautulli\"/g" /opt/Tautulli/config.ini
+sed -i "s/http_host.*/http_host = localhost/g" /opt/Tautulli/config.ini
+systemctl start Tautulli
 touch /install/.tautulli.lock
 
 echo "Tautulli Install Complete!" >>"${OUTTO}" 2>&1;
