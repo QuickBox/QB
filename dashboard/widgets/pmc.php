@@ -165,9 +165,9 @@
                       <td>Tautulli</td>
                       <td><?php echo T('Tautulli'); ?></td>
                       <?php if (file_exists("/install/.Tautulli.lock")) { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#plexpyRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#TautulliRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-Tautulli=true" data-toggle="modal" data-target="#sysResponse" id="plexpyInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-Tautulli=true" data-toggle="modal" data-target="#sysResponse" id="TautulliInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>
