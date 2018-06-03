@@ -123,8 +123,8 @@ $L['CSF'] = 'ConfigServer Firewall, connu sous le nom de CSF, est un script de c
 $L['DELUGE'] = 'Deluge est un client BitTorrent léger, gratuit et multi-plateforme.';
 $L['EMBY'] = 'Apporter toutes vos vidéos, vos musiques et vos photos dans un seul endroit n\'a jamais été aussi simple. Votre Serveur Emby personnel convertit automatiquement et diffuse vos médias à la volée pour jouer sur n\'importe quel appareil (Android TV, Apple TV, smartphones, Roku, Consoles de jeu et <a href="https://emby.media/download.html" target="_blank">plein d\'autres</a>).';
 $L['HEADPHONES'] = 'Headphones est un logiciel de téléchargement automatique de musique pour NZB et Torrent, écrit en Python. Il supporte SABnzbd, NZBget, Transmission, μTorrent, Deluge et Blackhole.';
-$L['LIDARR'] = 'Lidarr is an independent fork of Sonarr reworked for automatically downloading music via Usenet and BitTorrent.<br>
-The project was inspired by other Usenet/BitTorrent music downloaders such as Headphones.';
+$L['LIDARR'] = 'Lidarr est un fork indépendant de Sonarr retravaillé pour télécharger automatiquement de la musique via Usenet et BitTorrent.<br>
+Le projet a été inspiré par d\'autres Usenet/BitTorrent téléchargeurs de musique tels que Headphones.';
 $L['JACKETT'] = 'Support API pour vos trackers privés préférés.';
 $L['MEDUSA'] = 'Gestionnaire de fichiers vidéo pour Séries TV. Il surveille les nouveaux épisodes de vos émissions préférées à votre place et quand ils sont sur la toile, sa magie entre en jeu.';
 $L['NEXTCLOUD'] = 'NextCloud est un logiciel open source vous permettant d\'accéder depuis n\'importe quel endroit à vos documents importants. Il peut être installé sur n\'importe quel serveur et vous permet de synchroniser vos données (contacts, calendriers) \'dans le nuage\' sur votre serveur. Vous décidez de ce qui se passe avec vos données, où elles sont et qui peut y accéder!';
