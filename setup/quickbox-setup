@@ -922,7 +922,6 @@ EOF
 allow from all
 EOF
 }
-}
 
 # scgi enable function (22-nixed)
 # function _scgi() { ln -s /etc/apache2/mods-available/scgi.load /etc/apache2/mods-enabled/scgi.load >>"${OUTTO}" 2>&1 ; }
