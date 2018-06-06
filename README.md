@@ -1,4 +1,4 @@
-[![QuickBox](https://github.com/QuickBox/quickbox_github_assets/blob/master/img/quickbox2.png "QuickBox")](https://quickbox.io)
+[![QuickBox](https://cdn.quickbox.io/file/2018/04/qb_logo_original.svg "QuickBox")](https://quickbox.io)
 
 ## To make use of the GitHub repo (all future updates posted here!)
 >This step is only required for users who are coming off of our self-hosted GitLab repositories. If you are installing from fresh, please see [How to install](#how-to-install)
@@ -58,7 +58,7 @@ updateQuickBox
 
 ## Script status
 
-[![Version 2.5.3-production](https://img.shields.io/badge/version-2.5.3-674172.svg?style=flat-square)](https://quickbox.io/readme-md/) [![GNU v3.0 License](https://img.shields.io/badge/license-GNU%20v3.0%20License-blue.svg?style=flat-square)](https://quickbox.io/readme-md/)
+[![Version 2.5.5-production](https://img.shields.io/badge/version-2.5.5-674172.svg?style=flat-square)](https://quickbox.io/readme-md/) [![GNU v3.0 License](https://img.shields.io/badge/license-GNU%20v3.0%20License-blue.svg?style=flat-square)](https://quickbox.io/readme-md/)
 
 #### Ubuntu Builds
  [![Ubuntu 15.10 Passing](https://img.shields.io/badge/Ubuntu%2015.10-passing-brightgreen.svg?style=flat-square)](https://quickbox.io/readme-md/) [![Ubuntu 16.04 Passing](https://img.shields.io/badge/Ubuntu%2016.04-passing-brightgreen.svg?style=flat-square)](https://quickbox.io/readme-md/) [![Ubuntu 16.10 Failing](https://img.shields.io/badge/Ubuntu%2016.10-failing-brightred.svg?style=flat-square)](https://quickbox.io/readme-md/)
@@ -113,11 +113,13 @@ This script has the following features
 * __Deluge (Web-client and thin-client)__
 * Emby
 * Jackett
+* Lidarr
 * NextCloud
+* Medusa
+* Ombi
 * OpenVPN
 * Plex
-* PlexPy
-* Plex Requests (.NET)
+* Tautulli
 * pyLoad
 * Quassel
 * Quotas
@@ -127,7 +129,6 @@ This script has the following features
 * SABnzbd
 * SickGear
 * SickRage
-* Medusa
 * Sonarr
 * Subsonic
 * Syncthing
@@ -167,7 +168,7 @@ After that access your box using a SSH client, like PuTTY.
 **Run the following command to grab our latest stable release ...**
 ```
 apt-get -yqq update; apt-get -yqq upgrade; apt-get -yqq install git lsb-release; \
-git clone https://github.com/QuickBox/QB /etc/QuickBox &&
+git clone https://github.com/QuickBox/QB /etc/QuickBox; \
 bash /etc/QuickBox/setup/quickbox-setup
 ```
 
@@ -178,7 +179,7 @@ bash /etc/QuickBox/setup/quickbox-setup
 ```
 mkdir /install/ && touch /install/.developer.lock; \
 apt-get -yqq update; apt-get -yqq upgrade; apt-get -yqq install git lsb-release; \
-git clone --branch "development" https://github.com/QuickBox/QB /etc/QuickBox &&
+git clone --branch "development" https://github.com/QuickBox/QB /etc/QuickBox; \
 bash /etc/QuickBox/setup/quickbox-setup
 ```
 
@@ -190,8 +191,6 @@ mkdir /install/ && touch /install/.developer.lock \
 sudo box upgrade
 ```
 
-
----
 
 
 ## Commands

@@ -121,6 +121,14 @@
                       <td class="text-center"><?php echo "$cbodyj"; ?></td>
                     </tr>
                     <?php } ?>
+					
+					<?php if (file_exists("/install/.lidarr.lock")) { ?>
+                    <tr>
+                      <td><span id="appstat_lidarr"></span> Lidarr </td>
+                      <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=lidarr'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
+                      <td class="text-center"><?php echo "$cbodylid"; ?></td>
+                    </tr>
+                    <?php } ?>
 
                     <?php if (file_exists("/install/.medusa.lock")) { ?>
                     <tr>
@@ -162,10 +170,10 @@
                     </tr>
                     <?php } ?>
 
-                    <?php if (file_exists("/install/.plexpy.lock")) { ?>
+                    <?php if (file_exists("/install/.Tautulli.lock")) { ?>
                     <tr>
-                      <td><span id="appstat_plexpy"></span> PlexPy </td>
-                      <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=plexpy'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
+                      <td><span id="appstat_Tautulli"></span> Tautulli </td>
+                      <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=Tautulli'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
                       <td class="text-center"><?php echo "$cbodypp"; ?></td>
                     </tr>
                     <?php } ?>

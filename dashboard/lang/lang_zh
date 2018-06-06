@@ -123,6 +123,8 @@ $L['CSF'] = 'ConfigServer防火墙（也称为CSF）是一种防火墙配置脚�
 $L['DELUGE'] = 'Deluge是一款轻量级的免费软件，跨平台的BitTorrent客户端。';
 $L['EMBY'] = 'Emby Server是一个服务器软件包，可以让消费者托管他们合法的多媒体 - 音乐，视频和图片文件。... Emby客户端软件是一个应用程序，你需要安装在移动设备和某些电视的机顶盒，如Android电视。';
 $L['HEADPHONES'] = 'Headphones是用Python编写的NZB和Torrent的自动音乐下载器。 它支持SABnzbd，NZBget，Transmission，μTorrent，Deluge和Blackhole。';
+$L['LIDARR'] = 'Lidarr is an independent fork of Sonarr reworked for automatically downloading music via Usenet and BitTorrent.<br>
+The project was inspired by other Usenet/BitTorrent music downloaders such as Headphones.';
 $L['JACKETT'] = 'API支持你最喜爱的private trackers。';
 $L['MEDUSA'] = '电视节目的视频文件管理器，用来观看你最喜爱的节目的新剧集。 允许手动搜索和其他专有功能，请检查<a href="https://github.com/pymedusa/Medusa" target="_blank"> Github </a>上的Medusa。';
 $L['NEXTCLOUD'] = 'Nextcloud是一个开源，自主托管的文件同步和共享通信应用平台。 访问和同步你的文件，联系人，日历和沟通和协作你的设备。 你可以决定你的数据发生了什么，它在哪里以及谁可以访问它！';
@@ -319,6 +321,7 @@ $L['UNINSTALL_COUCHPOTATO_TXT'] = '即将从系统中卸载CouchPotato。<br/> <
 $L['UNINSTALL_DELUGE_TXT'] = '即将从系统中卸载Deluge。<br/> <br/>这将彻底删除<strong>所有用户</ strong>的所有配置和共享文件夹设置...此操作是不可逆转的。 <br/> <br/>你可以随时重新安装Deluge，但是，你的存储路径和链接文件夹设置将被重置为默认值。';
 $L['UNINSTALL_EMBY_TXT'] = '即将从系统中卸载Emby。<br/> <br/>这将完全删除你的所有配置和共享文件夹设置...此操作是不可逆转的。 <br/> <br/>你可以随时重新安装Emby，但是你的存储路径和链接的文件夹设置将被重置为默认值。';
 $L['UNINSTALL_HEADPHONES_TXT'] = '即将从系统中卸载Headphones。<br/> <br/>这将完全删除你的所有配置和共享文件夹设置...这个动作是不可逆转的。 <br/> <br/>你可以随时重新安装Headphones，但是，存储路径和链接的文件夹设置将被重置为默认值。';
+$L['UNINSTALL_LIDARR_TXT'] = 'You are about to uninstall Lidarr from your system.<br/><br/>This will completely remove all of your configuration settings... this action is irreversible. <br/><br/>You may reinstall lIdarr at any time, however, your configuration settings will be reset to default.';
 $L['UNINSTALL_JACKETT_TXT'] = '即将从系统中卸载Jackett。<br/> <br/>这将完全删除所有的配置和设置...这个操作是不可逆的。 <br/> <br/>你可以随时重新安装Jackett，但是你的设置将被重置为默认值。';
 $L['UNINSTALL_NEXTCLOUD_TXT'] = '即将从系统中卸载NextCloud。<br/> <br/>这将完全删除你的所有配置和设置...这个操作是不可逆的。 <br/> <br/>你可以随时重新安装NextCloud，但是，你的设置将被重置为默认设置。';
 $L['UNINSTALL_NZBGET_TXT'] = '即将从系统中卸载NZBGet。<br/> <br/>这将完全删除你的所有配置和设置...这个动作是不可逆转的。 <br/> <br/>你可以随时重新安装NZBGet，但是你的设置将被重置为默认值。';

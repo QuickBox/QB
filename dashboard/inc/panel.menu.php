@@ -194,7 +194,10 @@
               <?php if (file_exists('/install/.jackett.lock')) { ?>
                 <li><a class="grayscale" href="<?php echo "$jackettURL"; ?>" target="_blank"><img src="img/brands/jackett.png" class="brand-ico"> <span>Jackett</span></a></li>
               <?php } ?>
-              <?php if (file_exists('/install/.medusa.lock')) { ?>
+              <?php if (file_exists('/install/.lidarr.lock')) { ?>
+                <li><a class="grayscale" href="<?php echo "$lidarrURL"; ?>" target="_blank"><img src="img/brands/lidarr.png" class="brand-ico"> <span>Lidarr</span></a></li>
+              <?php } ?>
+			  <?php if (file_exists('/install/.medusa.lock')) { ?>
                 <li><a class="grayscale" href="<?php echo "$medusaURL"; ?>" target="_blank"><img src="img/brands/medusa.png" class="brand-ico"> <span>Medusa</span></a></li>
               <?php } ?>
               <?php if (file_exists('/install/.nextcloud.lock')) { ?>
@@ -209,8 +212,8 @@
               <?php if (file_exists('/install/.plex.lock')) { ?>
                 <li><a class="grayscale" href="<?php echo "$plexURL"; ?>" target="_blank"><img src="img/brands/plex.png" class="brand-ico"> <span>Plex</span></a></li>
               <?php } ?>
-              <?php if (file_exists("/install/.plexpy.lock")) { ?>
-                <li><a class="grayscale" href="<?php echo "$plexpyURL"; ?>" target="_blank"><img src="img/brands/plexpy.png" class="brand-ico"> <span>PlexPy</span></a></li>
+              <?php if (file_exists("/install/.Tautulli.lock")) { ?>
+                <li><a class="grayscale" href="<?php echo "$TautulliURL"; ?>" target="_blank"><img src="img/brands/Tautulli.png" class="brand-ico"> <span>Tautulli</span></a></li>
               <?php } ?>
               <?php if (file_exists("/install/.ombi.lock")) { ?>
                 <li><a class="grayscale" href="<?php echo "$ombiURL"; ?>" target="_blank"><img src="img/brands/plexrequests-net.png" class="brand-ico"> <span>Ombi</span></a></li>

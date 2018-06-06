@@ -89,6 +89,15 @@
                         <td style="vertical-align: middle; text-align: center"><a href="?installpackage-jackett=true" data-toggle="modal" data-target="#sysResponse" id="jackettInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
+					<tr>
+                      <td>Lidarr</td>
+                      <td><?php echo T('LIDARR'); ?></td>
+                      <?php if (file_exists("/install/.lidarr.lock")) { ?>
+                        <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#lidarrRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
+                      <?php } else { ?>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-lidarr=true" data-toggle="modal" data-target="#sysResponse" id="lidarrInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
+                      <?php } ?>
+                    </tr>
                     <tr>
                       <td>Medusa</td>
                       <td><?php echo T('MEDUSA'); ?></td>
@@ -153,12 +162,12 @@
                       <?php } ?>
                     </tr>
                     <tr>
-                      <td>PlexPy</td>
-                      <td><?php echo T('PLEXPY'); ?></td>
-                      <?php if (file_exists("/install/.plexpy.lock")) { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#plexpyRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
+                      <td>Tautulli</td>
+                      <td><?php echo T('Tautulli'); ?></td>
+                      <?php if (file_exists("/install/.Tautulli.lock")) { ?>
+                        <td style="vertical-align: middle; text-align: center"><a href="javascript:void()" data-toggle="modal" data-target="#TautulliRemovalConfirm" class="btn btn-xs btn-success"><?php echo T('INSTALLED'); ?></a></td>
                       <?php } else { ?>
-                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-plexpy=true" data-toggle="modal" data-target="#sysResponse" id="plexpyInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
+                        <td style="vertical-align: middle; text-align: center"><a href="?installpackage-Tautulli=true" data-toggle="modal" data-target="#sysResponse" id="TautulliInstall" class="btn btn-xs btn-default"><?php echo T('INSTALL'); ?></a></td>
                       <?php } ?>
                     </tr>
                     <tr>

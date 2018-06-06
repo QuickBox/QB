@@ -257,11 +257,12 @@ $delugedweb = processExists("deluge-web",$username);
 $emby = processExists("emby-server",$username);
 $headphones = processExists("headphones",$username);
 $irssi = processExists("irssi",$username);
+$lidarr = processExists("lidarr",$username);
 $nzbget = processExists("nzbget",$username);
 $nzbhydra = processExists("nzbhydra",$username);
 $ombi = processExists("ombi",$username);
 $plex = processExists("Plex",plex);
-$plexpy = processExists("plexpy",plexpy);
+$Tautulli = processExists("Tautulli",Tautulli);
 $pyload = processExists("pyload",$username);
 $radarr = processExists("radarr",$username);
 $rtorrent = processExists("rtorrent",$username);
@@ -303,11 +304,12 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   $embyURL = "https://" . $_SERVER['HTTP_HOST'] . "/emby";
   $headphonesURL = "https://" . $_SERVER['HTTP_HOST'] . "/headphones/home";
   $jackettURL = "https://" . $_SERVER['HTTP_HOST'] . "/jackett/UI/Dashboard";
+  $lidarrURL = "https://" . $_SERVER['HTTP_HOST'] . "/lidarr";
   $nextcloudURL = "https://" . $_SERVER['HTTP_HOST'] . "/nextcloud";
   $nzbgetURL = "https://" . $_SERVER['HTTP_HOST'] . "/nzbget";
   $nzbhydraURL = "https://" . $_SERVER['HTTP_HOST'] . "/nzbhydra";
   $plexURL = "http://" . $_SERVER['HTTP_HOST'] . ":31400/web/";
-  $plexpyURL = "https://" . $_SERVER['HTTP_HOST'] . "/plexpy";
+  $TautulliURL = "https://" . $_SERVER['HTTP_HOST'] . "/tautulli";
   $ombiURL = "https://" . $_SERVER['HTTP_HOST'] . "/ombi";
   $pyloadURL = "https://" . $_SERVER['HTTP_HOST'] . "/pyload/login";
   $radarrURL = "https://" . $_SERVER['HTTP_HOST'] . "/radarr";
@@ -355,6 +357,8 @@ case 0:
     $cbodyhp .= $headphones;
   $jackett = isEnabled("jackett", $username);
     $cbodyj .= $jackett;
+  $lidarr = isEnabled("lidarr", $username);
+    $cbodylid .= $lidarr;
   $nzbget = isEnabled("nzbget", $username);
     $cbodynzg .= $nzbget;
   $nzbhydra = isEnabled("nzbhydra", $username);
@@ -363,8 +367,8 @@ case 0:
     $cbodypr .= $ombi;
   $plex = isEnabled("plexmediaserver",plex);
     $cbodyp .= $plex;
-  $plexpy = isEnabled("plexpy",plexpy);
-    $cbodypp .= $plexpy;
+  $Tautulli = isEnabled("Tautulli",Tautulli);
+    $cbodypp .= $Tautulli;
   $pyload = isEnabled("pyload", $username);
     $cbodypl .= $pyload;
   $quassel = isEnabled("quassel", $username);
@@ -411,13 +415,16 @@ case 66:
     } elseif ($process == "headphones"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
-    } elseif ($process == "nzbget"){
+	} elseif ($process == "lidarr"){
+      shell_exec("sudo systemctl enable $process");
+      shell_exec("sudo systemctl start $process");
+	} elseif ($process == "nzbget"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
     } elseif ($process == "plexmediaserver"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
-    } elseif ($process == "plexpy"){
+    } elseif ($process == "Tautulli"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl start $process");
     } elseif ($process == "ombi"){
@@ -454,13 +461,16 @@ case 77:
     } elseif ($process == "headphones"){
       shell_exec("sudo systemctl stop $process");
       shell_exec("sudo systemctl disable $process");
+    } elseif ($process == "lidarr"){
+      shell_exec("sudo systemctl stop $process");
+      shell_exec("sudo systemctl disable $process");
     } elseif ($process == "nzbget"){
       shell_exec("sudo systemctl stop $process");
       shell_exec("sudo systemctl disable $process");
     } elseif ($process == "plexmediaserver"){
       shell_exec("sudo systemctl stop $process");
       shell_exec("sudo systemctl disable $process");
-    } elseif ($process == "plexpy"){
+    } elseif ($process == "Tautulli"){
       shell_exec("sudo systemctl stop $process");
       shell_exec("sudo systemctl disable $process");
     } elseif ($process == "ombi"){
@@ -497,13 +507,16 @@ case 88:
     } elseif ($process == "headphones"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
+    } elseif ($process == "lidarr"){
+      shell_exec("sudo systemctl stop $process");
+      shell_exec("sudo systemctl disable $process");
     } elseif ($process == "nzbget"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
     } elseif ($process == "plexmediaserver"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
-    } elseif ($process == "plexpy"){
+    } elseif ($process == "Tautulli"){
       shell_exec("sudo systemctl enable $process");
       shell_exec("sudo systemctl restart $process");
     } elseif ($process == "ombi"){

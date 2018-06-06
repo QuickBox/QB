@@ -75,6 +75,15 @@ $(document).ready(function() {
     }});
   }
   appstat_jackett();
+  
+  // <<-------- LIDARR -------->> //
+  function appstat_lidarr() {
+    $.ajax({url: "/widgets/app_status/app_status_lidarr.php", cache:true, success: function (result) {
+      $('#appstat_lidarr').html(result);
+      setTimeout(function(){appstat_lidarr()}, 1000);
+    }});
+  }
+  appstat_lidarr();
 
   // <<-------- MEDUSA -------->> //
   function appstat_medusa() {
@@ -139,14 +148,14 @@ $(document).ready(function() {
   }
   appstat_plex();
 
-  // <<-------- PLEXPY -------->> //
-  function appstat_plexpy() {
-    $.ajax({url: "/widgets/app_status/app_status_plexpy.php", cache:true, success: function (result) {
-      $('#appstat_plexpy').html(result);
-      setTimeout(function(){appstat_plexpy()}, 1000);
+  // <<-------- Tautulli -------->> //
+  function appstat_Tautulli() {
+    $.ajax({url: "/widgets/app_status/app_status_Tautulli.php", cache:true, success: function (result) {
+      $('#appstat_Tautulli').html(result);
+      setTimeout(function(){appstat_Tautulli()}, 1000);
     }});
   }
-  appstat_plexpy();
+  appstat_Tautulli();
 
   // <<-------- PYLOAD -------->> //
   function appstat_pyload() {
