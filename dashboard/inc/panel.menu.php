@@ -58,12 +58,12 @@
                               <div class="col-xs-12 col-md-6" style="padding: 0">
                                 <ul style="padding-left: 5px">
                                 <li><small><a href="https://plaza.quickbox.io/categories" target="_blank" alt="View all QuickBox Community Categories">Plaza</a></small></li>
-                                <li><small><a href="https://quickbox.io/faq" target="_blank" alt="QuickBox FAQs">FAQs</a></small></li>
+                                <li><small><a href="https://quickbox.io/kb/faq" target="_blank" alt="QuickBox FAQs">FAQs</a></small></li>
                                 </ul>
                               </div>
                               <div class="col-xs-12 col-md-6" style="padding: 0">
                                 <ul style="padding-left: 5px">
-                                <li><small><a href="https://quickbox.io/wiki" target="_blank" alt="QuickBox Wiki - How-to's, Tips and Tricks">Wiki</a></small></li>
+                                <li><small><a href="https://quickbox.io/kb/faq" target="_blank" alt="QuickBox Wiki - How-to's, Tips and Tricks">Wiki</a></small></li>
                                 <li><small><a href="https://plaza.quickbox.io/c/quickbox-support" target="_blank"><?php echo T('ISSUE_REPORT_TXT'); ?></a></small></li>
                                 </ul>
                               </div>
