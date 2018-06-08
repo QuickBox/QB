@@ -271,9 +271,9 @@ function _askrtorrent() {
 
 # ask deluge version (if wanted) (8.1)
 function _askdeluge() {
-  echo -e "1) Deluge ${green}repo${normal} (fastest)"
-  echo -e "2) Deluge with ${green}libtorrent 1.0.11 (stable)${normal}"
-  echo -e "3) Deluge with ${green}libtorrent 1.1.3 (dev)${normal}"
+  echo -e "1) Deluge ${green}repo${normal} (fastest installing)"
+  echo -e "2) Deluge with ${green}libtorrent 1.0.x (stable)${normal}"
+  echo -e "3) Deluge with ${green}libtorrent 1.1.x (dev)${normal}"
   echo -e "4) Do not install Deluge"
   echo -ne "${bold}${yellow}What version of Deluge do you want?${normal} (Default ${green}1${normal}): "; read version
   case $version in
@@ -289,18 +289,17 @@ function _askdeluge() {
 
 # install qbittorrent question (8.8)
 function _askqb() {
-echo -e "${green}01)${normal} qBittorrent ${green}3.3.16${normal}"
-echo -e "${green}02)${normal} qBittorrent ${green}4.0.4${normal}"
-echo -e "${green}03)${normal} qBittorrent ${green}4.1.0${normal}"
-echo -e "${green}99)${normal} Select another version"
+echo -e "1) qBittorrent ${green}3.3.16${normal}"
+echo -e "2) qBittorrent ${green}4.0.4${normal}"
+echo -e "3) qBittorrent ${green}4.1.1${normal}"
+echo -e "4) Do not install qBittorren"
 echo -ne "${bold}${yellow}Which version of qBittorrent do you want?${normal} (Default ${green}2${normal}): " ; read -e version
 
 case $version in
-    00 | 0) QBVERSION=no ;;
     01 | 1) QBVERSION=3.3.16 ;;
     02 | 2) QBVERSION=4.0.4 ;;
-    03 | 3) QBVERSION=4.1.0 ;;
-    99) _inputversion && QBVERSION="${inputversion}"  ;;
+    03 | 3) QBVERSION=4.1.1 ;;
+	04 | 4) QBVERSION=no ;;
     * | "") QBVERSION=4.0.4 ;;
 esac
 
@@ -535,7 +534,7 @@ function _skel() {
   if [[ $DELUGE != NO ]]; then
     mkdir -p /etc/skel/.config/deluge/plugins/
     cd /etc/skel/.config/deluge/plugins/
-    wget -q https://github.com/ratanakvlun/deluge-ltconfig/releases/download/v0.2.5.0/ltConfig-0.2.5.0-py2.7.egg
+    wget -q https://github.com/ratanakvlun/deluge-ltconfig/releases/download/v0.3.1/ltConfig-0.3.1-py2.7.egg
   fi
 }
 
@@ -795,7 +794,7 @@ fi
   mkdir -p /home/${username}/.config/deluge/plugins
   if [[ ! -f /home/${username}/.config/deluge/plugins/ltConfig-0.2.5.0-py2.7.egg ]]; then
     cd /home/${username}/.config/deluge/plugins/
-    wget -q https://github.com/ratanakvlun/deluge-ltconfig/releases/download/v0.2.5.0/ltConfig-0.2.5.0-py2.7.egg
+    wget -q https://github.com/ratanakvlun/deluge-ltconfig/releases/download/v0.3.1/ltConfig-0.3.1-py2.7.egg
   fi
   chmod 755 /home/${username}/.config
   chmod 755 /home/${username}/.config/deluge
@@ -1014,6 +1013,9 @@ function _qbittorrent() {
   systemctl start qbittorrent@${username} >/dev/null 2>&1
   sleep 10
   systemctl stop {qbittorrent}@${username} >/dev/null 2>&1
+  if [ ! -d /home/${username}/.config/qbittorrent ]; then
+	mkdir -p /home/${username}/.config/qbittorrent
+  fi
   cp -f ${local_setup}templates/qBittorrent.conf.template /home/${username}/.config/qBittorrent/qBittorrent.conf
   sed -i "s/admin/${username}/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
   sed -i "s/5ebe2294ecd0e0f08eab7690d2a6ee69/${ha1pass}/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
