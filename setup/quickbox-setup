@@ -287,6 +287,26 @@ function _askdeluge() {
   echo
 }
 
+# install qbittorrent question (8.8)
+function _askqb() {
+echo -e "${green}01)${normal} qBittorrent ${green}3.3.16${normal}"
+echo -e "${green}02)${normal} qBittorrent ${green}4.0.4${normal}"
+echo -e "${green}03)${normal} qBittorrent ${green}4.1.0${normal}"
+echo -e "${green}99)${normal} Select another version"
+echo -ne "${bold}${yellow}Which version of qBittorrent do you want?${normal} (Default ${green}2${normal}): " ; read -e version
+
+case $version in
+    00 | 0) QBVERSION=no ;;
+    01 | 1) QBVERSION=3.3.16 ;;
+    02 | 2) QBVERSION=4.0.4 ;;
+    03 | 3) QBVERSION=4.1.0 ;;
+    99) _inputversion && QBVERSION="${inputversion}"  ;;
+    * | "") QBVERSION=4.0.4 ;;
+esac
+
+echo "${bold}${green}qBittorrent ${QBVERSION}${normal} ${bold}will be installed${normal}" ; echo ; 
+}
+
 # install transmission question (8.5)
 function _asktr() {
   echo -ne "${bold}${yellow}Would you like to install transmission? ${normal} [${green}y${normal}]es or [n]o: "; read responce
@@ -319,6 +339,7 @@ function _adduser() {
   fi
   printf "${username}:${passwd}" > /root/"$username".info.db
   echo
+  ha1pass=`echo -n "${passwd}"|md5sum |cut -f1 -d' '`
 }
 
 # install ffmpeg question (10)
@@ -467,7 +488,7 @@ function _depends() {
                      python3-lxml python-lxml ttf-mscorefonts-installer checkinstall dtach cfv libarchive-zip-perl \
                      libnet-ssleay-perl openjdk-8-jre-headless openjdk-8-jre openjdk-8-jdk libxslt1-dev \
                      libxslt1.1 libxml2 libffi-dev python-pip python-dev libhtml-parser-perl libxml-libxml-perl \
-                     libjson-perl libjson-xs-perl libxml-libxslt-perl libapache2-mod-scgi \
+                     libjson-perl libjson-xs-perl libxml-libxslt-perl libapache2-mod-scgi zlib1g-dev \
                      vnstat vnstati openvpn >>"${OUTTO}" 2>&1
   fi
 }
@@ -580,7 +601,7 @@ function _ffmpeg() {
     mkdir /root/tmp
     cd /root/tmp
     if [[ -d /root/tmp/ffmpeg ]]; then rm -rf ffmpeg;fi
-    git clone --depth 1 -b release/3.2 https://github.com/FFmpeg/FFmpeg.git ffmpeg >>"${OUTTO}" 2>&1
+    git clone --depth 1 -b release/4.0 https://github.com/FFmpeg/FFmpeg.git ffmpeg >>"${OUTTO}" 2>&1
     git clone git://github.com/yasm/yasm.git ffmpeg/yasm >>"${OUTTO}" 2>&1
     git clone https://github.com/yixia/x264.git ffmpeg/x264 >>"${OUTTO}" 2>&1
     ############################################################################
@@ -662,6 +683,8 @@ function _libtorrent() {
   cp ${local_setup}sources/libtorrent-0.13.4-tar.patch .
   patch -p1 < libtorrent-*-tar.patch >>"${OUTTO}" 2>&1
   ./configure --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" --enable-ipv6 >>"${OUTTO}" 2>&1
+  elif [ $LTORRENT = 0.13.6 ]; then
+  ./configure --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" --enable-ipv6 >>"${OUTTO}" 2>&1
   else
   ./configure --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" >>"${OUTTO}" 2>&1
   fi
@@ -682,7 +705,15 @@ function _rtorrent() {
   tar -xzvf rtorrent-${RTVERSION}.tar.gz >>"${OUTTO}" 2>&1
   cd rtorrent-${RTVERSION}
   ./autogen.sh >>"${OUTTO}" 2>&1
+  if [ $RTVERSION = 0.9.4 ]; then
+  cp ${local_setup}sources/rtorrent-0.9.4-tar.patch .
+  patch -p1 < rtorrent-*-tar.patch >>"${OUTTO}" 2>&1
+  ./configure --prefix=/usr --with-xmlrpc-c --enable-ipv6 >>"${OUTTO}" 2>&1
+  elif [ $RTVERSION = 0.9.6 ]; then
+  ./configure --prefix=/usr --with-xmlrpc-c --enable-ipv6 >>"${OUTTO}" 2>&1
+  else
   ./configure --prefix=/usr --with-xmlrpc-c >>"${OUTTO}" 2>&1
+  fi
   make -j${MAXCPUS} >>"${OUTTO}" 2>&1
   make install >>"${OUTTO}" 2>&1
   cd /root/tmp
@@ -693,6 +724,19 @@ function _rtorrent() {
 function _rtorrent_fallback() {
   apt-get install -y rtorrent >>"${OUTTO}" 2>&1
   touch /install/.rtorrent.lock
+}
+
+function _boost() {
+  cd /tmp
+  wget -O boost_1_65_1.tar.gz -q https://sourceforge.net/projects/boost/files/boost/1.65.1/boost_1_65_1.tar.gz/download
+  tar -zxvf boost_1_65_1.tar.gz >>"${OUTTO}" 2>&1
+  cd boost_1_65_1
+  ./bootstrap.sh --prefix=/usr/ --with-libraries=system --with-libraries=python --with-libraries=chrono --with-libraries=random >>"${OUTTO}" 2>&1;
+  ./b2 >>"${OUTTO}" 2>&1;
+  ./b2 install >>"${OUTTO}" 2>&1;
+  cd /tmp
+  rm -rf boost_1_65_1.tar.gz boost_1_65_1
+  cd
 }
 
 # deluge function (xx)
@@ -710,27 +754,34 @@ function _deluge() {
       LTRC=RC_1_1
     fi
   apt-get -qy update >/dev/null 2>&1
-  LIST='build-essential checkinstall libboost-system-dev libboost-python-dev libssl-dev libgeoip-dev libboost-chrono-dev libboost-random-dev
+  LIST='build-essential checkinstall libgeoip-dev 
   python python-twisted python-openssl python-setuptools intltool python-xdg python-chardet geoip-database python-notify python-pygame
   python-glade2 librsvg2-common xdg-utils python-mako'
   for depend in $LIST; do
     apt-get -qq -y install $depend >>"${OUTTO}" 2>&1
   done
+  _boost
+  cd ${local_packages}
   git clone -b ${LTRC} https://github.com/arvidn/libtorrent.git >>"${OUTTO}" 2>&1
-  git clone -b 1.3-stable git://deluge-torrent.org/deluge.git >>"${OUTTO}" 2>&1
   cd libtorrent
+  cp ${local_setup}sources/libtorrent-rasterbar-${LTRC}.patch .
+  patch -p1 < libtorrent-rasterbar-${LTRC}.patch >>"${OUTTO}" 2>&1
+
   ./autotool.sh >>"${OUTTO}" 2>&1
-  ./configure --enable-python-binding --with-lib-geoip --with-libiconv >>"${OUTTO}" 2>&1 >>"${OUTTO}" 2>&1
+  ./configure --enable-python-binding --disable-debug --enable-encryption --with-libgeoip=system --with-libiconv CXXFLAGS=-std=c++11 --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1
   make -j$(nproc) >>"${OUTTO}" 2>&1
   checkinstall -y --pkgversion=${DELUGE} >>"${OUTTO}" 2>&1
   ldconfig
   cd ..
-  cd deluge
+  wget -q http://download.deluge-torrent.org/source/deluge-1.3.15.tar.gz
+  tar -zxvf deluge-1.3.15.tar.gz >>"${OUTTO}" 2>&1
+  cd deluge-1.3.15
   python setup.py build >>"${OUTTO}" 2>&1
   python setup.py install --install-layout=deb >>"${OUTTO}" 2>&1
   python setup.py install_data >>"${OUTTO}" 2>&1
   cd ..
-  rm -r {deluge,libtorrent}
+  rm -r {deluge-1.3.15,libtorrent}
+  rm -rf deluge-1.3.15.tar.gz
 fi
   if [[ $DELUGE != NO ]]; then
   n=$RANDOM
@@ -923,6 +974,73 @@ allow from all
 EOF
 }
 
+function _qbittorrent() {
+  apt-get -qy update >>"${OUTTO}" 2>&1;
+  LIST='build-essential checkinstall pkg-config libgl1-mesa-dev libjpeg-dev libpng-dev automake libtool libgeoip-dev python3-dev python3-pip'
+  for depend in $LIST; do
+    apt-get -qq -y install $depend >>"${OUTTO}" 2>&1;
+  done
+  if [ ! -e /usr/lib/libboost_system.so ]; then
+    _boost
+  fi
+  cd ${local_packages}
+  if [ ! -e /usr/local/lib/libtorrent-rasterbar.so ]; then
+    LTRC=RC_1_0
+    git clone -b ${LTRC} https://github.com/arvidn/libtorrent.git >>"${OUTTO}" 2>&1;
+    cd libtorrent
+	cp ${local_setup}sources/libtorrent-rasterbar-${LTRC}.patch .
+    patch -p1 < libtorrent-rasterbar-${LTRC}.patch >>"${OUTTO}" 2>&1
+    ./autotool.sh >>"${OUTTO}" 2>&1;
+    ./configure --enable-python-binding --disable-debug --enable-encryption --with-libgeoip=system --with-libiconv CXXFLAGS=-std=c++11 --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1;
+    make -j$(nproc) >>"${OUTTO}" 2>&1;
+    checkinstall -y --pkgversion=1.0.11 >>"${OUTTO}" 2>&1;
+  fi
+  ldconfig >>"${OUTTO}" 2>&1;
+  apt-get -qy update >>"${OUTTO}" 2>&1;
+  LIST='qtbase5-dev qttools5-dev-tools libqt5svg5-dev'
+  for depend in $LIST; do
+  	apt-get -qq -y install $depend >>"${OUTTO}" 2>&1;
+  done
+  cd ${local_packages}
+  git clone https://github.com/qbittorrent/qBittorrent >>"${OUTTO}" 2>&1;
+  cd qBittorrent
+  git checkout release-$QBVERSION >>"${OUTTO}" 2>&1
+  ./configure --disable-gui --disable-debug --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1;
+  make -j$(nproc) >>"${OUTTO}" 2>&1;
+  checkinstall -y --pkgname=qbittorrent-headless --pkgversion=$QBVERSION --pkggroup qbittorrent >>"${OUTTO}" 2>&1;
+  export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
+  cp ${local_setup}templates/sysd/qbittorrent.template  /etc/systemd/system/qbittorrent@.service >/dev/null 2>&1
+  systemctl enable qbittorrent@${username} >/dev/null 2>&1
+  systemctl start qbittorrent@${username} >/dev/null 2>&1
+  sleep 10
+  systemctl stop {qbittorrent}@${username} >/dev/null 2>&1
+  cp -f ${local_setup}templates/qBittorrent.conf.template /home/${username}/.config/qBittorrent/qBittorrent.conf
+  sed -i "s/admin/${username}/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
+  sed -i "s/5ebe2294ecd0e0f08eab7690d2a6ee69/${ha1pass}/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
+  sed -i "s/mySavePath/\/home\/${username}\/torrents\/qbittorrent/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
+  chmod -R 755 /home/${username}/.config/
+  chown -R ${username}.${username} /home/${username}/.config/
+  mkdir -p /home/${username}/torrents/qbittorrent
+  chown ${username}: /home/${username}/torrents/qbittorrent
+  cd ${local_packages}
+  rm -r qBittorrent
+}
+
+function _insqBApache() {
+APPNAME='qbittorrent'
+APPDPORT='8086'
+  cat > /etc/apache2/sites-enabled/qbittorrent.conf <<EOF
+<Location /$APPNAME>
+ProxyPass http://localhost:$APPDPORT
+ProxyPassReverse http://localhost:$APPDPORT
+Require all granted
+</Location>
+EOF
+
+  touch /install/.qbittorrent.lock
+  chown www-data: /etc/apache2/sites-enabled/qbittorrent.conf
+}
+
 # scgi enable function (22-nixed)
 # function _scgi() { ln -s /etc/apache2/mods-available/scgi.load /etc/apache2/mods-enabled/scgi.load >>"${OUTTO}" 2>&1 ; }
 
@@ -953,6 +1071,7 @@ function _rutorrent-plugins() {
   if [[ -d /srv/rutorrent/plugins ]]; then rm -rf plugins;fi
   mkdir plugins
   cp -R ${local_rplugins}/. plugins
+  apt-get install -y sox libsox-fmt-mp3  >>"${OUTTO}" 2>&1
 }
 
 # function to install dashboard (23)
@@ -976,6 +1095,9 @@ function _fileindexer() {
   ln -s /home/${username}/torrents/deluge/ ${username}.deluge.downloads
   if [[ ${tr} == "yes" ]]; then
 	ln -s /home/${username}/torrents/transmission/ ${username}.transmission.downloads
+  fi
+  if [[ ${QBVERSION} != "no" ]]; then
+	ln -s /home/${username}/torrents/qbittorrent/ ${username}.qbittorrent.downloads
   fi
 }
 
@@ -1290,7 +1412,7 @@ function _insbbr() {
   cd /tmp
   cp ${local_setup}sources/BBR/BBR.sh .
   chmod a+x BBR.sh
-  bash BBR.sh -f v4.12.14 >>"${OUTTO}" 2>&1
+  bash BBR.sh -f v4.14.32 >>"${OUTTO}" 2>&1
   cd
 }
 
@@ -1445,6 +1567,7 @@ _ask10g
 _askrtorrent
 _askdeluge
 _asktr
+_askqb
 _askdashtheme
 _adduser
 _askffmpeg
@@ -1473,7 +1596,7 @@ if [[ ${ffmpeg} == "yes" ]]; then
 fi
 _apachesudo
 echo -n "Installing xmlrpc-c-${green}1.33.12${normal} ... ";_xmlrpc & spinner $!;echo
-echo -n "Installing libtorrent-${green}$LTORRENT${normal} ... ";_libtorrent & spinner $!;echo
+echo -n "Installing libtorrent-rakshasa ${green}$LTORRENT${normal} ... ";_libtorrent & spinner $!;echo
 echo -n "Installing rtorrent-${green}$RTVERSION${normal} ... ";_rtorrent & spinner $!;echo
 #echo -n "Installing rtorrent ... ";_rtorrent_fallback & spinner $!;echo
 echo -n "Installing rutorrent into /srv ... ";_rutorrent & spinner $!;echo
@@ -1483,6 +1606,10 @@ if [[ ${tr} == "yes" ]]; then
 	echo -n "Configuring Transmisson ... ";_insTr & spinner $!;echo
 	echo -n "Installing Transmisson Web Control ... ";_insTrWeb & spinner $!;echo
 	echo -n "Setting up Transmission Reverse Proxy ... ";_insTrApache & spinner $!;echo
+fi
+if [[ ${QBVERSION} != "no" ]]; then
+	echo -n "Installing qBittorrent ... ";_qbittorrent & spinner $!;echo
+	echo -n "Setting up qBittorrent Reverse Proxy ... ";_insqBApache & spinner $!;echo
 fi
 echo -n "Installing mktorrent from source ... ";_mktorrent & spinner $!;echo
 echo -n "Installing quickbox dashboard ... ";_dashboard & spinner $!;echo

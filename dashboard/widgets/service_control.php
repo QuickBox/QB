@@ -63,7 +63,15 @@
                       <td class="text-center"><?php echo "$cbodytr"; ?></td>
                     </tr>
                     <?php } ?>
-
+					
+                  <?php if (file_exists("/install/.qbittorrent.lock")) { ?>
+                    <tr>
+                      <td><span id="appstat_qbittorrent"></span> qBittorrent </td>
+                      <td class="text-center"><a href="javascript:;" onclick="location.href='?id=88&servicestart=qbittorrent'" class="btn btn-xs btn-default"><i class="fa fa-refresh text-info"></i> <?php echo T('REFRESH'); ?></a></td>
+                      <td class="text-center"><?php echo "$cbodyqb"; ?></td>
+                    </tr>
+                    <?php } ?>
+					
                 <?php if ($username == "$master") { ?>
 
                     <tr>

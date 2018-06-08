@@ -146,6 +146,7 @@ $L['SONARR'] = 'Sonarr是一个电视连续剧管理工具，可以同时使用t
 $L['SUBSONIC'] = 'Subsonic是一个基于网络的媒体服务器。 它是用Java编写的，所以它可以在任何支持Java的操作系统上运行。 Subsonic支持同时向多个客户端传输流媒体，并支持任何流媒体（包括MP3，AAC和Ogg）。';
 $L['SYNCTHING'] = '开源的BitTorrent文件同步软件';
 $L['TRANSMISSION'] = 'Transmission设计简单，功能强大。 默认设置为Just Work，只需点击几下鼠标即可配置高级功能，如监视目录，不良对等拦截列表和Web界面。当Ubuntu的选择Transmission作为其默认的BitTorrent客户端中，引用最多的原因之一是它简单易学。';
+$L['QBITTORRENT'] = 'qBittorrent是一款免费可靠的P2P BitTorrent客户端，先进的多平台BitTorrent客户端，具有良好的Qt用户界面以及用于远程控制并且集成搜索引擎的Web用户界面。';
 $L['X2GO'] = 'X2Go是一款使用NX技术协议的Linux开源远程桌面软件。';
 $L['ZNC'] = 'ZNC是一个IRC网络辅助软件。它可以将客户端从实际的IRC服务器以及选定的通道中分离出来。';
 
@@ -210,6 +211,7 @@ $L['PERCENTAGE_TXT_1'] = '已使用';
 $L['PERCENTAGE_TXT_2'] = '的磁盘空间';
 $L['RTORRENTS_TITLE'] = 'rtorrent的种子';
 $L['DTORRENTS_TITLE'] = 'deluge的种子';
+$L['QTORRENTS_TITLE'] = 'qBittorrent的种子';
 $L['TORRENTS_LOADED_1'] = '总计加载了';
 $L['TORRENTS_LOADED_2'] = '个种子';
 
@@ -342,6 +344,7 @@ $L['UNINSTALL_SONARR_TXT'] = '即将从系统中卸载Sonarr。<br/> <br/>这将
 $L['UNINSTALL_SUBSONIC_TXT'] = '即将从系统中卸载Subsonic。<br/> <br/>这将完全删除你的所有配置设置...这个操作是不可逆的。 <br/> <br/>你可以随时重新安装Subsonic，但是你的配置设置将被重置为默认值。';
 $L['UNINSTALL_SYNCTHING_TXT'] = '即将从系统中卸载Syncthing。<br/> <br/>这将完全删除你的所有配置设置...这个操作是不可逆的。 <br/> <br/>你可以随时重新安装Syncthing，但是你的配置设置将被重置为默认值。';
 $L['UNINSTALL_TRANSMISSION_TXT'] = '即将从系统中卸载Transmission。<br/> <br/>这将完全删除你的所有配置设置...这个动作是不可逆的。 <br/> <br/>你可以随时重新安装Transmission，但是你的配置设置将被重置为默认值。';
+$L['UNINSTALL_QBITTORRENT_TXT'] = '即将从系统中卸载qBittorrent。<br/> <br/>这将完全删除你的所有配置设置...这个动作是不可逆的。 <br/> <br/>你可以随时重新安装qBittorrent，但是你的配置设置将被重置为默认值。';
 $L['UNINSTALL_X2GO_TXT'] = '即将从系统中卸载x2go。<br/> <br/>这将彻底清除系统中的x2goserver和xfce4桌面环境。';
 $L['UNINSTALL_ZNC_TXT'] = '即将从系统中卸载ZNC。<br/> <br/>这将完全删除你的所有配置和设置...这个动作是不可逆的。 <br/> <br/>你可以随时重新安装ZNC，但是你的设置将被重置为默认值。';
 $L['THEME_CHANGE_TXT'] = '即将改变主题。 如果主题在刷新后没有正确显示，则可能需要清除浏览器缓存并重试。';

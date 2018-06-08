@@ -264,6 +264,15 @@ $(document).ready(function() {
     }});
   }
   appstat_transmission();
+  
+    // <<-------- QBITTORRENT -------->> //
+  function appstat_qbittorrent() {
+    $.ajax({url: "/widgets/app_status/app_status_qbittorrent.php", cache:true, success: function (result) {
+      $('#appstat_qbittorrent').html(result);
+      setTimeout(function(){appstat_qbittorrent()}, 1000);
+    }});
+  }
+  appstat_qbittorrent();
 
   // <<-------- WEB CONSOLE -------->> //
   function appstat_webconsole() {

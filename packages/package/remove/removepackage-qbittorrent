@@ -1,0 +1,23 @@
+#!/bin/bash
+function _removepackage-qb() {
+	# Disable and Stop qBittorrent services
+	systemctl disable qbittorrent@${username} > /dev/null 2>&1
+  	systemctl stop qbittorrent@${username} > /dev/null 2>&1
+  	# Remove qBittorrent user and settings directories
+	rm -rf /home/${username}/torrents/qbittorrent/
+	rm -rf /etc/apache2/sites-enabled/qbittorrent.conf
+	rm -rf /home/${username}/.local/share/data/qBittorrent/
+	rm -rf /home/${username}/.config/qBittorrent/
+	rm -rf /srv/rutorrent/home/${username}.qbittorrent.downloads
+	# Remove any package dependencies and settings
+    dpkg -P qbittorrent
+	# Remove lock file
+	rm /install/.qbittorrent.lock
+	# Reload apache2
+	service apache2 reload
+}
+
+username=$(cat /srv/rutorrent/home/db/master.txt)
+OUTTO="/srv/rutorrent/home/db/output.log"
+
+_removepackage-qb
