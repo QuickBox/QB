@@ -1013,8 +1013,8 @@ function _qbittorrent() {
   systemctl start qbittorrent@${username} >/dev/null 2>&1
   sleep 10
   systemctl stop {qbittorrent}@${username} >/dev/null 2>&1
-  if [ ! -d /home/${username}/.config/qbittorrent ]; then
-	mkdir -p /home/${username}/.config/qbittorrent
+  if [ ! -d /home/${username}/.config/qBittorrent ]; then
+	mkdir -p /home/${username}/.config/qBittorrent
   fi
   cp -f ${local_setup}templates/qBittorrent.conf.template /home/${username}/.config/qBittorrent/qBittorrent.conf
   sed -i "s/admin/${username}/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
