@@ -47,7 +47,7 @@ function _intro() {
   echo
   echo "   ${title}              Heads Up!              ${normal} "
   echo "   ${message_title}  QuickBox works with the following  ${normal} "
-  echo "   ${message_title}  Ubuntu 15.10 | 16.04       ${normal} "
+  echo "   ${message_title}  Ubuntu 15.10 | 16.04               ${normal} "
   echo
   echo
   echo "${green}Checking distribution ...${normal}"
@@ -255,8 +255,8 @@ function _askdashtheme() {
 
 # ask what rtorrent version (8)
 function _askrtorrent() {
-  echo -e "1) rtorrent ${green}0.9.6${normal}"
-  echo -e "2) rtorrent ${green}0.9.4${normal}"
+  echo -e "1) rtorrent ${green}0.9.6 (with ipv6 support)${normal}"
+  echo -e "2) rtorrent ${green}0.9.4 (with ipv6 support)${normal}"
   echo -e "3) rtorrent ${green}0.9.3${normal}"
   echo -ne "${bold}${yellow}What version of rtorrent do you want?${normal} (Default ${green}1${normal}): "; read version
   case $version in
@@ -519,7 +519,7 @@ function _skel() {
   if [[ -d /etc/skel ]]; then rm -r /etc/skel;fi
   mkdir /etc/skel
   cp -r ${local_setup}templates/skel/. /etc/skel
-  tar xzf ${local_setup}sources/rarlinux-x64-5.3.0.tar.gz -C ./
+  tar xzf ${local_setup}sources/rarlinux-x64-5.5.0.tar.gz -C ./
   cp ./rar/*rar /usr/bin
   cp ./rar/*rar /usr/sbin
   rm -rf rarlinux*.tar.gz
@@ -1586,7 +1586,7 @@ echo ""
 echo -n "Pulling QuickBox Ecosystem ... ";_repos & spinner $!;echo
 echo -n "Updating system ... ";_updates & spinner $!;echo
 echo -n "Installing all needed dependencies ... ";_depends & spinner $!;echo
-_openssl
+echo -n "Installing openssl ... ";_openssl & spinner $!;echo
 echo -n "Setting up system executables ... ";_syscommands & spinner $!;echo
 echo -n "Building required user directories ... ";_skel & spinner $!;echo
 if [[ ${quota} == "yes" ]]; then
