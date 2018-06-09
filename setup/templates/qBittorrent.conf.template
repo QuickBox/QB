@@ -3,17 +3,11 @@ enabled=false
 program=
 
 [Preferences]
-Advanced\SuperSeeding=false
-Advanced\trackerEnabled=false
-Advanced\trackerPort=9000
 Bittorrent\AddTrackers=false
 Bittorrent\MaxRatioAction=0
 Bittorrent\PeX=true
-Bittorrent\Encryption=0
 Connection\GlobalDLLimitAlt=10
 Connection\GlobalUPLimitAlt=10
-Downloads\DiskWriteCacheSize=64
-Downloads\DiskWriteCacheTTL=60
 Downloads\PreAllocation=true
 Downloads\SavePath=mySavePath
 Downloads\ScanDirsV2=@Variant(\0\0\0\x1c\0\0\0\0)
@@ -42,19 +36,4 @@ WebUI\Port=8086
 WebUI\ServerDomains=*
 WebUI\UseUPnP=true
 WebUI\Username=admin
-
-[BitTorrent]
-Session\GuidedReadCache=true
-Session\ChokingAlgorithm=FixedSlots
-Session\SeedChokingAlgorithm=FastestUpload
-Session\MultiConnectionsPerIp=true
-Session\BTProtocol=Both
-Session\CreateTorrentSubfolder=true
-Session\DisableAutoTMMByDefault=true
-Session\DisableAutoTMMTriggers\CategoryChanged=true
-Session\DisableAutoTMMTriggers\CategorySavePathChanged=true
-Session\DisableAutoTMMTriggers\DefaultSavePathChanged=true
-Session\SendBufferWatermark=500
-Session\SendBufferLowWatermark=10
-Session\SendBufferWatermarkFactor=50
 
