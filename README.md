@@ -121,6 +121,7 @@ This script has the following features
 * Plex
 * Tautulli
 * pyLoad
+* qBittorrent
 * Quassel
 * Quotas
 * Radarr

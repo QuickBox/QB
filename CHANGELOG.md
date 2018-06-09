@@ -1,24 +1,30 @@
-<<<<<<< HEAD
+## CHANGELOG QBPR branch:
+_Changelog updated saturday, June 9, 2018_
 
-##CHANGELOG v2.4.8:
-=======
-## CHANGELOG efs-dev v0.1.1:
+---
 
-### General adjustments & additions
-* First dev version
-* change some defaults
+### General additions
 * fix some descriptions
 * add compile install(rtorrent libtorrent deluge)
-	+ libtorrent 0.13.4 with ipv6 patch(openssl-1.0.2l)
+	+ libtorrent 0.13.4 with ipv6 patch(openssl-1.0.2l), also fixed 0.13.6
 	+ rtorrent 0.9.4 with ipv6 patch
 	+ deluge 1.3.15 stable version
-* new libboost
-* fix hostname
-* fix perm lossing in vultr host
-* require encryption in rtorrent profile
+* add BBR(thanks Vicer)
+* update transmission-web-control uninstall/install script([transmission-web-control](https://github.com/ronggang/transmission-web-control))
+* update links of transmission in dashboard
+* add qbittorrent install/uninstall script(reboot required)
+* add bcm NIC firmware(not verified)
+
+### General adjustments
+* fix conflict compiling qbittorrent and deluge
+* using apache proxy for transmission, deluge and qbittorrent Web-UI
+* update updateQuickBox script
+* update changeuserpasswd script
+* fix transmission installing and controlling through dashboard
+
+> the latest source from QB/master has been merged
 
 ## CHANGELOG v2.4.8:
->>>>>>> b06e9c4... Merge pull request #3 from amefs/master
 _Changelog updated Monday, October 24, 2016_
 
 ---
