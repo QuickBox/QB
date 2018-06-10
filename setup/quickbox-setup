@@ -673,11 +673,11 @@ function _libtorrent() {
   tar -xzvf libtorrent-${LTORRENT}.tar.gz >>"${OUTTO}" 2>&1
   cd libtorrent-${LTORRENT}
   ./autogen.sh >>"${OUTTO}" 2>&1
-  if [ $LTORRENT = 0.13.4 ]; then
+  if [ $LTORRENT == 0.13.4 ]; then
   cp ${local_setup}sources/libtorrent-0.13.4-tar.patch .
   patch -p1 < libtorrent-*-tar.patch >>"${OUTTO}" 2>&1
   ./configure --disable-debug  --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" --enable-ipv6 >>"${OUTTO}" 2>&1
-  elif [ $LTORRENT = 0.13.6 ]; then
+  elif [ $LTORRENT == 0.13.6 ]; then
   ./configure --disable-debug  --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" --enable-ipv6 >>"${OUTTO}" 2>&1
   else
   ./configure --disable-debug  --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" >>"${OUTTO}" 2>&1
@@ -699,11 +699,11 @@ function _rtorrent() {
   tar -xzvf rtorrent-${RTVERSION}.tar.gz >>"${OUTTO}" 2>&1
   cd rtorrent-${RTVERSION}
   ./autogen.sh >>"${OUTTO}" 2>&1
-  if [ $RTVERSION = 0.9.4 ]; then
+  if [ $RTVERSION == 0.9.4 ]; then
   cp ${local_setup}sources/rtorrent-0.9.4-tar.patch .
   patch -p1 < rtorrent-*-tar.patch >>"${OUTTO}" 2>&1
   ./configure --disable-debug  --prefix=/usr --with-xmlrpc-c --enable-ipv6 >>"${OUTTO}" 2>&1
-  elif [[ $RTVERSION = 0.9.6 ]] || [[ $RTVERSION = 0.9.7 ]]; then
+  elif [[ $RTVERSION == 0.9.6 ]] || [[ $RTVERSION == 0.9.7 ]]; then
   ./configure --disable-debug  --prefix=/usr --with-xmlrpc-c --enable-ipv6 >>"${OUTTO}" 2>&1
   else
   ./configure --disable-debug  --prefix=/usr --with-xmlrpc-c >>"${OUTTO}" 2>&1
@@ -1237,7 +1237,7 @@ function _fix_cert() {
 
 # function to configure first user config (25)
 function _rconf() {
-  if [ $RTVERSION = 0.9.7 ]; then
+  if [ $RTVERSION == 0.9.7 ]; then
 	cp ${local_setup}templates/rtorrent.rc.new.template /home/${username}/.rtorrent.rc
   else
 	cp ${local_setup}templates/rtorrent.rc.template /home/${username}/.rtorrent.rc
