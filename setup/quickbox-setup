@@ -703,7 +703,7 @@ function _rtorrent() {
   cp ${local_setup}sources/rtorrent-0.9.4-tar.patch .
   patch -p1 < rtorrent-*-tar.patch >>"${OUTTO}" 2>&1
   ./configure --disable-debug  --prefix=/usr --with-xmlrpc-c --enable-ipv6 >>"${OUTTO}" 2>&1
-  elif [ $RTVERSION = 0.9.6 || $RTVERSION = 0.9.7 ]; then
+  elif [[ $RTVERSION = 0.9.6 ]] || [[ $RTVERSION = 0.9.7 ]]; then
   ./configure --disable-debug  --prefix=/usr --with-xmlrpc-c --enable-ipv6 >>"${OUTTO}" 2>&1
   else
   ./configure --disable-debug  --prefix=/usr --with-xmlrpc-c >>"${OUTTO}" 2>&1
