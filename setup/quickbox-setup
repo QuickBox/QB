@@ -1237,7 +1237,11 @@ function _fix_cert() {
 
 # function to configure first user config (25)
 function _rconf() {
-  cp ${local_setup}templates/rtorrent.rc.template /home/${username}/.rtorrent.rc
+  if [ $RTVERSION = 0.9.7 ]; then
+	cp ${local_setup}templates/rtorrent.rc.new.template /home/${username}/.rtorrent.rc
+  else
+	cp ${local_setup}templates/rtorrent.rc.template /home/${username}/.rtorrent.rc
+  fi
   mkdir -p /home/${username}/torrents/rtorrent
   chown -R ${username}: /home/${username}/torrents
   sed -i "s/USERNAME/${username}/g" /home/${username}/.rtorrent.rc
