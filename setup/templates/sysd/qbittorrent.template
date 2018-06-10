@@ -5,7 +5,6 @@ After=network.target
 [Service]
 Type=forking
 User=%I
-LimitNOFILE=infinity
 ExecStart=/usr/local/bin/qbittorrent-nox -d
 ExecStop=/usr/bin/killall -w -s 9 /usr/local/bin/qbittorrent-nox
 TimeoutSec=300

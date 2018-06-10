@@ -257,13 +257,15 @@ function _askdashtheme() {
 function _askrtorrent() {
   echo -e "1) rtorrent ${green}0.9.6 (with ipv6 support)${normal}"
   echo -e "2) rtorrent ${green}0.9.4 (with ipv6 support)${normal}"
-  echo -e "3) rtorrent ${green}0.9.3${normal}"
+  echo -e "3) rtorrent ${green}0.9.7 (with ipv6 support)${normal}"
+  echo -e "4) rtorrent ${green}0.9.3${normal}"
   echo -ne "${bold}${yellow}What version of rtorrent do you want?${normal} (Default ${green}1${normal}): "; read version
   case $version in
     1 | "") RTVERSION=0.9.6;LTORRENT=0.13.6  ;;
     2) RTVERSION=0.9.4;LTORRENT=0.13.4  ;;
-    3) RTVERSION=0.9.3;LTORRENT=0.13.3 ;;
-    *) RTVERSION=0.9.6;LTORRENT=0.13.6 ;;
+    3) RTVERSION=0.9.7;LTORRENT=0.13.7 ;;
+	4) RTVERSION=0.9.3;LTORRENT=0.13.3 ;;
+    *) RTVERSION=0.9.6;LTORRENT=0.13.6  ;;
   esac
   echo "We will be using rtorrent-${green}$RTVERSION${normal}/libtorrent-${green}$LTORRENT${normal}"
   echo
@@ -665,7 +667,8 @@ function _xmlrpc() {
   make install >>"${OUTTO}" 2>&1
 }
 
-# libtorent function (20)
+# libtorrent function (20)
+# modify by EFS thanks to asuna's patch
 # apt rtorrent handles the libtorrent install
 # remember this is temporary until patched
 function _libtorrent() {
@@ -678,14 +681,14 @@ function _libtorrent() {
   tar -xzvf libtorrent-${LTORRENT}.tar.gz >>"${OUTTO}" 2>&1
   cd libtorrent-${LTORRENT}
   ./autogen.sh >>"${OUTTO}" 2>&1
-  if [ $LTORRENT = 0.13.4 ]; then
+  if [ $LTORRENT == 0.13.4 ]; then
   cp ${local_setup}sources/libtorrent-0.13.4-tar.patch .
   patch -p1 < libtorrent-*-tar.patch >>"${OUTTO}" 2>&1
-  ./configure --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" --enable-ipv6 >>"${OUTTO}" 2>&1
-  elif [ $LTORRENT = 0.13.6 ]; then
-  ./configure --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" --enable-ipv6 >>"${OUTTO}" 2>&1
+  ./configure --disable-debug  --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" --enable-ipv6 >>"${OUTTO}" 2>&1
+  elif [ $LTORRENT == 0.13.6 ]; then
+  ./configure --disable-debug  --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" --enable-ipv6 >>"${OUTTO}" 2>&1
   else
-  ./configure --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" >>"${OUTTO}" 2>&1
+  ./configure --disable-debug  --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" >>"${OUTTO}" 2>&1
   fi
   make -j${MAXCPUS} >>"${OUTTO}" 2>&1
   make install >>"${OUTTO}" 2>&1
@@ -704,14 +707,14 @@ function _rtorrent() {
   tar -xzvf rtorrent-${RTVERSION}.tar.gz >>"${OUTTO}" 2>&1
   cd rtorrent-${RTVERSION}
   ./autogen.sh >>"${OUTTO}" 2>&1
-  if [ $RTVERSION = 0.9.4 ]; then
+  if [ $RTVERSION == 0.9.4 ]; then
   cp ${local_setup}sources/rtorrent-0.9.4-tar.patch .
   patch -p1 < rtorrent-*-tar.patch >>"${OUTTO}" 2>&1
-  ./configure --prefix=/usr --with-xmlrpc-c --enable-ipv6 >>"${OUTTO}" 2>&1
-  elif [ $RTVERSION = 0.9.6 ]; then
-  ./configure --prefix=/usr --with-xmlrpc-c --enable-ipv6 >>"${OUTTO}" 2>&1
+  ./configure --disable-debug  --prefix=/usr --with-xmlrpc-c --enable-ipv6 >>"${OUTTO}" 2>&1
+  elif [[ $RTVERSION == 0.9.6 ]] || [[ $RTVERSION == 0.9.7 ]]; then
+  ./configure --disable-debug  --prefix=/usr --with-xmlrpc-c --enable-ipv6 >>"${OUTTO}" 2>&1
   else
-  ./configure --prefix=/usr --with-xmlrpc-c >>"${OUTTO}" 2>&1
+  ./configure --disable-debug  --prefix=/usr --with-xmlrpc-c >>"${OUTTO}" 2>&1
   fi
   make -j${MAXCPUS} >>"${OUTTO}" 2>&1
   make install >>"${OUTTO}" 2>&1
@@ -765,7 +768,6 @@ function _deluge() {
   cd libtorrent
   cp ${local_setup}sources/libtorrent-rasterbar-${LTRC}.patch .
   patch -p1 < libtorrent-rasterbar-${LTRC}.patch >>"${OUTTO}" 2>&1
-
   ./autotool.sh >>"${OUTTO}" 2>&1
   ./configure --enable-python-binding --disable-debug --enable-encryption --with-libgeoip=system --with-libiconv CXXFLAGS=-std=c++11 --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1
   make -j$(nproc) >>"${OUTTO}" 2>&1
@@ -1169,7 +1171,11 @@ function _fix_cert() {
 
 # function to configure first user config (25)
 function _rconf() {
-  cp ${local_setup}templates/rtorrent.rc.template /home/${username}/.rtorrent.rc
+  if [[ $RTVERSION == 0.9.7 ]]; then
+	cp ${local_setup}templates/rtorrent.rc.new.template /home/${username}/.rtorrent.rc
+  else
+	cp ${local_setup}templates/rtorrent.rc.template /home/${username}/.rtorrent.rc
+  fi
   mkdir -p /home/${username}/torrents/rtorrent
   chown -R ${username}: /home/${username}/torrents
   sed -i "s/USERNAME/${username}/g" /home/${username}/.rtorrent.rc
@@ -1235,16 +1241,9 @@ function _autodl() {
   mkdir -p "/home/${username}/.irssi/scripts/autorun/" >>"${OUTTO}" 2>&1
   cd "/home/${username}/.irssi/scripts/"
   # Grab the most recent version of AutoDL-trackers
-  #curl -sL https://api.github.com/repos/autodl-community/autodl-trackers/releases/latest | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs wget --quiet -O autodl-trackers.zip
-  #cd AutodlIrssi
-  #rm -rf trackers
-  #unzip /home/${username}/.irssi/scripts/autodl-trackers.zip -d /home/${username}/.irssi/scripts/AutodlIrssi/trackers
-  # Grab the most recent version of AutoDL
   curl -sL http://git.io/vlcND | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs wget --quiet -O autodl-irssi.zip
   unzip -o autodl-irssi.zip >>"${OUTTO}" 2>&1
-  #cd "/home/${username}/.irssi/scripts/"
   rm autodl-irssi.zip
-  #&& rm autodl-trackers.zip
   cp autodl-irssi.pl autorun/
   mkdir -p "/home/${username}/.autodl" >>"${OUTTO}" 2>&1
   touch "/home/${username}/.autodl/autodl.cfg"
@@ -1265,7 +1264,7 @@ ADC
 function _makedirs() {
   #mkdir /home/"${username}"/{torrents,.sessions,watch} >>"${OUTTO}" 2>&1
   cp -r /etc/skel/. /home/"${username}"
-  chown -r "${username}".www-data /home/"${username}" >>"${OUTTO}" 2>&1 #/{torrents,.sessions,watch,.rtorrent.rc} >>"${OUTTO}" 2>&1
+  chown -R "${username}".www-data /home/"${username}" >>"${OUTTO}" 2>&1 #/{torrents,.sessions,watch,.rtorrent.rc} >>"${OUTTO}" 2>&1
   usermod -a -G www-data "${username}" >>"${OUTTO}" 2>&1
   usermod -a -G "${username}" www-data >>"${OUTTO}" 2>&1
 }

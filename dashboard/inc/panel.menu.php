@@ -175,7 +175,7 @@
             <?php if (processExists("transmission-daemon",debian-transmission) && file_exists('/install/.transmission.lock')) { ?>
               <li><a href="<?php echo "$transmissionURL"; ?>" class="grayscale" target="_blank"><img src="img/brands/transmission.png" class="brand-ico"> <span>Transmission Web Control</span></a></li>
             <?php } ?>
-	    <!-- // QBITTORRENT // -->
+			<!-- // QBITTORRENT // -->
             <?php if (processExists("qbittorrent-nox",$username) && file_exists('/install/.qbittorrent.lock')) { ?>
               <li><a href="<?php echo "$qbittorrentURL"; ?>" class="grayscale" target="_blank"><img src="img/brands/qbittorrent.png" class="brand-ico"> <span>qBittorrent</span></a></li>
             <?php } ?>
