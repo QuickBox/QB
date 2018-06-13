@@ -1999,3 +1999,10 @@ prompt_OFF
 
 export NVM_DIR="/root/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+#-------------------------------------------------------------
+# Allow custom aliases
+#-------------------------------------------------------------
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases # --> Read ~/.bash_aliases, if present.
+fi
