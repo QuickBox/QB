@@ -7,19 +7,19 @@ We love our Community, in fact, we love them so much that we want to provide eve
 
 Check us out on the following platforms. Within you'll find friends and a supportive bunch looking to get you along. Additionally, we don't really use our GitHub for issue tracking and support, it's simply not the proper medium. I know, it's not always fun to setup yet another account, but hey, you're here right!?
 
-[Register with QuickBox.IO to get started!](https://quickbox.io/sign-up/)
+#### [Register with QuickBox.IO to get started!](https://quickbox.io/sign-up/)
 
 ### The QuickBox Forums (aka The Plaza)
 You got the entire Community at your back! Sort through already solved quandaries, feature requests, and current issues posted by other members.
-[QuickBox Plaza](https://plaza.quickbox.io/categories)
+* ##### [QuickBox Plaza](https://plaza.quickbox.io/categories)
 
 ### The QuickBox IRC/Live Chat
 Well, there's always someone here to address your loniless or your issues (related to QuickBox, mmk - but not always *sigh*)
-[QuickBox IRC](https://chat.quickbox.io/)
+* ##### [QuickBox IRC](https://chat.quickbox.io/)
 
 ### The QuickBox Discord Server/Live Chat
 Oh yes, it's total mayhem! Fun features, live updates, games and prizes, support and a whole lot more... come find us for a late night buzz and really rediculous conversations and budding bromances.
-[QuickBox on Discord](https://discord.gg/hCCbVhu)
+* ##### [QuickBox on Discord](https://discord.gg/hCCbVhu)
 
 ---
 
