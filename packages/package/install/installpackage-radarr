@@ -35,19 +35,17 @@ function _installRadarrIntro() {
 function _installRadarrDependencies() {
   # output to box
   echo "Installing dependencies ... "
-if ls /etc/apt/sources.list.d/mono-* >/dev/null 2>&1; then
-    ls /etc/apt/sources.list.d/mono-* >/dev/null 2>&1;
+if [[ ! -f /etc/apt/sources.list.d/mono-official-stable.list ]]; then
+  if [[ $distro == "Ubuntu" ]]; then
+    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF >/dev/null 2>&1
+  elif [[ $distro == "Debian" ]]; then
+      exit
+  fi
+  echo "deb https://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list >/dev/null 2>&1
 fi
-for list in /etc/apt/sources.list.d/mono-*; do
-    if [[ -f $list ]]; then
-        rm -rf /etc/apt/sources.list.d/mono-*
-        sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-        echo "deb http://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
-        break
-    fi
-done
-	apt-get -y update && apt-get -y upgrade >/dev/null 2>&1
-	apt-get install -y libmono-cil-dev curl mediainfo >/dev/null 2>&1
+
+apt-get update -y >/dev/null 2>&1
+apt-get install -y mono-devel apt-transport-https >/dev/null 2>&1
 }
 
 function _installRadarrCode() {
