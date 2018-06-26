@@ -37,7 +37,7 @@ for list in /etc/apt/sources.list.d/mono-*; do
 done
 
 apt-get update -y >/dev/null 2>&1
-apt-get install -y libcurl4-openssl-dev bzip2 mono-devel ca-certificates-mono >/dev/null 2>&1
+apt-get install -y libcurl4-openssl-dev bzip2 mono-devel apt-transport-https ca-certificates-mono >/dev/null 2>&1
 
 cd /home/$username
 wget -q https://github.com/Jackett/Jackett/releases/download/$jackettver/Jackett.Binaries.Mono.tar.gz
