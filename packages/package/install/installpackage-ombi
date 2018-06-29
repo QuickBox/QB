@@ -52,8 +52,9 @@ function _services() {
   touch /install/.ombi.lock
   cat > /etc/apache2/sites-enabled/ombi.conf <<EOF
 <Location /ombi>
-ProxyPass http://localhost:5000/ombi
-ProxyPassReverse http://localhost:5000/ombi
+Allow from 0.0.0.0 
+ProxyPass "http://127.0.0.1:5000/ombi" connectiontimeout=5 timeout=30 keepalive=on 
+ProxyPassReverse "http://127.0.0.1:5000/ombi"
 Require all granted
 </Location>
 EOF
