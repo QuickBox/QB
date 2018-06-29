@@ -39,7 +39,7 @@ systemctl enable couchpotato@${MASTER} >/dev/null 2>&1
 systemctl start couchpotato@${MASTER} >/dev/null 2>&1
 systemctl stop couchpotato@${MASTER} >/dev/null 2>&1
 
-sed -i "s/url_base.*/url_base = couchpotato\nhost = localhost/g" /home/${MASTER}/.couchpotato/settings.conf
+sed -i "s/url_base.*/url_base = couchpotato\nhost = 127.0.0.1/g" /home/${MASTER}/.couchpotato/settings.conf
 
 cat > /etc/apache2/sites-enabled/couchpotato.conf <<EOF
 <Location /couchpotato>
