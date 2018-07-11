@@ -1,5 +1,28 @@
 [![QuickBox](https://cdn.quickbox.io/file/2018/04/qb_logo_original.svg "QuickBox")](https://quickbox.io)
 
+---
+
+## Join the QuickBox Community!
+We love our Community, in fact, we love them so much that we want to provide every possible means for our users to come together in civilized discourse for sharing ideas, techniques, tips and tricks on just about anything, and general chit chat coupled with awesome support! We don't even have to, but we do it out of love!
+
+Check us out on the following platforms. Within you'll find friends and a supportive bunch looking to get you along. Additionally, we don't really use our GitHub for issue tracking and support, it's simply not the proper medium. I know, it's not always fun to setup yet another account, but hey, you're here right!?
+
+#### [Register with QuickBox.IO to get started!](https://quickbox.io/sign-up/)
+
+### The QuickBox Forums (aka The Plaza)
+You got the entire Community at your back! Sort through already solved quandaries, feature requests, and current issues posted by other members.
+* ##### [QuickBox Plaza](https://plaza.quickbox.io/categories)
+
+### The QuickBox IRC/Live Chat
+Well, there's always someone here to address your loniless or your issues (related to QuickBox, mmk - but not always *sigh*)
+* ##### [QuickBox IRC](https://chat.quickbox.io/)
+
+### The QuickBox Discord Server/Live Chat
+Oh yes, it's total mayhem! Fun features, live updates, games and prizes, support and a whole lot more... come find us for a late night buzz and really rediculous conversations and budding bromances.
+* ##### [QuickBox on Discord](https://discord.gg/hCCbVhu)
+
+---
+
 ## To make use of the GitHub repo (all future updates posted here!)
 >This step is only required for users who are coming off of our self-hosted GitLab repositories. If you are installing from fresh, please see [How to install](#how-to-install)
 
