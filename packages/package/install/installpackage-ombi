@@ -26,7 +26,7 @@ function _depends() {
 function _install() {
   mkdir -p /opt/Ombi
   cd /opt/Ombi
-  wget https://ci.appveyor.com/api/buildjobs/34973ana21t6xyqm/artifacts/linux.tar.gz >/dev/null 2>&1
+  wget https://github.com/tidusjar/Ombi/releases/download/v3.0.3421/linux.tar.gz >/dev/null 2>&1
   
   # Newest Version (seems massively broken)
   # wget https://ci.appveyor.com/api/buildjobs/jqegwte5rpdg49ed/artifacts/linux.tar.gz >/dev/null 2>&1
@@ -52,8 +52,9 @@ function _services() {
   touch /install/.ombi.lock
   cat > /etc/apache2/sites-enabled/ombi.conf <<EOF
 <Location /ombi>
-ProxyPass http://localhost:5000/ombi
-ProxyPassReverse http://localhost:5000/ombi
+Allow from 0.0.0.0 
+ProxyPass "http://127.0.0.1:5000/ombi" connectiontimeout=5 timeout=30 keepalive=on 
+ProxyPassReverse "http://127.0.0.1:5000/ombi"
 Require all granted
 </Location>
 EOF

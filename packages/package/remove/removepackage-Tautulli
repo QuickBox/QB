@@ -1,0 +1,8 @@
+#!/bin/bash
+systemctl stop Tautulli
+systemctl disable Tautulli
+rm -rf /opt/Tautulli
+rm /install/.Tautulli.lock
+rm -f /etc/apache2/sites-enabled/Tautulli.conf
+service apache2 reload
+rm /etc/systemd/system/Tautulli.service

@@ -1,0 +1,65 @@
+#!/bin/bash
+#
+# [Quick Box :: Install Tautulli ]
+#
+# GITHUB REPOS
+# GitHub _ packages  :   https://github.com/QuickBox/quickbox_packages
+# LOCAL REPOS
+# Local _ packages   :   /etc/QuickBox/packages
+# Author             :   QuickBox.IO | liara (edited Quickbox staff Dtech)
+# URL                :   https://quickbox.io
+#
+# QuickBox Copyright (C) 2017 QuickBox.io
+# Licensed under GNU General Public License v3.0 GPL-3 (in short)
+#
+#   You may copy, distribute and modify the software as long as you track
+#   changes/dates in source files. Any modifications to our software
+#   including (via compiler) GPL-licensed code must also be made available
+#   under the GPL along with build & install instructions.
+#
+OUTTO=/srv/rutorrent/home/db/output.log
+local_setup=/etc/QuickBox/setup/
+MASTER=$(cat /srv/rutorrent/home/db/master.txt)
+
+
+cd /opt
+echo "Cloning Tautulli repository" >>"${OUTTO}" 2>&1;
+git clone https://github.com/Tautulli/Tautulli.git > /dev/null 2>&1
+
+echo "Adding user and setting up Tautulli" >>"${OUTTO}" 2>&1;
+adduser --system --no-create-home tautulli
+
+echo "Adjusting permissions" >>"${OUTTO}" 2>&1;
+chown tautulli:nogroup -R /opt/Tautulli
+
+
+cat > /etc/apache2/sites-enabled/Tautulli.conf <<EOF
+<Location /tautulli>
+ProxyPass http://localhost:8181/tautulli
+ProxyPassReverse http://localhost:8181/tautulli
+#AuthType Digest
+#AuthName "rutorrent"
+#AuthUserFile '/etc/htpasswd'
+#Require user ${MASTER}
+</Location>
+EOF
+chown www-data: /etc/apache2/sites-enabled/Tautulli.conf
+service apache2 reload
+
+echo "Enabling Tautulli Systemd configuration"
+cp ${local_setup}templates/sysd/Tautulli.template /etc/systemd/system/Tautulli.service
+systemctl enable Tautulli > /dev/null 2>&1
+systemctl start Tautulli
+sleep 10
+systemctl stop Tautulli
+sleep 10
+sed -i "s/http_root.*/http_root = \"tautulli\"/g" /opt/Tautulli/config.ini
+sed -i "s/http_host.*/http_host = localhost/g" /opt/Tautulli/config.ini
+systemctl start Tautulli
+touch /install/.Tautulli.lock
+
+echo "Tautulli Install Complete!" >>"${OUTTO}" 2>&1;
+sleep 5
+echo >>"${OUTTO}" 2>&1;
+echo >>"${OUTTO}" 2>&1;
+echo "Close this dialog box to refresh your browser" >>"${OUTTO}" 2>&1;

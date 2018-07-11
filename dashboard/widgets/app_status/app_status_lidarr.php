@@ -12,12 +12,12 @@ function processExists($processName, $username) {
   return $exists;
 }
 
-$plexpy = processExists("plexpy",plexpy);
+$lidarr = processExists("lidarr",$username);
 
-if ($plexpy == "1") { $ppval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
-} else { $ppval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
+if ($lidarr == "1") { $radval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
+} else { $radval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";
 }
 
-echo "$ppval";
+echo "$radval";
 
 ?>

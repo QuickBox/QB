@@ -100,6 +100,10 @@ function _installCSF() {
   echo "exe:/usr/bin/mono-sgen" >> /etc/csf/csf.pignore;
   echo "exe:/usr/lib/openssh/sftp-server" >> /etc/csf/csf.pignore;
   echo "exe:/usr/bin/shellinaboxd" >> /etc/csf/csf.pignore;
+  echo "exe:/usr/bin/rtorrent" >> /etc/csf/csf.pignore;
+  echo "exe:/usr/bin/transmission-daemon" >> /etc/csf/csf.pignore;
+  echo "exe:/usr/local/bin/qbittorrent-nox" >> /etc/csf/csf.pignore;
+  echo "exe:/opt/Ombi/Ombi" >> /etc/csf/csf.pignore;
   echo "[ QuickBox Additions - This is the QuickLab IP - needed for pulling updates ]" >> /etc/csf/csf.ignore;
   echo "45.79.179.250" >> /etc/csf/csf.ignore;
   # import csf conf template - made suitable for non-cpanel environments

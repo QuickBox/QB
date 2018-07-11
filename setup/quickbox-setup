@@ -1667,7 +1667,7 @@ echo -n "Setting up deluge Web Reverse Proxy ... ";_insdwApache & spinner $!;ech
 if [[ ${tr} == "yes" ]]; then
 	echo -n "Configuring Transmisson ... ";_insTr & spinner $!;echo
 	echo -n "Installing Transmisson Web Control ... ";_insTrWeb & spinner $!;echo
-	echo -n "Setting up Transmission Reverse Proxy ... ";_insTrApache & spinner $!;echo
+#echo -n "Setting up Transmission Reverse Proxy ... ";_insTrApache & spinner $!;echo
 fi
 if [[ ${qb} == "yes" ]]; then
 	echo -n "Installing qBittorrent ... ";_qbittorrent & spinner $!;echo
