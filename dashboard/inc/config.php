@@ -323,7 +323,7 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   $sonarrURL = "https://" . $_SERVER['HTTP_HOST'] . "/sonarr";
   $subsonicURL = "https://" . $_SERVER['HTTP_HOST'] . "/subsonic";
   $syncthingURL = "https://" . $_SERVER['HTTP_HOST'] . "/syncthing/";
-  $transmissionURL = "http://" . $_SERVER['HTTP_HOST'] . "9091";
+  $transmissionURL = "http://" . $_SERVER['HTTP_HOST'] . ":9091";
   $qbittorrentURL = "https://" . $_SERVER['HTTP_HOST'] . "/qbittorrent/";
   if ($zssl == "true") { $zncURL = "https://" . $_SERVER['HTTP_HOST'] . ":$zport"; }
   if ($zssl == "false") { $zncURL = "http://" . $_SERVER['HTTP_HOST'] . ":$zport"; }
