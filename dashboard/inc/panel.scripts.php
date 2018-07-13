@@ -265,7 +265,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
-        <a href="?removepackage-Tautulliy=true" id="TautulliRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
+        <a href="?removepackage-Tautulli=true" id="TautulliRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
       </div>
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
