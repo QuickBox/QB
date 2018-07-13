@@ -261,7 +261,7 @@
         <h4 class="modal-title" id="TautulliRemovalConfirm"><?php echo T('UNINSTALL_TITLE'); ?> Tautulli?</h4>
       </div>
       <div class="modal-body">
-        <?php echo T('UNINSTALL_Tautulli_TXT'); ?>
+        <?php echo T('UNINSTALL_TAUTULLI_TXT'); ?>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
