@@ -14,7 +14,7 @@ You got the entire Community at your back! Sort through already solved quandarie
 * ##### [QuickBox Plaza](https://plaza.quickbox.io/categories)
 
 ### The QuickBox IRC/Live Chat
-Well, there's always someone here to address your loniless or your issues (related to QuickBox, mmk - but not always *sigh*)
+Well, there's always someone here to address your loneliness or your issues (related to QuickBox, mmk - but not always *sigh*)
 * ##### [QuickBox IRC](https://chat.quickbox.io/)
 
 ### The QuickBox Discord Server/Live Chat
