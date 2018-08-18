@@ -1,7 +1,7 @@
 <?php
 class YggTorrentEngine extends commonEngine
 {
-    const URL = 'https://yggtorrent.is';
+    const URL = 'https://ww4.yggtorrent.is';
     const MAX_PAGE = 10;
     const PAGE_SIZE = 50;
     public $defaults = array("public" => false, "page_size" => self::PAGE_SIZE, 'auth' => 1);
