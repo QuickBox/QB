@@ -1,0 +1,18 @@
+diff -uNr libtorrent/bindings/python/compile_flags.in libtorrent-cpp11/bindings/python/compile_flags.in
+--- libtorrent/bindings/python/compile_flags.in	2018-04-19 00:39:59.228052765 -0700
++++ libtorrent-cpp11/bindings/python/compile_flags.in	2018-04-19 00:41:54.516439140 -0700
+@@ -1 +1 @@
+--I@top_srcdir@/include @COMPILETIME_OPTIONS@ @CPPFLAGS@ @BOOST_CPPFLAGS@ @PYTHON_CXXFLAGS@ @OPENSSL_INCLUDES@
++-I@top_srcdir@/include @COMPILETIME_OPTIONS@ @CXXFLAGS@ @CPPFLAGS@ @BOOST_CPPFLAGS@ @PYTHON_CXXFLAGS@ @OPENSSL_INCLUDES@
+diff -uNr libtorrent/bindings/python/setup.py libtorrent-cpp11/bindings/python/setup.py
+--- libtorrent/bindings/python/setup.py	2018-04-19 00:39:59.232052630 -0700
++++ libtorrent-cpp11/bindings/python/setup.py	2018-04-19 00:43:26.177858706 -0700
+@@ -150,7 +150,7 @@
+ 			include_dirs = flags.include_dirs,
+ 			library_dirs = flags.library_dirs,
+ 			extra_link_args = extra_link + arch(),
+-			extra_compile_args = extra_compile + arch() + target_specific(),
++			extra_compile_args = extra_compile + arch() + target_specific() + ['-std=c++11'],
+ 			libraries = ['torrent-rasterbar'] + flags.libraries)]
+ 
+ setup(name = 'python-libtorrent',
