@@ -40,7 +40,6 @@ $base = 1024;
 $si_prefix = array( 'b', 'k', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB' );
 $torrents = shell_exec("ls /home/".$username."/.sessions/*.torrent|wc -l");
 $dtorrents = shell_exec("ls /home/".$username."/.config/deluge/state/*.torrent|wc -l");
-$trtorrents = shell_exec("sudo ls /var/lib/transmission-daemon/.config/transmission-daemon/torrents/*.torrent|wc -l");
 $qtorrents = shell_exec("ls /home/".$username."/.local/share/data/qBittorrent/BT_backup/*.torrent|wc -l");
 $php_self = $_SERVER['PHP_SELF'];
 $web_path = substr($php_self, 0, strrpos($php_self, '/')+1);
