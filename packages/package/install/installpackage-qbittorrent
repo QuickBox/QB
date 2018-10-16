@@ -1,26 +1,14 @@
 #!/bin/bash
-function _boost() {
-  cd /tmp
-  wget -O boost_1_65_1.tar.gz -q https://sourceforge.net/projects/boost/files/boost/1.65.1/boost_1_65_1.tar.gz/download
-  tar -zxvf boost_1_65_1.tar.gz >>"${OUTTO}" 2>&1
-  cd boost_1_65_1
-  ./bootstrap.sh --prefix=/usr/ --with-libraries=system --with-libraries=python --with-libraries=chrono --with-libraries=random >>"${OUTTO}" 2>&1;
-  ./b2 >>"${OUTTO}" 2>&1;
-  ./b2 install >>"${OUTTO}" 2>&1;
-  cd /tmp
-  rm -rf boost_1_65_1.tar.gz boost_1_65_1
-  cd
-}
-
 function _qbittorrent() {
   apt-get -qy update >>"${OUTTO}" 2>&1;
-  LIST='build-essential git checkinstall pkg-config libgl1-mesa-dev libjpeg-dev libpng-dev automake libtool libgeoip-dev python3-dev python3-pip'
+  LIST='build-essential checkinstall pkg-config python3-pip python3-dev automake screen libtool libgeoip-dev git'
   for depend in $LIST; do
     apt-get -qq -y install $depend >>"${OUTTO}" 2>&1;
   done
-  if [ ! -e /usr/lib/libboost_system.so ]; then
-    _boost
-  fi
+  LIST='libboost-dev libboost-system-dev libboost-chrono-dev libboost-random-dev libboost-python-dev'
+  for depend in $LIST; do
+    apt-get -qq -y install $depend >>"${OUTTO}" 2>&1
+  done
   cd ${local_packages}
   if [ ! -e /usr/local/lib/libtorrent-rasterbar.so ]; then
     LTRC=RC_1_0
@@ -29,23 +17,33 @@ function _qbittorrent() {
 	cp ${local_setup}sources/libtorrent-rasterbar-${LTRC}.patch .
     patch -p1 < libtorrent-rasterbar-${LTRC}.patch >>"${OUTTO}" 2>&1
     ./autotool.sh >>"${OUTTO}" 2>&1;
-    ./configure --enable-python-binding --disable-debug --enable-encryption --with-libgeoip=system --with-libiconv CXXFLAGS=-std=c++11 --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1;
+    ./configure --enable-python-binding --disable-debug --enable-encryption --with-libgeoip=system --with-libiconv CXXFLAGS=-std=c++11 >>"${OUTTO}" 2>&1;
     make -j$(nproc) >>"${OUTTO}" 2>&1;
     checkinstall -y --pkgversion=1.0.11 >>"${OUTTO}" 2>&1;
   fi
   ldconfig >>"${OUTTO}" 2>&1;
-  apt-get -qy update >>"${OUTTO}" 2>&1;
-  LIST='qtbase5-dev qttools5-dev-tools libqt5svg5-dev'
-  for depend in $LIST; do
-  	apt-get -qq -y install $depend >>"${OUTTO}" 2>&1;
-  done
+  CODENAME=$(lsb_release -cs)
+  if [[ "$CODENAME" =~ ("wily"|"jessie") ]]; then
+    wget --no-check-certificate -qO qt_5.5.1-1_amd64_debian8.deb https://github.com/Aniverse/BitTorrentClientCollection/raw/master/Other%20Tools/qt_5.5.1-1_amd64_debian8.deb
+    dpkg -i qt_5.5.1-1_amd64_debian8.deb >>"${OUTTO}" 2>&1
+    rm -f qt_5.5.1-1_amd64_debian8.deb >>"${OUTTO}" 2>&1
+    export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/Qt-5.5.1/lib/pkgconfig
+    export PATH=$PATH:/usr/local/Qt-5.5.1/bin
+  elif [[ "$CODENAME" =~ ("xenial") ]]; then
+    apt-get -qy update >>"${OUTTO}" 2>&1;
+    LIST='qtbase5-dev qttools5-dev-tools libqt5svg5-dev'
+    for depend in $LIST; do
+      apt-get -qq -y install $depend >>"${OUTTO}" 2>&1;
+    done
+  fi
   cd ${local_packages}
-  git clone -b v4_0_x https://github.com/qbittorrent/qBittorrent >>"${OUTTO}" 2>&1;
+  git clone https://github.com/qbittorrent/qBittorrent >>"${OUTTO}" 2>&1;
   cd qBittorrent
-  qbversion=`cat configure | grep -Eo "PACKAGE_VERSION=.*" | grep -Eo "[0-9.]+"`
-  ./configure --disable-gui --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1;
+  qbversion=`curl -i -s https://www.qbittorrent.org/ | grep -Eo "Latest:.*" | grep -Eo "[0-9.]+"`
+  git checkout release-${qbversion}
+  ./configure --disable-gui >>"${OUTTO}" 2>&1;
   make -j$(nproc) >>"${OUTTO}" 2>&1;
-  checkinstall -y --pkgversion=${qbversion} >>"${OUTTO}" 2>&1;
+  checkinstall -y --pkgversion=${qbversion} --pkgname=qbittorrent-headless --pkggroup qbittorrent >>"${OUTTO}" 2>&1;
   export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
   cp ${local_setup}templates/sysd/qbittorrent.template  /etc/systemd/system/qbittorrent@.service >/dev/null 2>&1
   systemctl enable qbittorrent@${username} >/dev/null 2>&1
@@ -100,6 +98,7 @@ passwd=$(cat /root/${username}.info | cut -d ":" -f 3 | cut -d "@" -f 1)
 ha1pass=`echo -n "${passwd}"|md5sum |cut -f1 -d' '`
 OUTTO="/srv/rutorrent/home/db/output.log"
 local_setup=/etc/QuickBox/setup/
+local_packages=/etc/QuickBox/packages/
 local_dashboard=/etc/QuickBox/dashboard/
 
 echo "Configuring qBittorrent ... " >> ${OUTTO} 2>&1

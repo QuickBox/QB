@@ -1,3 +1,39 @@
+## CHANGELOG efs-mod v1.1.3:
+_Changelog updated sunday, Oct 16, 2018_
+---
+
+### General additions
+* support qBittorrent 4.1.3 (with high speed seeding config)
+* Add a question to confirm the replacement of ssh port
+
+### General adjustments
+* update deluge install script
+* update ltconfig template
+* update qBittorrent install script (the latest release version will be installed)
+* clean up code in setup script
+* use apt libboost package for compiling
+* update openssl
+
+
+## CHANGELOG efs-mod v1.1.2:
+_Changelog updated sunday, Aug 29, 2018_
+---
+
+### General additions
+* support rtorrent 0.9.7
+* support qBittorrent 4.1.2 (with high speed seeding config)
+* update deluge installing script
+
+### General adjustments
+* install test passed in Debian 8 9 and ubuntu 16.04 18.04
+	* ubuntu 18.04 only support rtorrent 0.9.7
+* update xml-rpc-c
+* update rar
+* update LTS kernel for BBR
+* remove old autodl-irssi code
+
+> the latest source from QB/master has been merged(2.5.5)
+
 ## CHANGELOG efs-mod v1.1.1:
 _Changelog updated sunday, April 29, 2018_
 

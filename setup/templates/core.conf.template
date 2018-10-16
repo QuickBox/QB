@@ -27,11 +27,12 @@
     0
   ],
   "enabled_plugins": [
-    "ltConfig"
-  ],
+    "ltConfig", 
+    "YaRSS2"
+  ], 
   "max_half_open_connections": 50,
-  "download_location": "/home/USERNAME/Downloads",
-  "compact_allocation": true,
+  "download_location": "/home/USERNAME/torrents/deluge",
+  "compact_allocation": false,
   "max_upload_speed": -1.0,
   "plugins_location": "/home/USERNAME/.config/deluge/plugins",
   "max_connections_global": -1,
