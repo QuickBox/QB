@@ -1,5 +1,79 @@
-## CHANGELOG QBPR branch:
-_Changelog updated saturday, June 9, 2018_
+## CHANGELOG efs-mod v1.1.3:
+_Changelog updated sunday, Oct 16, 2018_
+---
+
+### General additions
+* support qBittorrent 4.1.3 (with high speed seeding config)
+* Add a question to confirm the replacement of ssh port
+
+### General adjustments
+* update deluge install script
+* update ltconfig template
+* update qBittorrent install script (the latest release version will be installed)
+* clean up code in setup script
+* use apt libboost package for compiling
+* update openssl
+
+
+## CHANGELOG efs-mod v1.1.2:
+_Changelog updated sunday, Aug 29, 2018_
+---
+
+### General additions
+* support rtorrent 0.9.7
+* support qBittorrent 4.1.2 (with high speed seeding config)
+* update deluge installing script
+
+### General adjustments
+* install test passed in Debian 8 9 and ubuntu 16.04 18.04
+	* ubuntu 18.04 only support rtorrent 0.9.7
+* update xml-rpc-c
+* update rar
+* update LTS kernel for BBR
+* remove old autodl-irssi code
+
+> the latest source from QB/master has been merged(2.5.5)
+
+## CHANGELOG efs-mod v1.1.1:
+_Changelog updated sunday, April 29, 2018_
+
+---
+
+### General additions
+* update transmission-web-control uninstall/install script
+* update links of transmission in dashboard
+* add qbittorrent install/uninstall script(need reboot after installing)
+
+### General adjustments
+* fix conflict compiling qbittorrent and deluge
+* using apache proxy for transmission, deluge and qbittorrent Web-UI
+* install test passed in Debian 8 and ubuntu16.04
+* update updateQuickBox script
+* update changeuserpasswd script
+* fix transmission installing through dashboard
+
+> the latest source from QB/master has been merged(2.5.4)
+
+## CHANGELOG efs-mod v1.1.0:
+_Changelog updated monday, April 11, 2018_
+
+---
+
+### General additions
+* add YaRSS2 for deluge
+* update transmission-web-control install script
+* update links of transmission in dashboard
+* enable installing in Debian 8
+
+### General adjustments
+* fix some descriptions
+* update kernel for bbr
+* add firmware for dedicated server who use BCM NIC
+
+> the latest source from QB/master has been merged(2.5.3)
+
+## CHANGELOG efs-mod v1.0.0:
+_Changelog updated saturday, September 23, 2017_
 
 ---
 
@@ -10,19 +84,41 @@ _Changelog updated saturday, June 9, 2018_
 	+ rtorrent 0.9.4 with ipv6 patch
 	+ deluge 1.3.15 stable version
 * add BBR(thanks Vicer)
-* update transmission-web-control uninstall/install script([transmission-web-control](https://github.com/ronggang/transmission-web-control))
-* update links of transmission in dashboard
-* add qbittorrent install/uninstall script(reboot required)
-* add bcm NIC firmware(not verified)
+* add transmission 2.84 (with new [transmission-web-control](https://github.com/ronggang/transmission-web-control))
+* use latest libboost
+* lock ffmpeg source version to branch release/3.2 (in order to avoid unstable changes in ffmpeg master branch)
 
 ### General adjustments
-* fix conflict compiling qbittorrent and deluge
-* using apache proxy for transmission, deluge and qbittorrent Web-UI
-* update updateQuickBox script
-* update changeuserpasswd script
-* fix transmission installing and controlling through dashboard
+* change some defaults
+	+ Do not use quota as default
+	+ use rtorrent 0.9.4 with libtorrent 0.13.4 with ipv6 patch as default
+	+ use deluge 1.3.15 stable source as default
+* enable h5ai for Fileindex
+* fix cert lossing in vultr host
+* temporarily removed deluge dev branch Option
+* fix "sudo: unable to resolve host" problem when changed the hostname
+* require encryption in rtorrent profile as default
 
-> the latest source from QB/master has been merged
+> the latest source from QB/master has been merged(2.5.2)
+
+---
+
+## CHANGELOG efs-dev v0.1.2:
+
+### General adjustments & additions
+* First dev version
+* change some defaults
+* fix some descriptions
+* add compile install(rtorrent libtorrent deluge)
+	+ libtorrent 0.13.4 with ipv6 patch(openssl-1.0.2l)
+	+ rtorrent 0.9.4 with ipv6 patch
+	+ deluge 1.3.15 stable version
+* new libboost
+* fix hostname
+* fix pem lossing in vultr host
+* require encryption in rtorrent profile
+* add BBR
+* add transmission
 
 ## CHANGELOG v2.4.8:
 _Changelog updated Monday, October 24, 2016_

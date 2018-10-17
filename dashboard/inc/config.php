@@ -300,8 +300,9 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   $btsyncURL = "http://" . $_SERVER['HTTP_HOST'] . ":8888/gui/";
   $cpURL = "https://" . $_SERVER['HTTP_HOST'] . "/couchpotato";
   $csfURL = "https://" . $_SERVER['HTTP_HOST'] . ":3443";
-  if ($dwssl == "true") { $dwURL = "https://" . $_SERVER['HTTP_HOST'] . ":$dwport"; }
-  if ($dwssl == "false") { $dwURL = "http://" . $_SERVER['HTTP_HOST'] . ":$dwport"; }
+  //if ($dwssl == "true") { $dwURL = "https://" . $_SERVER['HTTP_HOST'] . ":$dwport"; }
+  //if ($dwssl == "false") { $dwURL = "http://" . $_SERVER['HTTP_HOST'] . ":$dwport"; }
+  $dwURL = "https://" . $_SERVER['HTTP_HOST'] . "/deluge/";
   $embyURL = "https://" . $_SERVER['HTTP_HOST'] . "/emby";
   $headphonesURL = "https://" . $_SERVER['HTTP_HOST'] . "/headphones/home";
   $jackettURL = "https://" . $_SERVER['HTTP_HOST'] . "/jackett/UI/Dashboard";
@@ -322,7 +323,7 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   $sonarrURL = "https://" . $_SERVER['HTTP_HOST'] . "/sonarr";
   $subsonicURL = "https://" . $_SERVER['HTTP_HOST'] . "/subsonic";
   $syncthingURL = "https://" . $_SERVER['HTTP_HOST'] . "/syncthing/";
-  $transmissionURL = "https://" . $_SERVER['HTTP_HOST'] . "/transmission/web/";
+  $transmissionURL = "http://" . $_SERVER['HTTP_HOST'] . ":9091";
   $qbittorrentURL = "https://" . $_SERVER['HTTP_HOST'] . "/qbittorrent/";
   if ($zssl == "true") { $zncURL = "https://" . $_SERVER['HTTP_HOST'] . ":$zport"; }
   if ($zssl == "false") { $zncURL = "http://" . $_SERVER['HTTP_HOST'] . ":$zport"; }
