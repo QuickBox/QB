@@ -81,6 +81,7 @@ function _checkroot() {
   echo
 }
 
+# check if distribution kernel function (3)
 function _checkkernel() {
   grsec=$(uname -a | grep -i grs)
   if [[ -n $grsec ]]; then
@@ -109,7 +110,7 @@ function _checkkernel() {
   fi
 }
 
-# check if create log function (3)
+# check if create log function (4)
 function _logcheck() {
   echo -ne "${bold}${yellow}Do you wish to write to a log file?${normal} (Default: ${green}${bold}Y${normal}) "; read input
     case $input in
@@ -123,7 +124,7 @@ function _logcheck() {
   fi
 }
 
-# setting system hostname function (7)
+# setting system hostname function (5)
 function _hostname() {
 echo -ne "Please enter a hostname for this server (${bold}Hit ${standout}${green}ENTER${normal} to make no changes${normal}): " ; read input
 if [[ -z $input ]]; then
@@ -140,7 +141,7 @@ echo
 ################################################################################
 #              RESERVED FOR LETS ENCRYPT SSL INSTALL FUNCTION                  #
 ################################################################################
-
+# setting quota function (6)
 function _askquota() {
   echo -ne "${bold}${yellow}Do you wish to use user quotas?${normal} (Default: ${green}${bold}Y${normal}) "; read input
     case $input in
@@ -207,7 +208,7 @@ function _ssdpblock() {
   iptables -I INPUT 1 -p udp -m udp --dport 1900 -j DROP
 }
 
-# setting locale function (6)
+# setting locale function
 function _locale() {
 echo 'LANGUAGE="en_US.UTF-8"' >> /etc/default/locale
 echo 'LC_ALL="en_US.UTF-8"' >> /etc/default/locale
@@ -223,6 +224,7 @@ echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
   fi
 }
 
+# check if use systemd function
 function _askservices() {
   DISTRO=$(lsb_release -is)
   RELEASE=$(lsb_release -rs)
@@ -239,7 +241,7 @@ function _askservices() {
   echo
 }
 
-# ask what rtorrent version (8)
+# ask what theme version (8)
 function _askdashtheme() {
   echo -e "1) QuickBox - ${green}smoked${normal} :: Dark theme"
   echo -e "2) QuickBox - ${green}defaulted${normal} :: Light theme"
@@ -253,7 +255,7 @@ function _askdashtheme() {
   echo
 }
 
-# ask what rtorrent version (8)
+# ask what rtorrent version (9.1)
 function _askrtorrent() {
   echo -e "1) rtorrent ${green}0.9.6 (with ipv6 support)${normal}"
   echo -e "2) rtorrent ${green}0.9.4 (with ipv6 support)${normal}"
@@ -264,14 +266,14 @@ function _askrtorrent() {
     1 | "") RTVERSION=0.9.6;LTORRENT=0.13.6  ;;
     2) RTVERSION=0.9.4;LTORRENT=0.13.4  ;;
     3) RTVERSION=0.9.7;LTORRENT=0.13.7 ;;
-	4) RTVERSION=0.9.3;LTORRENT=0.13.3 ;;
+    4) RTVERSION=0.9.3;LTORRENT=0.13.3 ;;
     *) RTVERSION=0.9.6;LTORRENT=0.13.6  ;;
   esac
   echo "We will be using rtorrent-${green}$RTVERSION${normal}/libtorrent-${green}$LTORRENT${normal}"
   echo
 }
 
-# ask deluge version (if wanted) (8.1)
+# ask deluge version (if wanted) (9.2)
 function _askdeluge() {
   echo -e "1) Deluge ${green}repo${normal} (fastest installing)"
   echo -e "2) Deluge with ${green}libtorrent 1.0.x (stable)${normal}"
@@ -289,37 +291,39 @@ function _askdeluge() {
   echo
 }
 
-# install qbittorrent question (8.8)
+# install qbittorrent question (9.3)
 function _askqb() {
-echo -e "1) qBittorrent ${green}3.3.16${normal}"
-echo -e "2) qBittorrent ${green}4.0.4${normal}"
-echo -e "3) qBittorrent ${green}4.1.1${normal}"
-echo -e "4) Do not install qBittorren"
-echo -ne "${bold}${yellow}Which version of qBittorrent do you want?${normal} (Default ${green}2${normal}): " ; read -e version
+echo -e "${green}00)${normal} Do not install qBittorrent${normal}"
+echo -e "${green}01)${normal} qBittorrent ${green}3.3.16${normal}"
+echo -e "${green}02)${normal} qBittorrent ${green}4.0.4${normal}"
+echo -e "${green}03)${normal} qBittorrent ${green}4.1.3${normal}"
+echo -e "${green}04)${normal} qBittorrent ${bold}${green}latest version${normal}"
+echo -ne "${bold}${yellow}Which version of qBittorrent do you want?${normal} (Default ${green}0${normal}): " ; read -e version
 
 case $version in
-    01 | 1) QBVERSION=3.3.16 ;;
-    02 | 2) QBVERSION=4.0.4 ;;
-    03 | 3) QBVERSION=4.1.1 ;;
-	04 | 4) QBVERSION=no ;;
-    * | "") QBVERSION=4.0.4 ;;
+    00 | 0) QBVERSION=no ;;
+    01 | 1) QBVERSION=3.3.16;qbburst=no ;;
+    02 | 2) QBVERSION=4.0.4;qbburst=no ;;
+    03 | 3) QBVERSION=4.1.3;qbburst=no ;;
+    04 | 4) QBVERSION=`curl -i -s https://www.qbittorrent.org/ | grep -Eo "Latest:.*" | grep -Eo "[0-9.]+"`;qbburst=no ;;
+    * | "") QBVERSION=no ;;
 esac
 
 echo "${bold}${green}qBittorrent ${QBVERSION}${normal} ${bold}will be installed${normal}" ; echo ; 
 }
 
-# install transmission question (8.5)
+# install transmission question (9.4)
 function _asktr() {
-  echo -ne "${bold}${yellow}Would you like to install transmission? ${normal} [${green}y${normal}]es or [n]o: "; read responce
+  echo -ne "${bold}${yellow}Would you like to install transmission? ${normal} [y]es or [${green}n${normal}]o: "; read responce
   case $responce in
-    [yY] | [yY][Ee][Ss] | "" ) tr=yes ;;
-    [nN] | [nN][Oo]) tr=no ;;
+    [yY] | [yY][Ee][Ss]) tr=yes ;;
+    [nN] | [nN][Oo] | "" ) tr=no ;;
     *) tr=no ;;
   esac
   echo
 }
 
-# adduser function (9)
+# adduser function (10)
 function _adduser() {
   theshell="/bin/bash";
   echo "${bold}${yellow}Add a Master Account user to sudoers${normal}";
@@ -343,7 +347,7 @@ function _adduser() {
   ha1pass=`echo -n "${passwd}"|md5sum |cut -f1 -d' '`
 }
 
-# install ffmpeg question (10)
+# install ffmpeg question (11)
 function _askffmpeg() {
   echo -ne "${bold}${yellow}Would you like to install ffmpeg? (Used for screenshots)${normal} [${green}y${normal}]es or [n]o: "; read responce
   case $responce in
@@ -354,7 +358,7 @@ function _askffmpeg() {
   echo
 }
 
-# ask user for pure-ftpd conf (10.5)
+# ask user for vsftpd conf (12)
 function _askvsftpd() {
   local DEFAULTIP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1');
   echo -ne "${bold}${yellow}Please, write your public server IP (used for ftp)${normal} (Default: ${green}${bold}$DEFAULTIP${normal}) "; read input
@@ -397,7 +401,7 @@ function _askbbr() {
   echo
 }
 
-# package and repo addition (silently add php7) _add respo sources_ (12)
+# package and repo addition (silently add php7) _add respo sources_
 function _repos() {
   apt-get install -y software-properties-common >>"${OUTTO}" 2>&1
   apt-get -y install lsb-release sudo >>"${OUTTO}" 2>&1
@@ -414,7 +418,7 @@ function _repos() {
 
 }
 
-# package and repo addition (13) _update and upgrade_
+# package and repo addition _update and upgrade_
 function _updates() {
   if [[ $DISTRO == Debian ]]; then
     cp ${local_setup}templates/apt.sources/debian.template /etc/apt/sources.list
@@ -458,10 +462,10 @@ function _updates() {
 
 }
 
-# package and repo addition (14) _install softwares and packages_
+# package and repo addition _install softwares and packages_
 function _depends() {
   if [[ $DISTRO == Debian ]]; then
-    yes '' | apt-get install --force-yes fail2ban bc ed sudo screen zip irssi unzip nano bwm-ng htop nethogs speedtest.cli iotop \
+	  yes '' | apt-get install --force-yes fail2ban bc build-essential ed sudo screen zip irssi unzip nano bwm-ng htop nethogs speedtest.cli iotop git \
                      dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
@@ -473,12 +477,12 @@ function _depends() {
                      ttf-mscorefonts-installer checkinstall dtach cfv libarchive-zip-perl \
                      libnet-ssleay-perl ca-certificates-java libxslt1-dev \
                      libxslt1.1 libxml2 libffi-dev python-pip python-dev libhtml-parser-perl libxml-libxml-perl \
-                     libjson-perl libjson-xs-perl libxml-libxslt-perl libapache2-mod-scgi \
+                     libjson-perl libjson-xs-perl libxml-libxslt-perl libapache2-mod-scgi zlib1g-dev \
                      vnstat vnstati openvpn >>"${OUTTO}" 2>&1
   elif [[ $DISTRO == Ubuntu ]]; then
     apt-get -y -f --allow-unauthenticated install build-essential debian-archive-keyring fail2ban bc sudo \
                      screen zip irssi unzip nano bwm-ng htop iotop git \
-                     dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
+                     dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev=1.0.* \
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket \
@@ -498,17 +502,17 @@ function _depends() {
 function _openssl() {
   MAXCPUS=$(echo "$(nproc) / 2"|bc)
   cd /root
-  wget -q https://www.openssl.org/source/openssl-1.0.2l.tar.gz
-  tar -zxvf openssl-1.0.2l.tar.gz >>"${OUTTO}" 2>&1
-  cd openssl-1.0.2l
+  wget -q https://www.openssl.org/source/openssl-1.0.2p.tar.gz
+  tar -zxvf openssl-1.0.2p.tar.gz >>"${OUTTO}" 2>&1
+  cd openssl-1.0.2p
   ./config -fPIC >>"${OUTTO}" 2>&1;
   make -j${MAXCPUS} >>"${OUTTO}" 2>&1;
-  #make install >>"${OUTTO}" 2>&1;
   cd /root
-  rm -rf openssl-1.0.2l.tar.gz
+  rm -rf openssl-1.0.2p.tar.gz
   cd
 }
 
+# Pre-processing scripts,  giving permissions
 function _syscommands() {
   mkdir -p /usr/local/bin/quickbox
   cp -r ${local_packages}/. /usr/local/bin/quickbox
@@ -517,6 +521,7 @@ function _syscommands() {
   cp /usr/local/bin/quickbox/system/reload /usr/bin/reload
 }
 
+# install skel template
 function _skel() {
   if [[ -d /etc/skel ]]; then rm -r /etc/skel;fi
   mkdir /etc/skel
@@ -540,8 +545,8 @@ function _skel() {
   fi
 }
 
+# Setup mount points for Quotas
 function _qmount() {
-  # Setup mount points for Quotas
   if [[ $quota == yes ]]; then
     if [[ $DISTRO == Ubuntu ]]; then
       if [[ ${primaryroot} == "root" ]]; then
@@ -584,56 +589,64 @@ function _qmount() {
   fi
 }
 
-function _lshell() {
 # Setup LShell configuration file
+function _lshell() {
   apt-get -y install lshell >> /dev/null 2>&1
   cp ${local_setup}templates/lshell.conf.template /etc/lshell.conf
 }
 
-# build function for ffmpeg (17)
+# build function for ffmpeg
 function _ffmpeg() {
   if [[ ${ffmpeg} == "yes" ]]; then
+    apt-get -qy update >>"${OUTTO}" 2>&1;
+    LIST='autoconf automake cmake cmake-curses-gui build-essential mercurial libass-dev'
+    for depend in $LIST; do
+      apt-get -qq -y install $depend >>"${OUTTO}" 2>&1;
+    done
     MAXCPUS=$(echo "$(nproc) / 2"|bc)
-    if [[ $DISTRO == Ubuntu ]]; then
-      apt-get -y install x265 >>"${OUTTO}" 2>&1
-    elif [[ $DISTRO == Debian ]]; then
-      apt-get -y install -t jessie-backports x265 >>"${OUTTO}" 2>&1
-    fi
     mkdir /root/tmp
     cd /root/tmp
     if [[ -d /root/tmp/ffmpeg ]]; then rm -rf ffmpeg;fi
     git clone --depth 1 -b release/4.0 https://github.com/FFmpeg/FFmpeg.git ffmpeg >>"${OUTTO}" 2>&1
     git clone git://github.com/yasm/yasm.git ffmpeg/yasm >>"${OUTTO}" 2>&1
     git clone https://github.com/yixia/x264.git ffmpeg/x264 >>"${OUTTO}" 2>&1
-    ############################################################################
-    ## x265 needs to be manually compiled - there is no non-interactive option.
-    #git clone https://github.com/videolan/x265.git ffmpeg/x265 >>"${OUTTO}" 2>&1
+    hg clone https://bitbucket.org/multicoreware/x265 ffmpeg/x265 >>"${OUTTO}" 2>&1
     ############################################################################
     ####---- Github Mirror source ----####
     #git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg >>"${OUTTO}" 2>&1
     ############################################################################
-    cd ffmpeg/yasm
+    cd ffmpeg
+    wget -q https://www.nasm.us/pub/nasm/releasebuilds/2.13/nasm-2.13.tar.gz
+    tar zxvf nasm-2.13.tar.gz >>"${OUTTO}" 2>&1
+    cd nasm-2.13
+    ./autogen.sh >>"${OUTTO}" 2>&1
+    ./configure >>"${OUTTO}" 2>&1
+    make -j${MAXCPUS} >>"${OUTTO}" 2>&1
+    make install >>"${OUTTO}" 2>&1
+    cd ../yasm
     ./autogen.sh >>"${OUTTO}" 2>&1
     ./configure >>"${OUTTO}" 2>&1
     make >>"${OUTTO}" 2>&1
     make install >>"${OUTTO}" 2>&1
     cd ../x264
-    ./configure --enable-static --enable-shared >>"${OUTTO}" 2>&1
-    make >>"${OUTTO}" 2>&1
+    PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/root/tmp/ffmpeg/lib/pkgconfig" ./configure --prefix="/root/tmp/ffmpeg" --enable-static --enable-pic >>"${OUTTO}" 2>&1
+    make -j${MAXCPUS} >>"${OUTTO}" 2>&1
+    make install >>"${OUTTO}" 2>&1
+    cd ../x265/build/linux
+    cmake -G "Unix Makefiles" ../../source -DCMAKE_INSTALL_PREFIX="/root/tmp/ffmpeg" -DENABLE_SHARED:bool=off >>"${OUTTO}" 2>&1
+    make -j${MAXCPUS} >>"${OUTTO}" 2>&1
     make install >>"${OUTTO}" 2>&1
     ldconfig >>"${OUTTO}" 2>&1
-    ############################################################################
-    ## x265 needs to be manually compiled - there is no non-interactive option.
-    #cd ../x265/build/linux
-    #./make-Makefiles.bash >>"${OUTTO}" 2>&1
-    #make >>"${OUTTO}" 2>&1
-    #make install >>"${OUTTO}" 2>&1
-    #ldconfig >>"${OUTTO}" 2>&1
-    ############################################################################
     cd /root/tmp/ffmpeg
     export FC_CONFIG_DIR=/etc/fonts
     export FC_CONFIG_FILE=/etc/fonts/fonts.conf
-    ./configure --enable-libfreetype --enable-filter=drawtext --enable-fontconfig --disable-asm --enable-libx264 --enable-gpl >>"${OUTTO}" 2>&1
+    PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/root/tmp/ffmpeg/lib/pkgconfig" \
+    ./configure --enable-libfreetype --enable-filter=drawtext --enable-fontconfig \
+    --enable-libx265 --enable-libx264 --enable-gpl --enable-shared --enable-pic \
+    --extra-libs="-lpthread -lm" \
+    --extra-ldflags="-L/root/tmp/ffmpeg/lib -L/root/tmp/ffmpeg/lib/pkgconfig" \
+    --extra-cflags="-I/root/tmp/ffmpeg/include" \
+    --pkg-config-flags="--static" >>"${OUTTO}" 2>&1
     make -j${MAXCPUS} >>"${OUTTO}" 2>&1
     make install >>"${OUTTO}" 2>&1
     cp /usr/local/bin/ffmpeg /usr/bin >>"${OUTTO}" 2>&1
@@ -642,7 +655,7 @@ function _ffmpeg() {
   fi
 }
 
-# function to enable sudo for www-data function (18)
+# function to enable sudo for www-data function
 function _apachesudo() {
   rm /etc/sudoers
   cp ${local_setup}templates/sudoers.template /etc/sudoers
@@ -653,13 +666,13 @@ function _apachesudo() {
   cd
 }
 
-# xmlrpc-c function (19)
+# xmlrpc-c function
 function _xmlrpc() {
   if [[ -d /root/tmp ]]; then rm -r tmp;fi
   mkdir /root/tmp && cd /root/tmp
   if [[ -d /root/tmp/xmlrpc-c ]]; then rm -rf xmlrpc-c;fi
-  cp -r ${local_setup}sources/xmlrpc-c_1-33-12/ .
-  cd xmlrpc-c_1-33-12
+  cp -r ${local_setup}sources/xmlrpc-c_1-39-13/ .
+  cd xmlrpc-c_1-39-13
   chmod +x configure
   ./configure --prefix=/usr --disable-cplusplus >>"${OUTTO}" 2>&1
   make >>"${OUTTO}" 2>&1
@@ -667,7 +680,7 @@ function _xmlrpc() {
   make install >>"${OUTTO}" 2>&1
 }
 
-# libtorrent function (20)
+# libtorrent function
 # modify by EFS thanks to asuna's patch
 # apt rtorrent handles the libtorrent install
 # remember this is temporary until patched
@@ -684,17 +697,21 @@ function _libtorrent() {
   if [ $LTORRENT == 0.13.4 ]; then
   cp ${local_setup}sources/libtorrent-0.13.4-tar.patch .
   patch -p1 < libtorrent-*-tar.patch >>"${OUTTO}" 2>&1
-  ./configure --disable-debug  --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" --enable-ipv6 >>"${OUTTO}" 2>&1
+  ./configure --disable-debug  --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2p -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2p/include" --enable-ipv6 >>"${OUTTO}" 2>&1
   elif [ $LTORRENT == 0.13.6 ]; then
-  ./configure --disable-debug  --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" --enable-ipv6 >>"${OUTTO}" 2>&1
+  ./configure --disable-debug  --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2p -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2p/include" --enable-ipv6 >>"${OUTTO}" 2>&1
+  elif [ $LTORRENT == 0.13.7 ]; then
+  cp ${local_setup}sources/libtorrent-0.13.7-tar.patch .
+  patch -p1 < libtorrent-*-tar.patch >>"${OUTTO}" 2>&1
+  ./configure --disable-debug  --prefix=/usr >>"${OUTTO}" 2>&1
   else
-  ./configure --disable-debug  --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2l -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2l/include" >>"${OUTTO}" 2>&1
+  ./configure --disable-debug  --prefix=/usr OPENSSL_LIBS="-L/root/openssl-1.0.2p -lssl -lcrypto" OPENSSL_CFLAGS="-I/root/openssl-1.0.2p/include" >>"${OUTTO}" 2>&1
   fi
   make -j${MAXCPUS} >>"${OUTTO}" 2>&1
   make install >>"${OUTTO}" 2>&1
 }
 
-# rtorrent function (21)
+# rtorrent function
 # commenting until patch comes for comp/build 
 # using apt install rtorrent in the meantime
 function _rtorrent() {
@@ -723,25 +740,8 @@ function _rtorrent() {
   rm -rf /root/tmp/rtorrent-${RTVERSION}* >>"${OUTTO}" 2>&1
   touch /install/.rtorrent.lock
 }
-function _rtorrent_fallback() {
-  apt-get install -y rtorrent >>"${OUTTO}" 2>&1
-  touch /install/.rtorrent.lock
-}
 
-function _boost() {
-  cd /tmp
-  wget -O boost_1_65_1.tar.gz -q https://sourceforge.net/projects/boost/files/boost/1.65.1/boost_1_65_1.tar.gz/download
-  tar -zxvf boost_1_65_1.tar.gz >>"${OUTTO}" 2>&1
-  cd boost_1_65_1
-  ./bootstrap.sh --prefix=/usr/ --with-libraries=system --with-libraries=python --with-libraries=chrono --with-libraries=random >>"${OUTTO}" 2>&1;
-  ./b2 >>"${OUTTO}" 2>&1;
-  ./b2 install >>"${OUTTO}" 2>&1;
-  cd /tmp
-  rm -rf boost_1_65_1.tar.gz boost_1_65_1
-  cd
-}
-
-# deluge function (xx)
+# deluge function
 function _deluge() {
   if [[ $DELUGE == REPO ]]; then
     apt-get -q -y update >>"${OUTTO}" 2>&1
@@ -762,14 +762,17 @@ function _deluge() {
   for depend in $LIST; do
     apt-get -qq -y install $depend >>"${OUTTO}" 2>&1
   done
-  _boost
+  LIST='libboost-dev libboost-system-dev libboost-chrono-dev libboost-random-dev libboost-python-dev'
+  for depend in $LIST; do
+    apt-get -qq -y install $depend >>"${OUTTO}" 2>&1
+  done
   cd ${local_packages}
   git clone -b ${LTRC} https://github.com/arvidn/libtorrent.git >>"${OUTTO}" 2>&1
   cd libtorrent
   cp ${local_setup}sources/libtorrent-rasterbar-${LTRC}.patch .
   patch -p1 < libtorrent-rasterbar-${LTRC}.patch >>"${OUTTO}" 2>&1
   ./autotool.sh >>"${OUTTO}" 2>&1
-  ./configure --enable-python-binding --disable-debug --enable-encryption --with-libgeoip=system --with-libiconv CXXFLAGS=-std=c++11 --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1
+  ./configure --enable-python-binding --disable-debug --enable-encryption --with-libgeoip=system --with-libiconv CXXFLAGS=-std=c++11 >>"${OUTTO}" 2>&1
   make -j$(nproc) >>"${OUTTO}" 2>&1
   checkinstall -y --pkgversion=${DELUGE} >>"${OUTTO}" 2>&1
   ldconfig
@@ -784,46 +787,65 @@ function _deluge() {
   rm -r {deluge-1.3.15,libtorrent}
   rm -rf deluge-1.3.15.tar.gz
 fi
-  if [[ $DELUGE != NO ]]; then
-  n=$RANDOM
-  DPORT=$((n%59000+10024))
-  DWSALT=$(head /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
-  DWP=$(python ${local_packages}/system/deluge.Userpass.py ${passwd} ${DWSALT})
-  DUDID=$(python ${local_packages}/system/deluge.addHost.py)
-  # -- Secondary awk command -- #
-  #DPORT=$(awk -v min=59000 -v max=69024 'BEGIN{srand(); print int(min+rand()*(max-min+1))}')
-  DWPORT=$(shuf -i 10001-11000 -n 1)
-  mkdir -p /home/${username}/.config/deluge/plugins
-  if [[ ! -f /home/${username}/.config/deluge/plugins/ltConfig-0.2.5.0-py2.7.egg ]]; then
-    cd /home/${username}/.config/deluge/plugins/
-    wget -q https://github.com/ratanakvlun/deluge-ltconfig/releases/download/v0.3.1/ltConfig-0.3.1-py2.7.egg
-  fi
-  chmod 755 /home/${username}/.config
-  chmod 755 /home/${username}/.config/deluge
-  cp ${local_setup}templates/core.conf.template /home/${username}/.config/deluge/core.conf
-  cp ${local_setup}templates/web.conf.template /home/${username}/.config/deluge/web.conf
-  cp ${local_setup}templates/hostlist.conf.1.2.template /home/${username}/.config/deluge/hostlist.conf.1.2
-  sed -i "s/USERNAME/${username}/g" /home/${username}/.config/deluge/core.conf
-  sed -i "s/DPORT/${DPORT}/g" /home/${username}/.config/deluge/core.conf
-  sed -i "s/XX/${ip}/g" /home/${username}/.config/deluge/core.conf
-  sed -i "s/DWPORT/${DWPORT}/g" /home/${username}/.config/deluge/web.conf
-  sed -i "s/DWSALT/${DWSALT}/g" /home/${username}/.config/deluge/web.conf
-  sed -i "s/DWP/${DWP}/g" /home/${username}/.config/deluge/web.conf
-  sed -i "s/DUDID/${DUDID}/g" /home/${username}/.config/deluge/hostlist.conf.1.2
-  sed -i "s/DPORT/${DPORT}/g" /home/${username}/.config/deluge/hostlist.conf.1.2
-  sed -i "s/USERNAME/${username}/g" /home/${username}/.config/deluge/hostlist.conf.1.2
-  sed -i "s/PASSWD/${passwd}/g" /home/${username}/.config/deluge/hostlist.conf.1.2
-  echo "${username}:${passwd}:10" > /home/${username}/.config/deluge/auth
-  chmod 600 /home/${username}/.config/deluge/auth
-  chown -R ${username}.${username} /home/${username}/.config/
-  mkdir /home/${username}/dwatch
-  chown ${username}: /home/${username}/dwatch
-  mkdir -p /home/${username}/torrents/deluge
-  chown ${username}: /home/${username}/torrents/deluge
-  touch /install/.deluge.lock
+n=$RANDOM
+DPORT=$((n%59000+10024))
+DWSALT=$(head /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+DWP=$(python ${local_packages}/system/deluge.Userpass.py ${passwd} ${DWSALT})
+DUDID=$(python ${local_packages}/system/deluge.addHost.py)
+# -- Secondary awk command -- #
+#DPORT=$(awk -v min=59000 -v max=69024 'BEGIN{srand(); print int(min+rand()*(max-min+1))}')
+DWPORT=$(shuf -i 10001-11000 -n 1)
+mkdir -p /home/${username}/.config/deluge/plugins
+if [[ ! -f /home/${username}/.config/deluge/plugins/ltConfig-0.2.5.0-py2.7.egg ]]; then
+  cd /home/${username}/.config/deluge/plugins/
+  wget -q https://github.com/ratanakvlun/deluge-ltconfig/releases/download/v0.3.1/ltConfig-0.3.1-py2.7.egg
+  wget -q https://bitbucket.org/bendikro/deluge-yarss-plugin/downloads/YaRSS2-1.4.3-py2.7.egg
 fi
+chmod 755 /home/${username}/.config
+chmod 755 /home/${username}/.config/deluge
+cp ${local_setup}templates/core.conf.template /home/${username}/.config/deluge/core.conf
+cp ${local_setup}templates/web.conf.template /home/${username}/.config/deluge/web.conf
+cp ${local_setup}templates/hostlist.conf.1.2.template /home/${username}/.config/deluge/hostlist.conf.1.2
+cp ${local_setup}templates/ltconfig.conf.template /home/${username}/.config/deluge/ltconfig.conf
+sed -i "s/USERNAME/${username}/g" /home/${username}/.config/deluge/core.conf
+sed -i "s/DPORT/${DPORT}/g" /home/${username}/.config/deluge/core.conf
+sed -i "s/XX/${ip}/g" /home/${username}/.config/deluge/core.conf
+sed -i "s/DWPORT/${DWPORT}/g" /home/${username}/.config/deluge/web.conf
+sed -i "s/DWSALT/${DWSALT}/g" /home/${username}/.config/deluge/web.conf
+sed -i "s/DWP/${DWP}/g" /home/${username}/.config/deluge/web.conf
+sed -i "s/DUDID/${DUDID}/g" /home/${username}/.config/deluge/hostlist.conf.1.2
+sed -i "s/DPORT/${DPORT}/g" /home/${username}/.config/deluge/hostlist.conf.1.2
+sed -i "s/USERNAME/${username}/g" /home/${username}/.config/deluge/hostlist.conf.1.2
+sed -i "s/PASSWD/${passwd}/g" /home/${username}/.config/deluge/hostlist.conf.1.2
+echo "${username}:${passwd}:10" > /home/${username}/.config/deluge/auth
+chmod 600 /home/${username}/.config/deluge/auth
+chown -R ${username}.${username} /home/${username}/.config/
+mkdir /home/${username}/dwatch
+chown ${username}: /home/${username}/dwatch
+mkdir -p /home/${username}/torrents/deluge
+chown ${username}: /home/${username}/torrents/deluge
 }
 
+function _insdwApache() {
+APPNAME='deluge'
+APPDPORT=`cat /home/${username}/.config/deluge/web.conf | grep -E ".*port.*" | grep -Eo [0-9]+`
+  cat > /etc/apache2/sites-enabled/deluge.conf <<EOF
+ProxyPass /$APPNAME http://localhost:$APPDPORT/
+
+<Location /$APPNAME>
+    ProxyPassReverse /
+    ProxyPassReverseCookiePath / /$APPNAME              
+    RequestHeader set X-Deluge-Base "/$APPNAME/"          
+    Order allow,deny
+    Allow from all
+</Location>
+EOF
+
+  touch /install/.deluge.lock
+  chown www-data: /etc/apache2/sites-enabled/deluge.conf
+}
+
+# Transmission function
 function _insTr() {
   apt-get -q -y update >>"${OUTTO}" 2>&1
   apt-get -q -y install transmission-daemon >>"${OUTTO}" 2>&1
@@ -975,24 +997,26 @@ allow from all
 EOF
 }
 
+# qBittorrent function
 function _qbittorrent() {
   apt-get -qy update >>"${OUTTO}" 2>&1;
   LIST='build-essential checkinstall pkg-config libgl1-mesa-dev libjpeg-dev libpng-dev automake libtool libgeoip-dev python3-dev python3-pip'
   for depend in $LIST; do
     apt-get -qq -y install $depend >>"${OUTTO}" 2>&1;
   done
-  if [ ! -e /usr/lib/libboost_system.so ]; then
-    _boost
-  fi
+  LIST='libboost-dev libboost-system-dev libboost-chrono-dev libboost-random-dev libboost-python-dev'
+  for depend in $LIST; do
+    apt-get -qq -y install $depend >>"${OUTTO}" 2>&1
+  done
   cd ${local_packages}
   if [ ! -e /usr/local/lib/libtorrent-rasterbar.so ]; then
     LTRC=RC_1_0
     git clone -b ${LTRC} https://github.com/arvidn/libtorrent.git >>"${OUTTO}" 2>&1;
     cd libtorrent
-	cp ${local_setup}sources/libtorrent-rasterbar-${LTRC}.patch .
+	  cp ${local_setup}sources/libtorrent-rasterbar-${LTRC}.patch .
     patch -p1 < libtorrent-rasterbar-${LTRC}.patch >>"${OUTTO}" 2>&1
     ./autotool.sh >>"${OUTTO}" 2>&1;
-    ./configure --enable-python-binding --disable-debug --enable-encryption --with-libgeoip=system --with-libiconv CXXFLAGS=-std=c++11 --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1;
+    ./configure --enable-python-binding --disable-debug --enable-encryption --with-libgeoip=system --with-libiconv CXXFLAGS=-std=c++11 >>"${OUTTO}" 2>&1;
     make -j$(nproc) >>"${OUTTO}" 2>&1;
     checkinstall -y --pkgversion=1.0.11 >>"${OUTTO}" 2>&1;
   fi
@@ -1000,13 +1024,13 @@ function _qbittorrent() {
   apt-get -qy update >>"${OUTTO}" 2>&1;
   LIST='qtbase5-dev qttools5-dev-tools libqt5svg5-dev'
   for depend in $LIST; do
-  	apt-get -qq -y install $depend >>"${OUTTO}" 2>&1;
+    apt-get -qq -y install $depend >>"${OUTTO}" 2>&1;
   done
   cd ${local_packages}
   git clone https://github.com/qbittorrent/qBittorrent >>"${OUTTO}" 2>&1;
   cd qBittorrent
   git checkout release-$QBVERSION >>"${OUTTO}" 2>&1
-  ./configure --disable-gui --disable-debug --with-boost-libdir=/usr/lib >>"${OUTTO}" 2>&1;
+  ./configure --disable-gui --disable-debug >>"${OUTTO}" 2>&1;
   make -j$(nproc) >>"${OUTTO}" 2>&1;
   checkinstall -y --pkgname=qbittorrent-headless --pkgversion=$QBVERSION --pkggroup qbittorrent >>"${OUTTO}" 2>&1;
   export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
@@ -1048,7 +1072,7 @@ EOF
 # scgi enable function (22-nixed)
 # function _scgi() { ln -s /etc/apache2/mods-available/scgi.load /etc/apache2/mods-enabled/scgi.load >>"${OUTTO}" 2>&1 ; }
 
-# mktorrent function (xx)
+# mktorrent function
 function _mktorrent() {
   if [[ -d /root/tmp ]]; then rm -r tmp;fi
   mkdir /root/tmp && cd /root/tmp
@@ -1062,7 +1086,7 @@ function _mktorrent() {
   rm -rf mktorrent-1.1 && rm -f mktorrent.zip
 }
 
-# function to install rutorrent (22)
+# function to install rutorrent
 function _rutorrent() {
   cd /srv
   if [[ -d /srv/rutorrent ]]; then rm -rf rutorrent;fi
@@ -1078,7 +1102,7 @@ function _rutorrent-plugins() {
   apt-get install -y sox libsox-fmt-mp3  >>"${OUTTO}" 2>&1
 }
 
-# function to install dashboard (23)
+# function to install dashboard
 function _dashboard() {
   cd && mkdir -p /srv/rutorrent/home
   cp -r ${local_dashboard}. /srv/rutorrent/home
@@ -1086,7 +1110,7 @@ function _dashboard() {
   touch /srv/rutorrent/home/db/.${dash_theme}.lock
 }
 
-# function to install _h5ai file indexer (24x)
+# function to install _h5ai file indexer
 function _fileindexer() {
   cd /srv/rutorrent/home
   wget --quiet https://release.larsjung.de/h5ai/h5ai-0.29.0.zip >>"${OUTTO}" 2>&1
@@ -1096,7 +1120,9 @@ function _fileindexer() {
   apt -y install imagemagick >>"${OUTTO}" 2>&1
   echo "#DirectoryIndex index.html index.php /_h5ai/public/index.php" >> /etc/apache2/apache2.conf
   ln -s /home/${username}/torrents/rtorrent/ ${username}.rtorrent.downloads
+  if [[ $DELUGE != NO ]]; then
   ln -s /home/${username}/torrents/deluge/ ${username}.deluge.downloads
+  fi
   if [[ ${tr} == "yes" ]]; then
 	ln -s /home/${username}/torrents/transmission/ ${username}.transmission.downloads
   fi
@@ -1105,7 +1131,7 @@ function _fileindexer() {
   fi
 }
 
-# function to configure apache (24)
+# function to configure apache
 function _apacheconf() {
   cp ${local_setup}templates/aliases-seedbox.conf.template /etc/apache2/sites-enabled/aliases-seedbox.conf
   sed -i "s/USERNAME/${username}/g" /etc/apache2/sites-enabled/aliases-seedbox.conf
@@ -1160,7 +1186,7 @@ function _apacheconf() {
     #sed -i 's/memory_limit = 128M/memory_limit = 768M/g' /etc/php/7.0/apache2/php.ini
 }
 
-# function to fix cert (24x)
+# function to fix cert
 # add by EFS
 function _fix_cert() {
   if [ ! -f /etc/ssl/certs/ssl-cert-snakeoila.pem ]
@@ -1169,7 +1195,7 @@ function _fix_cert() {
   fi
 }
 
-# function to configure first user config (25)
+# function to configure first user config
 function _rconf() {
   if [[ $RTVERSION == 0.9.7 ]]; then
 	cp ${local_setup}templates/rtorrent.rc.new.template /home/${username}/.rtorrent.rc
@@ -1187,7 +1213,7 @@ function _rconf() {
   fi
 }
 
-# function to set proper diskspace plugin (26)
+# function to set proper diskspace plugin
 function _plugins() {
   cd "${rutorrent}plugins/"
   if [[ ${primaryroot} == "root" ]]; then
@@ -1236,7 +1262,7 @@ function _plugins() {
   find /srv/rutorrent/plugins/filemanager/scripts -type f -exec chmod 755 {} \;
 }
 
-# function autodl to install autodl irssi scripts (27)
+# function autodl to install autodl irssi scripts
 function _autodl() {
   mkdir -p "/home/${username}/.irssi/scripts/autorun/" >>"${OUTTO}" 2>&1
   cd "/home/${username}/.irssi/scripts/"
@@ -1244,7 +1270,7 @@ function _autodl() {
   curl -sL http://git.io/vlcND | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs wget --quiet -O autodl-irssi.zip
   unzip -o autodl-irssi.zip >>"${OUTTO}" 2>&1
   rm autodl-irssi.zip
-  cp autodl-irssi.pl autorun/
+  cp -f autodl-irssi.pl autorun/
   mkdir -p "/home/${username}/.autodl" >>"${OUTTO}" 2>&1
   touch "/home/${username}/.autodl/autodl.cfg"
   chown ${username}: /home/${username}/.autodl/autodl.cfg
@@ -1260,7 +1286,7 @@ ADC
   chown -R "${username}.${username}" "/home/${username}"
 }
 
-# function to make dirs for first user (28)
+# function to make dirs for first user
 function _makedirs() {
   #mkdir /home/"${username}"/{torrents,.sessions,watch} >>"${OUTTO}" 2>&1
   cp -r /etc/skel/. /home/"${username}"
@@ -1269,7 +1295,7 @@ function _makedirs() {
   usermod -a -G "${username}" www-data >>"${OUTTO}" 2>&1
 }
 
-# function to make crontab .statup file (29)
+# function to make crontab .statup file
 #function _cronfile() {
 #  cp ${local_setup}templates/startup.template /home/${username}/.startup
 #  chmod 775 /home/${username}/.startup
@@ -1279,7 +1305,7 @@ function _makedirs() {
 #fi
 #}
 
-# function to configure first user config.php (30)
+# function to configure first user config.php
 function _ruconf() {
   mkdir -p ${rutorrent}conf/users/${username}/
 
@@ -1298,14 +1324,14 @@ function _ruconf() {
   sed -i "s/ZZZ/\"${AUTODLPASSWORD}\"/g" /srv/rutorrent/conf/users/${username}/config.php
 }
 
-# function to install pure-ftpd (31)
+# function to install pure-ftpd
 function _installftpd() {
   apt-get purge -y vsftpd pure-ftpd >>"${OUTTO}" 2>&1
   apt-get autoremove >>"${OUTTO}" 2>&1
   apt-get install -y vsftpd >>"${OUTTO}" 2>&1
 }
 
-# function to configure pure-ftpd (32)
+# function to configure pure-ftpd
 function _ftpdconfig() {
   cp ${local_setup}templates/openssl.cnf.template /root/.openssl.cnf
 
@@ -1348,8 +1374,9 @@ function _quickstats() {
   fi
 }
 
+# initializing console info
 function _quickconsole() {
-  PUBLICIP=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+  PUBLICIP=$(ip route get 8.8.8.8 | awk 'NR==1 {print $7}')
 
 cat >/etc/profile<<EOF
 echo " Welcome Back !"
@@ -1378,7 +1405,7 @@ EOF
 
 }
 
-# seedbox boot for first user (35)
+# seedbox boot for first user
 function _boot() {
   #if [[ $cron == yes ]]; then
   #  touch /install/.cron.lock
@@ -1396,7 +1423,7 @@ function _boot() {
   echo "*/1 * * * * root bash /usr/local/bin/quickbox/system/set_interface" > /etc/cron.d/set_interface
 }
 
-# function to set permissions on first user (36)
+# function to set permissions on first user
 function _perms() {
   chown -R ${username}.${username} /home/${username}/ >>"${OUTTO}" 2>&1
   sudo -u ${username} chmod 755 /home/${username}/ >>"${OUTTO}" 2>&1
@@ -1409,6 +1436,7 @@ function _perms() {
   fi
 }
 
+# BBR function
 function _insbbr() {
   cd /tmp
   cp ${local_setup}sources/BBR/BBR.sh .
@@ -1417,6 +1445,7 @@ function _insbbr() {
   cd
 }
 
+# fix bcm NIC firmware
 function _insbcm() {
   mkdir -p ${local_setup}/bcm
   cd ${local_setup}/bcm
@@ -1454,9 +1483,9 @@ function _pureftpcert() {
 #   //END UNUSED FUNCTIONS//
 ################################################################################
 
-# function to show finished data (37)
+# function to show finished data
 function _finished() {
-  ip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+  ip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $7}')
   echo
   echo
   echo -e " ${black}${on_green}    [quickbox] Seedbox & GUI Installation Completed    ${normal} "
@@ -1544,8 +1573,8 @@ rutorrent="/srv/rutorrent/"
 REALM="rutorrent"
 AUTODLPASSWORD=$(_string)
 AUTODLPORT=$(shuf -i 2000-61000 -n 1)
-ip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
-BTSYNCIP=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+ip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $7}')
+BTSYNCIP=$(ip route get 8.8.8.8 | awk 'NR==1 {print $7}')
 export DEBIAN_FRONTEND=noninteractive
 cd
 
@@ -1568,6 +1597,7 @@ _ask10g
 _askrtorrent
 _askdeluge
 _asktr
+apt-get install -q -y curl >>"${OUTTO}" 2>&1
 _askqb
 _askdashtheme
 _adduser
@@ -1585,7 +1615,9 @@ echo ""
 echo -n "Pulling QuickBox Ecosystem ... ";_repos & spinner $!;echo
 echo -n "Updating system ... ";_updates & spinner $!;echo
 echo -n "Installing all needed dependencies ... ";_depends & spinner $!;echo
-echo -n "Installing openssl ... ";_openssl & spinner $!;echo
+if [[ $RTVERSION != 0.9.7 ]]; then
+  echo -n "Installing openssl ... ";_openssl & spinner $!;echo
+fi
 echo -n "Setting up system executables ... ";_syscommands & spinner $!;echo
 echo -n "Building required user directories ... ";_skel & spinner $!;echo
 if [[ ${quota} == "yes" ]]; then
@@ -1596,17 +1628,19 @@ if [[ ${ffmpeg} == "yes" ]]; then
     echo -n "Building ffmpeg from source for screenshots ... ";_ffmpeg & spinner $!;echo
 fi
 _apachesudo
-echo -n "Installing xmlrpc-c-${green}1.33.12${normal} ... ";_xmlrpc & spinner $!;echo
+echo -n "Installing xmlrpc-c ... ";_xmlrpc & spinner $!;echo
 echo -n "Installing libtorrent-rakshasa ${green}$LTORRENT${normal} ... ";_libtorrent & spinner $!;echo
 echo -n "Installing rtorrent-${green}$RTVERSION${normal} ... ";_rtorrent & spinner $!;echo
-#echo -n "Installing rtorrent ... ";_rtorrent_fallback & spinner $!;echo
 echo -n "Installing rutorrent into /srv ... ";_rutorrent & spinner $!;echo
 echo -n "Installing rutorrent plugins ... ";_rutorrent-plugins & spinner $!;echo
-echo -n "Installing deluge ... ";_deluge & spinner $!;echo
+if [[ $DELUGE != NO ]]; then
+  echo -n "Installing deluge ... ";_deluge & spinner $!;echo
+  echo -n "Setting up deluge Web Reverse Proxy ... ";_insdwApache & spinner $!;echo
+fi
 if [[ ${tr} == "yes" ]]; then
 	echo -n "Configuring Transmisson ... ";_insTr & spinner $!;echo
 	echo -n "Installing Transmisson Web Control ... ";_insTrWeb & spinner $!;echo
-	echo -n "Setting up Transmission Reverse Proxy ... ";_insTrApache & spinner $!;echo
+#echo -n "Setting up Transmission Reverse Proxy ... ";_insTrApache & spinner $!;echo
 fi
 if [[ ${QBVERSION} != "no" ]]; then
 	echo -n "Installing qBittorrent ... ";_qbittorrent & spinner $!;echo

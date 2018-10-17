@@ -1,18 +1,20 @@
 ## CHANGELOG QBPR branch:
-_Changelog updated saturday, June 9, 2018_
+_Changelog updated saturday, Oct 17, 2018_
 
 ---
 
 ### General additions
 * fix some descriptions
 * add compile install(rtorrent libtorrent deluge)
-	+ libtorrent 0.13.4 with ipv6 patch(openssl-1.0.2l), also fixed 0.13.6
+	+ libtorrent 0.13.4 with ipv6 patch(openssp-1.0.2p), also fixed 0.13.6
 	+ rtorrent 0.9.4 with ipv6 patch
+	+ support rtorrent 0.9.7
 	+ deluge 1.3.15 stable version
+	+ support latest qBittorrent
 * add BBR(thanks Vicer)
 * update transmission-web-control uninstall/install script([transmission-web-control](https://github.com/ronggang/transmission-web-control))
 * update links of transmission in dashboard
-* add qbittorrent install/uninstall script(reboot required)
+* add qBittorrent install/uninstall script(reboot required)
 * add bcm NIC firmware(not verified)
 
 ### General adjustments
@@ -21,6 +23,11 @@ _Changelog updated saturday, June 9, 2018_
 * update updateQuickBox script
 * update changeuserpasswd script
 * fix transmission installing and controlling through dashboard
+* use apt libboost package for compiling
+* update xml-rpc-c
+* update rar
+* remove old autodl-irssi code
+* update ltconfig template
 
 > the latest source from QB/master has been merged
 
