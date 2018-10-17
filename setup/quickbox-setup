@@ -48,7 +48,6 @@ function _intro() {
   echo "   ${title}              Heads Up!              ${normal} "
   echo "   ${message_title}  QuickBox works with the following  ${normal} "
   echo "   ${message_title}  Ubuntu 15.10 | 16.04               ${normal} "
-  echo "   ${message_title}  Debian 8                           ${normal} "
   echo
   echo
   echo "${green}Checking distribution ...${normal}"
@@ -59,11 +58,11 @@ function _intro() {
   fi
   echo "$(lsb_release -a)"
   echo
-  if [[ ! "$DISTRO" =~ ("Ubuntu"|"Debian") ]]; then
+  if [[ ! "$DISTRO" =~ ("Ubuntu") ]]; then
     echo "$DISTRO: ${alert} It looks like you are running $DISTRO, which is not supported by QuickBox ${normal} "
     echo 'Exiting...'
     exit 1
-  elif [[ ! "$CODENAME" =~ ("xenial"|"wily"|"jessie") ]]; then
+  elif [[ ! "$CODENAME" =~ ("xenial"|"wily") ]]; then
     echo "Oh drats! You do not appear to be running a supported $DISTRO release."
     echo "${bold}$SETNAME${normal}"
     echo 'Exiting...'
@@ -144,11 +143,11 @@ echo
 ################################################################################
 # setting quota function (6)
 function _askquota() {
-  echo -ne "${bold}${yellow}Do you wish to use user quotas?${normal} (Default: ${green}${bold}N${normal}) "; read input
+  echo -ne "${bold}${yellow}Do you wish to use user quotas?${normal} (Default: ${green}${bold}Y${normal}) "; read input
     case $input in
-      [yY] | [yY][Ee][Ss]) quota="yes";echo "${bold}Quotas will be installed${normal}" ;;
-      [nN] | [nN][Oo] | "" ) quota="no";echo "${cyan}Quotas will not be installed${normal}" ;;
-    *) quota="no";echo "${bold}Quotas will not be installed${normal}" ;;
+      [yY] | [yY][Ee][Ss] | "" ) quota="yes";echo "${bold}Quotas will be installed${normal}" ;;
+      [nN] | [nN][Oo] ) quota="no";echo "${cyan}Quotas will not be installed${normal}" ;;
+    *) quota="yes";echo "${bold}Quotas will be installed${normal}" ;;
     esac
 }
 
@@ -238,17 +237,6 @@ function _askservices() {
       [yY] | [yY][Ee][Ss] | "" ) cron="no";echo "${bold}Using systemd for process management${normal}" ;;
       [nN] | [nN][Oo] ) cron="yes";echo "${cyan}Cron will manage your processes${normal}" ;;
     *) cron="no";echo "${bold}Using systemd for process management${normal}" ;;
-    esac
-  echo
-}
-
-# check if change default ssh port function (7)
-function _askchport() {
-  echo "Would you like to change default ssh port? (recommended) (Default: ${green}${bold}Yes ${cyan}(4747)${normal})"; read input
-    case $input in
-      [yY] | [yY][Ee][Ss] | "" ) chport="yes";echo "${bold}Using 4747 for ssh management${normal}" ;;
-      [nN] | [nN][Oo] ) chport="no";echo "${cyan}Using default port for ssh management${normal}" ;;
-    *) chport="yes";echo "${bold}Using 4747 for ssh management${normal}" ;;
     esac
   echo
 }
@@ -460,7 +448,7 @@ function _updates() {
     apt-get -y upgrade >>"${OUTTO}" 2>&1
   fi
 
-  if [[ -e /etc/ssh/sshd_config ]] && [[ ${chport} == "yes" ]]; then
+  if [[ -e /etc/ssh/sshd_config ]]; then
     echo "Port 4747" /etc/ssh/sshd_config >> /dev/null 2>&1
     sed -i 's/Port 22/Port 4747/g' /etc/ssh/sshd_config
     #sed -i 's/SendEnv LANG LC_*/#SendEnv LANG LC_*/g' /etc/ssh/ssh_config
@@ -1605,7 +1593,6 @@ _checkroot
 _logcheck
 _checkkernel
 _hostname
-_askchport
 _askquota
 _askcontinue
 _ssdpblock
