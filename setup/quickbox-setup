@@ -35,6 +35,8 @@ function _bashrc() {
   fi
 }
 
+apt update && apt install bc net-tools x264 x265 
+
 # check if root function (2)
 function _checkroot() {
   if [[ $EUID != 0 ]]; then
