@@ -35,7 +35,7 @@ function _bashrc() {
   fi
 }
 
-apt update && apt install -y bc net-tools x264 x265 php7.0
+apt update && apt install -y bc net-tools x264 x265 php7.0 php7.0-fpm
 
 # check if root function (2)
 function _checkroot() {
