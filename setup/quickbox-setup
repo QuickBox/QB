@@ -36,6 +36,20 @@ function _bashrc() {
 }
 
 #apt update && apt install -y bc net-tools x264 x265 php7.0 php7.0-fpm
+apt-get install --force-yes fail2ban bc build-essential ed sudo screen zip irssi unzip nano bwm-ng htop nethogs speedtest.cli iotop git \
+                     dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
+                     pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
+                     apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
+                     libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket libapache2-mod-php7.0 \
+                     php7.0-dev php7.0-geoip libgeoip-dev php7.0 php7.0-fpm php7.0-mbstring php7.0-mysql \
+                     php7.0-curl php7.0-memcached memcached php7.0-gd php7.0-json php7.0-mcrypt php7.0-opcache \
+                     php7.0-xml python3-lxml python-lxml fontconfig comerr-dev ca-certificates libfontconfig1-dev \
+                     libdbd-mysql-perl libdbi-perl libfontconfig1 rar unrar mediainfo ifstat \
+                     ttf-mscorefonts-installer checkinstall dtach cfv libarchive-zip-perl \
+                     libnet-ssleay-perl ca-certificates-java libxslt1-dev \
+                     libxslt1.1 libxml2 libffi-dev python-pip python-dev libhtml-parser-perl libxml-libxml-perl \
+                     libjson-perl libjson-xs-perl libxml-libxslt-perl libapache2-mod-scgi zlib1g-dev \
+                     vnstat vnstati openvpn
 
 # intro function (1)
 function _intro() {
