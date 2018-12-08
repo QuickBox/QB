@@ -35,8 +35,6 @@ function _bashrc() {
   fi
 }
 
-#apt update && apt install -y bc net-tools x264 x265 php7.0 php7.0-fpm
-
 # intro function (1)
 function _intro() {
   DISTRO=$(lsb_release -is)
@@ -56,19 +54,19 @@ function _intro() {
   if [ ! -x  /usr/bin/lsb_release ]; then
     echo "It looks like you are running $DISTRO, which is not supported by QuickBox."
     echo "Exiting..."
-    #exit 1
+    exit 1
   fi
   echo "$(lsb_release -a)"
   echo
-  if [[ ! "$DISTRO" =~ ("Ubuntu") ]]; then
+  if [[ ! "$DISTRO" =~ ("Ubuntu"|"Debian") ]]; then
     echo "$DISTRO: ${alert} It looks like you are running $DISTRO, which is not supported by QuickBox ${normal} "
     echo 'Exiting...'
-    #exit 1
-  elif [[ ! "$CODENAME" =~ ("xenial"|"wily") ]]; then
+    exit 1
+  elif [[ ! "$CODENAME" =~ ("xenial"|"wily"|"stretch") ]]; then
     echo "Oh drats! You do not appear to be running a supported $DISTRO release."
     echo "${bold}$SETNAME${normal}"
     echo 'Exiting...'
-    #exit 1
+    exit 1
   fi
 }
 
