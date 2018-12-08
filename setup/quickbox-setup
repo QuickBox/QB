@@ -361,6 +361,7 @@ function _askffmpeg() {
 }
 
 # ask user for vsftpd conf (12)
+apt install -y net-tools
 function _askvsftpd() {
   local DEFAULTIP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1');
   echo -ne "${bold}${yellow}Please, write your public server IP (used for ftp)${normal} (Default: ${green}${bold}$DEFAULTIP${normal}) "; read input
