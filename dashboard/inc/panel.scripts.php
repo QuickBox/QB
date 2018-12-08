@@ -90,6 +90,24 @@
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
 </div><!-- modal -->
+<!-- FILEBOT UNINSTALL MODAL -->
+<div class="modal bounceIn animated" id="filebotRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="filebotRemovalConfirm" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="filebotRemovalConfirm"><?php echo T('UNINSTALL_TITLE'); ?> FileBot?</h4>
+      </div>
+      <div class="modal-body">
+        <?php echo T('UNINSTALL_FILEBOT_TXT'); ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo T('CANCEL'); ?></button>
+        <a href="?removepackage-filebot=true" id="filebotRemove" class="btn btn-primary"><?php echo T('AGREE'); ?></a>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
 <!-- HEADPHONES UNINSTALL MODAL -->
 <div class="modal bounceIn animated" id="headphonesRemovalConfirm" tabindex="-1" role="dialog" aria-labelledby="HeadphonesRemovalConfirm" aria-hidden="true">
   <div class="modal-dialog">
@@ -782,6 +800,15 @@ $(document).ready(function() {
     $.gritter.add({
       title: '<?php echo T('UNINSTALLING_TITLE'); ?> Emby-Server',
       text: '<?php echo T('UNINSTALLING_TXT_1'); ?> Emby-Server <?php echo T('UNINSTALLING_TXT_2'); ?>',
+      class_name: 'with-icon times-circle danger',
+      sticky: true
+    });
+  });
+  // FileBotRemove
+  $('#filebotRemove').click(function(){
+    $.gritter.add({
+      title: '<?php echo T('UNINSTALLING_TITLE'); ?> FileBot',
+      text: '<?php echo T('UNINSTALLING_TXT_1'); ?> FileBot <?php echo T('UNINSTALLING_TXT_2'); ?>',
       class_name: 'with-icon times-circle danger',
       sticky: true
     });
