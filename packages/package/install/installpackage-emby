@@ -29,7 +29,10 @@ echo "Setting up emby apache configuration ... " >>"${OUTTO}" 2>&1;
   a2enmod proxy >/dev/null 2>&1
 
 echo "Installing emby keys and sources ... " >>"${OUTTO}" 2>&1;
-  if [[ $DISTRO == Debian ]]; then
+  if [[ $CODENAME == stretch ]]; then
+    echo 'deb http://download.opensuse.org/repositories/home:/emby/Debian_9.0/ /' > /etc/apt/sources.list.d/emby-server.list
+    wget --quiet http://download.opensuse.org/repositories/home:emby/Debian_9.0/Release.key -O - | apt-key add - > /dev/null 2>&1
+  elif [[ $CODENAME == jessie ]]; then
     echo 'deb http://download.opensuse.org/repositories/home:/emby/Debian_8.0/ /' > /etc/apt/sources.list.d/emby-server.list
     wget --quiet http://download.opensuse.org/repositories/home:emby/Debian_8.0/Release.key -O - | apt-key add - > /dev/null 2>&1
   elif [[ $CODENAME == yakkety ]]; then
