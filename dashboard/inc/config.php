@@ -255,7 +255,6 @@ $btsync = processExists("resilio-sync",rslsync);
 $deluged = processExists("deluged",$username);
 $delugedweb = processExists("deluge-web",$username);
 $emby = processExists("emby-server",$username);
-$filebot = processExists("filebot",$username);
 $headphones = processExists("headphones",$username);
 $irssi = processExists("irssi",$username);
 $lidarr = processExists("lidarr",$username);
@@ -356,8 +355,6 @@ case 0:
     $cbodycp .= $couchpotato;
   $emby = isEnabled("emby-server", $username);
     $cbodye .= $emby;
-  $filebot = isEnabled("filebot", $username);
-    $cbodyf .= $filebot;
   $headphones = isEnabled("headphones", $username);
     $cbodyhp .= $headphones;
   $jackett = isEnabled("jackett", $username);
