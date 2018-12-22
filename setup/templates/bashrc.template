@@ -1195,27 +1195,28 @@ echo $OK
 echo -n "writing $username .rtorrent.rc using port-range (${PORT}-${PORTEND})..."
 cat >/home/$username/.rtorrent.rc<<RC
 # -- START HERE --
+dht.mode.set = auto
+directory.default.set = /home/${username}/torrents/rtorrent
+encoding.add = UTF-8
+protocol.encryption.set = allow_incoming,try_outgoing,enable_retry,require_RC4
+execute.nothrow = chmod,777,/home/${username}/.config/rpc.socket
+execute.nothrow = chmod,777,/home/${username}/.sessions
+network.port_random.set = yes
+network.port_range.set = $PORT-$PORTEND
 scgi_port = localhost:$RPORT
-min_peers = 1
-max_peers = 100
-min_peers_seed = -1
-max_peers_seed = -1
-max_uploads = 100
-download_rate = 0
-upload_rate = 0
-directory = /home/${username}/torrents/rtorrent
-session = /home/${username}/.sessions/
-schedule = watch_directory,5,5,load_start=/home/${username}/rwatch/*.torrent
-schedule = filter_active,5,5,"view_filter = active,d.get_up_rate="
-view_add = alert
-view_sort_new = alert,less=d.get_message=
-schedule = filter_alert,30,30,"view_filter = alert,d.get_message=; view_sort = alert"
-port_range = $PORT-$PORTEND
-use_udp_trackers = yes
-encryption = allow_incoming,try_outgoing,enable_retry
-peer_exchange = no
-check_hash = no
-execute_nothrow=chmod,777,/home/${username}/.sessions/
+network.tos.set = throughput
+protocol.pex.set = yes
+pieces.hash.on_completion.set = no
+schedule = watch_directory,5,5,load.start=/home/${username}/rwatch/*.torrent
+session.path.set = /home/${username}/.sessions/
+throttle.global_down.max_rate.set = 0
+throttle.global_up.max_rate.set = 0
+throttle.max_peers.normal.set = 100
+throttle.max_peers.seed.set = -1
+throttle.max_uploads.set = 100
+throttle.min_peers.normal.set = 1
+throttle.min_peers.seed.set = -1
+trackers.use_udp.set = yes
 # -- END HERE --
 RC
 if [[ -f /install/.10g.lock ]]; then

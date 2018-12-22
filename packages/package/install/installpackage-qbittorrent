@@ -10,18 +10,36 @@ function _qbittorrent() {
     apt-get -qq -y install $depend >>"${OUTTO}" 2>&1
   done
   cd ${local_packages}
+  if [ -e /usr/local/lib/libtorrent-rasterbar.so.8 ]; then
+    dpkg -r libtorrent >>"${OUTTO}" 2>&1;
+  fi
   if [ ! -e /usr/local/lib/libtorrent-rasterbar.so ]; then
-    LTRC=RC_1_0
+    LTRC=RC_1_1
     git clone -b ${LTRC} https://github.com/arvidn/libtorrent.git >>"${OUTTO}" 2>&1;
     cd libtorrent
-	cp ${local_setup}sources/libtorrent-rasterbar-${LTRC}.patch .
+	  cp ${local_setup}sources/libtorrent-rasterbar-${LTRC}.patch .
     patch -p1 < libtorrent-rasterbar-${LTRC}.patch >>"${OUTTO}" 2>&1
+    ltversion=`cat configure.ac | grep -Eo "AC_INIT\(\[libtorrent-rasterbar\],.*" | grep -Eo "[0-9.]+" | head -n1`
     ./autotool.sh >>"${OUTTO}" 2>&1;
     ./configure --enable-python-binding --disable-debug --enable-encryption --with-libgeoip=system --with-libiconv CXXFLAGS=-std=c++11 >>"${OUTTO}" 2>&1;
     make -j$(nproc) >>"${OUTTO}" 2>&1;
-    checkinstall -y --pkgversion=1.0.11 >>"${OUTTO}" 2>&1;
+    checkinstall -y --pkgversion=${ltversion} >>"${OUTTO}" 2>&1;
+    ldconfig >>"${OUTTO}" 2>&1;
+    if [ -e /install/.deluge.lock ]; then
+      systemctl stop deluged@${username}
+      sleep 5
+      cd ${local_packages}
+      wget -q http://download.deluge-torrent.org/source/deluge-1.3.15.tar.gz
+      tar -zxvf deluge-1.3.15.tar.gz >>"${OUTTO}" 2>&1
+      cd deluge-1.3.15
+      python setup.py build >>"${OUTTO}" 2>&1
+      python setup.py install --install-layout=deb >>"${OUTTO}" 2>&1
+      python setup.py install_data >>"${OUTTO}" 2>&1
+      rm -rf {deluge-1.3.15,libtorrent}
+      rm -rf deluge-1.3.15.tar.gz
+      systemctl start deluged@${username}
+    fi
   fi
-  ldconfig >>"${OUTTO}" 2>&1;
   CODENAME=$(lsb_release -cs)
   apt-get -qy update >>"${OUTTO}" 2>&1;
   LIST='qtbase5-dev qttools5-dev-tools libqt5svg5-dev'
@@ -37,11 +55,12 @@ function _qbittorrent() {
   make -j$(nproc) >>"${OUTTO}" 2>&1;
   checkinstall -y --pkgversion=${qbversion} --pkgname=qbittorrent-headless --pkggroup qbittorrent >>"${OUTTO}" 2>&1;
   export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
+  if [[ ! -d /home/${username}/.config/qBittorrent ]]; then
+    mkdir -p /home/${username}/.config/qBittorrent
+  fi
+  chmod -R 755 /home/${username}/.config
+  chown -R ${username}.${username} /home/${username}/.config/
   cp ${local_setup}templates/sysd/qbittorrent.template  /etc/systemd/system/qbittorrent@.service >/dev/null 2>&1
-  systemctl enable qbittorrent@${username} >/dev/null 2>&1
-  systemctl start qbittorrent@${username} >/dev/null 2>&1
-  sleep 10
-  systemctl stop {qbittorrent}@${username} >/dev/null 2>&1
   cp -f ${local_setup}templates/qBittorrent.conf.template /home/${username}/.config/qBittorrent/qBittorrent.conf
   sed -i "s/admin/${username}/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
   sed -i "s/5ebe2294ecd0e0f08eab7690d2a6ee69/${ha1pass}/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
@@ -52,8 +71,10 @@ function _qbittorrent() {
   chown ${username}: /home/${username}/torrents/qbittorrent
   cd /srv/rutorrent/home
   ln -s /home/${username}/torrents/qbittorrent/ ${username}.qbittorrent.downloads
+  systemctl enable qbittorrent@${username} >/dev/null 2>&1
+  systemctl start qbittorrent@${username} >/dev/null 2>&1
   cd ${local_packages}
-  rm -r qBittorrent
+  rm -rf qBittorrent
 }
 
 function _insqBApache() {
