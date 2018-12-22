@@ -1064,10 +1064,6 @@ function _qbittorrent() {
   checkinstall -y --pkgname=qbittorrent-headless --pkgversion=$QBVERSION --pkggroup qbittorrent >>"${OUTTO}" 2>&1;
   export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
   cp ${local_setup}templates/sysd/qbittorrent.template  /etc/systemd/system/qbittorrent@.service >/dev/null 2>&1
-  systemctl enable qbittorrent@${username} >/dev/null 2>&1
-  systemctl start qbittorrent@${username} >/dev/null 2>&1
-  sleep 10
-  systemctl stop {qbittorrent}@${username} >/dev/null 2>&1
   if [ ! -d /home/${username}/.config/qBittorrent ]; then
 	mkdir -p /home/${username}/.config/qBittorrent
   fi
@@ -1079,6 +1075,8 @@ function _qbittorrent() {
   chown -R ${username}.${username} /home/${username}/.config/
   mkdir -p /home/${username}/torrents/qbittorrent
   chown ${username}: /home/${username}/torrents/qbittorrent
+  systemctl enable qbittorrent@${username} >/dev/null 2>&1
+  systemctl start qbittorrent@${username} >/dev/null 2>&1
   cd ${local_packages}
   rm -r qBittorrent
 }

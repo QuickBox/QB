@@ -26,6 +26,8 @@ function _qbittorrent() {
     checkinstall -y --pkgversion=${ltversion} >>"${OUTTO}" 2>&1;
     ldconfig >>"${OUTTO}" 2>&1;
     if [ -e /install/.deluge.lock ]; then
+      systemctl stop deluged@${username}
+      sleep 5
       cd ${local_packages}
       wget -q http://download.deluge-torrent.org/source/deluge-1.3.15.tar.gz
       tar -zxvf deluge-1.3.15.tar.gz >>"${OUTTO}" 2>&1
@@ -35,6 +37,7 @@ function _qbittorrent() {
       python setup.py install_data >>"${OUTTO}" 2>&1
       rm -rf {deluge-1.3.15,libtorrent}
       rm -rf deluge-1.3.15.tar.gz
+      systemctl start deluged@${username}
     fi
   fi
   CODENAME=$(lsb_release -cs)
@@ -61,10 +64,6 @@ function _qbittorrent() {
   checkinstall -y --pkgversion=${qbversion} --pkgname=qbittorrent-headless --pkggroup qbittorrent >>"${OUTTO}" 2>&1;
   export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
   cp ${local_setup}templates/sysd/qbittorrent.template  /etc/systemd/system/qbittorrent@.service >/dev/null 2>&1
-  systemctl enable qbittorrent@${username} >/dev/null 2>&1
-  systemctl start qbittorrent@${username} >/dev/null 2>&1
-  sleep 10
-  systemctl stop {qbittorrent}@${username} >/dev/null 2>&1
   cp -f ${local_setup}templates/qBittorrent.conf.template /home/${username}/.config/qBittorrent/qBittorrent.conf
   sed -i "s/admin/${username}/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
   sed -i "s/5ebe2294ecd0e0f08eab7690d2a6ee69/${ha1pass}/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
@@ -75,6 +74,8 @@ function _qbittorrent() {
   chown ${username}: /home/${username}/torrents/qbittorrent
   cd /srv/rutorrent/home
   ln -s /home/${username}/torrents/qbittorrent/ ${username}.qbittorrent.downloads
+  systemctl enable qbittorrent@${username} >/dev/null 2>&1
+  systemctl start qbittorrent@${username} >/dev/null 2>&1
   cd ${local_packages}
   rm -rf qBittorrent
 }
