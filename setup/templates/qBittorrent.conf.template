@@ -2,6 +2,9 @@
 enabled=false
 program=
 
+[LegalNotice]
+Accepted=true
+
 [Preferences]
 Bittorrent\AddTrackers=false
 Bittorrent\MaxRatioAction=0
