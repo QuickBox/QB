@@ -63,6 +63,11 @@ function _qbittorrent() {
   make -j$(nproc) >>"${OUTTO}" 2>&1;
   checkinstall -y --pkgversion=${qbversion} --pkgname=qbittorrent-headless --pkggroup qbittorrent >>"${OUTTO}" 2>&1;
   export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
+  if [[ ! -d /home/${username}/.config/qBittorrent ]]; then
+    mkdir -p /home/${username}/.config/qBittorrent
+  fi
+  chmod -R 755 /home/${username}/.config
+  chown -R ${username}.${username} /home/${username}/.config/
   cp ${local_setup}templates/sysd/qbittorrent.template  /etc/systemd/system/qbittorrent@.service >/dev/null 2>&1
   cp -f ${local_setup}templates/qBittorrent.conf.template /home/${username}/.config/qBittorrent/qBittorrent.conf
   sed -i "s/admin/${username}/g" /home/${username}/.config/qBittorrent/qBittorrent.conf
