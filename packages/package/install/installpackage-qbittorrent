@@ -11,7 +11,7 @@ function _qbittorrent() {
   done
   cd ${local_packages}
   if [ -e /usr/local/lib/libtorrent-rasterbar.so.8 ]; then
-    dpkg -r libtorrent* >>"${OUTTO}" 2>&1;
+    dpkg -r libtorrent >>"${OUTTO}" 2>&1;
   fi
   if [ ! -e /usr/local/lib/libtorrent-rasterbar.so ]; then
     LTRC=RC_1_1

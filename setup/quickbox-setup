@@ -779,7 +779,7 @@ function _deluge() {
     apt-get -qq -y install $depend >>"${OUTTO}" 2>&1
   done
   function version_qb() { test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" != "$1"; }
-  if [[ ${QBVERSION} != "no" ]] && [[ version_qb ${QBVERSION} 4.1.4; ]]; then
+  if [[ ${QBVERSION} != "no" ]] && (version_qb ${QBVERSION} 4.1.3); then
     LTRC=RC_1_1
   fi
   cd ${local_packages}
@@ -1028,7 +1028,7 @@ function _qbittorrent() {
   cd ${local_packages}
   if [ ! -e /usr/local/lib/libtorrent-rasterbar.so ]; then
     function version_qb() { test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" != "$1"; }
-    if [[ ${QBVERSION} != "no" ]] && [[ version_qb ${QBVERSION} 4.1.4; ]]; then
+    if [[ ${QBVERSION} != "no" ]] && (version_qb ${QBVERSION} 4.1.3); then
       LTRC=RC_1_1
     fi
     git clone -b ${LTRC} https://github.com/arvidn/libtorrent.git >>"${OUTTO}" 2>&1;
