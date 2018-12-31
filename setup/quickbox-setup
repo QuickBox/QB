@@ -864,20 +864,29 @@ EOF
 
 # Transmission function
 function _insTr() {
+  sudo add-apt-repository -y ppa:transmissionbt/ppa >>"${OUTTO}" 2>&1
   apt-get -q -y update >>"${OUTTO}" 2>&1
   apt-get -q -y install transmission-daemon >>"${OUTTO}" 2>&1
-  service transmission-daemon stop >>"${OUTTO}" 2>&1
+  systemctl stop transmission-daemon >>"${OUTTO}" 2>&1
+  systemctl disable transmission-daemon >>"${OUTTO}" 2>&1
+  mkdir -p /home/${username}/.config/transmission/blocklists >/dev/null 2>&1
+	mkdir -p /home/${username}/.config/transmission/resume >/dev/null 2>&1
+	mkdir -p /home/${username}/.config/transmission/torrents >/dev/null 2>&1
+	mkdir -p /home/${username}/torrents/transmission >/dev/null 2>&1
+  cp ${local_setup}templates/transmission.json.template /home/${username}/.config/transmission/settings.json
+  sed -i "s/\/var\/lib\/transmission-daemon\/downloads/\/home\/${username}\/torrents\/transmission/g" /home/${username}/.config/transmission/settings.json
+  sed -i "s/\/var\/lib\/transmission-daemon\/Downloads/\/home\/${username}\/torrents\/transmission\/incomplete/g" /home/${username}/.config/transmission/settings.json
+  sed -i "s/\/var\/lib\/transmission-daemon\/trwatch/\/home\/${username}\/trwatch/g" /home/${username}/.config/transmission/settings.json
+  sed -i "s/\"{.*/\"${passwd}\", /g" /home/${username}/.config/transmission/settings.json
+  sed -i "s/\"transmission\",/\"${username}\",/g" /home/${username}/.config/transmission/settings.json
   mkdir -p /home/${username}/torrents/transmission
-  chmod g+w /home/${username}/torrents/transmission >/dev/null 2>&1
-  usermod -a -G debian-transmission ${username} >/dev/null 2>&1
-  #chgrp -R debian-transmission /home/${username}/torrents/transmission
-  chown -R ${username}:debian-transmission /home/${username}/torrents/transmission >/dev/null 2>&1
-  sed -i "s/\/var\/lib\/transmission-daemon\/downloads/\/home\/${username}\/torrents\/transmission/g" /etc/transmission-daemon/settings.json
-  sed -i "s/\/var\/lib\/transmission-daemon\/Downloads/\/home\/${username}\/torrents\/transmission\/incomplete/g" /etc/transmission-daemon/settings.json
-  sed -i "s/\"{.*/\"${passwd}\", /g" /etc/transmission-daemon/settings.json
-  sed -i "s/\"transmission\",/\"${username}\",/g" /etc/transmission-daemon/settings.json
-  sed -i "s/127.0.0.1/\*.\*.\*.\*/g" /etc/transmission-daemon/settings.json
-  service transmission-daemon start >>"${OUTTO}" 2>&1
+  mkdir -p /home/${username}/trwatch
+  chmod -R 755 /home/${username}/.config
+  chown -R ${username}.${username} /home/${username}/.config/
+  chmod -R 755 /home/${username}/torrents/transmission
+  chown -R ${username}.${username} /home/${username}/torrents/transmission
+  chmod -R 755 /home/${username}/trwatch
+  chown -R ${username}.${username} /home/${username}/trwatch
 }
 
 function _insTrWeb() {
@@ -946,7 +955,7 @@ function _insTrWeb() {
 		echo "Installing..." >>"${OUTTO}" 2>&1
 		mkdir web
 		tar -xzf "$PACK_NAME" -C "web" >>"${OUTTO}" 2>&1
-		if [ ! -f "$WEB_FOLDER/$ORG_INDEX_FILE" -a -f "$WEB_FOLDER/$INDEX_FILE" ]; then
+		if [ ! -f "$WEB_FOLDER/$ORG_INDEX_FILE" ]; then
 		  mv "$WEB_FOLDER/$INDEX_FILE" "$WEB_FOLDER/$ORG_INDEX_FILE"
 		fi
 		cp -r web "$ROOT_FOLDER"
@@ -1003,7 +1012,6 @@ APPDPORT='9091'
 <Location /$APPNAME>
 ProxyPass http://localhost:$APPDPORT/$APPNAME
 ProxyPassReverse http://localhost:$APPDPORT/$APPNAME
-Require all granted
 </Location>
 EOF
 
@@ -1012,6 +1020,9 @@ EOF
   cat > /usr/share/transmission/web/.htaccess <<EOF
 allow from all
 EOF
+  cp ${local_setup}templates/sysd/transmission.template  /etc/systemd/system/transmission@.service >/dev/null 2>&1
+  systemctl enable transmission@${username} >/dev/null 2>&1
+  systemctl start transmission@${username} >/dev/null 2>&1
 }
 
 # qBittorrent function
@@ -1673,7 +1684,7 @@ fi
 if [[ ${tr} == "yes" ]]; then
 	echo -n "Configuring Transmisson ... ";_insTr & spinner $!;echo
 	echo -n "Installing Transmisson Web Control ... ";_insTrWeb & spinner $!;echo
-#echo -n "Setting up Transmission Reverse Proxy ... ";_insTrApache & spinner $!;echo
+  echo -n "Setting up Transmission Reverse Proxy ... ";_insTrApache & spinner $!;echo
 fi
 if [[ ${QBVERSION} != "no" ]]; then
 	echo -n "Installing qBittorrent ... ";_qbittorrent & spinner $!;echo

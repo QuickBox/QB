@@ -213,6 +213,7 @@ $L['PERCENTAGE_TXT_1'] = 'You have used';
 $L['PERCENTAGE_TXT_2'] = 'of your total disk space';
 $L['RTORRENTS_TITLE'] = 'Torrents in rtorrent';
 $L['DTORRENTS_TITLE'] = 'Torrents in deluge';
+$L['TRTORRENTS_TITLE'] = 'Torrents in transmission';
 $L['QTORRENTS_TITLE'] = 'Torrents in qBittorrent';
 $L['TORRENTS_LOADED_1'] = 'There are';
 $L['TORRENTS_LOADED_2'] = 'torrents loaded';

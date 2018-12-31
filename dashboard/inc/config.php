@@ -278,7 +278,7 @@ $quassel = processExists("quassel",$username);
 $shellinabox = processExists("shellinabox",shellinabox);
 $csf = processExists("lfd",root);
 $sickgear = processExists("sickgear",8088);
-$transmission = processExists("transmission-daemon",debian-transmission);
+$transmission = processExists("transmission-daemon",$username);
 $qbittorrent = processExists("qbittorrent-nox",$username);
 $nzbget = processExists("nzbget",$username);
 $znc = processExists("znc",$username);
@@ -323,7 +323,7 @@ if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   $sonarrURL = "https://" . $_SERVER['HTTP_HOST'] . "/sonarr";
   $subsonicURL = "https://" . $_SERVER['HTTP_HOST'] . "/subsonic";
   $syncthingURL = "https://" . $_SERVER['HTTP_HOST'] . "/syncthing/";
-  $transmissionURL = "http://" . $_SERVER['HTTP_HOST'] . ":9091";
+  $transmissionURL = "https://" . $_SERVER['HTTP_HOST'] . "/transmission";
   $qbittorrentURL = "https://" . $_SERVER['HTTP_HOST'] . "/qbittorrent/";
   if ($zssl == "true") { $zncURL = "https://" . $_SERVER['HTTP_HOST'] . ":$zport"; }
   if ($zssl == "false") { $zncURL = "http://" . $_SERVER['HTTP_HOST'] . ":$zport"; }
@@ -394,7 +394,7 @@ case 0:
     $cbodyss .= $subsonic;
   $syncthing = isEnabled("syncthing", $username);
     $cbodyst .= $syncthing;
-  $transmission = isEnabled("transmission-daemon", debian-transmission);
+  $transmission = isEnabled("transmission", $username);
     $cbodytr .= $transmission;
   $qbittorrent = isEnabled("qbittorrent", $username);
     $cbodyqb .= $qbittorrent;
