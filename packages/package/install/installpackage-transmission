@@ -24,22 +24,33 @@
 #
 
 function _insTr() {
+  sudo add-apt-repository -y ppa:transmissionbt/ppa >>"${OUTTO}" 2>&1
   apt-get -q -y update >>"${OUTTO}" 2>&1
   apt-get -q -y install transmission-daemon >>"${OUTTO}" 2>&1
-  service transmission-daemon stop >>"${OUTTO}" 2>&1
+  systemctl stop transmission-daemon >>"${OUTTO}" 2>&1
+  systemctl disable transmission-daemon >>"${OUTTO}" 2>&1
+  mkdir -p /home/${username}/.config/transmission/blocklists >/dev/null 2>&1
+	mkdir -p /home/${username}/.config/transmission/resume >/dev/null 2>&1
+	mkdir -p /home/${username}/.config/transmission/torrents >/dev/null 2>&1
+	mkdir -p /home/${username}/torrents/transmission >/dev/null 2>&1
+  cp ${local_setup}templates/transmission.json.template /home/${username}/.config/transmission/settings.json
+  sed -i "s/\/var\/lib\/transmission-daemon\/downloads/\/home\/${username}\/torrents\/transmission/g" /home/${username}/.config/transmission/settings.json
+  sed -i "s/\/var\/lib\/transmission-daemon\/Downloads/\/home\/${username}\/torrents\/transmission\/incomplete/g" /home/${username}/.config/transmission/settings.json
+  sed -i "s/\/var\/lib\/transmission-daemon\/trwatch/\/home\/${username}\/trwatch/g" /home/${username}/.config/transmission/settings.json
+  sed -i "s/\"{.*/\"${passwd}\", /g" /home/${username}/.config/transmission/settings.json
+  sed -i "s/\"transmission\",/\"${username}\",/g" /home/${username}/.config/transmission/settings.json
   mkdir -p /home/${username}/torrents/transmission
-  chmod g+w /home/${username}/torrents/transmission >/dev/null 2>&1
-  #chgrp -R debian-transmission /home/${username}/torrents/transmission
-  chown -R ${username}:debian-transmission /home/${username}/torrents/transmission >/dev/null 2>&1
-  sed -i "s/\/var\/lib\/transmission-daemon\/downloads/\/home\/${username}\/torrents\/transmission/g" /etc/transmission-daemon/settings.json
-  sed -i "s/\/var\/lib\/transmission-daemon\/Downloads/\/home\/${username}\/torrents\/transmission\/incomplete/g" /etc/transmission-daemon/settings.json
-  sed -i "s/\"{.*/\"${passwd}\", /g" /etc/transmission-daemon/settings.json
-  sed -i "s/\"transmission\",/\"${username}\",/g" /etc/transmission-daemon/settings.json
-  sed -i "s/127.0.0.1/\*.\*.\*.\*/g" /etc/transmission-daemon/settings.json
-  service transmission-daemon start >>"${OUTTO}" 2>&1
+  mkdir -p /home/${username}/trwatch
+  chmod -R 755 /home/${username}/.config
+  chown -R ${username}.${username} /home/${username}/.config/
+  chmod -R 755 /home/${username}/torrents/transmission
+  chown -R ${username}.${username} /home/${username}/torrents/transmission
+  chmod -R 755 /home/${username}/trwatch
+  chown -R ${username}.${username} /home/${username}/trwatch
 }
 
 function _insTrWeb() {
+  #!/bin/sh
   ROOT_FOLDER="$1"
   WEB_FOLDER=""
   ORG_INDEX_FILE="index.original.html"
@@ -49,10 +60,13 @@ function _insTrWeb() {
 	WEB_HOST="https://github.com/ronggang/twc-release/raw/master/"
 	DOWNLOAD_URL="$WEB_HOST$PACK_NAME"
 	INSTALL_TYPE=-1
+
+
 	main() {
 	  if [ ! -d "$TMP_FOLDER" ]; then
 		mkdir -p "$TMP_FOLDER"
 	  fi
+
 	  if [ -d "$ROOT_FOLDER" ]; then
 		echo "use arg: $ROOT_FOLDER" >>"${OUTTO}" 2>&1
 		INSTALL_TYPE=3
@@ -64,13 +78,13 @@ function _insTrWeb() {
 	  clear
 	}
 
-
 	findWebFolder() {
 	  echo "Searching Transmission Web Folder..."  >>"${OUTTO}" 2>&1
 	  ROOT_FOLDER="/usr/local/transmission/share/transmission"
 	  if [ -f /etc/fedora-release ] || [ -f "/etc/debian_version" ]; then
 		ROOT_FOLDER="/usr/share/transmission"
 	  fi
+		
 	  if [ $TRANSMISSION_WEB_HOME ]; then
 		echo "use TRANSMISSION_WEB_HOME: $TRANSMISSION_WEB_HOME" >>"${OUTTO}" 2>&1
 		if [ ! -d "$TRANSMISSION_WEB_HOME" ]; then
@@ -95,26 +109,29 @@ function _insTrWeb() {
 	  fi
 	}
 
-
 	install() {
 	  if [ $INSTALL_TYPE = 1 -o $INSTALL_TYPE = 3 ]; then
 		download
 		echo "Installing..." >>"${OUTTO}" 2>&1
 		mkdir web
 		tar -xzf "$PACK_NAME" -C "web" >>"${OUTTO}" 2>&1
-		if [ ! -f "$WEB_FOLDER/$ORG_INDEX_FILE" -a -f "$WEB_FOLDER/$INDEX_FILE" ]; then
+		if [ ! -f "$WEB_FOLDER/$ORG_INDEX_FILE" ]; then
 		  mv "$WEB_FOLDER/$INDEX_FILE" "$WEB_FOLDER/$ORG_INDEX_FILE"
 		fi
 		cp -r web "$ROOT_FOLDER"
+
 		find "$ROOT_FOLDER" -type d -exec chmod o+rx {} \;
 		find "$ROOT_FOLDER" -type f -exec chmod o+r {} \;
+
 		installed
 	  elif [ $INSTALL_TYPE = 2 ]; then
 		download
 		echo "Installing..." >>"${OUTTO}" 2>&1
 		tar -xzf "$PACK_NAME" -C "$TRANSMISSION_WEB_HOME"
+
 		find "$TRANSMISSION_WEB_HOME" -type d -exec chmod o+rx {} \;
 		find "$TRANSMISSION_WEB_HOME" -type f -exec chmod o+r {} \;
+
 		installed
 	  else
 			#echo "##############################################"
@@ -124,18 +141,22 @@ function _insTrWeb() {
 			#echo "##############################################"
 	  fi
 	}
+
 	download() {
 	  cd "$TMP_FOLDER"
 	  echo "Downloading Transmission Web Control..." >>"${OUTTO}" 2>&1
 	  wget -q "$DOWNLOAD_URL" --no-check-certificate
 	}
+
 	installed() {
 	  echo "Transmission Web Control Installation completed!" >>"${OUTTO}" 2>&1
 	}
+
 	clear() {
 	  rm "$PACK_NAME"
 	  rm -rf "$TMP_FOLDER"
 	}
+
 	main
 
   rm -rf "$tmpFolder"
@@ -147,15 +168,17 @@ function _insTrApache() {
 <Location /$APPNAME>
 ProxyPass http://localhost:$APPDPORT/$APPNAME
 ProxyPassReverse http://localhost:$APPDPORT/$APPNAME
-Require all granted
 </Location>
 EOF
 
-  touch /install/.transmission.lock
+	touch /install/.transmission.lock
   chown www-data: /etc/apache2/sites-enabled/transmission.conf
   cat > /usr/share/transmission/web/.htaccess <<EOF
 allow from all
 EOF
+  cp ${local_setup}templates/sysd/transmission.template  /etc/systemd/system/transmission@.service >/dev/null 2>&1
+  systemctl enable transmission@${username} >/dev/null 2>&1
+  systemctl start transmission@${username} >/dev/null 2>&1
   service apache2 reload
 }
 

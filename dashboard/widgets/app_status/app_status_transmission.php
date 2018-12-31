@@ -12,7 +12,7 @@ function processExists($processName, $username) {
   return $exists;
 }
 
-$transmission = processExists("transmission-daemon",debian-transmission);
+$transmission = processExists("transmission-daemon",$username);
 
 if ($transmission == "1") { $trval = "<span class=\"badge badge-service-running-dot\"></span><span class=\"badge badge-service-running-pulse\"></span>";
 } else { $trval = "<span class=\"badge badge-service-disabled-dot\"></span><span class=\"badge badge-service-disabled-pulse\"></span>";

@@ -172,7 +172,7 @@
               <li><a class="grayscale" href="<?php echo "$dwURL"; ?>" target="_blank"><img src="img/brands/deluge.png" class="brand-ico"> <span>Deluge Web</span></a></li>
             <?php } ?>
             <!-- // TRANSMISSION // -->
-            <?php if (processExists("transmission-daemon",debian-transmission) && file_exists('/install/.transmission.lock')) { ?>
+            <?php if (processExists("transmission-daemon",$username) && file_exists('/install/.transmission.lock')) { ?>
               <li><a href="<?php echo "$transmissionURL"; ?>" class="grayscale" target="_blank"><img src="img/brands/transmission.png" class="brand-ico"> <span>Transmission Web Control</span></a></li>
             <?php } ?>
 			<!-- // QBITTORRENT // -->

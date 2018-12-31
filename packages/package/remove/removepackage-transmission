@@ -25,14 +25,15 @@
 
 function _removepackage-tr() {
 	# Disable and Stop Transmission services
-	systemctl disable transmission-daemon > /dev/null 2>&1
-  	systemctl stop transmission-daemon > /dev/null 2>&1
-  	# Remove Transmission user and settings directories
+	systemctl disable transmission@${username} > /dev/null 2>&1
+	systemctl stop transmission@${username} > /dev/null 2>&1
+	# Remove Transmission user and settings directories
 	rm -rf /home/${username}/torrents/transmission/
+	rm -rf /home/${username}/trwatch/
 	rm -rf /usr/share/transmission
-	rm -rf /etc/apache2/sites-enabled/transmission.conf
-	rm -rf /etc/transmission-daemon
 	rm -rf /srv/rutorrent/home/${username}.transmission.downloads
+	rm -rf /home/${username}/.config/transmission/
+	rm -rf /etc/apache2/sites-enabled/transmission.conf
 	# Remove any package dependencies and settings
 	apt-get -y remove transmission*
 	apt-get -y purge transmission*
