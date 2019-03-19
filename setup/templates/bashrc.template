@@ -1636,7 +1636,7 @@ function upgradePlex() {
 
   # Current pages we need - Do not change unless Plex.tv changes again
   URL_LOGIN=https://plex.tv/users/sign_in.json
-  URL_DOWNLOAD=https://plex.tv/api/downloads/1.json?channel=plexpass
+  URL_DOWNLOAD=https://plex.tv/api/downloads/5.json?channel=plexpass
   URL_DOWNLOAD_PUBLIC=https://plex.tv/api/downloads/1.json
 
   # Sanity check
@@ -1654,9 +1654,9 @@ function upgradePlex() {
 
   if [ -z "${DISTRO_INSTALL}" ]; then
   	# Detect if we're running on redhat instead of ubuntu
-  	BUILD="linux-ubuntu-${ARCH}"
-  	DISTRO="ubuntu"
-  	DISTRO_INSTALL="${DEBIAN_INSTALL}"
+  	BUILD="linux-${ARCH}"
+    DISTRO="debian"
+    DISTRO_INSTALL="${DEBIAN_INSTALL}"
   fi
 
   # Useful functions
