@@ -24,9 +24,13 @@ function _depends() {
 }
 
 function _install() {
+  if [[ ! -f /etc/apt/sources.list.d/ombi.list ]]; then
+    echo "deb [arch=amd64,armhf] http://repo.ombi.turd.me/stable/ jessie main" > "/etc/apt/sources.list.d/ombi.list"
+    wget --no-check-certificate -qO - https://repo.ombi.turd.me/pubkey.txt | sudo apt-key add - >/dev/null 2>&1
+  fi
   mkdir -p /opt/Ombi
   cd /opt/Ombi
-  wget https://github.com/tidusjar/Ombi/releases/download/v3.0.3421/linux.tar.gz >/dev/null 2>&1
+  wget https://github.com/tidusjar/Ombi/releases/download/v3.0.4680/linux.tar.gz >/dev/null 2>&1
   
   # Newest Version (seems massively broken)
   # wget https://ci.appveyor.com/api/buildjobs/jqegwte5rpdg49ed/artifacts/linux.tar.gz >/dev/null 2>&1
