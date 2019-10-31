@@ -30,17 +30,8 @@ function _install() {
   fi
   mkdir -p /opt/Ombi
   cd /opt/Ombi
-  wget https://github.com/tidusjar/Ombi/releases/download/v3.0.4680/linux.tar.gz >/dev/null 2>&1
-  
-  # Newest Version (seems massively broken)
-  # wget https://ci.appveyor.com/api/buildjobs/jqegwte5rpdg49ed/artifacts/linux.tar.gz >/dev/null 2>&1
-
-  # json=$(curl -sL https://ombiservice.azurewebsites.net/api/update/DotNetCore)
-  # latestversion=$(grep -Po '(?<="updateVersionString":")([^"]+)' <<<  "$json")
-  # json=$(curl -sL https://ci.appveyor.com/api/projects/tidusjar/requestplex/build/$latestversion)
-  # jobId=$(grep -Po '(?<="jobId":")([^"]+)' <<<  "$json")
-  # version=$(grep -Po '(?<="version":")([^"]+)' <<<  "$json")
-  # curl -sL https://ci.appveyor.com/api/buildjobs/$jobId/artifacts | grep -Po '(?<="linux.tar.gz","type":"File","size":)(\d+)'
+  ombiversion=$(wget https://github.com/tidusjar/Ombi/releases/latest -O - | grep -E \/tag\/ | grep -v repository | awk -F "[><]" '{print $3}' | sed s/"Ombi\\ "/""/g)
+  wget https://github.com/tidusjar/Ombi/releases/download/$ombiversion/linux.tar.gz >/dev/null 2>&1
 
   tar xzf linux.tar.gz >/dev/null 2>&1
   chmod +x Ombi
