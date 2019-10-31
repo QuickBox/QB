@@ -28,24 +28,34 @@ echo "Setting up emby apache configuration ... " >>"${OUTTO}" 2>&1;
   chown www-data /etc/apache2/sites-enabled/emby.conf
   a2enmod proxy >/dev/null 2>&1
 
-echo "Installing emby keys and sources ... " >>"${OUTTO}" 2>&1;
-  if [[ $DISTRO == Debian ]]; then
-    echo 'deb http://download.opensuse.org/repositories/home:/emby/Debian_8.0/ /' > /etc/apt/sources.list.d/emby-server.list
-    wget --quiet http://download.opensuse.org/repositories/home:emby/Debian_8.0/Release.key -O - | apt-key add - > /dev/null 2>&1
-  elif [[ $CODENAME == yakkety ]]; then
-    sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/emby/xUbuntu_16.10/ /' > /etc/apt/sources.list.d/emby-server.list"
-    wget --quiet http://download.opensuse.org/repositories/home:emby/xUbuntu_16.10/Release.key -O - | apt-key add - > /dev/null 2>&1
-  elif [[ $CODENAME == xenial ]]; then
-    sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/emby/xUbuntu_16.04/ /' > /etc/apt/sources.list.d/emby-server.list"
-    wget --quiet http://download.opensuse.org/repositories/home:emby/xUbuntu_16.04/Release.key -O - | apt-key add - > /dev/null 2>&1
-  elif [[ $CODENAME == wily ]]; then
-    sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/emby/xUbuntu_15.10/ /' > /etc/apt/sources.list.d/emby-server.list"
-    wget --quiet http://download.opensuse.org/repositories/home:emby/xUbuntu_15.10/Release.key -O - | apt-key add - > /dev/null 2>&1
-  fi
+# Deprecated Sources - Building from Source now
+#echo "Installing emby keys and sources ... " >>"${OUTTO}" 2>&1;
+#  if [[ $DISTRO == Debian ]]; then
+#    echo 'deb http://download.opensuse.org/repositories/home:/emby/Debian_8.0/ /' > /etc/apt/sources.list.d/emby-server.list
+#    wget --quiet http://download.opensuse.org/repositories/home:emby/Debian_8.0/Release.key -O - | apt-key add - > /dev/null 2>&1
+#  elif [[ $CODENAME == yakkety ]]; then
+#    sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/emby/xUbuntu_16.10/ /' > /etc/apt/sources.list.d/emby-server.list"
+#    wget --quiet http://download.opensuse.org/repositories/home:emby/xUbuntu_16.10/Release.key -O - | apt-key add - > /dev/null 2>&1
+#  elif [[ $CODENAME == xenial ]]; then
+#    sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/emby/xUbuntu_16.04/ /' > /etc/apt/sources.list.d/emby-server.list"
+#    wget --quiet http://download.opensuse.org/repositories/home:emby/xUbuntu_16.04/Release.key -O - | apt-key add - > /dev/null 2>&1
+#  elif [[ $CODENAME == wily ]]; then
+#    sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/emby/xUbuntu_15.10/ /' > /etc/apt/sources.list.d/emby-server.list"
+#    wget --quiet http://download.opensuse.org/repositories/home:emby/xUbuntu_15.10/Release.key -O - | apt-key add - > /dev/null 2>&1
+#  fi
 
-echo "Updating system & installing emby server ... " >>"${OUTTO}" 2>&1;
-    apt-get -y update >/dev/null 2>&1
-    apt-get install -y --allow-unauthenticated -f emby-server >/dev/null 2>&1
+echo "Installing emby server ... " >>"${OUTTO}" 2>&1;
+    emby_version=$(curl -Ls https://github.com/MediaBrowser/Emby.Releases/releases/latest | grep "emby-server-deb"| cut -d "/" -f 6 | head -1)
+    mkdir -p /tmp/quickbox
+    cd /tmp/quickbox
+    wget -q https://github.com/MediaBrowser/Emby.Releases/releases/download/${emby_version}/emby-server-deb_${emby_version}_amd64.deb> /dev/null 2>&1
+    dpkg -i emby-server-deb_${emby_version}_amd64.deb> /dev/null 2>&1
+  
+    sleep 3
+  
+    rm -rf emby-server-deb_*
+    #apt-get -y update >/dev/null 2>&1
+    #apt-get install -y --allow-unauthenticated -f emby-server >/dev/null 2>&1
     echo
     sleep 5
 
