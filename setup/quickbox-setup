@@ -469,10 +469,10 @@ function _depends() {
                      dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
-                     libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket libapache2-mod-php7.0 \
-                     php7.0-dev php7.0-geoip libgeoip-dev php7.0 php7.0-fpm php7.0-mbstring php7.0-mysql \
-                     php7.0-curl php7.0-memcached memcached php7.0-gd php7.0-json php7.0-mcrypt php7.0-opcache \
-                     php7.0-xml python3-lxml python-lxml fontconfig comerr-dev ca-certificates libfontconfig1-dev \
+                     libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket libapache2-mod-php7.3 \
+                     php7.3-dev php7.3-geoip libgeoip-dev php7.3 php7.3-fpm php7.3-mbstring php7.3-mysql \
+                     php7.3-curl php7.3-memcached memcached php7.3-gd php7.3-json php7.3-mcrypt php7.3-opcache \
+                     php7.3-xml python3-lxml python-lxml fontconfig comerr-dev ca-certificates libfontconfig1-dev \
                      libdbd-mysql-perl libdbi-perl libfontconfig1 rar unrar mediainfo ifstat \
                      ttf-mscorefonts-installer checkinstall dtach cfv libarchive-zip-perl \
                      libnet-ssleay-perl ca-certificates-java libxslt1-dev \
@@ -486,10 +486,10 @@ function _depends() {
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket \
-                     libdbd-mysql-perl libdbi-perl php7.0 php7.0-fpm php7.0-mbstring php7.0-mysql \
-                     php7.0-curl php-memcached memcached php7.0-gd php7.0-json php7.0-mcrypt php7.0-opcache \
-                     php7.0-xml php7.0-zip fontconfig comerr-dev ca-certificates libfontconfig1-dev \
-                     php7.0-geoip libfontconfig1 rar unrar mediainfo ifstat libapache2-mod-php7.0 \
+                     libdbd-mysql-perl libdbi-perl php7.3 php7.3-fpm php7.3-mbstring php7.3-mysql \
+                     php7.3-curl php-memcached memcached php7.3-gd php7.3-json php7.3-mcrypt php7.3-opcache \
+                     php7.3-xml php7.3-zip fontconfig comerr-dev ca-certificates libfontconfig1-dev \
+                     php7.3-geoip libfontconfig1 rar unrar mediainfo ifstat libapache2-mod-php7.3 \
                      python3-lxml python-lxml ttf-mscorefonts-installer checkinstall dtach cfv libarchive-zip-perl \
                      libnet-ssleay-perl openjdk-8-jre-headless openjdk-8-jre openjdk-8-jdk libxslt1-dev \
                      libxslt1.1 libxml2 libffi-dev python-pip python-dev libhtml-parser-perl libxml-libxml-perl \
@@ -1203,7 +1203,7 @@ function _apacheconf() {
     a2enmod headers >>"${OUTTO}" 2>&1
     a2enmod fastcgi >>"${OUTTO}" 2>&1
     a2enmod proxy_fcgi setenvif >>"${OUTTO}" 2>&1
-    a2enconf php7.0-fpm >>"${OUTTO}" 2>&1
+    a2enconf php7.3-fpm >>"${OUTTO}" 2>&1
 
 
     #sed -i 's/memory_limit = 128M/memory_limit = 768M/g' /etc/php/7.0/apache2/php.ini
@@ -1535,7 +1535,7 @@ function _finished() {
   echo "#   ${cyan}(Also works for FTP:5757/SSH:4747)${normal}"
   echo "#   If you need to restart rtorrent/irssi, you can type 'reload'"
   echo "#   https://${username}:${passwd}@${ip} (Also works for FTP:5757/SSH:4747)" > ${username}.info
-  echo "#   Reloading: ${green}sshd${normal}, ${green}apache${normal}, ${green}memcached${normal}, ${green}php7.0${normal}, ${green}vsftpd${normal} and ${green}fail2ban${normal}"
+  echo "#   Reloading: ${green}sshd${normal}, ${green}apache${normal}, ${green}memcached${normal}, ${green}php7.3${normal}, ${green}vsftpd${normal} and ${green}fail2ban${normal}"
   echo '################################################################################################'
   echo
 
@@ -1545,7 +1545,7 @@ cat >/root/information.info<<EOF
   https://${username}:${passwd}@${ip} (Also works for FTP:5757/SSH:4747)
 EOF
   rm -rf "$0" >>"${OUTTO}" 2>&1
-    for i in ssh apache2 php7.0-fpm vsftpd fail2ban quota memcached cron; do
+    for i in ssh apache2 php7.3-fpm vsftpd fail2ban quota memcached cron; do
       service $i restart >>"${OUTTO}" 2>&1
       systemctl enable $i >>"${OUTTO}" 2>&1
     done
