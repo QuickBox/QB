@@ -1179,7 +1179,7 @@ function _apacheconf() {
                -e "s/;opcache.enable=0/opcache.enable=1/" \
                -e "s/;opcache.memory_consumption=64/opcache.memory_consumption=128/" \
                -e "s/;opcache.max_accelerated_files=2000/opcache.max_accelerated_files=4000/" \
-               -e "s/;opcache.revalidate_freq=2/opcache.revalidate_freq=240/" /etc/php/7.0/fpm/php.ini
+               -e "s/;opcache.revalidate_freq=2/opcache.revalidate_freq=240/" /etc/php/7.3/fpm/php.ini
     sed -i.bak -e "s/post_max_size = 8M/post_max_size = 64M/" \
                -e "s/upload_max_filesize = 2M/upload_max_filesize = 92M/" \
                -e "s/expose_php = On/expose_php = Off/" \
@@ -1188,10 +1188,10 @@ function _apacheconf() {
                -e "s/;opcache.enable=0/opcache.enable=1/" \
                -e "s/;opcache.memory_consumption=64/opcache.memory_consumption=128/" \
                -e "s/;opcache.max_accelerated_files=2000/opcache.max_accelerated_files=4000/" \
-               -e "s/;opcache.revalidate_freq=2/opcache.revalidate_freq=240/" /etc/php/7.0/apache2/php.ini
+               -e "s/;opcache.revalidate_freq=2/opcache.revalidate_freq=240/" /etc/php/7.3/apache2/php.ini
 
     # ensure opcache module is activated
-    phpenmod -v 7.0 opcache >>"${OUTTO}" 2>&1
+    phpenmod -v 7.3 opcache >>"${OUTTO}" 2>&1
 
     # these modules are purely experimental
     #a2enmod proxy_fcgi >>"${OUTTO}" 2>&1
@@ -1206,7 +1206,7 @@ function _apacheconf() {
     a2enconf php7.3-fpm >>"${OUTTO}" 2>&1
 
 
-    #sed -i 's/memory_limit = 128M/memory_limit = 768M/g' /etc/php/7.0/apache2/php.ini
+    #sed -i 's/memory_limit = 128M/memory_limit = 768M/g' /etc/php/7.3/apache2/php.ini
 }
 
 # function to fix cert
