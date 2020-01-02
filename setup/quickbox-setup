@@ -476,7 +476,7 @@ function _depends() {
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket libapache2-mod-php7.3 \
-                     php7.3-dev php7.3-geoip libgeoip-dev php7.3 php7.3-fpm php7.3-mbstring php7.3-mysql \
+                     php7.3-dev php7.3-geoip libgeoip-dev php7.3 php7.3-dev php7.3-fpm php7.3-mbstring php7.3-mysql \
                      php7.3-curl php7.3-memcached memcached php7.3-gd php7.3-json mcrypt php7.3-opcache \
                      php7.3-xml python3-lxml python-lxml fontconfig comerr-dev ca-certificates libfontconfig1-dev \
                      libdbd-mysql-perl libdbi-perl libfontconfig1 rar unrar mediainfo ifstat \
@@ -492,7 +492,7 @@ function _depends() {
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket \
-                     libdbd-mysql-perl libdbi-perl php7.3 php7.3-fpm php7.3-mbstring php7.3-mysql \
+                     libdbd-mysql-perl libdbi-perl php7.3 php7.3-dev php7.3-fpm php7.3-mbstring php7.3-mysql \
                      php7.3-curl php-memcached memcached php7.3-gd php7.3-json mcrypt php7.3-opcache \
                      php7.3-xml php7.3-zip fontconfig comerr-dev ca-certificates libfontconfig1-dev \
                      php7.3-geoip libfontconfig1 rar unrar mediainfo ifstat libapache2-mod-php7.3 \
