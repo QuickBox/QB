@@ -406,14 +406,20 @@ function _repos() {
   apt-get install -y software-properties-common >>"${OUTTO}" 2>&1
   apt-get -y install lsb-release sudo >>"${OUTTO}" 2>&1
   if [[ $DISTRO == Ubuntu ]]; then
+    apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449 > /dev/null 2>&1
     LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php -y >>"${OUTTO}" 2>&1;
   fi
 
   if [[ $DISTRO == Debian ]]; then
-    echo "deb http://packages.dotdeb.org $(lsb_release -sc) all" > /etc/apt/sources.list.d/dotdeb-php7-$(lsb_release -sc).list
-    echo "deb-src http://packages.dotdeb.org $(lsb_release -sc) all" >> /etc/apt/sources.list.d/dotdeb-php7-$(lsb_release -sc).list
-    wget -q https://www.dotdeb.org/dotdeb.gpg
-    sudo apt-key add dotdeb.gpg >> /dev/null 2>&1
+    apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 > /dev/null 2>&1
+    #echo "deb http://packages.dotdeb.org $(lsb_release -sc) all" > /etc/apt/sources.list.d/dotdeb-php7-$(lsb_release -sc).list
+    #echo "deb-src http://packages.dotdeb.org $(lsb_release -sc) all" >> /etc/apt/sources.list.d/dotdeb-php7-$(lsb_release -sc).list
+    #wget -q https://www.dotdeb.org/dotdeb.gpg
+    #sudo apt-key add dotdeb.gpg >> /dev/null 2>&1
+    printf "\n" | wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - >/dev/null 2>&1
+    cat >/etc/apt/sources.list.d/php.list<<DPHP
+deb https://packages.sury.org/php/ $(lsb_release -sc) main
+DPHP
   fi
 
 }
