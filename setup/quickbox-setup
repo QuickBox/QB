@@ -474,7 +474,7 @@ function _depends() {
 	  yes '' | apt-get install --force-yes fail2ban bc build-essential ed sudo screen zip irssi unzip nano bwm-ng htop nethogs speedtest.cli iotop git \
                      dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
-                     apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
+                     apache2-utils autoconf cron curl libapache2-mod-scgi libapache2-mod-fastcgi libapache2-mod-geoip libapache2-mod-php7.3 \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket libapache2-mod-php7.3 \
                      php-memcached memcached php7.3 php7.3-cli php7.3-curl php7.3-fpm php7.3-gd php7.3-geoip \
                      php7.3-json php7.3-mbstring php7.3-msgpack php7.3-mysql php7.3-opcache php7.3-xml php7.3-xmlrpc \
@@ -484,14 +484,14 @@ function _depends() {
                      ttf-mscorefonts-installer checkinstall dtach cfv libarchive-zip-perl \
                      libnet-ssleay-perl ca-certificates-java libxslt1-dev \
                      libxslt1.1 libxml2 libffi-dev python-pip python-dev libhtml-parser-perl libxml-libxml-perl \
-                     libjson-perl libjson-xs-perl libxml-libxslt-perl libapache2-mod-scgi zlib1g-dev \
+                     libjson-perl libjson-xs-perl libxml-libxslt-perl zlib1g-dev \
                      vnstat vnstati openvpn >>"${OUTTO}" 2>&1
   elif [[ $DISTRO == Ubuntu ]]; then
     apt-get -y -f --allow-unauthenticated install build-essential debian-archive-keyring fail2ban bc sudo \
                      screen zip irssi unzip nano bwm-ng htop iotop git \
                      dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev=1.0.* \
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
-                     apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
+                     apache2-utils autoconf cron curl libapache2-mod-scgi libapache2-mod-fastcgi libapache2-mod-geoip libapache2-mod-php7.3 \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket \
                      libdbd-mysql-perl libdbi-perl php-memcached memcached php7.3 php7.3-cli php7.3-curl php7.3-fpm php7.3-gd php7.3-geoip \
                      php7.3-json php7.3-mbstring php7.3-msgpack php7.3-mysql php7.3-opcache php7.3-xml php7.3-xmlrpc \
@@ -501,7 +501,7 @@ function _depends() {
                      python3-lxml python-lxml ttf-mscorefonts-installer checkinstall dtach cfv libarchive-zip-perl \
                      libnet-ssleay-perl openjdk-8-jre-headless openjdk-8-jre openjdk-8-jdk libxslt1-dev \
                      libxslt1.1 libxml2 libffi-dev python-pip python-dev libhtml-parser-perl libxml-libxml-perl \
-                     libjson-perl libjson-xs-perl libxml-libxslt-perl libapache2-mod-scgi zlib1g-dev \
+                     libjson-perl libjson-xs-perl libxml-libxslt-perl zlib1g-dev \
                      vnstat vnstati openvpn >>"${OUTTO}" 2>&1
   fi
 }
