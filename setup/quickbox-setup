@@ -476,9 +476,10 @@ function _depends() {
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket libapache2-mod-php7.3 \
-                     php7.3-dev php7.3-geoip libgeoip-dev php7.3 php7.3-dev php7.3-cli php7.3-fpm php7.3-mbstring php7.3-mysql \
-                     php7.3-curl php7.3-memcached memcached php7.3-gd php7.3-json mcrypt php7.3-opcache \
-                     php7.3-xml python3-lxml python-lxml fontconfig comerr-dev ca-certificates libfontconfig1-dev \
+                     php-memcached memcached php7.3 php7.3-cli php7.3-curl php7.3-fpm php7.3-gd php7.3-geoip \
+                     php7.3-json php7.3-mbstring php7.3-msgpack php7.3-mysql php7.3-opcache php7.3-xml php7.3-xmlrpc \
+                     php7.3-zip libfcgi0ldbl mcrypt libmcrypt-dev \
+                     python3-lxml python-lxml fontconfig comerr-dev ca-certificates libfontconfig1-dev \
                      libdbd-mysql-perl libdbi-perl libfontconfig1 rar unrar mediainfo ifstat \
                      ttf-mscorefonts-installer checkinstall dtach cfv libarchive-zip-perl \
                      libnet-ssleay-perl ca-certificates-java libxslt1-dev \
@@ -492,10 +493,11 @@ function _depends() {
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
                      apache2-utils autoconf cron curl libapache2-mod-fastcgi libapache2-mod-geoip \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket \
-                     libdbd-mysql-perl libdbi-perl php7.3 php7.3-dev php7.3-cli php7.3-fpm php7.3-mbstring php7.3-mysql \
-                     php7.3-curl php-memcached memcached php7.3-gd php7.3-json mcrypt php7.3-opcache \
-                     php7.3-xml php7.3-zip fontconfig comerr-dev ca-certificates libfontconfig1-dev \
-                     php7.3-geoip libfontconfig1 rar unrar mediainfo ifstat libapache2-mod-php7.3 \
+                     libdbd-mysql-perl libdbi-perl php-memcached memcached php7.3 php7.3-cli php7.3-curl php7.3-fpm php7.3-gd php7.3-geoip \
+                     php7.3-json php7.3-mbstring php7.3-msgpack php7.3-mysql php7.3-opcache php7.3-xml php7.3-xmlrpc \
+                     php7.3-zip libfcgi0ldbl mcrypt libmcrypt-dev \
+                     fontconfig comerr-dev ca-certificates libfontconfig1-dev \
+                     libfontconfig1 rar unrar mediainfo ifstat libapache2-mod-php7.3 \
                      python3-lxml python-lxml ttf-mscorefonts-installer checkinstall dtach cfv libarchive-zip-perl \
                      libnet-ssleay-perl openjdk-8-jre-headless openjdk-8-jre openjdk-8-jdk libxslt1-dev \
                      libxslt1.1 libxml2 libffi-dev python-pip python-dev libhtml-parser-perl libxml-libxml-perl \
