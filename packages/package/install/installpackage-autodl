@@ -44,7 +44,7 @@ function _installautodl() {
       IRSSI_PORT=$(shuf -i 20000-61000 -n 1)
       mkdir -p "/home/${u}/.irssi/scripts/autorun/" >>"${OUTTO}" 2>&1
       cd "/home/${u}/.irssi/scripts/"
-      
+
       autodlver=$(wget -q https://github.com/autodl-community/autodl-irssi/releases/latest -O - | grep -E \/tag\/ | grep -v repository | awk -F "[><]" '{print $3}')
       wget -q https://github.com/autodl-community/autodl-irssi/releases/download/$autodlver/autodl-irssi-v$autodlver.zip
       unzip -o autodl-irssi-v$autodlver.zip
@@ -57,11 +57,17 @@ function _installautodl() {
       cp autodl-irssi.pl autorun/
       mkdir -p "/home/${u}/.autodl" >>"${OUTTO}" 2>&1
       touch "/home/${u}/.autodl/autodl.cfg"
-cat >"/home/${u}/.autodl/autodl2.cfg"<<ADC
+      cat >"/home/${u}/.autodl/autodl.cfg"<<ADC
 [options]
 gui-server-port = ${IRSSI_PORT}
 gui-server-password = ${IRSSI_PASS}
 ADC
+
+#cat >"/home/${u}/.autodl/autodl2.cfg"<<ADC
+#[options]
+#gui-server-port = ${IRSSI_PORT}
+#gui-server-password = ${IRSSI_PASS}
+#ADC
 
 CONFPATH="/srv/rutorrent/conf/users/${u}/plugins/autodl-irssi/"
 mkdir -p $CONFPATH
