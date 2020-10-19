@@ -21,7 +21,8 @@ OUTTO=/srv/rutorrent/home/db/output.log
 username=$(cat /srv/rutorrent/home/db/master.txt)
 local_setup=/etc/QuickBox/setup/
 distro=$(lsb_release -is)
-jackettver=$(wget -q https://github.com/Jackett/Jackett/releases/latest -O - | grep -E \/tag\/ | grep -v repository | awk -F "[><]" '{print $3}')
+jackettver=`wget -q https://github.com/Jackett/Jackett/releases/latest -O - | grep -E \/tag\/ | grep -v repository | awk -F "[><]" '{print $3}'`
+version=$(printf $jackettver)
 echo >>"${OUTTO}" 2>&1;
 echo "Installing Jackett ... " >>"${OUTTO}" 2>&1;
 
@@ -38,13 +39,13 @@ apt-get update -y >/dev/null 2>&1
 apt-get install -y mono-devel apt-transport-https >/dev/null 2>&1
 
 cd /home/$username
-wget -q https://github.com/Jackett/Jackett/releases/download/$jackettver/Jackett.Binaries.Mono.tar.gz
+wget -q https://github.com/Jackett/Jackett/releases/download/$version/Jackett.Binaries.Mono.tar.gz
 tar -xvzf Jackett.Binaries.Mono.tar.gz > /dev/null 2>&1
 rm -f Jackett.Binaries.Mono.tar.gz
 chown ${username}.${username} -R Jackett
 touch /install/.jackett.lock
 
-cp ${local_setup}templates/sysd/jackett.template /etc/systemd/system/jackett@.service
+\cp ${local_setup}templates/sysd/jackett.template /etc/systemd/system/jackett@.service
 systemctl enable jackett@${username} >/dev/null 2>&1
 systemctl start jackett@${username}
 sleep 5
@@ -52,7 +53,7 @@ systemctl stop jackett@${username}
 # Make sure .config/Jackett exists and has correct permissions.
 mkdir -p /home/${username}/.config/Jackett
 chmod 700 /home/${username}/.config/Jackett
-cp ${local_setup}configs/jackett/ServerConfig.json /home/${username}/.config/Jackett/ServerConfig.json
+\cp ${local_setup}configs/jackett/ServerConfig.json /home/${username}/.config/Jackett/ServerConfig.json
 
 chown ${username}.${username} -R /home/${username}/.config/Jackett
 sed -i "s/\"AllowExternal.*/\"AllowExternal\": false,/g" /home/${username}/.config/Jackett/ServerConfig.json
