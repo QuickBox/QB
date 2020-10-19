@@ -47,7 +47,7 @@ function _intro() {
   echo
   echo "   ${title}              Heads Up!              ${normal} "
   echo "   ${message_title}  QuickBox works with the following  ${normal} "
-  echo "   ${message_title}  Ubuntu 15.10 | 16.04               ${normal} "
+  echo "   ${message_title}  Ubuntu 15.10 | 16.04 / Debian 9 ${normal} "
   echo
   echo
   echo "${green}Checking distribution ...${normal}"
@@ -58,11 +58,11 @@ function _intro() {
   fi
   echo "$(lsb_release -a)"
   echo
-  if [[ ! "$DISTRO" =~ ("Ubuntu") ]]; then
+  if [[ ! "$DISTRO" =~ ("Ubuntu"|"Debian") ]]; then
     echo "$DISTRO: ${alert} It looks like you are running $DISTRO, which is not supported by QuickBox ${normal} "
     echo 'Exiting...'
     exit 1
-  elif [[ ! "$CODENAME" =~ ("xenial"|"wily") ]]; then
+  elif [[ ! "$CODENAME" =~ ("xenial"|"wily"|"stretch") ]]; then
     echo "Oh drats! You do not appear to be running a supported $DISTRO release."
     echo "${bold}$SETNAME${normal}"
     echo 'Exiting...'
@@ -359,6 +359,7 @@ function _askffmpeg() {
 }
 
 # ask user for vsftpd conf (12)
+apt install -y net-tools
 function _askvsftpd() {
   local DEFAULTIP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1');
   echo -ne "${bold}${yellow}Please, write your public server IP (used for ftp)${normal} (Default: ${green}${bold}$DEFAULTIP${normal}) "; read input
@@ -471,10 +472,10 @@ function _updates() {
 # package and repo addition _install softwares and packages_
 function _depends() {
   if [[ $DISTRO == Debian ]]; then
-	  yes '' | apt-get install --force-yes fail2ban bc build-essential ed sudo screen zip irssi unzip nano bwm-ng htop nethogs speedtest.cli iotop git \
+	  yes '' | apt-get install -y fail2ban bc build-essential ed sudo screen zip irssi unzip nano bwm-ng htop nethogs speedtest.cli iotop git \
                      dos2unix subversion dstat automake make mktorrent libtool libcppunit-dev libssl-dev \
                      pkg-config libxml2-dev libcurl3 libcurl4-openssl-dev libsigc++-2.0-dev \
-                     apache2-utils autoconf cron curl libapache2-mod-scgi libapache2-mod-fastcgi libapache2-mod-geoip libapache2-mod-php7.3 \
+                     apache2-utils autoconf cron curl libapache2-mod-scgi libapache2-mod-fastcgi libapache2-mod-fcgid libapache2-mod-geoip libapache2-mod-php7.3 \
                      libxslt-dev libncurses5-dev yasm pcregrep apache2 php-net-socket libapache2-mod-php7.3 \
                      php-memcached memcached php7.3 php7.3-cli php7.3-curl php7.3-fpm php7.3-gd php7.3-geoip \
                      php7.3-json php7.3-mbstring php7.3-msgpack php7.3-mysql php7.3-opcache php7.3-xml php7.3-xmlrpc \
