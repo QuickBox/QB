@@ -10,7 +10,7 @@ aliases         : {'ls':'ls --color=auto','ll':'ls -l'}
 intro           : "== Seedbox Shell ==\nWelcome To Your QuickBox Seedbox Shell\nType '?' to get the list of allowed commands"
 home_path       : '/home/%u'
 env_path        : ':/usr/local/bin:/usr/sbin'
-allowed_cmd_path: ['/home/']
+allowed_cmd_path: 
 scp             : 1
 sftp            : 0
 overssh         : ['ls','rsync','scp']

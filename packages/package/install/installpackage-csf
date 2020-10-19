@@ -66,7 +66,7 @@ function _installCSF() {
   echo "exe:/usr/sbin/apache2" >> /etc/csf/csf.pignore;
   echo "exe:/usr/sbin/vnstatd" >> /etc/csf/csf.pignore;
   echo "exe:/usr/sbin/atd" >> /etc/csf/csf.pignore;
-  echo "exe:/usr/sbin/php-fpm7.0" >> /etc/csf/csf.pignore;
+  echo "exe:/usr/sbin/php-fpm7.3" >> /etc/csf/csf.pignore;
   echo "exe:/usr/bin/memcached" >> /etc/csf/csf.pignore;
   echo "exe:/usr/sbin/uuidd" >> /etc/csf/csf.pignore;
   echo "exe:/usr/lib/plexmediaserver/Plex Media Server" >> /etc/csf/csf.pignore;

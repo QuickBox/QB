@@ -44,32 +44,11 @@
                             <div class="col-xs-12">
                               <h5>QuickBox :: <span style="color: #fff;text-shadow: 0px 0px 6px #fff;"><?php echo "$version"; ?></span></h5>
                               <small><a href="https://quickbox.io/readme-md/" target="_blank">README.md</a></small>
-                              <small><a href="https://github.com/QuickBox/QB/compare/v2.5.3...<?php echo $version; ?>" target="_blank">CHANGELOG</a></small>
+                              <small><a href="https://github.com/QuickBox/QB/compare/v2.5.4...<?php echo $version; ?>" target="_blank">CHANGELOG</a></small>
                             </div>
                           </div>
                         </li>
 
-                        <li class="list-group-item">
-                          <div class="row">
-                            <div class="col-xs-12">
-                              <h5>QuickBox.IO</h5>
-                            </div>
-                            <div class="col-xs-12">
-                              <div class="col-xs-12 col-md-6" style="padding: 0">
-                                <ul style="padding-left: 5px">
-                                <li><small><a href="https://plaza.quickbox.io/categories" target="_blank" alt="View all QuickBox Community Categories">Plaza</a></small></li>
-                                <li><small><a href="https://quickbox.io/kb/faq" target="_blank" alt="QuickBox FAQs">FAQs</a></small></li>
-                                </ul>
-                              </div>
-                              <div class="col-xs-12 col-md-6" style="padding: 0">
-                                <ul style="padding-left: 5px">
-                                <li><small><a href="https://quickbox.io/kb/faq" target="_blank" alt="QuickBox Wiki - How-to's, Tips and Tricks">Wiki</a></small></li>
-                                <li><small><a href="https://plaza.quickbox.io/c/quickbox-support" target="_blank"><?php echo T('ISSUE_REPORT_TXT'); ?></a></small></li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
                       </ul>
                       <!--a class="btn-more" href="">View More QuickBox <i class="fa fa-long-arrow-right"></i></a-->
                     </div><!-- tab-pane -->
@@ -172,7 +151,7 @@
               <li><a class="grayscale" href="<?php echo "$dwURL"; ?>" target="_blank"><img src="img/brands/deluge.png" class="brand-ico"> <span>Deluge Web</span></a></li>
             <?php } ?>
             <!-- // TRANSMISSION // -->
-            <?php if (processExists("transmission-daemon",debian-transmission) && file_exists('/install/.transmission.lock')) { ?>
+            <?php if (processExists("transmission-daemon",$username) && file_exists('/install/.transmission.lock')) { ?>
               <li><a href="<?php echo "$transmissionURL"; ?>" class="grayscale" target="_blank"><img src="img/brands/transmission.png" class="brand-ico"> <span>Transmission Web Control</span></a></li>
             <?php } ?>
 			<!-- // QBITTORRENT // -->

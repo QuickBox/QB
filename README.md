@@ -1,4 +1,4 @@
-[![QuickBox](https://cdn.quickbox.io/file/2018/04/qb_logo_original.svg "QuickBox")](https://quickbox.io)
+[![QuickBox](https://cdn.quickbox.io/files/2018/04/qb_logo_original.svg "QuickBox")](https://quickbox.io)
 
 ---
 
@@ -7,15 +7,11 @@ We love our Community, in fact, we love them so much that we want to provide eve
 
 Check us out on the following platforms. Within you'll find friends and a supportive bunch looking to get you along. Additionally, we don't really use our GitHub for issue tracking and support, it's simply not the proper medium. I know, it's not always fun to setup yet another account, but hey, you're here right!?
 
-#### [Register with QuickBox.IO to get started!](https://quickbox.io/sign-up/)
+#### [Register with QuickBox.IO to get started!](https://quickbox.io/register/)
 
 ### The QuickBox Forums (aka The Plaza)
 You got the entire Community at your back! Sort through already solved quandaries, feature requests, and current issues posted by other members.
 * ##### [QuickBox Plaza](https://plaza.quickbox.io/categories)
-
-### The QuickBox IRC/Live Chat
-Well, there's always someone here to address your loneliness or your issues (related to QuickBox, mmk - but not always *sigh*)
-* ##### [QuickBox IRC](https://chat.quickbox.io/)
 
 ### The QuickBox Discord Server/Live Chat
 Oh yes, it's total mayhem! Fun features, live updates, games and prizes, support and a whole lot more... come find us for a late night buzz and really rediculous conversations and budding bromances.
@@ -81,7 +77,7 @@ updateQuickBox
 
 ## Script status
 
-[![Version 2.5.5-production](https://img.shields.io/badge/version-2.5.5-674172.svg?style=flat-square)](https://quickbox.io/readme-md/) [![GNU v3.0 License](https://img.shields.io/badge/license-GNU%20v3.0%20License-blue.svg?style=flat-square)](https://quickbox.io/readme-md/)
+[![Version 2.5.6-production](https://img.shields.io/badge/version-2.5.6-674172.svg?style=flat-square)](https://quickbox.io/readme-md/) [![GNU v3.0 License](https://img.shields.io/badge/license-GNU%20v3.0%20License-blue.svg?style=flat-square)](https://quickbox.io/readme-md/)
 
 #### Ubuntu Builds
  [![Ubuntu 15.10 Passing](https://img.shields.io/badge/Ubuntu%2015.10-passing-brightgreen.svg?style=flat-square)](https://quickbox.io/readme-md/) [![Ubuntu 16.04 Passing](https://img.shields.io/badge/Ubuntu%2016.04-passing-brightgreen.svg?style=flat-square)](https://quickbox.io/readme-md/) [![Ubuntu 16.10 Failing](https://img.shields.io/badge/Ubuntu%2016.10-failing-brightred.svg?style=flat-square)](https://quickbox.io/readme-md/)
@@ -191,7 +187,7 @@ After that access your box using a SSH client, like PuTTY.
 
 **Run the following command to grab our latest stable release ...**
 ```
-apt-get -yqq update; apt-get -yqq upgrade; apt-get -yqq install git lsb-release; \
+apt-get -yqq update; apt-get -yqq upgrade; apt-get -yqq install git lsb-release bc; \
 git clone https://github.com/QuickBox/QB /etc/QuickBox; \
 bash /etc/QuickBox/setup/quickbox-setup
 ```

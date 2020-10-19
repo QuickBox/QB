@@ -44,17 +44,30 @@ function _installautodl() {
       IRSSI_PORT=$(shuf -i 20000-61000 -n 1)
       mkdir -p "/home/${u}/.irssi/scripts/autorun/" >>"${OUTTO}" 2>&1
       cd "/home/${u}/.irssi/scripts/"
-      curl -sL http://git.io/vlcND | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs wget --quiet -O autodl-irssi.zip >/dev/null 2>&1
-      unzip -o autodl-irssi.zip >>"${OUTTO}" 2>&1
-      rm autodl-irssi.zip
+
+      autodlver=$(wget -q https://github.com/autodl-community/autodl-irssi/releases/latest -O - | grep -E \/tag\/ | grep -v repository | awk -F "[><]" '{print $3}')
+      wget -q https://github.com/autodl-community/autodl-irssi/releases/download/$autodlver/autodl-irssi-v$autodlver.zip
+      unzip -o autodl-irssi-v$autodlver.zip
+      rm -rf autodl-irssi-v$autodlver.zip
+
+      #curl -sL http://git.io/vlcND | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs wget --quiet -O autodl-irssi.zip >/dev/null 2>&1
+      #unzip -o autodl-irssi.zip >>"${OUTTO}" 2>&1
+      #rm autodl-irssi.zip
+
       cp autodl-irssi.pl autorun/
       mkdir -p "/home/${u}/.autodl" >>"${OUTTO}" 2>&1
       touch "/home/${u}/.autodl/autodl.cfg"
-cat >"/home/${u}/.autodl/autodl2.cfg"<<ADC
+      cat >"/home/${u}/.autodl/autodl.cfg"<<ADC
 [options]
 gui-server-port = ${IRSSI_PORT}
 gui-server-password = ${IRSSI_PASS}
 ADC
+
+#cat >"/home/${u}/.autodl/autodl2.cfg"<<ADC
+#[options]
+#gui-server-port = ${IRSSI_PORT}
+#gui-server-password = ${IRSSI_PASS}
+#ADC
 
 CONFPATH="/srv/rutorrent/conf/users/${u}/plugins/autodl-irssi/"
 mkdir -p $CONFPATH

@@ -1,0 +1,12 @@
+[Unit]
+Description=Transmission BitTorrent Daemon
+After=network.target
+
+[Service]
+User=%I
+Type=simple
+ExecStart=/usr/bin/transmission-daemon -f --log-error -g /home/%i/.config/transmission
+ExecReload=/bin/kill -s HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target

@@ -43,7 +43,7 @@ function _installDeluge1() {
   done
   cd ${local_packages}
   if [ ! -e /usr/local/lib/libtorrent-rasterbar.so ]; then
-    LTRC=RC_1_0
+    LTRC=RC_1_1
     git clone -b ${LTRC} https://github.com/arvidn/libtorrent.git >>"${OUTTO}" 2>&1;
     cd libtorrent
 	  cp ${local_setup}sources/libtorrent-rasterbar-${LTRC}.patch .
