@@ -1299,7 +1299,7 @@ function _autodl() {
   mkdir -p "/home/${username}/.irssi/scripts/autorun/" >>"${OUTTO}" 2>&1
   cd "/home/${username}/.irssi/scripts/"
   # Grab the most recent version of AutoDL-trackers
-  curl -sL http://git.io/vlcND | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs wget --quiet -O autodl-irssi.zip
+  curl -sL http://git.io/vlcND | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs wget --quiet -O autodl-irssi.zip '{}'
   unzip -o autodl-irssi.zip >>"${OUTTO}" 2>&1
   rm autodl-irssi.zip
   cp -f autodl-irssi.pl autorun/
