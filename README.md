@@ -2,16 +2,12 @@
 
 ---
 
+## Deprecation Notice
+>Please be advised that we are sunsetting developments and any support on this Community Edition of QuickBox as we are devoted to the further developments of [QuickBox Pro](https://quickbox.io/product/quickbox-pro-subscription/). There is a lot of work daily that goes into QuickBox and I simply do not have enough time to manage the Free edition as well as the Pro edition, you can still roll with this CE, jsut keep in mind that some software may not install properly or dependencies may become deprecated. We welcome any Pull Requests from users and you are more than welcome to post patches for our review and inclusion to keep this edition going!
 ## Join the QuickBox Community!
 We love our Community, in fact, we love them so much that we want to provide every possible means for our users to come together in civilized discourse for sharing ideas, techniques, tips and tricks on just about anything, and general chit chat coupled with awesome support! We don't even have to, but we do it out of love!
 
 Check us out on the following platforms. Within you'll find friends and a supportive bunch looking to get you along. Additionally, we don't really use our GitHub for issue tracking and support, it's simply not the proper medium. I know, it's not always fun to setup yet another account, but hey, you're here right!?
-
-#### [Register with QuickBox.IO to get started!](https://quickbox.io/register/)
-
-### The QuickBox Forums (aka The Plaza)
-You got the entire Community at your back! Sort through already solved quandaries, feature requests, and current issues posted by other members.
-* ##### [QuickBox Plaza](https://plaza.quickbox.io/categories)
 
 ### The QuickBox Discord Server/Live Chat
 Oh yes, it's total mayhem! Fun features, live updates, games and prizes, support and a whole lot more... come find us for a late night buzz and really rediculous conversations and budding bromances.
