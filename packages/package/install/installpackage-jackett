@@ -38,7 +38,7 @@ fi
 apt-get update -y >/dev/null 2>&1
 apt-get install -y mono-devel apt-transport-https >/dev/null 2>&1
 
-cd /home/$username
+cd /opt/$username
 wget -q https://github.com/Jackett/Jackett/releases/download/$version/Jackett.Binaries.Mono.tar.gz
 tar -xvzf Jackett.Binaries.Mono.tar.gz > /dev/null 2>&1
 rm -f Jackett.Binaries.Mono.tar.gz

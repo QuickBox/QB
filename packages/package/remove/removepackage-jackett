@@ -1,8 +1,9 @@
 #!/bin/bash
 username=$(cat /srv/rutorrent/home/db/master.txt)
 
-rm -r /home/$username/Jackett
-rm -r /home/$username/.config/Jackett
+rm -rf /opt/$username/Jackett
+rm -rf /home/$username/Jackett
+rm -rf /home/$username/.config/Jackett
 rm /install/.jackett.lock
 systemctl stop jackett@${username}
 systemctl disable jackett@${username}
