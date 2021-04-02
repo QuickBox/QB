@@ -21,16 +21,16 @@ OUTTO=/srv/rutorrent/home/db/output.log
 username=$(cat /srv/rutorrent/home/db/master.txt)
 local_setup=/etc/QuickBox/setup/
 distro=$(lsb_release -is)
-jackettver=`wget -q https://github.com/Jackett/Jackett/releases/latest -O - | grep -E \/tag\/ | grep -v repository | awk -F "[><]" '{print $3}'`
+jackettver=$(wget -q https://github.com/Jackett/Jackett/releases/latest -O - | grep -E \/tag\/ | grep -v repository | awk -F "[><]" '{print $3}')
 version=$(printf $jackettver)
-echo >>"${OUTTO}" 2>&1;
-echo "Installing Jackett ... " >>"${OUTTO}" 2>&1;
+echo >>"${OUTTO}" 2>&1
+echo "Installing Jackett ... " >>"${OUTTO}" 2>&1
 
 if [[ ! -f /etc/apt/sources.list.d/mono-official-stable.list ]]; then
   if [[ $distro == "Ubuntu" ]]; then
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF >/dev/null 2>&1
   elif [[ $distro == "Debian" ]]; then
-      exit
+    exit
   fi
   echo "deb https://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list >/dev/null 2>&1
 fi
@@ -38,9 +38,12 @@ fi
 apt-get update -y >/dev/null 2>&1
 apt-get install -y mono-devel apt-transport-https >/dev/null 2>&1
 
+if [[ ! -d /opt/$username ]]; then
+  mkdir -p /opt/$username
+fi
 cd /opt/$username
 wget -q https://github.com/Jackett/Jackett/releases/download/$version/Jackett.Binaries.Mono.tar.gz
-tar -xvzf Jackett.Binaries.Mono.tar.gz > /dev/null 2>&1
+tar -xvzf Jackett.Binaries.Mono.tar.gz >/dev/null 2>&1
 rm -f Jackett.Binaries.Mono.tar.gz
 chown ${username}.${username} -R Jackett
 touch /install/.jackett.lock
@@ -61,7 +64,7 @@ sed -i "s/\"BasePathOverride.*/\"BasePathOverride\": \"\/jackett\"/g" /home/${us
 # Disable native auto-update, since we have a command for that.
 sed -i "s/\"UpdateDisabled.*/\"UpdateDisabled\": true,/g" /home/${username}/.config/Jackett/ServerConfig.json
 
-cat > /etc/apache2/sites-enabled/jackett.conf <<EOF
+cat >/etc/apache2/sites-enabled/jackett.conf <<EOF
 #ProxyPreserveHost On
 #RequestHeader set X-Forwarded-Proto "https"
 <Location /jackett>
@@ -91,9 +94,8 @@ chown www-data: /etc/apache2/sites-enabled/jackett.conf
 service apache2 reload
 service jackett@${username} start
 
+echo >>"${OUTTO}" 2>&1
+echo >>"${OUTTO}" 2>&1
+echo "Jackett Install Complete!" >>"${OUTTO}" 2>&1
 
-echo >>"${OUTTO}" 2>&1;
-echo >>"${OUTTO}" 2>&1;
-echo "Jackett Install Complete!" >>"${OUTTO}" 2>&1;
-
-echo "Close this dialog box to refresh your browser" >>"${OUTTO}" 2>&1;
+echo "Close this dialog box to refresh your browser" >>"${OUTTO}" 2>&1
