@@ -1,13 +1,19 @@
 [Unit]
-Description=jackett
+Description=Jackett Daemon
 After=network.target
 
 [Service]
+Environment="TMPDIR=/tmp/%I/Jackett"
+ExecStartPre=-/bin/mkdir -p /tmp/%I/Jackett
+SyslogIdentifier=jackett
+Restart=always
+RestartSec=5
 Type=simple
 User=%I
-WorkingDirectory=/home/%I/
-ExecStart=/usr/bin/mono /home/%I/Jackett/JackettConsole.exe --NoRestart
-Restart=always
-RestartSec=2
+Group=%I
+WorkingDirectory=/opt/%I/Jackett
+ExecStart=/opt/%I/Jackett/jackett --NoRestart
+TimeoutStopSec=20
+
 [Install]
 WantedBy=multi-user.target
