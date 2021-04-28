@@ -48,7 +48,28 @@ rm -f Jackett.Binaries.LinuxAMDx64.tar.gz
 chown ${username}.${username} -R Jackett
 touch /install/.jackett.lock
 
-\cp ${local_setup}templates/sysd/jackett.template /etc/systemd/system/jackett@.service
+cat >/etc/systemd/system/jackett@${username}.service <<JCKSYS
+[Unit]
+Description=Jackett Daemon
+After=network.target
+
+[Service]
+Environment="TMPDIR=/tmp/${username}/Jackett"
+ExecStartPre=-/bin/mkdir -p /tmp/${username}/Jackett
+SyslogIdentifier=jackett
+Restart=always
+RestartSec=5
+Type=simple
+User=${username}
+Group=${username}
+WorkingDirectory=/opt/${username}/Jackett
+ExecStart=/opt/${username}/Jackett/jackett --NoRestart
+TimeoutStopSec=20
+
+[Install]
+WantedBy=multi-user.target
+JCKSYS
+
 systemctl enable jackett@${username} >/dev/null 2>&1
 systemctl start jackett@${username}
 sleep 5
