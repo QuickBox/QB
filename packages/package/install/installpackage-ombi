@@ -20,23 +20,31 @@
 
 function _depends() {
   apt-get update -q -y >/dev/null 2>&1
-  apt-get install -q -y libunwind8 unzip >/dev/null 2>&1
+  apt-get install -q -y libunwind8 libicu-dev libcurl4-openssl-dev unzip screen sqlite3 >/dev/null 2>&1
 }
 
 function _install() {
-  if [[ ! -f /etc/apt/sources.list.d/ombi.list ]]; then
-    echo "deb [arch=amd64,armhf] http://repo.ombi.turd.me/stable/ jessie main" > "/etc/apt/sources.list.d/ombi.list"
-    wget --no-check-certificate -qO - https://repo.ombi.turd.me/pubkey.txt | sudo apt-key add - >/dev/null 2>&1
+  #if [[ ! -f /etc/apt/sources.list.d/ombi.list ]]; then
+  #  echo "deb [arch=amd64,armhf] http://repo.ombi.turd.me/stable/ jessie main" > "/etc/apt/sources.list.d/ombi.list"
+  #  wget --no-check-certificate -qO - https://repo.ombi.turd.me/pubkey.txt | sudo apt-key add - >/dev/null 2>&1
+  #fi
+  cd /opt/
+  if [[ ! -d /opt/Ombi ]]; then
+    mkdir -p Ombi
+    chown -R ${user}: /opt/Ombi
   fi
-  mkdir -p /opt/Ombi
-  cd /opt/Ombi
-  ombiversion=$(wget https://github.com/tidusjar/Ombi/releases/latest -O - | grep -E \/tag\/ | grep -v repository | awk -F "[><]" '{print $3}' | sed s/"Ombi\\ "/""/g)
-  wget https://github.com/tidusjar/Ombi/releases/download/$ombiversion/linux.tar.gz >/dev/null 2>&1
+  if [[ ! -d /etc/Ombi ]]; then
+    mkdir -p /etc/Ombi
+  fi
+  #ombiversion=$(wget https://github.com/tidusjar/Ombi/releases/latest -O - | grep -E \/tag\/ | grep -v repository | awk -F "[><]" '{print $3}' | sed s/"Ombi\\ "/""/g)
+  #wget https://github.com/tidusjar/Ombi/releases/download/$ombiversion/linux.tar.gz >/dev/null 2>&1
+  ombiversion=$(wget -q https://github.com/Ombi-io/Ombi.Releases/releases/latest -O - | grep -E \/tag\/ | awk -F "[><]" '{print $3}' | head -n 1)
+  wget -q https://github.com/Ombi-io/Ombi.Releases/releases/download/${ombiversion}/linux-x64.tar.gz
 
-  tar xzf linux.tar.gz >/dev/null 2>&1
-  chmod +x Ombi
-  rm -rf linux.tar.gz
-  chown -R ${user}: /opt/Ombi
+  tar -zxf linux-x64.tar.gz -C /opt/Ombi >/dev/null 2>&1
+  chmod +x /opt/Ombi/Ombi
+  rm -f linux-x64.tar.gz
+  chown -R ${user}:${user} /opt/Ombi
 }
 
 function _services() {
@@ -44,6 +52,16 @@ function _services() {
   sed -i "s/USER/${user}/g" /etc/systemd/system/ombi.service
   systemctl enable ombi >/dev/null 2>&1
   systemctl start ombi
+  systemctl stop ombi
+
+  useradd -M -N -r -s /bin/false ombi >/dev/null 2>&1
+  groupadd nogroup >/dev/null 2>&1
+  chown -R ${user}:${user} /etc/Ombi
+  chown -R ${user}:${user} /opt/Ombi
+
+  systemctl daemon-reload
+  systemctl start ombi
+
   touch /install/.ombi.lock
   cat > /etc/apache2/sites-enabled/ombi.conf <<EOF
 <Location /ombi>
