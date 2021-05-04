@@ -31,7 +31,7 @@ function _install() {
   mkdir -p /opt/Ombi
   cd /opt/Ombi
   ombiversion=$(wget https://github.com/tidusjar/Ombi/releases/latest -O - | grep -E \/tag\/ | grep -v repository | awk -F "[><]" '{print $3}' | sed s/"Ombi\\ "/""/g)
-  wget https://github.com/tidusjar/Ombi/releases/download/$ombiversion/linux.tar.gz >/dev/null 2>&1
+  wget https://github.com/tidusjar/Ombi/releases/download/$ombiversion/linux-x64.tar.gz >/dev/null 2>&1
 
   tar xzf linux.tar.gz >/dev/null 2>&1
   chmod +x Ombi
