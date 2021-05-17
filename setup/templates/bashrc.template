@@ -17,7 +17,7 @@
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
-QUICKBOX_VERSION=2.5.5
+QUICKBOX_VERSION=2.5.8
 
 export TERM=xterm;TERM=xterm
 export PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/quickbox/.bin/:/usr/local/bin/quickbox/:/usr/local/bin/quickbox/package/:/usr/local/bin/quickbox/package/install/:/usr/local/bin/quickbox/package/remove/:/usr/local/bin/quickbox/plugin/:/usr/local/bin/quickbox/plugin/install/:/usr/local/bin/quickbox/plugin/remove/:/usr/local/bin/quickbox/system/:/usr/local/bin/quickbox/system/lang/
@@ -1936,22 +1936,52 @@ for i in "${users[@]}"; do
 done
 }
 
-function upgradeJackett() {
+function upgradeJackett() { 
   OK=$(echo -e "[ \e[0;32mUpgrade Complete\e[00m ]")
   username=$(cat /srv/rutorrent/home/db/master.txt)
   echo "Stopping Jackett..."
   systemctl stop jackett@${username}
-  cd /home/${username}
-  jackettver=$(wget -q https://github.com/Jackett/Jackett/releases/latest -O - | grep -E \/tag\/ | grep -v repository | awk -F "[><]" '{print $3}')
+  jackettver=$(curl -i -s https://github.com/Jackett/Jackett/releases/latest | grep -Eo "<a\ href=\".*>" | grep -v repository | grep -E \/tag\/ | grep -Eo "v[0-9.]+" | tail -n1)
   echo "Setting up Jackett-${jackettver} in /home/${username}/Jackett ... "
-  wget -q https://github.com/Jackett/Jackett/releases/download/$jackettver/Jackett.Binaries.Mono.tar.gz
-  tar -xvzf Jackett.Binaries.Mono.tar.gz >/dev/null 2>&1
-  echo "Removing leftover binaries..."
-  rm -f Jackett.Binaries.Mono.tar.gz
+  if [[ ! -d /opt/${username} ]]; then
+    mkdir -p /opt/${username}
+  fi
+  cd /opt/${username}
+  wget -q https://github.com/Jackett/Jackett/releases/download/${jackettver}/Jackett.Binaries.LinuxAMDx64.tar.gz
+  tar -xzf Jackett.Binaries.LinuxAMDx64.tar.gz >/dev/null 2>&1
+  rm -f Jackett.Binaries.LinuxAMDx64.tar.gz
+  chown ${username}.${username} -R Jackett
+  cat >/etc/systemd/system/jackett@${username}.service <<JCKSYS
+[Unit]
+Description=Jackett Daemon
+After=network.target
+
+[Service]
+Environment="TMPDIR=/tmp/${username}/Jackett"
+ExecStartPre=-/bin/mkdir -p /tmp/${username}/Jackett
+SyslogIdentifier=jackett
+Restart=always
+RestartSec=5
+Type=simple
+User=${username}
+Group=${username}
+WorkingDirectory=/opt/${username}/Jackett
+ExecStart=/opt/${username}/Jackett/jackett --NoRestart
+TimeoutStopSec=20
+
+[Install]
+WantedBy=multi-user.target
+
+JCKSYS
+
+  systemctl daemon-reload
   echo "Adjusting permissions..."
   chown ${username}.${username} -R Jackett
   echo "Starting Jackett..."
   systemctl start jackett@${username}
+  if [[ -d /home/${username}/Jackett ]]; then
+    rm -rf /home/${username}/Jackett
+  fi
   echo ${OK}
 }
 
