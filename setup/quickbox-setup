@@ -257,15 +257,15 @@ function _askdashtheme() {
 
 # ask what rtorrent version (9.1)
 function _askrtorrent() {
-  echo -e "1) rtorrent ${green}0.9.6 (with ipv6 support)${normal}"
-  echo -e "2) rtorrent ${green}0.9.4 (with ipv6 support)${normal}"
-  echo -e "3) rtorrent ${green}0.9.7 (with ipv6 support)${normal}"
+  echo -e "1) rtorrent ${green}0.9.7 (with ipv6 support)${normal}"
+  echo -e "2) rtorrent ${green}0.9.6 (with ipv6 support)${normal}"
+  echo -e "3) rtorrent ${green}0.9.4 (with ipv6 support)${normal}"
   echo -e "4) rtorrent ${green}0.9.3${normal}"
   echo -ne "${bold}${yellow}What version of rtorrent do you want?${normal} (Default ${green}1${normal}): "; read version
   case $version in
     1 | "") RTVERSION=0.9.7;LTORRENT=0.13.7;;
-    2) RTVERSION=0.9.4;LTORRENT=0.13.4;;
-    3) RTVERSION=0.9.6;LTORRENT=0.13.6;;
+    2) RTVERSION=0.9.6;LTORRENT=0.13.6;;
+    3) RTVERSION=0.9.4;LTORRENT=0.13.4;;
     4) RTVERSION=0.9.3;LTORRENT=0.13.3;;
     *) RTVERSION=0.9.7;LTORRENT=0.13.7;;
   esac
