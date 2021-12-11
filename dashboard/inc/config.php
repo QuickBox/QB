@@ -251,7 +251,7 @@ function processExists($processName, $username) {
   return $exists;
 }
 
-$btsync = processExists("resilio-sync",rslsync);
+$btsync = processExists("resilio-sync",'rslsync');
 $deluged = processExists("deluged",$username);
 $delugedweb = processExists("deluge-web",$username);
 $emby = processExists("emby-server",$username);
@@ -261,8 +261,8 @@ $lidarr = processExists("lidarr",$username);
 $nzbget = processExists("nzbget",$username);
 $nzbhydra = processExists("nzbhydra",$username);
 $ombi = processExists("ombi",$username);
-$plex = processExists("Plex",plex);
-$Tautulli = processExists("Tautulli",Tautulli);
+$plex = processExists("Plex",'plex');
+$Tautulli = processExists("Tautulli",'Tautulli');
 $pyload = processExists("pyload",$username);
 $radarr = processExists("radarr",$username);
 $rtorrent = processExists("rtorrent",$username);
@@ -275,22 +275,13 @@ $syncthing = processExists("syncthing",$username);
 $jackett = processExists("jackett",$username);
 $couchpotato = processExists("couchpotato",$username);
 $quassel = processExists("quassel",$username);
-$shellinabox = processExists("shellinabox",shellinabox);
-$csf = processExists("lfd",root);
+$shellinabox = processExists("shellinabox",'shellinabox');
+$csf = processExists("lfd",'root');
 $sickgear = processExists("sickgear",8088);
 $transmission = processExists("transmission-daemon",$username);
 $qbittorrent = processExists("qbittorrent-nox",$username);
 $nzbget = processExists("nzbget",$username);
 $znc = processExists("znc",$username);
-
-function isEnabled($process, $username){
-  $service = $process;
-  if(file_exists('/etc/systemd/system/multi-user.target.wants/'.$process.'@'.$username.'.service') || file_exists('/etc/systemd/system/multi-user.target.wants/'.$process.'.service')){
-    return " <div class=\"toggle-wrapper text-center\"> <div class=\"toggle-en toggle-light primary\" onclick=\"location.href='?id=77&servicedisable=$service'\"></div></div>";
-  } else {
-    return " <div class=\"toggle-wrapper text-center\"> <div class=\"toggle-dis toggle-light primary\" onclick=\"location.href='?id=66&serviceenable=$service'\"></div></div>";
-  }
-}
 
 if(file_exists('/srv/rutorrent/home/custom/url.override.php')){
   // BEGIN CUSTOM URL OVERRIDES //
@@ -335,9 +326,16 @@ include ($_SERVER['DOCUMENT_ROOT'].'/widgets/sys_data.php');
 include ($_SERVER['DOCUMENT_ROOT'].'/widgets/theme_select.php');
 $base = 1024;
 $location = "/home";
-
+function isEnabled($process, $username){
+  $service = $process;
+  if(file_exists('/etc/systemd/system/multi-user.target.wants/'.$process.'@'.$username.'.service') || file_exists('/etc/systemd/system/multi-user.target.wants/'.$process.'.service')){
+    return " <div class=\"toggle-wrapper text-center\"> <div class=\"toggle-en toggle-light primary\" onclick=\"location.href='?id=77&servicedisable=$service'\"></div></div>";
+  } else {
+    return " <div class=\"toggle-wrapper text-center\"> <div class=\"toggle-dis toggle-light primary\" onclick=\"location.href='?id=66&serviceenable=$service'\"></div></div>";
+  }
+}
 /* check for services */
-switch (intval($_GET['id'])) {
+switch (intval(isset($_GET['id']) ? $_GET['id'] : '')) {
 case 0:
   $rtorrent = isEnabled("rtorrent", $username);
     $cbodyr .= $rtorrent;
@@ -347,9 +345,9 @@ case 0:
     $cbodyd .= $deluged;
   $delugedweb = isEnabled("deluge-web", $username);
     $cbodydw .= $delugedweb;
-  $shellinabox = isEnabled("shellinabox",shellinabox);
+  $shellinabox = isEnabled("shellinabox",'shellinabox');
     $wcbodyb .= $shellinabox;
-  $btsync = isEnabled("resilio-sync",rslsync);
+  $btsync = isEnabled("resilio-sync",'rslsync');
     $cbodyb .= $btsync;
   $couchpotato = isEnabled("couchpotato", $username);
     $cbodycp .= $couchpotato;
@@ -367,9 +365,9 @@ case 0:
     $cbodynzb .= $nzbhydra;
   $ombi = isEnabled("ombi", $username);
     $cbodypr .= $ombi;
-  $plex = isEnabled("plexmediaserver",plex);
+  $plex = isEnabled("plexmediaserver",'plex');
     $cbodyp .= $plex;
-  $Tautulli = isEnabled("Tautulli",Tautulli);
+  $Tautulli = isEnabled("Tautulli",'Tautulli');
     $cbodypp .= $Tautulli;
   $pyload = isEnabled("pyload", $username);
     $cbodypl .= $pyload;
@@ -389,7 +387,7 @@ case 0:
     $cbodym .= $medusa;
   $sonarr = isEnabled("sonarr", $username);
     $cbodys .= $sonarr;
-  $subsonic = isEnabled("subsonic", root);
+  $subsonic = isEnabled("subsonic", 'root');
     $cbodyss .= $subsonic;
   $syncthing = isEnabled("syncthing", $username);
     $cbodyst .= $syncthing;
@@ -403,152 +401,90 @@ case 0:
     $cbodyz .= $znc;
 
 break;
-
-/* enable & start services */
-case 66:
-  $process = escapeshellarg($_GET['serviceenable']);
-    if ($process == "resilio-sync"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl start $process");
-    } elseif ($process == "shellinabox"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl start $process");
-    } elseif ($process == "emby-server"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl start $process");
-    } elseif ($process == "headphones"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl start $process");
-	} elseif ($process == "lidarr"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl start $process");
-	} elseif ($process == "nzbget"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl start $process");
-    } elseif ($process == "plexmediaserver"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl start $process");
-    } elseif ($process == "Tautulli"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl start $process");
-    } elseif ($process == "ombi"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl start $process");
-    } elseif ($process == "radarr"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl start $process");
-    } elseif ($process == "subsonic"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl start $process");
-    } elseif ($process == "transmission-daemon"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl start $process");
-    } elseif ($process == "qbittorrent"){
-      shell_exec("sudo systemctl enable $process@$username");
-      shell_exec("sudo systemctl start $process@$username");
-    } else {
-      shell_exec("sudo systemctl enable $process@$username");
-      shell_exec("sudo systemctl start $process@$username");
-    }
-  header('Location: https://' . $_SERVER['HTTP_HOST'] . '/');
-break;
-
-/* disable & stop services */
-case 77:
-  $process = escapeshellarg($_GET['servicedisable']);
-    if ($process == "resilio-sync"){
-      shell_exec("sudo systemctl stop $process");
-      shell_exec("sudo systemctl disable $process");
-    } elseif ($process == "shellinabox"){
-      shell_exec("sudo systemctl stop $process");
-      shell_exec("sudo systemctl disable $process");
-    } elseif ($process == "emby-server"){
-      shell_exec("sudo systemctl stop $process");
-      shell_exec("sudo systemctl disable $process");
-    } elseif ($process == "headphones"){
-      shell_exec("sudo systemctl stop $process");
-      shell_exec("sudo systemctl disable $process");
-    } elseif ($process == "lidarr"){
-      shell_exec("sudo systemctl stop $process");
-      shell_exec("sudo systemctl disable $process");
-    } elseif ($process == "nzbget"){
-      shell_exec("sudo systemctl stop $process");
-      shell_exec("sudo systemctl disable $process");
-    } elseif ($process == "plexmediaserver"){
-      shell_exec("sudo systemctl stop $process");
-      shell_exec("sudo systemctl disable $process");
-    } elseif ($process == "Tautulli"){
-      shell_exec("sudo systemctl stop $process");
-      shell_exec("sudo systemctl disable $process");
-    } elseif ($process == "ombi"){
-      shell_exec("sudo systemctl stop $process");
-      shell_exec("sudo systemctl disable $process");
-    } elseif ($process == "radarr"){
-      shell_exec("sudo systemctl stop $process");
-      shell_exec("sudo systemctl disable $process");
-    } elseif ($process == "subsonic"){
-      shell_exec("sudo systemctl stop $process");
-      shell_exec("sudo systemctl disable $process");
-    } elseif ($process == "transmission-daemon"){
-      shell_exec("sudo systemctl stop $process");
-      shell_exec("sudo systemctl disable $process");
-    } elseif ($process == "qbittorrent"){
-      shell_exec("sudo systemctl stop $process@$username");
-      shell_exec("sudo systemctl disable $process@$username");
-    }  else {
-      shell_exec("sudo systemctl stop $process@$username");
-      shell_exec("sudo systemctl disable $process@$username");
-    }
-  header('Location: https://' . $_SERVER['HTTP_HOST'] . '/');
-break;
-
-/* restart services */
-case 88:
-  $process = escapeshellarg($_GET['servicestart']);
-    if ($process == "resilio-sync"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl restart $process");
-    } elseif ($process == "shellinabox"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl restart $process");
-    } elseif ($process == "emby-server"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl restart $process");
-    } elseif ($process == "headphones"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl restart $process");
-    } elseif ($process == "lidarr"){
-      shell_exec("sudo systemctl stop $process");
-      shell_exec("sudo systemctl disable $process");
-    } elseif ($process == "nzbget"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl restart $process");
-    } elseif ($process == "plexmediaserver"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl restart $process");
-    } elseif ($process == "Tautulli"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl restart $process");
-    } elseif ($process == "ombi"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl restart $process");
-    } elseif ($process == "radarr"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl restart $process");
-    } elseif ($process == "subsonic"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl restart $process");
-    } elseif ($process == "transmission-daemon"){
-      shell_exec("sudo systemctl enable $process");
-      shell_exec("sudo systemctl restart $process");
-    } elseif ($process == "qbittorrent"){
-      shell_exec("sudo systemctl enable $process@$username");
-      shell_exec("sudo systemctl restart $process@$username");
-    } else {
-      shell_exec("sudo systemctl restart $process@$username");
-    }
-  header('Location: https://' . $_SERVER['HTTP_HOST'] . '/');
-break;
+}
+$appName = [
+    ['autodl', "AutoDL-IRSSI", 'irssi'],
+    ['btsync', "Resilio-Sync BTSync", 'resilio-sync'],
+    ['couchpotato', 'CouchPotato', 'couchpotato'],
+    ['csf', "Config Server Firewall", 'csf'],
+    ['deluge', "Deluge Daemon", 'deluged'],
+    ['deluge', "Deluge Web Interface", "deluge-web"],
+    ['emby', "Emby-Server", 'emby-server'],
+    ['headphones', 'Headphones', 'headphones'],
+    ['jackett', 'Jackett', 'jackett'],
+    ['lidarr', 'Lidarr', 'lidarr'],
+    ['medusa', 'Medusa', 'medusa'],
+    ['nextcloud', 'Nextcloud', 'nextcloud'],
+    ['nzbget', 'NZBGet', 'nzbget'],
+    ['nzbhydra', 'NZBHydra', 'nzbhydra'],
+    ['ombi', 'Ombi', 'ombi'],
+    ['plex', 'Plex', 'plexmediaserver'],
+    ['pyload', 'pyLoad', 'pyload'],
+    ['qbittorrent', 'qBittorrent', 'qbittorrent'],
+    ['quassel', 'Quassel', 'quassel'],
+    ['radarr', 'Radarr', 'radarr'],
+    ['rapidleech', 'Rapidleech', 'nginx'],
+    ['rtorrent', 'rTorrent', 'rtorrent'],
+    ['sabnzbd', 'SABnzbd', 'sabnzbd'],
+    ['sickgear', 'SickGear', 'sickgear'],
+    ['sickrage', 'SickRage', 'sickrage'],
+    ['sonarr', "Sonarr v2", 'nzbdrone'],
+    ['subsonic', 'Subsonic', 'subsonic'],
+    ['syncthing', 'Syncthing', 'syncthing'],
+    ['tautulli', 'Tautulli', 'tautulli'],
+    ['transmission', 'Transmission', 'transmission'],
+    ['webconsole', "Web Console", 'shellinabox'],
+    ['x2go', 'x2Go', 'x2go'],
+    ['znc', 'ZNC', 'znc'],
+  ];
+  foreach ($appName as list($a, $b, $c, $d)) {
+    //if (processExists($c, $d) == 1) {
+      switch (intval(isset($_GET['id']) ? $_GET['id'] : '')) {
+          /* enable & start services */
+        case 66:
+          $process = $_GET['serviceenable'];
+          if ($process == $c) {
+            if (file_exists('/etc/systemd/system/' . $c . '@.service') || file_exists('/etc/systemd/system/' . $c . '@' . $username . '.service') || file_exists('/etc/systemd/system/multi-user.target.wants/' . $c . '@' . $username . '.service')) {
+              shell_exec("sudo systemctl enable $c@$username");
+              shell_exec("sudo systemctl start $c@$username");
+            } elseif (file_exists('/etc/systemd/system/' . $c . '.service') || file_exists('/lib/systemd/system/' . $c . '.service')) {
+              shell_exec("sudo systemctl enable $c");
+              shell_exec("sudo systemctl start $c");
+            }
+          }
+          header("Location: /");
+          break;
+          /* disable & stop services */
+        case 77:
+          $process = $_GET['servicedisable'];
+          if ($process == $c) {
+            if (file_exists('/etc/systemd/system/' . $c . '@.service') || file_exists('/etc/systemd/system/' . $c . '@' . $username . '.service') || file_exists('/etc/systemd/system/multi-user.target.wants/' . $c . '@' . $username . '.service')) {
+              shell_exec("sudo systemctl stop $c@$username");
+              shell_exec("sudo systemctl disable $c@$username");
+            } elseif (file_exists('/etc/systemd/system/' . $c . '.service') || file_exists('/lib/systemd/system/' . $c . '.service')) {
+              shell_exec("sudo systemctl stop $c");
+              shell_exec("sudo systemctl disable $c");
+            }
+          }
+          header("Location: /");
+          break;
+          /* restart services */
+        case 88:
+          $process = $_GET['servicestart'];
+          if ($process == $c) {
+            if (file_exists('/etc/systemd/system/' . $c . '@.service') || file_exists('/etc/systemd/system/' . $c . '@' . $username . '.service') || file_exists('/etc/systemd/system/multi-user.target.wants/' . $c . '@' . $username . '.service')) {
+              shell_exec("sudo systemctl enable $c@$username");
+              shell_exec("sudo systemctl restart $c@$username");
+            } elseif (file_exists('/etc/systemd/system/' . $c . '.service') || file_exists('/lib/systemd/system/' . $c . '.service')) {
+              shell_exec("sudo systemctl enable $c");
+              shell_exec("sudo systemctl restart $c");
+            }
+          }
+          header("Location: /");
+          break;
+      //}
+    //}
+  }
 
 }
 
