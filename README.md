@@ -15,9 +15,16 @@ Oh yes, it's total mayhem! Fun features, live updates, games and prizes, support
 
 ---
 
+## Security Notice
+As of `v2.6.0` of QuickBox Community Edition (Pro Edition v2.4.8 - run a `qb fix version`) we have patched several security vulnerabilities that were brought to our attention. Huge thanks goes out to Joel from [WebSEC.nl](https://websec.nl/) for the responsible disclousure and working with me to get these items addressed. 
+
+To update your QuickBox Community Edition to the latest upstream fixes (as of `v2.6.0`), run in CLI `box upgrade`.
+
+---
+
 ## Script status
 
-[![Version 2.5.9](https://img.shields.io/badge/version-2.5.9-674172.svg?style=flat-square)](https://quickbox.io/readme-md/) [![GNU v3.0 License](https://img.shields.io/badge/license-GNU%20v3.0%20License-blue.svg?style=flat-square)](https://quickbox.io/readme-md/)
+[![Version 2.6.0](https://img.shields.io/badge/version-2.6.0-674172.svg?style=flat-square)](https://quickbox.io/readme-md/) [![GNU v3.0 License](https://img.shields.io/badge/license-GNU%20v3.0%20License-blue.svg?style=flat-square)](https://quickbox.io/readme-md/)
 
 #### Ubuntu Builds
 [![Ubuntu 16.04 Passing](https://img.shields.io/badge/Ubuntu%2016.04-passing-brightgreen.svg?style=flat-square)](https://quickbox.io/readme-md/) [![Ubuntu 18.04 Passing](https://img.shields.io/badge/Ubuntu%2018.04-passing-brightgreen.svg?style=flat-square)](https://quickbox.io/readme-md/)
