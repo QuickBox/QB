@@ -44,7 +44,7 @@
                             <div class="col-xs-12">
                               <h5>QuickBox :: <span style="color: #fff;text-shadow: 0px 0px 6px #fff;"><?php echo "$version"; ?></span></h5>
                               <small><a href="https://quickbox.io/readme-md/" target="_blank">README.md</a></small>
-                              <small><a href="https://github.com/QuickBox/QB/compare/v2.5.4...<?php echo $version; ?>" target="_blank">CHANGELOG</a></small>
+                              <small><a href="https://github.com/QuickBox/QB/compare/v2.5.5...<?php echo $version; ?>" target="_blank">CHANGELOG</a></small>
                             </div>
                           </div>
                         </li>

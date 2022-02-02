@@ -1424,6 +1424,7 @@ function _boot() {
   #fi
 
   echo "*/1 * * * * root bash /usr/local/bin/quickbox/system/set_interface" > /etc/cron.d/set_interface
+  /usr/local/bin/quickbox/system/set_interface >/dev/null 2>&1
 }
 
 # function to set permissions on first user
