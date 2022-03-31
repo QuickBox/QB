@@ -574,16 +574,16 @@ function _lshell() {
 function _ffmpeg() {
   if [[ ${ffmpeg} == "yes" ]]; then
     apt-get -qy update >>"${OUTTO}" 2>&1;
-    LIST='autotools-dev aclocal autoconf automake cmake cmake-curses-gui build-essential mercurial libass-dev'
+    LIST='autotools-dev autoconf automake cmake cmake-curses-gui build-essential mercurial libass-dev'
     for depend in $LIST; do
-      apt-get -qq -y install $depend >>"${OUTTO}" 2>&1;
+      apt-get -qq -y install "${depend}" >>"${OUTTO}" 2>&1;
     done
     MAXCPUS=$(echo "$(nproc) / 2"|bc)
-    mkdir /tmp
+    mkdir -p /tmp
     cd /tmp
     if [[ -d /tmp/ffmpeg ]]; then rm -rf ffmpeg;fi
     git clone --depth 1 -b release/4.4 https://github.com/FFmpeg/FFmpeg.git ffmpeg >>"${OUTTO}" 2>&1
-    git clone git://github.com/yasm/yasm.git ffmpeg/yasm >>"${OUTTO}" 2>&1
+    git clone https://github.com/yasm/yasm.git ffmpeg/yasm >>"${OUTTO}" 2>&1
     git clone https://github.com/yixia/x264.git ffmpeg/x264 >>"${OUTTO}" 2>&1
     #hg clone https://bitbucket.org/multicoreware/x265 ffmpeg/x265 >>"${OUTTO}" 2>&1
     git clone https://bitbucket.org/multicoreware/x265_git.git ffmpeg/x265 >>"${OUTTO}" 2>&1
@@ -626,8 +626,9 @@ function _ffmpeg() {
     --pkg-config-flags="--static" >>"${OUTTO}" 2>&1
     make -j${MAXCPUS} >>"${OUTTO}" 2>&1
     make install >>"${OUTTO}" 2>&1
-    cp /usr/local/bin/ffmpeg /usr/bin >>"${OUTTO}" 2>&1
-    cp /usr/local/bin/ffprobe /usr/bin >>"${OUTTO}" 2>&1
+    \cp -rf /usr/local/bin/ffmpeg /usr/bin >>"${OUTTO}" 2>&1
+    \cp -rf /usr/local/bin/ffprobe /usr/bin >>"${OUTTO}" 2>&1
+    cd /tmp
     rm -rf /tmp/ffmpeg >>"${OUTTO}" 2>&1
   fi
 }
