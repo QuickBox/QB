@@ -1,12 +1,12 @@
 #!/bin/bash
 ################################################################################
-# [QuickBox Installation Script]
+# QuickBox Installation Script
 #
 # GitHub:   https://github.com/QuickBox/QuickBox
 # Author:   QuickBox.IO
 # URL:      https://plaza.quickbox.io
 #
-# QuickBox Copyright (C) 2017 QuickBox.io
+# QuickBox Copyright (C) 2017-2022 QuickBox.io
 # Licensed under GNU General Public License v3.0 GPL-3 (in short)
 #
 #   You may copy, distribute and modify the software as long as you track
@@ -17,12 +17,10 @@
 #################################################################################
 #Script Console Colors
 black=$(tput setaf 0); red=$(tput setaf 1); green=$(tput setaf 2); yellow=$(tput setaf 3);
-blue=$(tput setaf 4); magenta=$(tput setaf 5); cyan=$(tput setaf 6); white=$(tput setaf 7);
-on_red=$(tput setab 1); on_green=$(tput setab 2); on_yellow=$(tput setab 3); on_blue=$(tput setab 4);
-on_magenta=$(tput setab 5); on_cyan=$(tput setab 6); on_white=$(tput setab 7); bold=$(tput bold);
-dim=$(tput dim); underline=$(tput smul); reset_underline=$(tput rmul); standout=$(tput smso);
-reset_standout=$(tput rmso); normal=$(tput sgr0); alert=${white}${on_red}; title=${standout};
-sub_title=${bold}${yellow}; repo_title=${black}${on_green}; message_title=${white}${on_magenta}
+magenta=$(tput setaf 5); cyan=$(tput setaf 6); white=$(tput setaf 7);
+on_red=$(tput setab 1); on_green=$(tput setab 2); on_magenta=$(tput setab 5); 
+bold=$(tput bold); standout=$(tput smso); normal=$(tput sgr0); alert=${white}${on_red}; 
+title=${standout}; repo_title=${black}${on_green}; message_title=${white}${on_magenta}
 #################################################################################
 function _string() { perl -le 'print map {(a..z,A..Z,0..9)[rand 62] } 0..pop' 15 ; }
 #################################################################################
@@ -35,10 +33,10 @@ function _bashrc() {
   fi
 }
 
+# shellcheck disable=2005,2034,2120,2215,2164
 # intro function (1)
 function _intro() {
   DISTRO=$(lsb_release -is)
-  RELEASE=$(lsb_release -rs)
   CODENAME=$(lsb_release -cs)
   SETNAME=$(lsb_release -rc)
   echo
@@ -224,23 +222,6 @@ echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
   fi
 }
 
-# check if use systemd function
-function _askservices() {
-  DISTRO=$(lsb_release -is)
-  RELEASE=$(lsb_release -rs)
-  CODENAME=$(lsb_release -cs)
-  SETNAME=$(lsb_release -rc)
-  echo "You are running $DISTRO $CODENAME"
-  echo "This distribution has support for systemd services. "
-  echo "Would you like to enable? (recommended) (Default: ${green}${bold}Y${normal})"; read input
-    case $input in
-      [yY] | [yY][Ee][Ss] | "" ) cron="no";echo "${bold}Using systemd for process management${normal}" ;;
-      [nN] | [nN][Oo] ) cron="yes";echo "${cyan}Cron will manage your processes${normal}" ;;
-    *) cron="no";echo "${bold}Using systemd for process management${normal}" ;;
-    esac
-  echo
-}
-
 # ask what theme version (8)
 function _askdashtheme() {
   echo -e "1) QuickBox - ${green}smoked${normal} :: Dark theme"
@@ -289,7 +270,7 @@ function _askdeluge() {
   echo "We will be using Deluge with Libtorrent ${DELUGE}"
   echo
 }
-
+# shellcheck disable=2162
 # install qbittorrent question (9.3)
 function _askqb() {
 echo -e "${green}00)${normal} Do not install qBittorrent${normal}"
@@ -298,13 +279,13 @@ echo -e "${green}02)${normal} qBittorrent ${green}4.0.4${normal}"
 echo -e "${green}03)${normal} qBittorrent ${green}4.1.3${normal}"
 echo -e "${green}04)${normal} qBittorrent ${bold}${green}latest version${normal}"
 echo -ne "${bold}${yellow}Which version of qBittorrent do you want?${normal} (Default ${green}0${normal}): " ; read -e version
-
+# shellcheck disable=2221,2222
 case $version in
     00 | 0) QBVERSION=no ;;
     01 | 1) QBVERSION="3.3.16";qbburst="no" ;;
     02 | 2) QBVERSION="4.0.4";qbburst="no" ;;
     03 | 3) QBVERSION="4.1.3";qbburst="no" ;;
-    04 | 4) QBVERSION=`curl -i -s https://www.qbittorrent.org/ | grep -Eo "Latest:.*" | grep -Eo "[0-9.]+"`;qbburst=no ;;
+    04 | 4) QBVERSION=$(curl -i -s https://www.qbittorrent.org/ | grep -Eo "Latest:.*" | grep -Eo "[0-9.]+");qbburst=no ;;
     * | "") QBVERSION=no ;;
 esac
 
@@ -322,6 +303,7 @@ function _asktr() {
   echo
 }
 
+# shellcheck disable=2162
 # adduser function (10)
 function _adduser() {
   theshell="/bin/bash";
@@ -343,7 +325,7 @@ function _adduser() {
   fi
   printf "${username}:${passwd}" > /root/"$username".info.db
   echo
-  ha1pass=`echo -n "${passwd}"|md5sum |cut -f1 -d' '`
+  ha1pass=$(echo -n "${passwd}"|md5sum |cut -f1 -d' ')
 }
 
 # install ffmpeg question (11)
@@ -358,9 +340,9 @@ function _askffmpeg() {
 }
 
 # ask user for vsftpd conf (12)
-apt install -y net-tools
+apt-get install -y net-tools
 function _askvsftpd() {
-  local DEFAULTIP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1');
+  local DEFAULTIP; DEFAULTIP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1');
   echo -ne "${bold}${yellow}Please, write your public server IP (used for ftp)${normal} (Default: ${green}${bold}$DEFAULTIP${normal}) "; read input
   if [[ -z "$input" ]]; then
     IP=$DEFAULTIP
@@ -569,11 +551,26 @@ function _qmount() {
 
 # Setup LShell configuration file
 function _lshell() {
-  apt-get -y install lshell >> /dev/null 2>&1
-  cp ${local_setup}templates/lshell.conf.template /etc/lshell.conf
+  #apt-get -y install lshell >> /dev/null 2>&1
+  #cp ${local_setup}templates/lshell.conf.template /etc/lshell.conf
+  cd /root || { printf -- "%s" "Unable to enter /root" && return 1;}
+  git clone https://github.com/ghantoos/lshell.git lshell >> /dev/null 2>&1
+  cd lshell || { printf -- "%s" "Unable to enter lshell" && return 1;}
+  python2 setup.py install --no-compile --install-scripts=/usr/bin/ >> /dev/null 2>&1
+  if [[ (${CODENAME} != "focal") || (${CODENAME} != "bionic") ]]; then
+    \cp -rf /etc/QuickBox/setup/templates/lshell.conf.template /etc/lshell.conf
+  else
+    \cp -rf /etc/QuickBox/setup/templates/lshell.conf-focal.template /etc/lshell.conf
+  fi
+  echo "/usr/bin/lshell" >>/etc/shells
+  groupadd lshell
+  mkdir /var/log/lshell
+  chown :lshell /var/log/lshell
+  chmod 770 /var/log/lshell
 }
 
 # build function for ffmpeg
+# shellcheck disable=2215
 function _ffmpeg() {
   if [[ ${ffmpeg} == "yes" ]]; then
     apt-get -qy update >>"${OUTTO}" 2>&1;
@@ -754,7 +751,7 @@ function _deluge() {
   cd libtorrent
   cp ${local_setup}sources/libtorrent-rasterbar-${LTRC}.patch .
   patch -p1 < libtorrent-rasterbar-${LTRC}.patch >>"${OUTTO}" 2>&1
-  ltversion=`cat configure.ac | grep -Eo "AC_INIT\(\[libtorrent-rasterbar\],.*" | grep -Eo "[0-9.]+" | head -n1`
+  ltversion=$(cat configure.ac | grep -Eo "AC_INIT\(\[libtorrent-rasterbar\],.*" | grep -Eo "[0-9.]+" | head -n1)
   ./autotool.sh >>"${OUTTO}" 2>&1;
   ./configure --enable-python-binding --disable-debug --enable-encryption --with-libgeoip=system --with-libiconv CXXFLAGS=-std=c++11 >>"${OUTTO}" 2>&1;
   make -j$(nproc) >>"${OUTTO}" 2>&1;
@@ -812,7 +809,7 @@ chown ${username}: /home/${username}/torrents/deluge
 
 function _insdwApache() {
 APPNAME='deluge'
-APPDPORT=`cat /home/${username}/.config/deluge/web.conf | grep -E ".*port.*" | grep -Eo [0-9]+`
+APPDPORT=$(cat /home/${username}/.config/deluge/web.conf | grep -E ".*port.*" | grep -Eo "[0-9]+")
   cat > /etc/apache2/sites-enabled/deluge.conf <<EOF
 ProxyPass /$APPNAME http://localhost:$APPDPORT/
 
@@ -830,6 +827,7 @@ EOF
 }
 
 # Transmission function
+# shellcheck disable=2024
 function _insTr() {
   sudo add-apt-repository -y ppa:transmissionbt/ppa >>"${OUTTO}" 2>&1
   apt-get -q -y update >>"${OUTTO}" 2>&1
@@ -856,6 +854,7 @@ function _insTr() {
   chown -R ${username}.${username} /home/${username}/trwatch
 }
 
+# shellcheck disable=2120
 function _insTrWeb() {
   #!/bin/sh
   ROOT_FOLDER="$1"
@@ -906,7 +905,7 @@ function _insTrWeb() {
 		  echo "Folder found. Using it." >>"${OUTTO}" 2>&1
 		else
 		  echo "Folder not found. Will search the entire /. This will take a while..." >>"${OUTTO}" 2>&1
-		  ROOT_FOLDER=`find / -name 'web' -type d 2>/dev/null| grep 'transmission/web' | sed 's/\/web$//g'`
+		  ROOT_FOLDER=$(find / -name 'web' -type d 2>/dev/null| grep 'transmission/web' | sed 's/\/web$//g')
 
 		  if [ -d "$ROOT_FOLDER/web" ]; then
 			WEB_FOLDER="$ROOT_FOLDER/web"
@@ -1013,7 +1012,7 @@ function _qbittorrent() {
     cd libtorrent
 	  cp ${local_setup}sources/libtorrent-rasterbar-${LTRC}.patch .
     patch -p1 < libtorrent-rasterbar-${LTRC}.patch >>"${OUTTO}" 2>&1
-    ltversion=`cat configure.ac | grep -Eo "AC_INIT\(\[libtorrent-rasterbar\],.*" | grep -Eo "[0-9.]+" | head -n1`
+    ltversion=$(cat configure.ac | grep -Eo "AC_INIT\(\[libtorrent-rasterbar\],.*" | grep -Eo "[0-9.]+" | head -n1)
     ./autotool.sh >>"${OUTTO}" 2>&1;
     ./configure --enable-python-binding --disable-debug --enable-encryption --with-libgeoip=system --with-libiconv CXXFLAGS=-std=c++11 >>"${OUTTO}" 2>&1;
     make -j$(nproc) >>"${OUTTO}" 2>&1;
@@ -1117,7 +1116,7 @@ function _fileindexer() {
   cd /srv/rutorrent/home
   wget --quiet https://release.larsjung.de/h5ai/h5ai-0.29.0.zip >>"${OUTTO}" 2>&1
   unzip h5ai-0.29.0.zip >>"${OUTTO}" 2>&1
-  rm –rf h5ai-0.29.0.zip >>"${OUTTO}" 2>&1
+  rm -rf h5ai-0.29.0.zip >>"${OUTTO}" 2>&1
   chmod 775 -R _h5ai/private/cache && chmod 775 -R _h5ai/public/cache
   apt -y install imagemagick >>"${OUTTO}" 2>&1
   echo "#DirectoryIndex index.html index.php /_h5ai/public/index.php" >> /etc/apache2/apache2.conf
@@ -1150,24 +1149,8 @@ function _apacheconf() {
   sed -i "s/ServerTokens OS/ServerTokens Prod/g" /etc/apache2/conf-enabled/security.conf
   sed -i "s/ServerSignature On/ServerSignature Off/g" /etc/apache2/conf-enabled/security.conf
   cp ${local_setup}templates/fileshare.conf.template /etc/apache2/sites-enabled/fileshare.conf
-    sed -i.bak -e "s/post_max_size = 8M/post_max_size = 64M/" \
-               -e "s/upload_max_filesize = 2M/upload_max_filesize = 92M/" \
-               -e "s/expose_php = On/expose_php = Off/" \
-               -e "s/128M/768M/" \
-               -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" \
-               -e "s/;opcache.enable=0/opcache.enable=1/" \
-               -e "s/;opcache.memory_consumption=64/opcache.memory_consumption=128/" \
-               -e "s/;opcache.max_accelerated_files=2000/opcache.max_accelerated_files=4000/" \
-               -e "s/;opcache.revalidate_freq=2/opcache.revalidate_freq=240/" /etc/php/7.3/fpm/php.ini
-    sed -i.bak -e "s/post_max_size = 8M/post_max_size = 64M/" \
-               -e "s/upload_max_filesize = 2M/upload_max_filesize = 92M/" \
-               -e "s/expose_php = On/expose_php = Off/" \
-               -e "s/memory_limit = 128M/memory_limit = 768M/" \
-               -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" \
-               -e "s/;opcache.enable=0/opcache.enable=1/" \
-               -e "s/;opcache.memory_consumption=64/opcache.memory_consumption=128/" \
-               -e "s/;opcache.max_accelerated_files=2000/opcache.max_accelerated_files=4000/" \
-               -e "s/;opcache.revalidate_freq=2/opcache.revalidate_freq=240/" /etc/php/7.3/apache2/php.ini
+    sed -i.bak -e "s/post_max_size = 8M/post_max_size = 64M/" -e "s/upload_max_filesize = 2M/upload_max_filesize = 92M/" -e "s/expose_php = On/expose_php = Off/" -e "s/128M/768M/" -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" -e "s/;opcache.enable=0/opcache.enable=1/" -e "s/;opcache.memory_consumption=64/opcache.memory_consumption=128/" -e "s/;opcache.max_accelerated_files=2000/opcache.max_accelerated_files=4000/" -e "s/;opcache.revalidate_freq=2/opcache.revalidate_freq=240/" /etc/php/7.3/fpm/php.ini
+    sed -i.bak -e "s/post_max_size = 8M/post_max_size = 64M/" -e "s/upload_max_filesize = 2M/upload_max_filesize = 92M/" -e "s/expose_php = On/expose_php = Off/" -e "s/memory_limit = 128M/memory_limit = 768M/" -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" -e "s/;opcache.enable=0/opcache.enable=1/" -e "s/;opcache.memory_consumption=64/opcache.memory_consumption=128/" -e "s/;opcache.max_accelerated_files=2000/opcache.max_accelerated_files=4000/" -e "s/;opcache.revalidate_freq=2/opcache.revalidate_freq=240/" /etc/php/7.3/apache2/php.ini
 
     # ensure opcache module is activated
     phpenmod -v 7.3 opcache >>"${OUTTO}" 2>&1
@@ -1359,12 +1342,12 @@ function _quickstats() {
   printf "${username}" > /srv/rutorrent/home/db/master.txt
   # Use server timezone
   cd /usr/share/zoneinfo
-  find * -type f -exec sh -c "diff -q /etc/localtime '{}' > /dev/null && echo {}" \; > ~/tz.txt
+  find ./* -type f -exec sh -c "diff -q /etc/localtime '{}' > /dev/null && echo {}" \; > ~/tz.txt
   cd ~
   LOCALE=en_GB.UTF-8
   LANG=lang_en
-  sed -i "s/LOCALE/${locale}/g" /srv/rutorrent/home/inc/localize.php
-  sed -i "s/LANG/${lang}/g" /srv/rutorrent/home/inc/localize.php
+  sed -i "s/LOCALE/${LOCALE}/g" /srv/rutorrent/home/inc/localize.php
+  sed -i "s/LANG/${LANG}/g" /srv/rutorrent/home/inc/localize.php
   #echo "  date_default_timezone_set('$(cat tz.txt)');" >> /srv/rutorrent/home/widgets/config.php
   #echo "" >> /srv/rutorrent/home/widgets/config.php
   #echo "?>" >> /srv/rutorrent/home/widgets/config.php
@@ -1555,15 +1538,14 @@ spinner() {
     echo -ne "${OK}"
 }
 
+# shellcheck disable=2034,2164
 local_setup=/etc/QuickBox/setup/
 local_packages=/etc/QuickBox/packages/
 local_rutorrent=/etc/QuickBox/rutorrent/
 local_rplugins=/etc/QuickBox/rtplugins/
-local_themes=/etc/QuickBox/themes/
 local_dashboard=/etc/QuickBox/dashboard/
 
 IFACE=$(ip link show|grep -i broadcast|grep -m1 UP|cut -d: -f 2|cut -d@ -f 1|sed -e 's/ //g');
-HOSTNAME1=$(hostname -s);
 PORT=$(shuf -i 2000-61000 -n 1)
 PORTEND=$((${PORT} + 1500))
 while [[ "$(netstat -ln | grep ':'"$PORT"'' | grep -c 'LISTEN')" -eq "1" ]]; do PORT="$(shuf -i 2000-61000 -n 1)"; done
@@ -1578,7 +1560,6 @@ REALM="rutorrent"
 AUTODLPASSWORD=$(_string)
 AUTODLPORT=$(shuf -i 2000-61000 -n 1)
 ip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $7}')
-BTSYNCIP=$(ip route get 8.8.8.8 | awk 'NR==1 {print $7}')
 export DEBIAN_FRONTEND=noninteractive
 cd
 
@@ -1595,7 +1576,6 @@ _ssdpblock
 _locale
 clear
 
-#_askservices
 _askpartition
 _ask10g
 _askrtorrent
